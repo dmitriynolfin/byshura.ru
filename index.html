@@ -940,15 +940,13 @@
             });
             
             // ===== НАВИГАЦИЯ =====
-            document.getElementById('orderBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
-            });
+                document.getElementById('orderBtn').addEventListener('click', function() {
+                    window.location.href = 'boxes.html';
+                });
             
-            document.getElementById('shopBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
-            });
+                document.getElementById('shopBtn').addEventListener('click', function() {
+                    window.location.href = 'boxes.html';
+                });
             
             document.querySelectorAll('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', function(e) {
