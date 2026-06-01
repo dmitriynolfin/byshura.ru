@@ -5,68 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вестник Гедонизма - Доставка еды</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <nav class="nav container">
-            <a href="#" class="logo">🍋</a>
-            <ul class="nav-menu">
-                <li><a href="#guide">ГИД ПО БОКСАМ</a></li>
-                <li><a href="#contacts">КОНТАКТЫ</a></li>
-            </ul>
-            <div class="header-info">
-                <a href="tel:+79636221265">+7 963 622 12 65</a>
-                <span>Prime Park, Москва</span>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="lemon">🍋</div>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#guide" class="nav-link">ГИД ПО БОКСАМ</a>
+                    <a href="#contacts" class="nav-link">КОНТАКТЫ</a>
+                </nav>
             </div>
-            <div class="header-actions">
-                <a href="#" class="btn-shop">МАГАЗИН</a>
-                <span class="lang">RU</span>
+            
+            <div class="header-right">
+                <div class="contact-info">
+                    <a href="tel:+79636221265" class="phone">+7 963 622 12 65</a>
+                    <span class="location">PRIME PARK, МОСКВА</span>
+                </div>
+                
+                <div class="header-icons">
+                    <button class="icon-btn" aria-label="Профиль">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 10C11.8429 10 13.3333 8.50954 13.3333 6.66667C13.3333 4.82372 11.8429 3.33334 10 3.33334C8.15708 3.33334 6.66667 4.82372 6.66667 6.66667C6.66667 8.50954 8.15708 10 10 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.6667 16.6667C16.6667 13.8886 13.7778 11.6667 10 11.6667C6.22222 11.6667 3.33334 13.8886 3.33334 16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="icon-btn cart-btn" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 5H16.6667L15 14.1667H6.66667L5 5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5 5L4.16667 1.66667H1.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.33334 17.5C8.79358 17.5 9.16667 17.1269 9.16667 16.6667C9.16667 16.2064 8.79358 15.8333 8.33334 15.8333C7.87311 15.8333 7.5 16.2064 7.5 16.6667C7.5 17.1269 7.87311 17.5 8.33334 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.1667 17.5C14.6269 17.5 15 17.1269 15 16.6667C15 16.2064 14.6269 15.8333 14.1667 15.8333C13.7064 15.8333 13.3333 16.2064 13.3333 16.6667C13.3333 17.1269 13.7064 17.5 14.1667 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="cart-count">0</span>
+                    </button>
+                </div>
+                
+                <a href="#shop" class="btn-shop">МАГАЗИН</a>
+                
+                <div class="lang-selector">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M1 8H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M8 1C9.5 3 10.5 5.5 10.5 8C10.5 10.5 9.5 13 8 15C6.5 13 5.5 10.5 5.5 8C5.5 5.5 6.5 3 8 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span>RU</span>
+                </div>
             </div>
-        </nav>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active">
+                <div class="hero-image" style="background-image: url('images/hero-bg.jpg');"></div>
+            </div>
+        </div>
+        
         <div class="hero-content">
-            <h1>Если жизнь подкидывает лимоны, смакуйте!</h1>
-            <button class="btn-primary">ЗАКАЗАТЬ БОКС</button>
+            <button class="btn-order">ЗАКАЗАТЬ БОКС</button>
+        </div>
+        
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
         </div>
     </section>
-
-    <!-- About Section -->
-    <section class="about">
-        <div class="container">
-            <h2>НАША КОМАНДА</h2>
-            <p>Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше</p>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features">
-        <div class="container">
-            <div class="feature">
-                <h3>УНИКАЛЬНЫЙ ОПЫТ</h3>
-                <p>Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей</p>
-            </div>
-            <div class="feature">
-                <h3>НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
-                <p>Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
-            <div class="socials">
-                <a href="#">telegram</a>
-                <a href="#">maxmessenger</a>
-                <a href="#">instagram</a>
-            </div>
-        </div>
-    </footer>
 
     <script src="js/main.js"></script>
 </body>
