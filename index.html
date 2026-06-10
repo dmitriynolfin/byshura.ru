@@ -39,7 +39,7 @@
             top: 70px;
             left: 0;
             width: 100%;
-            background: #FFD93D;
+            background: #e0e0e0;
             color: #070395;
             padding: 8px 0;
             z-index: 999;
@@ -259,7 +259,7 @@
             height: 100vh;
             min-height: 700px;
             overflow: hidden;
-            margin-top: 36px; /* Отступ под бегущую строку */
+            margin-top: 36px;
         }
         
         .hero-slider {
@@ -678,13 +678,11 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="#" class="logo" aria-label="Главная">🍋</a>
+                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- Кнопка "Заказать бокс" - выделенная -->
                     <a href="boxes.html" class="nav-link nav-link-cta">ЗАКАЗАТЬ БОКС</a>
                     <a href="#contacts" class="nav-link">КОНТАКТЫ</a>
-                    <!-- Новая кнопка "История боксов" -->
-                    <a href="#history" class="nav-link">ИСТОРИЯ БОКСОВ</a>
+                    <a href="history.html" class="nav-link">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             
@@ -707,7 +705,6 @@
                     </button>
                 </div>
                 
-                <!-- Кнопка "Сделать заказ" вместо "Магазин" -->
                 <a href="boxes.html" class="btn-shop" id="shopBtn">СДЕЛАТЬ ЗАКАЗ</a>
                 
                 <div class="lang-selector" id="langBtn">
@@ -792,38 +789,6 @@
         </div>
     </section>
 
-    <!-- ===== HISTORY SECTION (новая) ===== -->
-    <section class="about" id="history" style="background: #f8f9fa;">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 32px; margin-bottom: 40px; color: #070395;">ИСТОРИЯ БОКСОВ</h2>
-            <div class="about-grid">
-                <div class="about-card fade-in">
-                    <div class="about-image" style="background-image: url('https://placehold.co/200x200/070395/white?text=2025');"></div>
-                    <div class="about-content">
-                        <h3>НАЧАЛО ПУТИ</h3>
-                        <p>В 2025 году мы создали первый бокс «Лимонный» — вдохновлённые философией гедонизма и любовью к еде.</p>
-                    </div>
-                </div>
-                
-                <div class="about-card fade-in">
-                    <div class="about-image" style="background-image: url('https://placehold.co/200x200/FFD93D/070395?text=📚');"></div>
-                    <div class="about-content">
-                        <h3>ИСТОРИЯ В КАЖДОМ БЛЮДЕ</h3>
-                        <p>Каждый бокс рассказывает историю: от античных пиров до современных гастрономических трендов.</p>
-                    </div>
-                </div>
-                
-                <div class="about-card fade-in">
-                    <div class="about-image" style="background-image: url('https://placehold.co/200x200/070395/white?text=💛');"></div>
-                    <div class="about-content">
-                        <h3>ФИЛОСОФИЯ</h3>
-                        <p>Мы верим, что еда — это не просто утоление голода, а искусство наслаждения моментом.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== PICKUP SECTION ===== -->
     <section class="pickup" id="contacts">
         <div class="container pickup-container">
@@ -854,7 +819,7 @@
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="#" class="footer-logo" aria-label="Главная">🍋</a>
+            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
             <p class="footer-copyright">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
@@ -1011,17 +976,14 @@
             });
             
             // ===== НАВИГАЦИЯ =====
-            // Кнопка "ЗАКАЗАТЬ БОКС" в герое
             document.getElementById('orderBtn').addEventListener('click', function() {
                 window.location.href = 'boxes.html';
             });
             
-            // Кнопка "СДЕЛАТЬ ЗАКАЗ" в шапке
             document.getElementById('shopBtn').addEventListener('click', function() {
                 window.location.href = 'boxes.html';
             });
             
-            // Плавная прокрутка для якорных ссылок
             document.querySelectorAll('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
@@ -1029,7 +991,6 @@
                         e.preventDefault();
                         const target = document.querySelector(href);
                         if (target) {
-                            // Учитываем высоту шапки и бегущей строки
                             const headerOffset = 110;
                             const elementPosition = target.getBoundingClientRect().top;
                             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
