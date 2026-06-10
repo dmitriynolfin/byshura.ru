@@ -14,19 +14,44 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* БЕГУЩАЯ СТРОКА */
-        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        /* БЕГУЩАЯ СТРОКА - ОБНОВЛЕНО */
+        .marquee-bar { 
+            position: fixed; 
+            top: 70px; 
+            left: 0; 
+            width: 100%; 
+            background: #e0e0e0; 
+            color: #070395; 
+            padding: 12px 0; /* Увеличено с 8px до 12px */
+            z-index: 999; 
+            overflow: hidden; 
+            font-weight: 600; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .marquee-content { 
+            display: inline-block; 
+            white-space: nowrap; 
+            animation: marquee 25s linear infinite; /* Увеличено время для плавности */
+            padding-left: 100%; 
+        }
+        @keyframes marquee { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-100%); } 
+        }
         
         /* ШАПКА */
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
         .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
         .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
         .nav-link.active { color: #FFD93D; }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
+        .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); }
         .header-right { display: flex; align-items: center; gap: 20px; }
         .header-icons { display: flex; gap: 12px; }
         .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; }
@@ -34,9 +59,16 @@
         .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
         .btn-back:hover { background: #070395; color: white; }
+        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 150px; display: none; z-index: 100; margin-top: 5px; }
+        .lang-dropdown.show { display: block; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: uppercase; }
+        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
+        .lang-code { font-weight: 600; margin-right: 5px; }
+        .lang-descr { color: #666; font-size: 12px; }
         
         /* КАТАЛОГ */
-        .catalog { padding: 140px 0 60px; min-height: 100vh; }
+        .catalog { padding: 145px 0 60px; min-height: 100vh; } /* Увеличен отступ сверху из-за более широкой строки */
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
@@ -86,7 +118,17 @@
         
         /* АДАПТИВНОСТЬ */
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } .boxes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
-        @media (max-width: 768px) { .header-container { padding: 0 15px; } .logo { width: 40px; height: 40px; font-size: 20px; } .page-title { font-size: 32px; } .boxes-grid { grid-template-columns: 1fr; } .cart-modal { width: 100%; } .footer-container { flex-direction: column; gap: 15px; text-align: center; } }
+        @media (max-width: 768px) { 
+            .header { padding: 12px 0; } 
+            .marquee-bar { top: 62px; font-size: 12px; padding: 10px 0; } /* Адаптация для мобильных */
+            .catalog { padding-top: 135px; }
+            .header-container { padding: 0 15px; } 
+            .logo { width: 40px; height: 40px; font-size: 20px; } 
+            .page-title { font-size: 32px; } 
+            .boxes-grid { grid-template-columns: 1fr; } 
+            .cart-modal { width: 100%; } 
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; } 
+        }
     </style>
 </head>
 <body>
@@ -97,22 +139,52 @@
             <div class="header-left">
                 <a href="index.html" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="index.html#guide" class="nav-link" data-i18n="navGuide">ГИД ПО БОКСАМ</a>
+                    <a href="boxes.html" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ БОКС</a>
                     <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
                 <div class="header-icons">
-                    <button class="icon-btn" aria-label="Профиль"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
-                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-count" id="cartCount">0</span></button>
+                    <button class="icon-btn" aria-label="Профиль">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
+                <div class="lang-selector" id="langBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span id="langCurrent">RU</span>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English</span></a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
-    <div class="marquee-bar"><div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • </div></div>
+    <!-- БЕГУЩАЯ СТРОКА - ТЕКСТ ЗАДУБЛИРОВАН -->
+    <div class="marquee-bar">
+        <div class="marquee-content" data-i18n="marquee">
+            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+        </div>
+    </div>
 
     <!-- КАТАЛОГ -->
     <section class="catalog">
@@ -122,7 +194,9 @@
             <div class="boxes-grid">
                 <!-- БОКС 1 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Lemon+Box');"><span class="box-badge" data-i18n="badgeHit">ХИТ</span></div>
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Lemon+Box');">
+                        <span class="box-badge" data-i18n="badgeHit">ХИТ</span>
+                    </div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box1Title">Бокс «Лимонный»</h3>
                         <p class="box-description" data-i18n="box1Descr">Идеальный выбор для романтического вечера. Цитрусовые ноты и изысканные сочетания.</p>
@@ -140,7 +214,9 @@
                 </div>
                 <!-- БОКС 2 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Hedonist+Box');"><span class="box-badge" data-i18n="badgePremium">PREMIUM</span></div>
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Hedonist+Box');">
+                        <span class="box-badge" data-i18n="badgePremium">PREMIUM</span>
+                    </div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box2Title">Бокс «Гедонист»</h3>
                         <p class="box-description" data-i18n="box2Descr">Максимум удовольствия! Полное погружение в мир высокой кухни и наслаждения.</p>
@@ -194,7 +270,9 @@
                 </div>
                 <!-- БОКС 5 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Breakfast+Box');"><span class="box-badge" data-i18n="badgeNew">NEW</span></div>
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Breakfast+Box');">
+                        <span class="box-badge" data-i18n="badgeNew">NEW</span>
+                    </div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box5Title">Бокс «Завтрак»</h3>
                         <p class="box-description" data-i18n="box5Descr">Начните день правильно! Свежая выпечка, фрукты и бодрящий кофе.</p>
@@ -238,9 +316,15 @@
             <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg></a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg>
+                </a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
             </div>
         </div>
     </footer>
@@ -248,7 +332,10 @@
     <!-- КОРЗИНА -->
     <div class="cart-overlay" id="cartOverlay"></div>
     <div class="cart-modal" id="cartModal">
-        <div class="cart-header"><h3 data-i18n="cartTitle">Ваша корзина</h3><button class="cart-close" id="cartClose">&times;</button></div>
+        <div class="cart-header">
+            <h3 data-i18n="cartTitle">Ваша корзина</h3>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
         <div class="cart-items" id="cartItems"><p class="cart-empty" data-i18n="cartEmpty">Корзина пуста</p></div>
         <div class="cart-footer">
             <div class="cart-total"><span data-i18n="cartTotal">Итого:</span><span id="cartTotal">0 ₽</span></div>
@@ -261,7 +348,7 @@
     const translations = {
         ru: {
             pageTitle: "Боксы - Вестник Гедонизма",
-            navGuide: "ГИД ПО БОКСАМ", navContacts: "КОНТАКТЫ", btnBack: "← НАЗАД",
+            navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             badgeHit: "ХИТ", badgePremium: "PREMIUM", badgeNew: "NEW",
@@ -283,7 +370,7 @@
         },
         en: {
             pageTitle: "Boxes - Hedonism Herald",
-            navGuide: "BOX GUIDE", navContacts: "CONTACTS", btnBack: "← BACK",
+            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
             badgeHit: "HIT", badgePremium: "PREMIUM", badgeNew: "NEW",
@@ -310,54 +397,86 @@
             const key = el.dataset.i18n;
             if (translations[lang][key]) el.textContent = translations[lang][key];
         });
-        document.getElementById('langCurrent').textContent = lang.toUpperCase();
+        const langCurrent = document.getElementById('langCurrent');
+        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
-        if (lang === 'en') {
-            document.querySelectorAll('.btn-add-cart').forEach(btn => {
-                const price = btn.dataset.price;
-                btn.textContent = `${translations.en.btnCart} — ${price} ₽`;
-            });
-        } else {
-            document.querySelectorAll('.btn-add-cart').forEach(btn => {
-                const price = btn.dataset.price;
-                btn.textContent = `${translations.ru.btnCart} — ${price} ₽`;
-            });
-        }
+        document.querySelectorAll('.btn-add-cart').forEach(btn => {
+            const price = btn.dataset.price;
+            btn.textContent = `${translations[lang].btnCart} — ${price} ₽`;
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
-        // Язык
-        document.getElementById('langBtn')?.addEventListener('click', e => { e.stopPropagation(); document.getElementById('langDropdown')?.classList.toggle('show'); });
-        document.querySelectorAll('#langDropdown a')?.forEach(link => link.addEventListener('click', e => { e.preventDefault(); applyLanguage(e.target.closest('a').dataset.lang); document.getElementById('langDropdown')?.classList.remove('show'); }));
-        document.addEventListener('click', e => { if (!document.getElementById('langBtn')?.contains(e.target) && !document.getElementById('langDropdown')?.contains(e.target)) document.getElementById('langDropdown')?.classList.remove('show'); });
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
+            langDropdown.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => { e.preventDefault(); applyLanguage(this.dataset.lang); langDropdown.classList.remove('show'); });
+            });
+            document.addEventListener('click', e => {
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
+            });
+        }
         
-        // Корзина
-        const cartBtn = document.getElementById('cartBtn'), cartModal = document.getElementById('cartModal'), cartOverlay = document.getElementById('cartOverlay'), cartClose = document.getElementById('cartClose'), cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'), cartItems = document.getElementById('cartItems');
+        const cartBtn = document.getElementById('cartBtn'), cartModal = document.getElementById('cartModal'),
+              cartOverlay = document.getElementById('cartOverlay'), cartClose = document.getElementById('cartClose'),
+              cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'),
+              cartItems = document.getElementById('cartItems');
         let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
-        function openCart() { cartModal.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
-        function closeCart() { cartModal.classList.remove('open'); cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+        
+        function openCart() { cartModal?.classList.add('open'); cartOverlay?.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
+        function closeCart() { cartModal?.classList.remove('open'); cartOverlay?.classList.remove('open'); document.body.style.overflow = ''; }
         cartBtn?.addEventListener('click', openCart); cartClose?.addEventListener('click', closeCart); cartOverlay?.addEventListener('click', closeCart);
-        function addToCart(name, price) { cart.push({ name, price, id: Date.now() }); localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); renderCart(); openCart(); }
-        function removeFromCart(id) { cart = cart.filter(item => item.id !== id); localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); renderCart(); }
-        function updateCartCount() { cartCount.textContent = cart.length; }
+        
+        function addToCart(name, price) {
+            cart.push({ name, price, id: Date.now() });
+            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+            updateCartCount(); renderCart(); openCart();
+        }
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+            updateCartCount(); renderCart();
+        }
+        function updateCartCount() { if (cartCount) cartCount.textContent = cart.length; }
+        
         function renderCart() {
             const lang = localStorage.getItem('hedonism_lang') || 'ru';
-            if (cart.length === 0) { cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`; cartTotal.textContent = '0 ₽'; return; }
+            if (cart.length === 0) {
+                if (cartItems) cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`;
+                if (cartTotal) cartTotal.textContent = '0 ₽';
+                return;
+            }
             let html = '', total = 0;
-            cart.forEach(item => { total += item.price; html += `<div class="cart-item"><span class="cart-item-name">${item.name}</span><div><span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span><span class="cart-item-remove" data-id="${item.id}">&times;</span></div></div>`; });
-            cartItems.innerHTML = html; cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
-            cartItems.querySelectorAll('.cart-item-remove').forEach(btn => btn.addEventListener('click', e => removeFromCart(parseInt(e.target.dataset.id))));
+            cart.forEach(item => {
+                total += item.price;
+                html += `<div class="cart-item"><span class="cart-item-name">${item.name}</span><div><span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span><span class="cart-item-remove" data-id="${item.id}">&times;</span></div></div>`;
+            });
+            if (cartItems) cartItems.innerHTML = html;
+            if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+            if (cartItems) cartItems.querySelectorAll('.cart-item-remove').forEach(btn => {
+                btn.addEventListener('click', e => removeFromCart(parseInt(e.target.dataset.id)));
+            });
         }
-        document.querySelectorAll('.btn-add-cart').forEach(btn => btn.addEventListener('click', function() { addToCart(this.dataset.name, parseInt(this.dataset.price)); }));
-        document.getElementById('checkoutBtn')?.addEventListener('click', function() {
+        
+        document.querySelectorAll('.btn-add-cart').forEach(btn => {
+            btn.addEventListener('click', function() { addToCart(this.dataset.name, parseInt(this.dataset.price)); });
+        });
+        
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        checkoutBtn?.addEventListener('click', function() {
             const lang = localStorage.getItem('hedonism_lang') || 'ru';
             if (cart.length === 0) { alert(translations[lang].cartAlert); return; }
-            alert(translations[lang].checkoutSuccess); cart = []; localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); closeCart(); window.location.href = 'index.html';
+            alert(translations[lang].checkoutSuccess);
+            cart = []; localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); closeCart();
+            window.location.href = 'index.html';
         });
+        
         updateCartCount();
         console.log('✅ boxes.html ready! Language: ' + savedLang.toUpperCase());
     });
