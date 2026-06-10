@@ -3,597 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>История боксов - Вестник Гедонизма</title>
-    
-    <!-- Google Fonts -->
+    <title data-i18n="pageTitle">История боксов - Вестник Гедонизма</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
+        button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        body {
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #070395;
-            line-height: 1.6;
-            overflow-x: hidden;
-            background: #f8f9fa;
-        }
+        /* БЕГУЩАЯ СТРОКА */
+        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
-        a { text-decoration: none; color: inherit; transition: color 0.3s; }
-        a:hover { color: #FFD93D; }
-        button { cursor: pointer; border: none; background: none; font: inherit; }
-        ul { list-style: none; }
-        img { max-width: 100%; display: block; }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-        
-        /* ===== БЕГУЩАЯ СТРОКА ===== */
-        .marquee-bar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: #e0e0e0;
-            color: #070395;
-            padding: 8px 0;
-            z-index: 999;
-            overflow: hidden;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 20s linear infinite;
-            padding-left: 100%;
-        }
-        
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        /* ===== ШАПКА ===== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            padding: 15px 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(7, 3, 149, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .logo {
-            width: 45px;
-            height: 45px;
-            background: #FFD93D;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 2px 8px rgba(255, 217, 61, 0.3);
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-        
-        .nav-link {
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
+        /* ШАПКА */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
         .nav-link.active { color: #FFD93D; }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-icons { display: flex; gap: 12px; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
+        .btn-back:hover { background: #070395; color: white; }
         
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        /* ИСТОРИЯ */
+        .history-page { padding: 140px 0 60px; min-height: 100vh; }
+        .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
+        .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 700px; margin: 0 auto 60px; }
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background: #FFD93D; }
+        .timeline-item { position: relative; padding: 25px 0 25px 40px; margin-bottom: 30px; }
+        .timeline-item::before { content: ''; position: absolute; left: -9px; top: 30px; width: 22px; height: 22px; background: #070395; border: 3px solid #FFD93D; border-radius: 50%; }
+        .timeline-year { font-size: 24px; font-weight: 700; color: #070395; margin-bottom: 10px; }
+        .timeline-title { font-size: 20px; font-weight: 600; margin-bottom: 10px; color: #070395; }
+        .timeline-descr { font-size: 15px; color: #555; line-height: 1.7; }
+        .philosophy-section { background: white; padding: 60px 0; margin-top: 40px; }
+        .philosophy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .philosophy-card { text-align: center; padding: 30px; border-radius: 16px; background: #f8f9fa; transition: transform 0.3s; }
+        .philosophy-card:hover { transform: translateY(-5px); }
+        .philosophy-icon { font-size: 48px; margin-bottom: 20px; }
+        .philosophy-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #070395; }
+        .philosophy-card p { font-size: 14px; color: #666; line-height: 1.6; }
         
-        .header-icons {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .icon-btn {
-            padding: 8px;
-            color: #070395;
-            transition: transform 0.3s;
-            position: relative;
-        }
-        
-        .icon-btn:hover {
-            color: #FFD93D;
-            transform: scale(1.1);
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #FFD93D;
-            color: #070395;
-            font-size: 9px;
-            font-weight: 700;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn-back {
-            border: 1.5px solid #070395;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s;
-        }
-        
-        .btn-back:hover {
-            background: #070395;
-            color: white;
-        }
-        
-        /* ===== ИСТОРИЯ ===== */
-        .history-page {
-            padding: 140px 0 60px;
-            min-height: 100vh;
-        }
-        
-        .page-title {
-            text-align: center;
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #070395;
-        }
-        
-        .page-subtitle {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 60px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-left: 30px;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: #FFD93D;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding: 25px 0 25px 40px;
-            margin-bottom: 30px;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -9px;
-            top: 30px;
-            width: 22px;
-            height: 22px;
-            background: #070395;
-            border: 3px solid #FFD93D;
-            border-radius: 50%;
-        }
-        
-        .timeline-year {
-            font-size: 24px;
-            font-weight: 700;
-            color: #070395;
-            margin-bottom: 10px;
-        }
-        
-        .timeline-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #070395;
-        }
-        
-        .timeline-descr {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.7;
-        }
-        
-        .philosophy-section {
-            background: white;
-            padding: 60px 0;
-            margin-top: 40px;
-        }
-        
-        .philosophy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .philosophy-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 16px;
-            background: #f8f9fa;
-            transition: transform 0.3s;
-        }
-        
-        .philosophy-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .philosophy-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .philosophy-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #070395;
-        }
-        
-        .philosophy-card p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        /* ===== FOOTER ===== */
-        .footer {
-            background: white;
-            padding: 20px 0;
-            border-top: 1px solid rgba(7, 3, 149, 0.2);
-            margin-top: 60px;
-        }
-        
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .footer-logo {
-            width: 45px;
-            height: 45px;
-            background: #FFD93D;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        
-        .footer-copyright {
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-            color: #070395;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-link {
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #070395;
-            transition: color 0.3s;
-        }
-        
+        /* FOOTER */
+        .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
+        .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        .social-links { display: flex; gap: 15px; }
+        .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; }
         .social-link:hover { color: #FFD93D; }
         
-        /* ===== АДАПТИВНОСТЬ ===== */
-        @media (max-width: 1024px) {
-            .container { padding: 0 20px; }
-            .nav-menu { display: none; }
-        }
+        /* КОРЗИНА */
+        .cart-modal { position: fixed; top: 0; right: -400px; width: 400px; max-width: 100%; height: 100vh; background: white; box-shadow: -5px 0 20px rgba(0,0,0,0.1); z-index: 2000; transition: right 0.3s ease; padding: 20px; display: flex; flex-direction: column; }
+        .cart-modal.open { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .cart-close { font-size: 24px; color: #070395; }
+        .cart-items { flex: 1; overflow-y: auto; }
+        .cart-empty { text-align: center; color: #666; padding: 40px 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .cart-item-name { font-weight: 500; font-size: 14px; }
+        .cart-item-price { color: #070395; font-weight: 600; }
+        .cart-item-remove { color: #999; cursor: pointer; font-size: 18px; margin-left: 10px; }
+        .cart-item-remove:hover { color: #e74c3c; }
+        .cart-footer { padding-top: 20px; border-top: 1px solid #eee; }
+        .cart-total { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 15px; font-size: 18px; }
+        .btn-checkout { width: 100%; background: #070395; color: white; padding: 15px; border-radius: 30px; font-weight: 600; text-transform: uppercase; transition: background 0.3s; font-size: 14px; }
+        .btn-checkout:hover { background: #05026b; }
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .cart-overlay.open { opacity: 1; visibility: visible; }
         
-        @media (max-width: 768px) {
-            .header { padding: 12px 0; }
-            .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; }
-            .history-page { padding-top: 130px; }
-            .header-container { padding: 0 15px; }
-            .logo { width: 40px; height: 40px; font-size: 20px; }
-            .page-title { font-size: 32px; }
-            .timeline { padding-left: 20px; }
-            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
-        }
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
+        @media (max-width: 768px) { .header { padding: 12px 0; } .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; } .history-page { padding-top: 130px; } .header-container { padding: 0 15px; } .logo { width: 40px; height: 40px; font-size: 20px; } .page-title { font-size: 32px; } .timeline { padding-left: 20px; } .footer-container { flex-direction: column; gap: 15px; text-align: center; } }
     </style>
 </head>
 <body>
 
-    <!-- ===== ШАПКА ===== -->
+    <!-- ШАПКА -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
                 <a href="index.html" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="boxes.html" class="nav-link nav-link-cta" style="background:#070395;color:white!important;padding:10px 25px!important;border-radius:25px;">ЗАКАЗАТЬ БОКС</a>
-                    <a href="index.html#contacts" class="nav-link">КОНТАКТЫ</a>
-                    <a href="history.html" class="nav-link active">ИСТОРИЯ БОКСОВ</a>
+                    <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ БОКС</a>
+                    <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="history.html" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
-            
             <div class="header-right">
                 <div class="header-icons">
-                    <button class="icon-btn" aria-label="Профиль">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </button>
-                    
-                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
+                    <button class="icon-btn" aria-label="Профиль"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
+                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="cart-count" id="cartCount">0</span></button>
                 </div>
-                
-                <a href="index.html" class="btn-back">← НАЗАД</a>
+                <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
             </div>
         </div>
     </header>
 
-    <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
-    <div class="marquee-bar">
-        <div class="marquee-content">
-            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
-        </div>
-    </div>
+    <!-- БЕГУЩАЯ СТРОКА -->
+    <div class="marquee-bar"><div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • </div></div>
 
-    <!-- ===== ИСТОРИЯ ===== -->
+    <!-- ИСТОРИЯ -->
     <section class="history-page">
         <div class="container">
-            <h1 class="page-title">ИСТОРИЯ БОКСОВ</h1>
-            <p class="page-subtitle">Каждый бокс «Вестника Гедонизма» — это не просто еда, а путешествие во времени, философия наслаждения и любовь к деталям</p>
-            
+            <h1 class="page-title" data-i18n="historyTitle">ИСТОРИЯ БОКСОВ</h1>
+            <p class="page-subtitle" data-i18n="historySubtitle">Каждый бокс «Вестника Гедонизма» — это не просто еда, а путешествие во времени, философия наслаждения и любовь к деталям</p>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-year">2025</div>
-                    <div class="timeline-title">Рождение идеи</div>
-                    <p class="timeline-descr">Всё началось с простого вопроса: «А что, если еда может рассказывать истории?». Так появился первый бокс «Лимонный» — вдохновлённый античной философией гедонизма и любовью к цитрусовым нотам.</p>
+                    <div class="timeline-title" data-i18n="tl1Title">Рождение идеи</div>
+                    <p class="timeline-descr" data-i18n="tl1Descr">Всё началось с простого вопроса: «А что, если еда может рассказывать истории?». Так появился первый бокс «Лимонный» — вдохновлённый античной философией гедонизма и любовью к цитрусовым нотам.</p>
                 </div>
-                
                 <div class="timeline-item">
                     <div class="timeline-year">2025</div>
-                    <div class="timeline-title">Первые клиенты</div>
-                    <p class="timeline-descr">Мы доставили первые 10 боксов друзьям и знакомым. Их отзывы стали для нас самым ценным подарком и мотивацией развиваться дальше.</p>
+                    <div class="timeline-title" data-i18n="tl2Title">Первые клиенты</div>
+                    <p class="timeline-descr" data-i18n="tl2Descr">Мы доставили первые 10 боксов друзьям и знакомым. Их отзывы стали для нас самым ценным подарком и мотивацией развиваться дальше.</p>
                 </div>
-                
                 <div class="timeline-item">
                     <div class="timeline-year">2026</div>
-                    <div class="timeline-title">Расширение линейки</div>
-                    <p class="timeline-descr">Появились новые боксы: «Гедонист», «Семейный», «Вечеринка». Каждый — с уникальной концепцией, историей и музыкальным сопровождением.</p>
+                    <div class="timeline-title" data-i18n="tl3Title">Расширение линейки</div>
+                    <p class="timeline-descr" data-i18n="tl3Descr">Появились новые боксы: «Гедонист», «Семейный», «Вечеринка». Каждый — с уникальной концепцией, историей и музыкальным сопровождением.</p>
                 </div>
-                
                 <div class="timeline-item">
-                    <div class="timeline-year">Сегодня</div>
-                    <div class="timeline-title">Философия в каждом блюде</div>
-                    <p class="timeline-descr">Мы продолжаем создавать гастрономические истории, которые объединяют людей, дарят эмоции и напоминают: жизнь создана для наслаждения.</p>
+                    <div class="timeline-year" data-i18n="tl4Year">Сегодня</div>
+                    <div class="timeline-title" data-i18n="tl4Title">Философия в каждом блюде</div>
+                    <p class="timeline-descr" data-i18n="tl4Descr">Мы продолжаем создавать гастрономические истории, которые объединяют людей, дарят эмоции и напоминают: жизнь создана для наслаждения.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== ФИЛОСОФИЯ ===== -->
+    <!-- ФИЛОСОФИЯ -->
     <section class="philosophy-section">
         <div class="container">
             <div class="philosophy-grid">
                 <div class="philosophy-card">
                     <div class="philosophy-icon">🍽️</div>
-                    <h3>ЕДА КАК ИСКУССТВО</h3>
-                    <p>Каждое блюдо — это результат тщательного отбора ингредиентов, мастерства шефа и уважения к традициям.</p>
+                    <h3 data-i18n="phil1Title">ЕДА КАК ИСКУССТВО</h3>
+                    <p data-i18n="phil1Descr">Каждое блюдо — это результат тщательного отбора ингредиентов, мастерства шефа и уважения к традициям.</p>
                 </div>
-                
                 <div class="philosophy-card">
                     <div class="philosophy-icon">📚</div>
-                    <h3>ИСТОРИЯ В КАЖДОМ УКУСЕ</h3>
-                    <p>Мы исследуем гастрономическое наследие разных эпох и культур, чтобы поделиться им с вами.</p>
+                    <h3 data-i18n="phil2Title">ИСТОРИЯ В КАЖДОМ УКУСЕ</h3>
+                    <p data-i18n="phil2Descr">Мы исследуем гастрономическое наследие разных эпох и культур, чтобы поделиться им с вами.</p>
                 </div>
-                
                 <div class="philosophy-card">
                     <div class="philosophy-icon">💛</div>
-                    <h3>НАСЛАЖДЕНИЕ МОМЕНТОМ</h3>
-                    <p>Гедонизм — это не про излишества, а про осознанное удовольствие от простых вещей: еды, общения, тишины.</p>
+                    <h3 data-i18n="phil3Title">НАСЛАЖДЕНИЕ МОМЕНТОМ</h3>
+                    <p data-i18n="phil3Descr">Гедонизм — это не про излишества, а про осознанное удовольствие от простых вещей: еды, общения, тишины.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
             <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
-            <p class="footer-copyright">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
+            <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/>
-                    </svg>
-                </a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                    </svg>
-                </a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                </a>
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
             </div>
         </div>
     </footer>
 
-    <!-- ===== КОРЗИНА ===== -->
+    <!-- КОРЗИНА -->
     <div class="cart-overlay" id="cartOverlay"></div>
     <div class="cart-modal" id="cartModal">
-        <div class="cart-header">
-            <h3>Ваша корзина</h3>
-            <button class="cart-close" id="cartClose">&times;</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <p class="cart-empty">Корзина пуста</p>
-        </div>
+        <div class="cart-header"><h3 data-i18n="cartTitle">Ваша корзина</h3><button class="cart-close" id="cartClose">&times;</button></div>
+        <div class="cart-items" id="cartItems"><p class="cart-empty" data-i18n="cartEmpty">Корзина пуста</p></div>
         <div class="cart-footer">
-            <div class="cart-total">
-                <span>Итого:</span>
-                <span id="cartTotal">0 ₽</span>
-            </div>
-            <button class="btn-checkout" id="checkoutBtn">ОФОРМИТЬ ЗАКАЗ</button>
+            <div class="cart-total"><span data-i18n="cartTotal">Итого:</span><span id="cartTotal">0 ₽</span></div>
+            <button class="btn-checkout" id="checkoutBtn" data-i18n="btnCheckout">ОФОРМИТЬ ЗАКАЗ</button>
         </div>
     </div>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- JAVASCRIPT -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // ===== КОРЗИНА =====
-            const cartBtn = document.getElementById('cartBtn');
-            const cartModal = document.getElementById('cartModal');
-            const cartOverlay = document.getElementById('cartOverlay');
-            const cartClose = document.getElementById('cartClose');
-            const cartCount = document.getElementById('cartCount');
-            const cartTotal = document.getElementById('cartTotal');
-            const cartItems = document.getElementById('cartItems');
-            
-            let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
-            
-            function openCart() {
-                cartModal.classList.add('open');
-                cartOverlay.classList.add('open');
-                document.body.style.overflow = 'hidden';
-                renderCart();
-            }
-            
-            function closeCart() {
-                cartModal.classList.remove('open');
-                cartOverlay.classList.remove('open');
-                document.body.style.overflow = '';
-            }
-            
-            cartBtn.addEventListener('click', openCart);
-            cartClose.addEventListener('click', closeCart);
-            cartOverlay.addEventListener('click', closeCart);
-            
-            function updateCartCount() {
-                cartCount.textContent = cart.length;
-            }
-            
-            function renderCart() {
-                if (cart.length === 0) {
-                    cartItems.innerHTML = '<p class="cart-empty">Корзина пуста</p>';
-                    cartTotal.textContent = '0 ₽';
-                    return;
-                }
-                
-                let html = '';
-                let total = 0;
-                
-                cart.forEach(item => {
-                    total += item.price;
-                    html += `
-                        <div class="cart-item">
-                            <span class="cart-item-name">${item.name}</span>
-                            <div>
-                                <span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span>
-                                <span class="cart-item-remove" data-id="${item.id}">&times;</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                cartItems.innerHTML = html;
-                cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
-                
-                cartItems.querySelectorAll('.cart-item-remove').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        cart = cart.filter(i => i.id !== parseInt(e.target.dataset.id));
-                        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
-                        updateCartCount();
-                        renderCart();
-                    });
-                });
-            }
-            
-            document.getElementById('checkoutBtn').addEventListener('click', function() {
-                if (cart.length === 0) {
-                    alert('Добавьте товары в корзину');
-                    return;
-                }
-                alert('✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.');
-                cart = [];
-                localStorage.setItem('hedonism_cart', JSON.stringify(cart));
-                updateCartCount();
-                closeCart();
-                window.location.href = 'index.html';
-            });
-            
-            updateCartCount();
-            console.log('✅ Страница истории готова!');
+    const translations = {
+        ru: {
+            pageTitle: "История боксов - Вестник Гедонизма",
+            navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
+            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
+            historyTitle: "ИСТОРИЯ БОКСОВ", historySubtitle: "Каждый бокс «Вестника Гедонизма» — это не просто еда, а путешествие во времени, философия наслаждения и любовь к деталям",
+            tl1Title: "Рождение идеи", tl1Descr: "Всё началось с простого вопроса: «А что, если еда может рассказывать истории?». Так появился первый бокс «Лимонный» — вдохновлённый античной философией гедонизма и любовью к цитрусовым нотам.",
+            tl2Title: "Первые клиенты", tl2Descr: "Мы доставили первые 10 боксов друзьям и знакомым. Их отзывы стали для нас самым ценным подарком и мотивацией развиваться дальше.",
+            tl3Title: "Расширение линейки", tl3Descr: "Появились новые боксы: «Гедонист», «Семейный», «Вечеринка». Каждый — с уникальной концепцией, историей и музыкальным сопровождением.",
+            tl4Year: "Сегодня", tl4Title: "Философия в каждом блюде", tl4Descr: "Мы продолжаем создавать гастрономические истории, которые объединяют людей, дарят эмоции и напоминают: жизнь создана для наслаждения.",
+            phil1Title: "ЕДА КАК ИСКУССТВО", phil1Descr: "Каждое блюдо — это результат тщательного отбора ингредиентов, мастерства шефа и уважения к традициям.",
+            phil2Title: "ИСТОРИЯ В КАЖДОМ УКУСЕ", phil2Descr: "Мы исследуем гастрономическое наследие разных эпох и культур, чтобы поделиться им с вами.",
+            phil3Title: "НАСЛАЖДЕНИЕ МОМЕНТОМ", phil3Descr: "Гедонизм — это не про излишества, а про осознанное удовольствие от простых вещей: еды, общения, тишины.",
+            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            cartTitle: "Ваша корзина", cartEmpty: "Корзина пуста", cartTotal: "Итого:", btnCheckout: "ОФОРМИТЬ ЗАКАЗ",
+            checkoutSuccess: "✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.", cartAlert: "Добавьте товары в корзину"
+        },
+        en: {
+            pageTitle: "Box History - Hedonism Herald",
+            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
+            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            historyTitle: "BOX HISTORY", historySubtitle: "Each Hedonism Herald box is more than food — it's a journey through time, a philosophy of pleasure, and love for details",
+            tl1Title: "The Idea is Born", tl1Descr: "It all started with a simple question: 'What if food could tell stories?'. Thus, the first 'Lemon Box' was born — inspired by ancient hedonistic philosophy and a love for citrus notes.",
+            tl2Title: "First Customers", tl2Descr: "We delivered the first 10 boxes to friends and acquaintances. Their feedback became our most valuable gift and motivation to grow.",
+            tl3Title: "Expanding the Line", tl3Descr: "New boxes appeared: 'Hedonist', 'Family', 'Party'. Each with a unique concept, story, and musical accompaniment.",
+            tl4Year: "Today", tl4Title: "Philosophy in Every Dish", tl4Descr: "We continue creating gastronomic stories that bring people together, deliver emotions, and remind: life is made for enjoyment.",
+            phil1Title: "FOOD AS ART", phil1Descr: "Every dish is the result of careful ingredient selection, chef's mastery, and respect for traditions.",
+            phil2Title: "HISTORY IN EVERY BITE", phil2Descr: "We explore the gastronomic heritage of different eras and cultures to share it with you.",
+            phil3Title: "ENJOY THE MOMENT", phil3Descr: "Hedonism isn't about excess — it's about mindful pleasure from simple things: food, conversation, silence.",
+            footerCopy: "© HEDONISM HERALD WORKS FOR YOU WITH LOVE SINCE 2025",
+            cartTitle: "Your cart", cartEmpty: "Cart is empty", cartTotal: "Total:", btnCheckout: "CHECKOUT",
+            checkoutSuccess: "✅ Order placed!\nWe'll contact you within an hour.", cartAlert: "Add items to cart first"
+        }
+    };
+
+    function applyLanguage(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.dataset.i18n; if (translations[lang][key]) el.textContent = translations[lang][key]; });
+        document.getElementById('langCurrent').textContent = lang.toUpperCase();
+        document.documentElement.lang = lang;
+        localStorage.setItem('hedonism_lang', lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
+        applyLanguage(savedLang);
+        
+        // Язык
+        document.getElementById('langBtn')?.addEventListener('click', e => { e.stopPropagation(); document.getElementById('langDropdown')?.classList.toggle('show'); });
+        document.querySelectorAll('#langDropdown a')?.forEach(link => link.addEventListener('click', e => { e.preventDefault(); applyLanguage(e.target.closest('a').dataset.lang); document.getElementById('langDropdown')?.classList.remove('show'); }));
+        document.addEventListener('click', e => { if (!document.getElementById('langBtn')?.contains(e.target) && !document.getElementById('langDropdown')?.contains(e.target)) document.getElementById('langDropdown')?.classList.remove('show'); });
+        
+        // Корзина
+        const cartBtn = document.getElementById('cartBtn'), cartModal = document.getElementById('cartModal'), cartOverlay = document.getElementById('cartOverlay'), cartClose = document.getElementById('cartClose'), cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'), cartItems = document.getElementById('cartItems');
+        let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+        function openCart() { cartModal.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
+        function closeCart() { cartModal.classList.remove('open'); cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+        cartBtn?.addEventListener('click', openCart); cartClose?.addEventListener('click', closeCart); cartOverlay?.addEventListener('click', closeCart);
+        function updateCartCount() { cartCount.textContent = cart.length; }
+        function renderCart() {
+            const lang = localStorage.getItem('hedonism_lang') || 'ru';
+            if (cart.length === 0) { cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`; cartTotal.textContent = '0 ₽'; return; }
+            let html = '', total = 0;
+            cart.forEach(item => { total += item.price; html += `<div class="cart-item"><span class="cart-item-name">${item.name}</span><div><span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span><span class="cart-item-remove" data-id="${item.id}">&times;</span></div></div>`; });
+            cartItems.innerHTML = html; cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+            cartItems.querySelectorAll('.cart-item-remove').forEach(btn => btn.addEventListener('click', e => { cart = cart.filter(i => i.id !== parseInt(e.target.dataset.id)); localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); renderCart(); }));
+        }
+        document.getElementById('checkoutBtn')?.addEventListener('click', function() {
+            const lang = localStorage.getItem('hedonism_lang') || 'ru';
+            if (cart.length === 0) { alert(translations[lang].cartAlert); return; }
+            alert(translations[lang].checkoutSuccess); cart = []; localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); closeCart(); window.location.href = 'index.html';
         });
+        updateCartCount();
+        console.log('✅ history.html ready! Language: ' + savedLang.toUpperCase());
+    });
     </script>
-    
 </body>
 </html>
