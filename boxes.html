@@ -27,7 +27,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* БЕГУЩАЯ СТРОКА - как на index.html */
+        /* БЕГУЩАЯ СТРОКА */
         .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
@@ -50,9 +50,9 @@
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
         .btn-back:hover { background: #070395; color: white; }
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; }
-        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 150px; display: none; z-index: 100; margin-top: 5px; }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: uppercase; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
@@ -62,8 +62,8 @@
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; } /* ✅ Убран transform */
-        .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); } /* ✅ Только тень, без смещения */
+        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; }
+        .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
         .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; }
         .box-badge { position: absolute; top: 15px; left: 15px; background: #FFD93D; color: #070395; padding: 8px 15px; border-radius: 20px; font-weight: 600; font-size: 12px; text-transform: uppercase; }
         .box-content { padding: 25px; }
@@ -78,6 +78,88 @@
         .btn-add-cart { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
         .btn-add-cart:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
         
+        /* МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2500;
+            display: none; opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-overlay.open { display: block; opacity: 1; }
+        
+        .product-modal {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; max-width: 500px;
+            max-height: 90vh;
+            background: white; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 2501;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 20px; border-bottom: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
+        .modal-close {
+            background: none; border: none; font-size: 24px;
+            color: #666; cursor: pointer; padding: 5px;
+        }
+        .modal-close:hover { color: #070395; }
+        
+        .modal-body { padding: 20px; overflow-y: auto; }
+        
+        .modal-section { margin-bottom: 25px; }
+        .modal-section-title {
+            font-size: 16px; font-weight: 600; color: #070395;
+            margin-bottom: 15px;
+        }
+        
+        /* Выбор персон */
+        .persons-select { display: flex; gap: 10px; flex-wrap: wrap; }
+        .person-option { flex: 1; min-width: 80px; }
+        .person-radio { display: none; }
+        .person-label {
+            display: flex; align-items: center; justify-content: center;
+            padding: 10px; border: 2px solid #070395; border-radius: 10px;
+            font-size: 14px; font-weight: 500; color: #070395;
+            cursor: pointer; transition: all 0.3s; text-align: center;
+        }
+        .person-radio:checked + .person-label {
+            background: #070395; color: white;
+        }
+        .person-label:hover { border-color: #FFD93D; }
+        
+        /* Аллергены */
+        .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .allergen-option { display: flex; align-items: center; gap: 8px; }
+        .allergen-checkbox {
+            width: 18px; height: 18px; accent-color: #070395; cursor: pointer;
+        }
+        .allergen-label { font-size: 13px; color: #070395; cursor: pointer; }
+        
+        /* Кнопки модалки */
+        .modal-actions {
+            padding: 15px 20px; border-top: 1px solid #eee;
+            display: flex; gap: 10px;
+        }
+        .btn-modal-cancel {
+            flex: 1; background: transparent; color: #070395;
+            padding: 12px; border-radius: 25px; font-weight: 600;
+            font-size: 14px; border: 1.5px solid #070395; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-modal-cancel:hover { background: #070395; color: white; }
+        .btn-modal-add {
+            flex: 1; background: #070395; color: white;
+            padding: 12px; border-radius: 25px; font-weight: 600;
+            font-size: 14px; border: none; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-modal-add:hover { background: #FFD93D; color: #070395; }
+        
         /* КОРЗИНА */
         .cart-modal { 
             position: fixed; top: 0; right: -100%;
@@ -90,11 +172,56 @@
         .cart-close { font-size: 28px; color: #070395; }
         .cart-items { flex: 1; overflow-y: auto; }
         .cart-empty { text-align: center; color: #666; padding: 40px 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
-        .cart-item-name { font-weight: 500; font-size: 14px; }
-        .cart-item-price { color: #070395; font-weight: 600; }
-        .cart-item-remove { color: #999; cursor: pointer; font-size: 18px; margin-left: 10px; }
+        
+        /* Улучшенный элемент корзины с опциями */
+        .cart-item { 
+            padding: 15px 0; border-bottom: 1px solid #eee; 
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .cart-item-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cart-item-name { font-weight: 500; font-size: 14px; color: #070395; }
+        .cart-item-price { color: #070395; font-weight: 600; font-size: 16px; }
+        
+        .cart-item-options { 
+            font-size: 12px; color: #666; 
+            background: #f8f9fa; padding: 8px 12px; border-radius: 8px;
+        }
+        .cart-item-option { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .cart-item-option:last-child { margin-bottom: 0; }
+        .cart-item-option-label { color: #999; }
+        .cart-item-option-value { color: #070395; font-weight: 500; }
+        .cart-item-allergens { 
+            display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; 
+        }
+        .cart-item-allergen { 
+            font-size: 11px; background: #ffebee; color: #c62828; 
+            padding: 2px 8px; border-radius: 10px; 
+        }
+        
+        .cart-item-controls { 
+            display: flex; align-items: center; gap: 10px; 
+            margin-top: 5px;
+        }
+        .quantity-control { 
+            display: flex; align-items: center; gap: 8px; 
+            background: #f8f9fa; padding: 5px; border-radius: 20px;
+        }
+        .quantity-btn {
+            width: 28px; height: 28px; border: none;
+            background: white; border-radius: 50%;
+            color: #070395; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+        }
+        .quantity-btn:hover { background: #070395; color: white; }
+        .quantity-value { font-weight: 600; min-width: 20px; text-align: center; }
+        
+        .cart-item-remove { 
+            color: #999; cursor: pointer; font-size: 18px; 
+            padding: 5px; transition: color 0.3s;
+        }
         .cart-item-remove:hover { color: #e74c3c; }
+        
         .cart-footer { padding-top: 20px; border-top: 1px solid #eee; }
         .cart-total { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 15px; font-size: 18px; }
         .btn-checkout { width: 100%; background: #070395; color: white; padding: 15px; border-radius: 30px; font-weight: 600; text-transform: uppercase; transition: background 0.3s; font-size: 14px; }
@@ -145,6 +272,12 @@
             .box-price { font-size: 24px; }
             .box-price span { font-size: 13px; }
             .btn-add-cart { padding: 10px 24px; font-size: 13px; }
+            
+            /* Модальное окно на мобильных */
+            .product-modal { width: 95%; max-width: none; }
+            .allergens-grid { grid-template-columns: 1fr; }
+            .persons-select { flex-direction: column; }
+            .person-label { width: 100%; }
         }
         
         @media (max-width: 480px) { 
@@ -172,6 +305,10 @@
             .social-link { width: 20px; height: 20px; }
             .social-link svg { width: 16px; height: 16px; }
             .footer-copyright { font-size: 11px; }
+            
+            /* Корзина на мобильных */
+            .cart-item-header { flex-direction: column; gap: 5px; }
+            .cart-item-controls { justify-content: space-between; }
         }
         
         @media (max-width: 360px) {
@@ -219,8 +356,8 @@
                     </svg>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English</span></a>
+                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷🇺)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦🇪)</span></a>
                     </div>
                 </div>
             </div>
@@ -257,7 +394,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">3 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-name="Бокс «Лимонный»" data-price="3500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <button class="btn-add-cart" data-product-id="box1" data-product-name="Бокс «Лимонный»" data-product-price="3500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
@@ -277,7 +414,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">6 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-name="Бокс «Гедонист»" data-price="6500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <button class="btn-add-cart" data-product-id="box2" data-product-name="Бокс «Гедонист»" data-product-price="6500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
@@ -295,7 +432,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">5 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-name="Бокс «Семейный»" data-price="5500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <button class="btn-add-cart" data-product-id="box3" data-product-name="Бокс «Семейный»" data-product-price="5500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
@@ -313,7 +450,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">8 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-name="Бокс «Вечеринка»" data-price="8500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <button class="btn-add-cart" data-product-id="box4" data-product-name="Бокс «Вечеринка»" data-product-price="8500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
@@ -333,7 +470,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">2 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-name="Бокс «Завтрак»" data-price="2500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <button class="btn-add-cart" data-product-id="box5" data-product-name="Бокс «Завтрак»" data-product-price="2500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
@@ -351,7 +488,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">3 000 <span>₽</span></div>
-                            <button class="btn-add-cart" data-name="Бокс «Десертный»" data-price="3000" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <button class="btn-add-cart" data-product-id="box6" data-product-name="Бокс «Десертный»" data-product-price="3000" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
@@ -377,6 +514,75 @@
             </div>
         </div>
     </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА -->
+    <div class="modal-overlay" id="productModalOverlay">
+        <div class="product-modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalProductTitle">Настройка товара</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Выбор персон -->
+                <div class="modal-section">
+                    <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
+                    <div class="persons-select">
+                        <label class="person-option">
+                            <input type="radio" name="modalPersons" value="2" class="person-radio" checked>
+                            <span class="person-label" data-i18n="persons2">На 2 персоны</span>
+                        </label>
+                        <label class="person-option">
+                            <input type="radio" name="modalPersons" value="4" class="person-radio">
+                            <span class="person-label" data-i18n="persons4">На 4 персоны</span>
+                        </label>
+                        <label class="person-option">
+                            <input type="radio" name="modalPersons" value="6" class="person-radio">
+                            <span class="person-label" data-i18n="persons6">На 6 персон</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Аллергены -->
+                <div class="modal-section">
+                    <div class="modal-section-title" data-i18n="modalAllergens">Исключить аллергены</div>
+                    <div class="allergens-grid">
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Грибы" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen1">Грибы</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Горчица" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen2">Горчица</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Лактоза" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen3">Лактоза</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Яйца" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen4">Яйца</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Глютен" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen5">Глютен</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Красная рыба" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen6">Красная рыба</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="modalAllergen" value="Орехи" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen7">Орехи</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="modalCancel" data-i18n="btnCancel">ОТМЕНА</button>
+                <button class="btn-modal-add" id="modalAddToCart" data-i18n="btnAddToCart">ДОБАВИТЬ В КОРЗИНУ</button>
+            </div>
+        </div>
+    </div>
 
     <!-- КОРЗИНА -->
     <div class="cart-overlay" id="cartOverlay"></div>
@@ -415,7 +621,12 @@
             feat19: "5 авторских десертов", feat20: "Шампанское", feat21: "Ягодный соус",
             btnCart: "В КОРЗИНУ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartTitle: "Ваша корзина", cartEmpty: "Корзина пуста", cartTotal: "Итого:", btnCheckout: "ОФОРМИТЬ ЗАКАЗ",
-            checkoutSuccess: "✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.", cartAlert: "Добавьте товары в корзину"
+            checkoutSuccess: "✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.", cartAlert: "Добавьте товары в корзину",
+            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены",
+            persons2: "На 2 персоны", persons4: "На 4 персоны", persons6: "На 6 персон",
+            allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
+            btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
+            itemPersons: "Персон:", itemAllergens: "Без:", itemQuantity: "Кол-во:"
         },
         en: {
             pageTitle: "Boxes - Hedonism Dispatch",
@@ -437,11 +648,20 @@
             feat19: "5 signature desserts", feat20: "Champagne", feat21: "Berry sauce",
             btnCart: "ADD TO CART", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartTitle: "Your cart", cartEmpty: "Cart is empty", cartTotal: "Total:", btnCheckout: "CHECKOUT",
-            checkoutSuccess: "✅ Order placed!\nWe'll contact you within an hour.", cartAlert: "Add items to cart first"
+            checkoutSuccess: "✅ Order placed!\nWe'll contact you within an hour.", cartAlert: "Add items to cart first",
+            modalPersons: "Number of persons", modalAllergens: "Exclude allergens",
+            persons2: "For 2", persons4: "For 4", persons6: "For 6",
+            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red fish", allergen7: "Nuts",
+            btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
+            itemPersons: "Persons:", itemAllergens: "No:", itemQuantity: "Qty:"
         }
     };
 
+    let currentLang = 'ru';
+    let currentProduct = null; // Текущий товар для настройки в модалке
+
     function applyLanguage(lang) {
+        currentLang = lang;
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang][key]) el.textContent = translations[lang][key];
@@ -452,11 +672,176 @@
         localStorage.setItem('hedonism_lang', lang);
     }
 
+    // ===== МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА =====
+    function openProductModal(productData) {
+        currentProduct = productData;
+        document.getElementById('modalProductTitle').textContent = productData.name;
+        
+        // Сбросить форму к значениям по умолчанию
+        document.querySelector('input[name="modalPersons"][value="2"]').checked = true;
+        document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
+        
+        document.getElementById('productModalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeProductModal() {
+        document.getElementById('productModalOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+        currentProduct = null;
+    }
+    
+    function getModalOptions() {
+        const persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
+        const allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked'))
+            .map(cb => cb.value);
+        return { persons, allergens };
+    }
+    
+    function addToCartWithOptions(options) {
+        if (!currentProduct) return;
+        
+        const cartItem = {
+            id: Date.now(),
+            productId: currentProduct.id,
+            name: currentProduct.name,
+            basePrice: currentProduct.price,
+            price: currentProduct.price, // Можно добавить наценку за доп. персон
+            quantity: 1,
+            options: {
+                persons: options.persons,
+                allergens: options.allergens
+            }
+        };
+        
+        cart.push(cartItem);
+        saveCart();
+        updateCartCount();
+        closeProductModal();
+        openCart(); // Показать корзину после добавления
+        renderCart();
+    }
+
+    // ===== КОРЗИНА С РАСШИРЕННЫМИ ДАННЫМИ =====
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+    
+    function saveCart() {
+        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+    }
+    
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalQty;
+        }
+    }
+    
+    function renderCart() {
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const lang = currentLang;
+        
+        if (cart.length === 0) {
+            if (cartItems) cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`;
+            if (cartTotal) cartTotal.textContent = '0 ₽';
+            return;
+        }
+        
+        let html = '';
+        let total = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            // Формируем строку с аллергенами
+            const allergensText = item.options?.allergens?.length > 0 
+                ? item.options.allergens.join(', ') 
+                : (lang === 'ru' ? 'нет' : 'none');
+            
+            html += `
+                <div class="cart-item" data-item-id="${item.id}">
+                    <div class="cart-item-header">
+                        <span class="cart-item-name">${item.name}</span>
+                        <span class="cart-item-price">${itemTotal.toLocaleString('ru-RU')} ₽</span>
+                    </div>
+                    
+                    <div class="cart-item-options">
+                        <div class="cart-item-option">
+                            <span class="cart-item-option-label">${translations[lang].itemPersons}</span>
+                            <span class="cart-item-option-value">${item.options?.persons || 2}</span>
+                        </div>
+                        <div class="cart-item-option">
+                            <span class="cart-item-option-label">${translations[lang].itemAllergens}</span>
+                            <span class="cart-item-option-value">${allergensText}</span>
+                        </div>
+                        ${item.options?.allergens?.length > 0 ? 
+                            `<div class="cart-item-allergens">
+                                ${item.options.allergens.map(a => `<span class="cart-item-allergen">${a}</span>`).join('')}
+                            </div>` : ''}
+                    </div>
+                    
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" data-action="decrease" data-item-id="${item.id}">−</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn" data-action="increase" data-item-id="${item.id}">+</button>
+                        </div>
+                        <span class="cart-item-remove" data-action="remove" data-item-id="${item.id}">&times;</span>
+                    </div>
+                </div>
+            `;
+        });
+        
+        if (cartItems) cartItems.innerHTML = html;
+        if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+        
+        // Обработчики кнопок в корзине
+        cartItems?.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const itemId = parseInt(this.dataset.itemId);
+                const action = this.dataset.action;
+                updateCartItemQuantity(itemId, action);
+            });
+        });
+        
+        cartItems?.querySelectorAll('.cart-item-remove').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const itemId = parseInt(this.dataset.itemId);
+                removeFromCart(itemId);
+            });
+        });
+    }
+    
+    function updateCartItemQuantity(itemId, action) {
+        const item = cart.find(i => i.id === itemId);
+        if (!item) return;
+        
+        if (action === 'increase') {
+            item.quantity++;
+        } else if (action === 'decrease' && item.quantity > 1) {
+            item.quantity--;
+        }
+        
+        saveCart();
+        updateCartCount();
+        renderCart();
+    }
+    
+    function removeFromCart(itemId) {
+        cart = cart.filter(item => item.id !== itemId);
+        saveCart();
+        updateCartCount();
+        renderCart();
+    }
+
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
-        // Переключатель языка - ИСПРАВЛЕНО
+        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         
@@ -466,20 +851,17 @@
                 langDropdown.classList.toggle('show');
             });
             
-            // ✅ ИСПРАВЛЕНИЕ: гарантированное закрытие после выбора
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation(); // ✅ Останавливаем всплытие
+                    e.stopPropagation();
                     const selectedLink = e.target.closest('a');
                     if (selectedLink) {
                         const selectedLang = selectedLink.dataset.lang;
                         applyLanguage(selectedLang);
+                        renderCart(); // Перерисовать корзину на новом языке
                     }
-                    // ✅ Гарантированно закрываем dropdown
-                    setTimeout(() => {
-                        langDropdown.classList.remove('show');
-                    }, 100); // Небольшая задержка для надёжности
+                    setTimeout(() => { langDropdown.classList.remove('show'); }, 100);
                 });
             });
             
@@ -490,12 +872,42 @@
             });
         }
         
+        // Модальное окно настройки товара
+        const modalOverlay = document.getElementById('productModalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalCancel = document.getElementById('modalCancel');
+        const modalAddToCart = document.getElementById('modalAddToCart');
+        
+        // Открытие модалки при клике на "В корзину"
+        document.querySelectorAll('.btn-add-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productData = {
+                    id: this.dataset.productId,
+                    name: this.dataset.productName,
+                    price: parseInt(this.dataset.productPrice)
+                };
+                openProductModal(productData);
+            });
+        });
+        
+        // Закрытие модалки
+        modalClose?.addEventListener('click', closeProductModal);
+        modalCancel?.addEventListener('click', closeProductModal);
+        modalOverlay?.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) closeProductModal();
+        });
+        
+        // Добавление в корзину из модалки
+        modalAddToCart?.addEventListener('click', function() {
+            const options = getModalOptions();
+            addToCartWithOptions(options);
+        });
+        
         // Корзина
-        const cartBtn = document.getElementById('cartBtn'), cartModal = document.getElementById('cartModal'),
-              cartOverlay = document.getElementById('cartOverlay'), cartClose = document.getElementById('cartClose'),
-              cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'),
-              cartItems = document.getElementById('cartItems');
-        let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+        const cartBtn = document.getElementById('cartBtn');
+        const cartModal = document.getElementById('cartModal');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartClose = document.getElementById('cartClose');
         
         function openCart() { 
             cartModal?.classList.add('open'); 
@@ -508,59 +920,29 @@
             cartOverlay?.classList.remove('open'); 
             document.body.style.overflow = ''; 
         }
-        cartBtn?.addEventListener('click', openCart); 
-        cartClose?.addEventListener('click', closeCart); 
+        
+        cartBtn?.addEventListener('click', openCart);
+        cartClose?.addEventListener('click', closeCart);
         cartOverlay?.addEventListener('click', closeCart);
         
-        function addToCart(name, price) { 
-            cart.push({ name, price, id: Date.now() }); 
-            localStorage.setItem('hedonism_cart', JSON.stringify(cart)); 
-            updateCartCount(); 
-            renderCart(); 
-            openCart(); 
-        }
-        function removeFromCart(id) { 
-            cart = cart.filter(item => item.id !== id); 
-            localStorage.setItem('hedonism_cart', JSON.stringify(cart)); 
-            updateCartCount(); 
-            renderCart(); 
-        }
-        function updateCartCount() { if (cartCount) cartCount.textContent = cart.length; }
-        
-        function renderCart() { 
-            const lang = localStorage.getItem('hedonism_lang') || 'ru'; 
-            if (cart.length === 0) { 
-                if (cartItems) cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`; 
-                if (cartTotal) cartTotal.textContent = '0 ₽'; 
-                return; 
-            } 
-            let html = '', total = 0; 
-            cart.forEach(item => { 
-                total += item.price; 
-                html += `<div class="cart-item"><span class="cart-item-name">${item.name}</span><div><span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span><span class="cart-item-remove" data-id="${item.id}">&times;</span></div></div>`; 
-            }); 
-            if (cartItems) cartItems.innerHTML = html; 
-            if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽'; 
-            if (cartItems) cartItems.querySelectorAll('.cart-item-remove').forEach(btn => {
-                btn.addEventListener('click', e => removeFromCart(parseInt(e.target.dataset.id)));
-            });
-        }
-        
-        document.querySelectorAll('.btn-add-cart').forEach(btn => {
-            btn.addEventListener('click', function() { addToCart(this.dataset.name, parseInt(this.dataset.price)); });
-        });
-        
-        // ✅ Кнопка "Оформить заказ" теперь ведёт на checkout.html
+        // Оформление заказа
         const checkoutBtn = document.getElementById('checkoutBtn');
         checkoutBtn?.addEventListener('click', function() {
-            const lang = localStorage.getItem('hedonism_lang') || 'ru';
-            if (cart.length === 0) { alert(translations[lang].cartAlert); return; }
-            // Переход на страницу оформления заказа
-            window.location.href = 'checkout.html';
+            if (cart.length === 0) { 
+                alert(translations[currentLang].cartAlert); 
+                return; 
+            }
+            alert(translations[currentLang].checkoutSuccess);
+            cart = [];
+            saveCart();
+            updateCartCount();
+            closeCart();
+            window.location.href = 'index.html';
         });
         
+        // Инициализация
         updateCartCount();
-        console.log('✅ boxes.html ready! Language: ' + savedLang.toUpperCase());
+        console.log('✅ boxes.html ready! Language: ' + currentLang.toUpperCase());
     });
     </script>
 </body>
