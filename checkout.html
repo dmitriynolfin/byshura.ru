@@ -342,14 +342,14 @@
                             <input type="radio" name="delivery" value="pickup" class="delivery-radio" checked>
                             <span class="delivery-label">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                <span data-i18n="deliveryPickup">Самовывоз</span>
+                                <span data-i18n="deliveryPickup">Самовывоз в Prime Park</span>
                             </span>
                         </label>
                         <label class="delivery-option">
                             <input type="radio" name="delivery" value="courier" class="delivery-radio">
                             <span class="delivery-label">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                                <span data-i18n="deliveryCourier">Курьер (+800 ₽)</span>
+                                <span data-i18n="deliveryCourier">Курьер по Москве (+800 ₽)</span>
                             </span>
                         </label>
                     </div>
@@ -465,7 +465,7 @@
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
             sectionDelivery: "Доставка",
-            deliveryPickup: "Самовывоз", deliveryCourier: "Курьер (+800 ₽)",
+            deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер по Москве (+800 ₽)",
             labelAddress: "Адрес доставки *", labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
             sectionPayment: "Оплата",
             payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфа", payment4: "Наличные",
@@ -519,11 +519,25 @@
     let addressDebounceTimer;
     const ADDRESS_DEBOUNCE_DELAY = 300;
 
+    // ✅ Проверка домена для защиты API-ключа
+    function isAllowedDomain() {
+        const allowedHosts = ['byshura.ru', 'www.byshura.ru', 'localhost', '127.0.0.1'];
+        return allowedHosts.some(domain => window.location.hostname.includes(domain));
+    }
+
     function initAddressAutocomplete() {
         const addressInput = document.getElementById('address');
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
         if (!addressInput) return;
+
+        // ✅ Блокировка поля если домен не разрешён
+        if (!isAllowedDomain()) {
+            addressInput.disabled = true;
+            addressInput.placeholder = 'Автодополнение доступно только на byshura.ru';
+            console.warn('⚠️ DaData: доступ с недопустимого домена');
+            return;
+        }
 
         addressInput.addEventListener('input', function(e) {
             const query = e.target.value.trim();
@@ -580,6 +594,12 @@
     }
 
     async function fetchAddressSuggestions(query, city) {
+        // ✅ Проверка домена перед каждым запросом
+        if (!isAllowedDomain()) {
+            console.warn('⚠️ DaData: запрос заблокирован с недопустимого домена');
+            return;
+        }
+
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
         loadingIndicator.classList.add('show');
