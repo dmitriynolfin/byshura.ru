@@ -88,9 +88,9 @@
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
         .btn-back:hover { background: #070395; color: white; }
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; }
-        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 150px; display: none; z-index: 100; margin-top: 5px; }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: uppercase; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
@@ -100,6 +100,67 @@
         .checkout-container { max-width: 900px; margin: 0 auto; }
         .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
         .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
+        
+        /* СВОДКА ЗАКАЗА */
+        .order-summary { 
+            background: white; border-radius: 20px; padding: 25px; 
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; 
+        }
+        .order-summary-title { 
+            font-size: 20px; font-weight: 600; color: #070395; 
+            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;
+        }
+        .order-item { 
+            display: flex; justify-content: space-between; align-items: flex-start;
+            padding: 15px 0; border-bottom: 1px solid #f5f5f5;
+        }
+        .order-item:last-child { border-bottom: none; }
+        .order-item-info { flex: 1; }
+        .order-item-name { font-weight: 600; color: #070395; margin-bottom: 5px; }
+        .order-item-options { 
+            font-size: 13px; color: #666; margin-bottom: 8px; 
+        }
+        .order-item-option { display: flex; gap: 5px; }
+        .order-item-option-label { color: #999; }
+        .order-item-option-value { color: #070395; font-weight: 500; }
+        .order-item-allergens { 
+            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; 
+        }
+        .order-item-allergen { 
+            font-size: 11px; background: #ffebee; color: #c62828; 
+            padding: 2px 8px; border-radius: 10px; 
+        }
+        .order-item-controls { 
+            display: flex; align-items: center; gap: 10px; margin-left: 15px; 
+        }
+        .quantity-control { 
+            display: flex; align-items: center; gap: 5px; 
+            background: #f8f9fa; padding: 4px; border-radius: 15px;
+        }
+        .quantity-btn {
+            width: 24px; height: 24px; border: none;
+            background: white; border-radius: 50%;
+            color: #070395; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+        }
+        .quantity-btn:hover { background: #070395; color: white; }
+        .quantity-value { font-weight: 600; min-width: 18px; text-align: center; font-size: 13px; }
+        .order-item-remove { 
+            color: #999; cursor: pointer; font-size: 18px; padding: 5px;
+        }
+        .order-item-remove:hover { color: #e74c3c; }
+        .order-item-price { 
+            font-weight: 600; color: #070395; font-size: 16px; 
+            min-width: 70px; text-align: right;
+        }
+        .order-total { 
+            display: flex; justify-content: space-between; 
+            padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee;
+            font-size: 18px; font-weight: 600; color: #070395;
+        }
+        
+        /* ФОРМА */
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
         .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -171,6 +232,11 @@
             .icon-btn { padding: 6px; }
             .icon-btn svg { width: 18px; height: 18px; }
             .btn-back { padding: 8px 18px; font-size: 11px; }
+            
+            /* Сводка заказа на мобильных */
+            .order-item { flex-direction: column; gap: 10px; }
+            .order-item-controls { margin-left: 0; width: 100%; justify-content: space-between; }
+            .order-item-price { text-align: left; }
         }
         @media (max-width: 480px) { 
             .header { padding: 8px 0; }
@@ -193,6 +259,12 @@
             .social-link { width: 20px; height: 20px; }
             .social-link svg { width: 16px; height: 16px; }
             .footer-copyright { font-size: 11px; }
+            
+            /* Сводка заказа на очень маленьких экранах */
+            .order-item-name { font-size: 14px; }
+            .order-item-options { font-size: 12px; }
+            .quantity-control { gap: 3px; }
+            .quantity-btn { width: 22px; height: 22px; font-size: 13px; }
         }
         @media (max-width: 360px) {
             .logo { width: 32px; height: 32px; font-size: 16px; }
@@ -263,57 +335,69 @@
             <h1 class="checkout-title" data-i18n="checkoutTitle">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
             <p class="checkout-subtitle" data-i18n="checkoutSubtitle">Заполните данные для доставки вашего бокса</p>
             
+            <!-- СВОДКА ЗАКАЗА -->
+            <div class="order-summary">
+                <h2 class="order-summary-title" data-i18n="orderSummaryTitle">Ваш заказ</h2>
+                <div id="orderItemsContainer">
+                    <!-- Сюда JavaScript добавит товары из корзины -->
+                </div>
+                <div class="order-total">
+                    <span data-i18n="orderTotal">Итого:</span>
+                    <span id="orderTotal">0 ₽</span>
+                </div>
+            </div>
+            
             <form class="checkout-form" id="checkoutForm">
-                <!-- ПЕРСОНЫ -->
+                <!-- ПЕРСОНЫ (для всего заказа) -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionPersons">Количество персон</h2>
+                    <h2 class="form-title" data-i18n="sectionPersons">Контактные персоны</h2>
                     <div class="persons-select">
                         <label class="person-option">
-                            <input type="radio" name="persons" value="2" class="person-radio" checked>
+                            <input type="radio" name="orderPersons" value="2" class="person-radio" checked>
                             <span class="person-label" data-i18n="persons2">На 2 персоны</span>
                         </label>
                         <label class="person-option">
-                            <input type="radio" name="persons" value="4" class="person-radio">
+                            <input type="radio" name="orderPersons" value="4" class="person-radio">
                             <span class="person-label" data-i18n="persons4">На 4 персоны</span>
                         </label>
                         <label class="person-option">
-                            <input type="radio" name="persons" value="6" class="person-radio">
+                            <input type="radio" name="orderPersons" value="6" class="person-radio">
                             <span class="person-label" data-i18n="persons6">На 6 персон</span>
                         </label>
                     </div>
                 </div>
                 
-                <!-- АЛЛЕРГЕНЫ -->
+                <!-- АЛЛЕРГЕНЫ (для всего заказа) -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionAllergens">Укажите аллергены</h2>
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px;" data-i18n="allergensHint">Отметьте продукты, которые нужно исключить из заказа</p>
+                    <h2 class="form-title" data-i18n="sectionAllergens">Общие ограничения</h2>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 15px;" data-i18n="allergensHint">Отметьте продукты, которые нужно исключить из ВСЕГО заказа</p>
                     <div class="allergens-grid">
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Грибы" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Грибы" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen1">Грибы</span>
                         </label>
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Горчица" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Горчица" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen2">Горчица</span>
                         </label>
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Лактоза" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Лактоза" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen3">Лактоза</span>
                         </label>
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Яйца" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Яйца" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen4">Яйца</span>
                         </label>
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Глютен" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Глютен" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen5">Глютен</span>
                         </label>
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Красная рыба" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Красная рыба" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen6">Красная рыба</span>
                         </label>
                         <label class="allergen-option">
-                            <input type="checkbox" name="allergen" value="Орехи" class="allergen-checkbox">
+                            <input type="checkbox" name="orderAllergen" value="Орехи" class="allergen-checkbox">
                             <span class="allergen-label" data-i18n="allergen7">Орехи</span>
                         </label>
                     </div>
@@ -360,7 +444,7 @@
                         </label>
                     </div>
                     
-                    <!-- Адрес с автодополнением (DaData для RU, OSM для EN) -->
+                    <!-- Адрес с автодополнением -->
                     <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
                         <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
                         <div class="address-input-wrapper">
@@ -374,13 +458,11 @@
                                 data-dd-city="Москва"
                                 data-osm-city="Dubai"
                             >
-                            <!-- Индикатор загрузки -->
                             <div class="address-loading" id="addressLoading">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M21 12a9 9 0 11-6.219-8.56" stroke-linecap="round"/>
                                 </svg>
                             </div>
-                            <!-- Выпадающий список подсказок -->
                             <div class="suggestions-list" id="addressSuggestions"></div>
                         </div>
                         <small style="color: #999; display: block; margin-top: 5px;" data-i18n="addressHint">
@@ -463,10 +545,12 @@
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
             checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА",
             checkoutSubtitle: "Заполните данные для доставки вашего бокса",
-            sectionPersons: "Количество персон",
+            orderSummaryTitle: "Ваш заказ",
+            orderTotal: "Итого:",
+            sectionPersons: "Контактные персоны",
             persons2: "На 2 персоны", persons4: "На 4 персоны", persons6: "На 6 персон",
-            sectionAllergens: "Укажите аллергены",
-            allergensHint: "Отметьте продукты, которые нужно исключить из заказа",
+            sectionAllergens: "Общие ограничения",
+            allergensHint: "Отметьте продукты, которые нужно исключить из ВСЕГО заказа",
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
             sectionContacts: "Контактные данные",
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
@@ -482,7 +566,10 @@
             btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             orderSuccess: "✅ Спасибо за заказ!\nМы свяжемся с вами в течение часа для подтверждения.",
-            validationError: "Пожалуйста, заполните все обязательные поля"
+            validationError: "Пожалуйста, заполните все обязательные поля",
+            emptyCart: "Корзина пуста. <a href='boxes.html'>Добавьте товары</a>",
+            itemPersons: "Персон:", itemAllergens: "Без:", itemQuantity: "Кол-во:",
+            btnRemove: "Удалить"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -490,10 +577,12 @@
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             checkoutTitle: "CHECKOUT",
             checkoutSubtitle: "Fill in your details for box delivery",
+            orderSummaryTitle: "Your Order",
+            orderTotal: "Total:",
             sectionPersons: "Number of persons",
             persons2: "For 2", persons4: "For 4", persons6: "For 6",
-            sectionAllergens: "Allergens",
-            allergensHint: "Mark products to exclude from your order",
+            sectionAllergens: "General restrictions",
+            allergensHint: "Mark products to exclude from the ENTIRE order",
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red fish", allergen7: "Nuts",
             sectionContacts: "Contact details",
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
@@ -509,22 +598,26 @@
             btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             orderSuccess: "✅ Thank you for your order!\nWe'll contact you within an hour to confirm.",
-            validationError: "Please fill in all required fields"
+            validationError: "Please fill in all required fields",
+            emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
+            itemPersons: "Persons:", itemAllergens: "No:", itemQuantity: "Qty:",
+            btnRemove: "Remove"
         }
     };
 
     // ✅ Глобальная переменная для отслеживания языка
     let currentLang = 'ru';
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
     function applyLanguage(lang) {
-        currentLang = lang; // ✅ Сохраняем текущий язык
+        currentLang = lang;
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang][key]) el.textContent = translations[lang][key];
         });
         
-        // ✅ Обновляем плейсхолдеры и подсказки при смене языка
+        // Обновляем плейсхолдеры и подсказки при смене языка
         const addressInput = document.getElementById('address');
         const addressHint = document.querySelector('[data-i18n="addressHint"]');
         if (addressInput) {
@@ -534,7 +627,7 @@
                 addressInput.dataset.osmCity = 'Moscow';
             } else {
                 addressInput.placeholder = 'Enter address (Dubai)...';
-                addressInput.dataset.ddCity = 'Москва'; // DaData всё равно для Москвы
+                addressInput.dataset.ddCity = 'Москва';
                 addressInput.dataset.osmCity = 'Dubai';
             }
         }
@@ -542,7 +635,7 @@
             addressHint.textContent = translations[lang].addressHint;
         }
 
-        // ✅ Очищаем старые подсказки при смене языка
+        // Очищаем старые подсказки при смене языка
         const suggestionsList = document.getElementById('addressSuggestions');
         if (suggestionsList) {
             suggestionsList.classList.remove('show');
@@ -553,6 +646,119 @@
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+        
+        // Перерисовать сводку заказа на новом языке
+        renderOrderSummary();
+    }
+
+    // ===== СВОДКА ЗАКАЗА =====
+    function renderOrderSummary() {
+        const container = document.getElementById('orderItemsContainer');
+        const totalEl = document.getElementById('orderTotal');
+        const lang = currentLang;
+        
+        if (cart.length === 0) {
+            container.innerHTML = `<p style="text-align:center;color:#666;padding:20px;">${translations[lang].emptyCart}</p>`;
+            if (totalEl) totalEl.textContent = '0 ₽';
+            return;
+        }
+        
+        let html = '';
+        let total = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            // Формируем строку с аллергенами
+            const allergensText = item.options?.allergens?.length > 0 
+                ? item.options.allergens.join(', ') 
+                : (lang === 'ru' ? 'нет' : 'none');
+            
+            html += `
+                <div class="order-item" data-item-id="${item.id}">
+                    <div class="order-item-info">
+                        <div class="order-item-name">${item.name}</div>
+                        <div class="order-item-options">
+                            <div class="order-item-option">
+                                <span class="order-item-option-label">${translations[lang].itemPersons}</span>
+                                <span class="order-item-option-value">${item.options?.persons || 2}</span>
+                            </div>
+                            <div class="order-item-option">
+                                <span class="order-item-option-label">${translations[lang].itemAllergens}</span>
+                                <span class="order-item-option-value">${allergensText}</span>
+                            </div>
+                        </div>
+                        ${item.options?.allergens?.length > 0 ? 
+                            `<div class="order-item-allergens">
+                                ${item.options.allergens.map(a => `<span class="order-item-allergen">${a}</span>`).join('')}
+                            </div>` : ''}
+                    </div>
+                    <div class="order-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" data-action="decrease" data-item-id="${item.id}">−</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn" data-action="increase" data-item-id="${item.id}">+</button>
+                        </div>
+                        <span class="order-item-remove" data-action="remove" data-item-id="${item.id}" title="${translations[lang].btnRemove}">&times;</span>
+                    </div>
+                    <div class="order-item-price">${itemTotal.toLocaleString('ru-RU')} ₽</div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        if (totalEl) totalEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+        
+        // Обработчики кнопок в сводке
+        container.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const itemId = parseInt(this.dataset.itemId);
+                const action = this.dataset.action;
+                updateCartItemQuantity(itemId, action);
+            });
+        });
+        
+        container.querySelectorAll('.order-item-remove').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const itemId = parseInt(this.dataset.itemId);
+                removeFromCart(itemId);
+            });
+        });
+    }
+    
+    function updateCartItemQuantity(itemId, action) {
+        const item = cart.find(i => i.id === itemId);
+        if (!item) return;
+        
+        if (action === 'increase') {
+            item.quantity++;
+        } else if (action === 'decrease' && item.quantity > 1) {
+            item.quantity--;
+        }
+        
+        saveCart();
+        renderOrderSummary();
+        updateCartCount();
+    }
+    
+    function removeFromCart(itemId) {
+        cart = cart.filter(item => item.id !== itemId);
+        saveCart();
+        renderOrderSummary();
+        updateCartCount();
+    }
+    
+    function saveCart() {
+        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+    }
+    
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalQty;
+        }
     }
 
     // ===== ДВОЙНАЯ ИНТЕГРАЦИЯ: DADATA (RU) + OSM (EN) =====
@@ -563,7 +769,6 @@
     let addressDebounceTimer;
     const DEBOUNCE_DELAY = 300;
 
-    // ✅ Проверка домена для защиты API-ключа
     function isAllowedDomain() {
         const allowedHosts = ['byshura.ru', 'www.byshura.ru', 'localhost', '127.0.0.1'];
         return allowedHosts.some(domain => window.location.hostname.includes(domain));
@@ -575,7 +780,6 @@
         const loadingIndicator = document.getElementById('addressLoading');
         if (!addressInput) return;
 
-        // ✅ Блокировка поля если домен не разрешён
         if (!isAllowedDomain()) {
             addressInput.disabled = true;
             addressInput.placeholder = 'Автодополнение доступно только на byshura.ru';
@@ -583,7 +787,6 @@
             return;
         }
 
-        // ✅ Универсальный обработчик ввода
         addressInput.addEventListener('input', function(e) {
             const query = e.target.value.trim();
             if (query.length < 3) {
@@ -594,25 +797,20 @@
             
             clearTimeout(addressDebounceTimer);
             addressDebounceTimer = setTimeout(() => {
-                // ✅ ВЫБОР СЕРВИСА ПО ЯЗЫКУ
                 if (currentLang === 'ru') {
-                    // RU → DaData (Москва)
                     fetchDaDataSuggestions(query, addressInput.dataset.ddCity || 'Москва');
                 } else {
-                    // EN → Photon/OpenStreetMap (Дубай)
                     fetchOSMSuggestions(query, addressInput.dataset.osmCity || 'Dubai');
                 }
             }, DEBOUNCE_DELAY);
         });
 
-        // Закрытие при клике вне
         document.addEventListener('click', function(e) {
             if (!addressInput.contains(e.target) && !suggestionsList.contains(e.target)) {
                 suggestionsList.classList.remove('show');
             }
         });
 
-        // Навигация клавиатурой
         addressInput.addEventListener('keydown', function(e) {
             const items = suggestionsList.querySelectorAll('.suggestion-item');
             const active = suggestionsList.querySelector('.suggestion-item.active');
@@ -632,13 +830,11 @@
             }
         });
         
-        // Клик по подсказке
         suggestionsList.addEventListener('click', function(e) {
             const item = e.target.closest('.suggestion-item');
             if (item) selectAddressSuggestion(item.dataset.value, item.dataset.full);
         });
 
-        // Обработка выбора доставки
         document.querySelectorAll('input[name="delivery"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 const addressField = document.getElementById('addressField');
@@ -654,7 +850,6 @@
         });
     }
 
-    // --- 1. DADATA (для RU / Москва) ---
     async function fetchDaDataSuggestions(query, city) {
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
@@ -684,15 +879,13 @@
         }
     }
 
-    // --- 2. OPENSTREETMAP / PHOTON (для EN / Дубай) ---
     async function fetchOSMSuggestions(query, city) {
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
         loadingIndicator.classList.add('show');
         
         try {
-            // Photon API: бесплатно, без ключа, bbox ограничивает Дубаем
-            const bbox = '54.8,24.7,55.6,25.3'; // Координаты Дубая
+            const bbox = '54.8,24.7,55.6,25.3';
             const url = `${PHOTON_URL}q=${encodeURIComponent(query)}&limit=5&lang=en&countrycode=ae&bbox=${bbox}`;
             
             const response = await fetch(url);
@@ -719,7 +912,6 @@
         }
     }
 
-    // --- ОБЩИЕ ФУНКЦИИ ---
     function selectAddressSuggestion(value, fullJson) {
         const addressInput = document.getElementById('address');
         addressInput.value = value;
@@ -728,9 +920,7 @@
         if (fullJson) {
             try {
                 const data = JSON.parse(fullJson);
-                // ✅ Сохраняем структурированные данные в зависимости от источника
                 if (currentLang === 'ru') {
-                    // Данные от DaData
                     addressInput.dataset.structured = JSON.stringify({
                         source: 'dadata',
                         street: data.street_with_type, 
@@ -740,7 +930,6 @@
                         postal_code: data.postal_code
                     });
                 } else {
-                    // Данные от OSM/Photon
                     addressInput.dataset.structured = JSON.stringify({
                         source: 'osm',
                         name: data.name,
@@ -764,11 +953,10 @@
     function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
     function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-
     // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
-        applyLanguage(savedLang); // Устанавливаем язык и плейсхолдеры
+        applyLanguage(savedLang);
         
         // Переключатель языка
         const langBtn = document.getElementById('langBtn');
@@ -779,7 +967,7 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault(); e.stopPropagation();
                     const selectedLang = e.target.closest('a').dataset.lang;
-                    applyLanguage(selectedLang); // Здесь меняется currentLang и плейсхолдеры
+                    applyLanguage(selectedLang);
                     setTimeout(() => { langDropdown.classList.remove('show'); }, 100);
                 });
             });
@@ -788,7 +976,11 @@
             });
         }
         
-        // Логика формы (Доставка, Дата, Кнопки, Submit)
+        // Сводка заказа
+        renderOrderSummary();
+        updateCartCount();
+        
+        // Логика формы
         const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
         const addressField = document.getElementById('addressField');
         deliveryRadios.forEach(radio => {
@@ -809,33 +1001,59 @@
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
+        // Отправка формы
         document.getElementById('checkoutForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             if (!name || !phone) { alert(translations[currentLang].validationError); return; }
             
-            const formData = {
-                persons: document.querySelector('input[name="persons"]:checked')?.value,
-                allergens: Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(cb => cb.value),
-                name, phone, messenger: document.getElementById('messenger').value,
+            // Сбор данных заказа с полной структурой корзины
+            const orderData = {
+                // Контактные данные
+                name, phone, 
+                messenger: document.getElementById('messenger').value,
+                
+                // Общие настройки заказа
+                orderPersons: document.querySelector('input[name="orderPersons"]:checked')?.value,
+                orderAllergens: Array.from(document.querySelectorAll('input[name="orderAllergen"]:checked')).map(cb => cb.value),
+                
+                // Доставка
                 delivery: document.querySelector('input[name="delivery"]:checked')?.value,
                 address: document.getElementById('address').value,
-                // ✅ Структурированный адрес (из DaData или OSM)
                 addressStructured: document.getElementById('address')?.dataset.structured 
-                    ? JSON.parse(document.getElementById('address').dataset.structured) 
-                    : null,
-                date: document.getElementById('date').value, time: document.getElementById('time').value,
+                    ? JSON.parse(document.getElementById('address').dataset.structured) : null,
+                date: document.getElementById('date').value, 
+                time: document.getElementById('time').value,
+                
+                // Оплата
                 payment: document.querySelector('input[name="payment"]:checked')?.value,
-                comment: document.getElementById('comment').value
+                comment: document.getElementById('comment').value,
+                
+                // ✅ ПОЛНАЯ КОРЗИНА С ОПЦИЯМИ
+                items: cart.map(item => ({
+                    id: item.id,
+                    productId: item.productId,
+                    name: item.name,
+                    basePrice: item.basePrice,
+                    price: item.price,
+                    quantity: item.quantity,
+                    options: item.options // { persons, allergens }
+                })),
+                
+                // Итого
+                total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
             };
             
-            console.log('Заказ:', formData);
-            // Здесь можно отправить formData на сервер
-            // fetch('/api/order', { method: 'POST', body: JSON.stringify(formData) ... })
+            console.log('📦 Полный заказ:', orderData);
+            // Здесь можно отправить на сервер:
+            // fetch('/api/order', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(orderData) })
             
             alert(translations[currentLang].orderSuccess);
-            localStorage.removeItem('hedonism_cart');
+            cart = [];
+            saveCart();
+            updateCartCount();
+            renderOrderSummary();
             window.location.href = 'index.html';
         });
         
