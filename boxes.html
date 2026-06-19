@@ -258,6 +258,7 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">3 500 <span>₽</span></div>
+                            <!-- ✅ Только текст "В КОРЗИНУ", цена убрана -->
                             <button class="btn-add-cart" data-name="Бокс «Лимонный»" data-price="3500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
@@ -419,7 +420,7 @@
             checkoutSuccess: "✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.", cartAlert: "Добавьте товары в корзину"
         },
         en: {
-            pageTitle: "Boxes - Hedonism Herald",
+            pageTitle: "Boxes - Hedonism Dispatch",  // ✅ Herald → Dispatch
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
@@ -436,7 +437,7 @@
             feat12: "8 types of appetizers", feat13: "Cocktail set", feat14: "Finger food", feat15: "For 6-8 people",
             feat16: "Fresh pastries", feat17: "Seasonal fruits", feat18: "Coffee/tea",
             feat19: "5 signature desserts", feat20: "Champagne", feat21: "Berry sauce",
-            btnCart: "ADD TO CART", footerCopy: "© HEDONISM HERALD WORKS FOR YOU WITH LOVE SINCE 2025",
+            btnCart: "ADD TO CART", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",  // ✅ Herald → Dispatch
             cartTitle: "Your cart", cartEmpty: "Cart is empty", cartTotal: "Total:", btnCheckout: "CHECKOUT",
             checkoutSuccess: "✅ Order placed!\nWe'll contact you within an hour.", cartAlert: "Add items to cart first"
         }
@@ -451,10 +452,7 @@
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
-        document.querySelectorAll('.btn-add-cart').forEach(btn => {
-            const price = btn.dataset.price;
-            btn.textContent = `${translations[lang].btnCart} — ${price} ₽`;
-        });
+        // ✅ Убрано добавление цены к кнопкам - теперь только текст из перевода
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -466,12 +464,14 @@
         const langDropdown = document.getElementById('langDropdown');
         
         if (langBtn && langDropdown) {
+            // Открываем dropdown только по клику на иконку
             langBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
+                // Переключаем видимость: если открыто - закрываем, если закрыто - открываем
                 langDropdown.classList.toggle('show');
             });
             
-            // ✅ ИСПРАВЛЕНИЕ: используем e.target.closest('a') для надёжности
+            // Выбор языка - ИСПРАВЛЕНО: гарантированное закрытие после выбора
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -485,6 +485,7 @@
                 });
             });
             
+            // Закрытие при клике вне элемента
             document.addEventListener('click', function(e) {
                 if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
                     langDropdown.classList.remove('show');
@@ -548,8 +549,11 @@
             });
         }
         
+        // Кнопки "В корзину" - только добавление, без изменения текста
         document.querySelectorAll('.btn-add-cart').forEach(btn => {
-            btn.addEventListener('click', function() { addToCart(this.dataset.name, parseInt(this.dataset.price)); });
+            btn.addEventListener('click', function() { 
+                addToCart(this.dataset.name, parseInt(this.dataset.price)); 
+            });
         });
         
         const checkoutBtn = document.getElementById('checkoutBtn');
