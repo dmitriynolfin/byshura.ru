@@ -27,9 +27,9 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* БЕГУЩАЯ СТРОКА */
-        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 12px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; padding-left: 100%; }
+        /* БЕГУЩАЯ СТРОКА - как на index.html */
+        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
         /* ШАПКА */
@@ -62,8 +62,8 @@
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: transform 0.3s, box-shadow 0.3s; }
-        .box-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
+        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; } /* ✅ Убран transform */
+        .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); } /* ✅ Только тень, без смещения */
         .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; }
         .box-badge { position: absolute; top: 15px; left: 15px; background: #FFD93D; color: #070395; padding: 8px 15px; border-radius: 20px; font-weight: 600; font-size: 12px; text-transform: uppercase; }
         .box-content { padding: 25px; }
@@ -121,8 +121,8 @@
         
         @media (max-width: 768px) { 
             .header { padding: 10px 0; } 
-            .marquee-bar { top: 58px; font-size: 11px; padding: 5px 0; }
-            .catalog { padding-top: 130px; }
+            .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; }
+            .catalog { padding-top: 135px; }
             .header-container { padding: 0 15px; } 
             .logo { width: 38px; height: 38px; font-size: 20px; } 
             .page-title { font-size: 32px; } 
@@ -201,7 +201,6 @@
             </div>
             <div class="header-right">
                 <div class="header-icons">
-                    <!-- ✅ Иконка профиля УДАЛЕНА -->
                     <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -258,7 +257,6 @@
                         </div>
                         <div class="box-footer">
                             <div class="box-price">3 500 <span>₽</span></div>
-                            <!-- ✅ Только текст "В КОРЗИНУ", цена убрана -->
                             <button class="btn-add-cart" data-name="Бокс «Лимонный»" data-price="3500" data-i18n="btnCart">В КОРЗИНУ</button>
                         </div>
                     </div>
@@ -420,7 +418,7 @@
             checkoutSuccess: "✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.", cartAlert: "Добавьте товары в корзину"
         },
         en: {
-            pageTitle: "Boxes - Hedonism Dispatch",  // ✅ Herald → Dispatch
+            pageTitle: "Boxes - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
@@ -437,7 +435,7 @@
             feat12: "8 types of appetizers", feat13: "Cocktail set", feat14: "Finger food", feat15: "For 6-8 people",
             feat16: "Fresh pastries", feat17: "Seasonal fruits", feat18: "Coffee/tea",
             feat19: "5 signature desserts", feat20: "Champagne", feat21: "Berry sauce",
-            btnCart: "ADD TO CART", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",  // ✅ Herald → Dispatch
+            btnCart: "ADD TO CART", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartTitle: "Your cart", cartEmpty: "Cart is empty", cartTotal: "Total:", btnCheckout: "CHECKOUT",
             checkoutSuccess: "✅ Order placed!\nWe'll contact you within an hour.", cartAlert: "Add items to cart first"
         }
@@ -452,7 +450,6 @@
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
-        // ✅ Убрано добавление цены к кнопкам - теперь только текст из перевода
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -464,28 +461,28 @@
         const langDropdown = document.getElementById('langDropdown');
         
         if (langBtn && langDropdown) {
-            // Открываем dropdown только по клику на иконку
             langBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Переключаем видимость: если открыто - закрываем, если закрыто - открываем
                 langDropdown.classList.toggle('show');
             });
             
-            // Выбор языка - ИСПРАВЛЕНО: гарантированное закрытие после выбора
+            // ✅ ИСПРАВЛЕНИЕ: гарантированное закрытие после выбора
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation(); // ✅ Останавливаем всплытие
                     const selectedLink = e.target.closest('a');
                     if (selectedLink) {
                         const selectedLang = selectedLink.dataset.lang;
                         applyLanguage(selectedLang);
                     }
-                    // ✅ Гарантированно закрываем dropdown после выбора
-                    langDropdown.classList.remove('show');
+                    // ✅ Гарантированно закрываем dropdown
+                    setTimeout(() => {
+                        langDropdown.classList.remove('show');
+                    }, 100); // Небольшая задержка для надёжности
                 });
             });
             
-            // Закрытие при клике вне элемента
             document.addEventListener('click', function(e) {
                 if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
                     langDropdown.classList.remove('show');
@@ -549,20 +546,17 @@
             });
         }
         
-        // Кнопки "В корзину" - только добавление, без изменения текста
         document.querySelectorAll('.btn-add-cart').forEach(btn => {
-            btn.addEventListener('click', function() { 
-                addToCart(this.dataset.name, parseInt(this.dataset.price)); 
-            });
+            btn.addEventListener('click', function() { addToCart(this.dataset.name, parseInt(this.dataset.price)); });
         });
         
+        // ✅ Кнопка "Оформить заказ" теперь ведёт на checkout.html
         const checkoutBtn = document.getElementById('checkoutBtn');
         checkoutBtn?.addEventListener('click', function() {
             const lang = localStorage.getItem('hedonism_lang') || 'ru';
             if (cart.length === 0) { alert(translations[lang].cartAlert); return; }
-            alert(translations[lang].checkoutSuccess);
-            cart = []; localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); closeCart();
-            window.location.href = 'index.html';
+            // Переход на страницу оформления заказа
+            window.location.href = 'checkout.html';
         });
         
         updateCartCount();
