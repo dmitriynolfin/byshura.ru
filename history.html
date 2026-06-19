@@ -65,10 +65,15 @@
         .social-link:hover { color: #FFD93D; }
         
         /* КОРЗИНА */
-        .cart-modal { position: fixed; top: 0; right: -400px; width: 400px; max-width: 100%; height: 100vh; background: white; box-shadow: -5px 0 20px rgba(0,0,0,0.1); z-index: 2000; transition: right 0.3s ease; padding: 20px; display: flex; flex-direction: column; }
+        .cart-modal { 
+            position: fixed; top: 0; right: -100%;
+            width: 400px; max-width: 100%; height: 100vh; 
+            background: white; box-shadow: -5px 0 20px rgba(0,0,0,0.1); 
+            z-index: 2000; transition: right 0.3s ease; padding: 20px; display: flex; flex-direction: column; 
+        }
         .cart-modal.open { right: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #eee; margin-bottom: 20px; }
-        .cart-close { font-size: 24px; color: #070395; }
+        .cart-close { font-size: 28px; color: #070395; }
         .cart-items { flex: 1; overflow-y: auto; }
         .cart-empty { text-align: center; color: #666; padding: 40px 0; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
@@ -83,9 +88,124 @@
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .cart-overlay.open { opacity: 1; visibility: visible; }
         
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
-        @media (max-width: 768px) { .header { padding: 12px 0; } .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; } .history-page { padding-top: 130px; } .header-container { padding: 0 15px; } .logo { width: 40px; height: 40px; font-size: 20px; } .page-title { font-size: 32px; } .timeline { padding-left: 20px; } .footer-container { flex-direction: column; gap: 15px; text-align: center; } }
+        /* СКРЫТИЕ СКРОЛЛБАРА */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        html { scrollbar-width: none; }
+        body { -ms-overflow-style: none; }
+        
+        /* АДАПТИВНОСТЬ - УЛУЧШЕННАЯ */
+        @media (max-width: 1024px) { 
+            .container { padding: 0 20px; } 
+            .nav-menu { display: none; } 
+        }
+        
+        @media (max-width: 768px) { 
+            .header { padding: 10px 0; } 
+            .marquee-bar { top: 58px; font-size: 11px; padding: 5px 0; }
+            .history-page { padding-top: 130px; }
+            .header-container { padding: 0 15px; } 
+            
+            /* ЛОГОТИП И ИКОНКИ */
+            .logo { width: 38px; height: 38px; font-size: 20px; }
+            .footer-logo { width: 38px; height: 38px; font-size: 18px; }
+            
+            /* ИКОНКИ В ШАПКЕ */
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 6px; }
+            .icon-btn svg { width: 18px; height: 18px; }
+            
+            /* КНОПКИ */
+            .btn-back { padding: 8px 18px; font-size: 11px; }
+            .cart-close { font-size: 24px; }
+            
+            /* КОРЗИНА */
+            .cart-modal { width: 100%; max-width: 100%; right: -100%; }
+            .cart-overlay { display: none; }
+            
+            /* FOOTER И СОЦСЕТИ */
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
+            .social-links { gap: 12px; }
+            .social-link { width: 22px; height: 22px; }
+            .social-link svg { width: 18px; height: 18px; }
+            
+            /* ЗАГОЛОВКИ И КОНТЕНТ */
+            .page-title { font-size: 32px; margin-bottom: 15px; }
+            .page-subtitle { font-size: 16px; margin-bottom: 40px; }
+            
+            /* TIMELINE */
+            .timeline { padding-left: 20px; }
+            .timeline-item { padding: 20px 0 20px 35px; margin-bottom: 25px; }
+            .timeline-item::before { left: -8px; width: 18px; height: 18px; top: 25px; }
+            .timeline-year { font-size: 20px; margin-bottom: 8px; }
+            .timeline-title { font-size: 18px; margin-bottom: 8px; }
+            .timeline-descr { font-size: 14px; line-height: 1.6; }
+            
+            /* ФИЛОСОФИЯ */
+            .philosophy-section { padding: 40px 0; margin-top: 30px; }
+            .philosophy-card { padding: 20px; }
+            .philosophy-icon { font-size: 36px; margin-bottom: 15px; }
+            .philosophy-card h3 { font-size: 18px; margin-bottom: 10px; }
+            .philosophy-card p { font-size: 13px; }
+            
+            .header-right { gap: 8px; }
+        }
+        
+        @media (max-width: 480px) { 
+            .header { padding: 8px 0; }
+            .marquee-bar { top: 54px; font-size: 10px; padding: 4px 0; letter-spacing: 0.5px; }
+            .history-page { padding-top: 125px; }
+            
+            /* ЛОГОТИП */
+            .logo { width: 35px; height: 35px; font-size: 18px; }
+            .footer-logo { width: 35px; height: 35px; font-size: 16px; }
+            
+            /* ИКОНКИ */
+            .header-icons { gap: 6px; }
+            .icon-btn { padding: 5px; }
+            .icon-btn svg { width: 16px; height: 16px; }
+            .cart-count { width: 14px; height: 14px; font-size: 8px; }
+            
+            /* КНОПКИ */
+            .btn-back { padding: 6px 14px; font-size: 10px; }
+            .cart-close { font-size: 22px; }
+            
+            /* TIMELINE */
+            .timeline { padding-left: 15px; }
+            .timeline-item { padding: 15px 0 15px 30px; margin-bottom: 20px; }
+            .timeline-item::before { left: -7px; width: 16px; height: 16px; top: 20px; border-width: 2px; }
+            .timeline-year { font-size: 18px; }
+            .timeline-title { font-size: 16px; }
+            .timeline-descr { font-size: 13px; }
+            
+            /* ФИЛОСОФИЯ */
+            .philosophy-grid { gap: 20px; }
+            .philosophy-card { padding: 16px; border-radius: 12px; }
+            .philosophy-icon { font-size: 32px; margin-bottom: 12px; }
+            .philosophy-card h3 { font-size: 16px; }
+            .philosophy-card p { font-size: 12px; }
+            
+            /* FOOTER */
+            .footer { padding: 30px 0; }
+            .social-links { gap: 10px; }
+            .social-link { width: 20px; height: 20px; }
+            .social-link svg { width: 16px; height: 16px; }
+            .footer-copyright { font-size: 11px; }
+            
+            .header-right { gap: 6px; }
+        }
+        
+        @media (max-width: 360px) {
+            .logo { width: 32px; height: 32px; font-size: 16px; }
+            .btn-back { padding: 5px 12px; font-size: 9px; }
+            .page-title { font-size: 28px; }
+            .page-subtitle { font-size: 14px; }
+            .timeline-year { font-size: 17px; }
+            .timeline-title { font-size: 15px; }
+            .timeline-descr { font-size: 12px; }
+            .philosophy-icon { font-size: 28px; }
+            .philosophy-card h3 { font-size: 15px; }
+            .philosophy-card p { font-size: 11px; }
+        }
     </style>
 </head>
 <body>
@@ -230,7 +350,8 @@
 
     function applyLanguage(lang) {
         document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.dataset.i18n; if (translations[lang][key]) el.textContent = translations[lang][key]; });
-        document.getElementById('langCurrent').textContent = lang.toUpperCase();
+        const langCurrent = document.getElementById('langCurrent');
+        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
     }
@@ -240,24 +361,30 @@
         applyLanguage(savedLang);
         
         // Язык
-        document.getElementById('langBtn')?.addEventListener('click', e => { e.stopPropagation(); document.getElementById('langDropdown')?.classList.toggle('show'); });
-        document.querySelectorAll('#langDropdown a')?.forEach(link => link.addEventListener('click', e => { e.preventDefault(); applyLanguage(e.target.closest('a').dataset.lang); document.getElementById('langDropdown')?.classList.remove('show'); }));
-        document.addEventListener('click', e => { if (!document.getElementById('langBtn')?.contains(e.target) && !document.getElementById('langDropdown')?.contains(e.target)) document.getElementById('langDropdown')?.classList.remove('show'); });
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
+            langDropdown.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => { e.preventDefault(); applyLanguage(this.dataset.lang); langDropdown.classList.remove('show'); });
+            });
+            document.addEventListener('click', e => { if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show'); });
+        }
         
         // Корзина
         const cartBtn = document.getElementById('cartBtn'), cartModal = document.getElementById('cartModal'), cartOverlay = document.getElementById('cartOverlay'), cartClose = document.getElementById('cartClose'), cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'), cartItems = document.getElementById('cartItems');
         let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
-        function openCart() { cartModal.classList.add('open'); cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
-        function closeCart() { cartModal.classList.remove('open'); cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+        function openCart() { cartModal?.classList.add('open'); cartOverlay?.classList.add('open'); document.body.style.overflow = 'hidden'; renderCart(); }
+        function closeCart() { cartModal?.classList.remove('open'); cartOverlay?.classList.remove('open'); document.body.style.overflow = ''; }
         cartBtn?.addEventListener('click', openCart); cartClose?.addEventListener('click', closeCart); cartOverlay?.addEventListener('click', closeCart);
-        function updateCartCount() { cartCount.textContent = cart.length; }
+        function updateCartCount() { if (cartCount) cartCount.textContent = cart.length; }
         function renderCart() {
             const lang = localStorage.getItem('hedonism_lang') || 'ru';
-            if (cart.length === 0) { cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`; cartTotal.textContent = '0 ₽'; return; }
+            if (cart.length === 0) { if (cartItems) cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`; if (cartTotal) cartTotal.textContent = '0 ₽'; return; }
             let html = '', total = 0;
             cart.forEach(item => { total += item.price; html += `<div class="cart-item"><span class="cart-item-name">${item.name}</span><div><span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span><span class="cart-item-remove" data-id="${item.id}">&times;</span></div></div>`; });
-            cartItems.innerHTML = html; cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
-            cartItems.querySelectorAll('.cart-item-remove').forEach(btn => btn.addEventListener('click', e => { cart = cart.filter(i => i.id !== parseInt(e.target.dataset.id)); localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); renderCart(); }));
+            if (cartItems) cartItems.innerHTML = html; if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+            if (cartItems) cartItems.querySelectorAll('.cart-item-remove').forEach(btn => btn.addEventListener('click', e => { cart = cart.filter(i => i.id !== parseInt(e.target.dataset.id)); localStorage.setItem('hedonism_cart', JSON.stringify(cart)); updateCartCount(); renderCart(); }));
         }
         document.getElementById('checkoutBtn')?.addEventListener('click', function() {
             const lang = localStorage.getItem('hedonism_lang') || 'ru';
