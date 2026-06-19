@@ -28,8 +28,45 @@
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+        /* ===== DADATA AUTOCOMPLETE ===== */
+        .address-input-wrapper { position: relative; }
+        .suggestions-list {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: white; border: 1px solid #eee; border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000;
+            max-height: 300px; overflow-y: auto; display: none; margin-top: 5px;
+        }
+        .suggestions-list.show { display: block; }
+        .suggestion-item {
+            padding: 12px 15px; cursor: pointer; transition: background 0.2s;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover, .suggestion-item.active { background: #f0f0ff; }
+        .suggestion-main { font-size: 14px; color: #070395; font-weight: 500; margin-bottom: 4px; }
+        .suggestion-details { font-size: 12px; color: #666; }
+        .suggestion-type {
+            display: inline-block; padding: 2px 8px; background: #FFD93D;
+            color: #070395; border-radius: 4px; font-size: 10px; font-weight: 600;
+            margin-right: 8px; text-transform: uppercase;
+        }
+        .address-loading {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: none;
+        }
+        .address-loading.show { display: block; }
+        .address-loading svg { animation: spin 1s linear infinite; color: #070395; }
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+        @media (max-width: 480px) {
+            .suggestions-list { position: fixed; left: 15px; right: 15px; max-height: 40vh; }
+            .suggestion-main { font-size: 13px; }
+            .suggestion-details { font-size: 11px; }
+        }
         
-        /* БЕГУЩАЯ СТРОКА - как на index.html */
+        /* БЕГУЩАЯ СТРОКА */
         .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
@@ -63,35 +100,25 @@
         .checkout-container { max-width: 900px; margin: 0 auto; }
         .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
         .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
-        
-        /* ФОРМА */
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
         .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
-        
-        /* ПОЛЯ ФОРМЫ */
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
         .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 15px; border: 1.5px solid #070395; border-radius: 10px; font-size: 14px; color: #070395; background: white; transition: border-color 0.3s; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #FFD93D; }
         .form-textarea { min-height: 100px; resize: vertical; }
-        
-        /* ВЫБОР ПЕРСОН */
         .persons-select { display: flex; gap: 10px; flex-wrap: wrap; }
         .person-option { flex: 1; min-width: 120px; }
         .person-radio { display: none; }
         .person-label { display: flex; align-items: center; justify-content: center; padding: 12px 15px; border: 2px solid #070395; border-radius: 10px; font-size: 14px; font-weight: 500; color: #070395; cursor: pointer; transition: all 0.3s; text-align: center; }
         .person-radio:checked + .person-label { background: #070395; color: white; }
         .person-label:hover { border-color: #FFD93D; }
-        
-        /* АЛЛЕРГЕНЫ */
         .allergens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
         .allergen-option { display: flex; align-items: center; gap: 8px; }
         .allergen-checkbox { width: 18px; height: 18px; accent-color: #070395; }
         .allergen-label { font-size: 13px; color: #070395; cursor: pointer; }
-        
-        /* ДОСТАВКА */
         .delivery-options { display: flex; gap: 15px; flex-wrap: wrap; }
         .delivery-option { flex: 1; min-width: 150px; }
         .delivery-radio { display: none; }
@@ -99,14 +126,10 @@
         .delivery-radio:checked + .delivery-label { background: #070395; color: white; }
         .delivery-label:hover { border-color: #FFD93D; }
         .delivery-label svg { width: 20px; height: 20px; flex-shrink: 0; }
-        
-        /* ОПЛАТА */
         .payment-options { display: flex; flex-direction: column; gap: 10px; }
         .payment-option { display: flex; align-items: center; gap: 10px; }
         .payment-radio { width: 18px; height: 18px; accent-color: #070395; }
         .payment-label { font-size: 14px; color: #070395; cursor: pointer; }
-        
-        /* КНОПКИ */
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
         .btn-submit { flex: 1; background: #070395; color: white; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer; }
         .btn-submit:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
@@ -129,7 +152,6 @@
         
         /* АДАПТИВНОСТЬ */
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
-        
         @media (max-width: 768px) { 
             .header { padding: 10px 0; } 
             .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; }
@@ -150,7 +172,6 @@
             .icon-btn svg { width: 18px; height: 18px; }
             .btn-back { padding: 8px 18px; font-size: 11px; }
         }
-        
         @media (max-width: 480px) { 
             .header { padding: 8px 0; }
             .marquee-bar { top: 54px; font-size: 10px; padding: 4px 0; letter-spacing: 0.5px; }
@@ -173,7 +194,6 @@
             .social-link svg { width: 16px; height: 16px; }
             .footer-copyright { font-size: 11px; }
         }
-        
         @media (max-width: 360px) {
             .logo { width: 32px; height: 32px; font-size: 16px; }
             .btn-back { padding: 5px 12px; font-size: 9px; }
@@ -334,10 +354,32 @@
                         </label>
                     </div>
                     
-                    <!-- Адрес (показывается только для курьера) -->
+                    <!-- Адрес с DaData autocomplete -->
                     <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
                         <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
-                        <textarea id="address" name="address" class="form-textarea" placeholder="Улица, дом, квартира, этаж, домофон"></textarea>
+                        <div class="address-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="address" 
+                                name="address" 
+                                class="form-input" 
+                                placeholder="Начните вводить адрес..." 
+                                autocomplete="off"
+                                data-dd-type="address"
+                                data-dd-city="Москва"
+                            >
+                            <!-- Индикатор загрузки -->
+                            <div class="address-loading" id="addressLoading">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 12a9 9 0 11-6.219-8.56" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <!-- Выпадающий список подсказок -->
+                            <div class="suggestions-list" id="addressSuggestions"></div>
+                        </div>
+                        <small style="color: #999; display: block; margin-top: 5px;" data-i18n="addressHint">
+                            Введите улицу, дом или метро — подсказки появятся автоматически
+                        </small>
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
@@ -471,46 +513,179 @@
         localStorage.setItem('hedonism_lang', lang);
     }
 
+    // ===== DADATA INTEGRATION =====
+    const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
+    const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
+    let addressDebounceTimer;
+    const ADDRESS_DEBOUNCE_DELAY = 300;
+
+    function initAddressAutocomplete() {
+        const addressInput = document.getElementById('address');
+        const suggestionsList = document.getElementById('addressSuggestions');
+        const loadingIndicator = document.getElementById('addressLoading');
+        if (!addressInput) return;
+
+        addressInput.addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+            if (query.length < 3) {
+                suggestionsList.classList.remove('show');
+                suggestionsList.innerHTML = '';
+                return;
+            }
+            clearTimeout(addressDebounceTimer);
+            addressDebounceTimer = setTimeout(() => {
+                fetchAddressSuggestions(query, addressInput.dataset.city || 'Москва');
+            }, ADDRESS_DEBOUNCE_DELAY);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!addressInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+                suggestionsList.classList.remove('show');
+            }
+        });
+
+        addressInput.addEventListener('keydown', function(e) {
+            const items = suggestionsList.querySelectorAll('.suggestion-item');
+            const active = suggestionsList.querySelector('.suggestion-item.active');
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const next = active ? active.nextElementSibling : items[0];
+                if (next) { active?.classList.remove('active'); next.classList.add('active'); next.scrollIntoView({ block: 'nearest' }); }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const prev = active ? active.previousElementSibling : items[items.length - 1];
+                if (prev) { active?.classList.remove('active'); prev.classList.add('active'); prev.scrollIntoView({ block: 'nearest' }); }
+            } else if (e.key === 'Enter' && active) {
+                e.preventDefault();
+                selectAddressSuggestion(active.dataset.value, active.dataset.full);
+            } else if (e.key === 'Escape') {
+                suggestionsList.classList.remove('show');
+            }
+        });
+
+        document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const addressField = document.getElementById('addressField');
+                const addressInput = document.getElementById('address');
+                if (this.value === 'courier') {
+                    addressField.style.display = 'block';
+                    addressInput.required = true;
+                } else {
+                    addressField.style.display = 'none';
+                    addressInput.required = false;
+                    suggestionsList.classList.remove('show');
+                }
+            });
+        });
+    }
+
+    async function fetchAddressSuggestions(query, city) {
+        const suggestionsList = document.getElementById('addressSuggestions');
+        const loadingIndicator = document.getElementById('addressLoading');
+        loadingIndicator.classList.add('show');
+        try {
+            const response = await fetch(DADATA_URL, {
+                method: 'POST', mode: 'cors',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': `Token ${DADATA_API_KEY}` },
+                body: JSON.stringify({ query: query, count: 7, from_bound: { value: 'city' }, to_bound: { value: 'house' }, locations: [{ city: city }] })
+            });
+            if (!response.ok) throw new Error('API error');
+            const data = await response.json();
+            renderSuggestions(data.suggestions, query);
+        } catch (error) {
+            console.error('DaData error:', error);
+            suggestionsList.innerHTML = `<div class="suggestion-item" style="color: #e74c3c; cursor: default;">Не удалось загрузить подсказки. Проверьте подключение.</div>`;
+            suggestionsList.classList.add('show');
+        } finally {
+            loadingIndicator.classList.remove('show');
+        }
+    }
+
+    function renderSuggestions(suggestions, query) {
+        const suggestionsList = document.getElementById('addressSuggestions');
+        if (!suggestions || suggestions.length === 0) {
+            suggestionsList.innerHTML = `<div class="suggestion-item" style="cursor: default; color: #999;">Ничего не найдено по запросу "${query}"</div>`;
+            suggestionsList.classList.add('show');
+            return;
+        }
+        suggestionsList.innerHTML = suggestions.map(suggestion => {
+            const data = suggestion.data;
+            const type = getShortType(data.type);
+            const main = suggestion.value;
+            const details = formatAddressDetails(data);
+            return `<div class="suggestion-item" data-value="${escapeHtml(suggestion.value)}" data-full="${escapeHtml(JSON.stringify(data))}"><div class="suggestion-main">${type ? `<span class="suggestion-type">${type}</span>` : ''}${highlightMatch(main, query)}</div>${details ? `<div class="suggestion-details">${details}</div>` : ''}</div>`;
+        }).join('');
+        suggestionsList.querySelectorAll('.suggestion-item').forEach(item => {
+            item.addEventListener('click', function() { selectAddressSuggestion(this.dataset.value, this.dataset.full); });
+        });
+        suggestionsList.classList.add('show');
+    }
+
+    function selectAddressSuggestion(value, fullJson) {
+        const addressInput = document.getElementById('address');
+        addressInput.value = value;
+        document.getElementById('addressSuggestions').classList.remove('show');
+        if (fullJson) {
+            try {
+                const data = JSON.parse(fullJson);
+                addressInput.dataset.structured = JSON.stringify({
+                    street: data.street_with_type, house: data.house, building: data.building, flat: data.flat,
+                    postal_code: data.postal_code, city: data.city, region: data.region_with_type,
+                    lat: data.geo?.lat, lon: data.geo?.lon
+                });
+            } catch(e) { console.warn('Failed to parse structured address'); }
+        }
+        addressInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function getShortType(type) {
+        const types = { 'street': 'ул.', 'prospect': 'пр.', 'avenue': 'ав.', 'boulevard': 'б-р', 'alley': 'пер.', 'square': 'пл.', 'house': 'д.', 'building': 'стр.', 'liter': 'лит.', 'flat': 'кв.', 'metro': 'метро', 'railway_station': 'ЖД станция' };
+        return types[type] || '';
+    }
+
+    function formatAddressDetails(data) {
+        const parts = [];
+        if (data.city) parts.push(data.city);
+        if (data.district) parts.push(data.district);
+        if (data.postal_code) parts.push(`индекс ${data.postal_code}`);
+        return parts.join(', ');
+    }
+
+    function highlightMatch(text, query) {
+        if (!query) return escapeHtml(text);
+        const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+        return escapeHtml(text).replace(regex, '<strong style="color:#070395">$1</strong>');
+    }
+
+    function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+    // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
-        // Переключатель языка
+        // Язык
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
-        
         if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                langDropdown.classList.toggle('show');
-            });
-            
+            langBtn.addEventListener('click', function(e) { e.stopPropagation(); langDropdown.classList.toggle('show'); });
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+                    e.preventDefault(); e.stopPropagation();
                     const selectedLink = e.target.closest('a');
-                    if (selectedLink) {
-                        const selectedLang = selectedLink.dataset.lang;
-                        applyLanguage(selectedLang);
-                    }
-                    setTimeout(() => {
-                        langDropdown.classList.remove('show');
-                    }, 100);
+                    if (selectedLink) { const selectedLang = selectedLink.dataset.lang; applyLanguage(selectedLang); }
+                    setTimeout(() => { langDropdown.classList.remove('show'); }, 100);
                 });
             });
-            
             document.addEventListener('click', function(e) {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-                    langDropdown.classList.remove('show');
-                }
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) { langDropdown.classList.remove('show'); }
             });
         }
         
-        // Показ/скрытие поля адреса
+        // Доставка
         const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
         const addressField = document.getElementById('addressField');
-        
         deliveryRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.value === 'courier') {
@@ -523,61 +698,49 @@
             });
         });
         
-        // Установка минимальной даты (сегодня)
+        // Дата и время
         const dateInput = document.getElementById('date');
         const today = new Date().toISOString().split('T')[0];
-        dateInput.min = today;
-        dateInput.value = today;
-        
-        // Установка времени по умолчанию (18:00)
+        dateInput.min = today; dateInput.value = today;
         const timeInput = document.getElementById('time');
         timeInput.value = '18:00';
         
-        // Обработка формы
-        const checkoutForm = document.getElementById('checkoutForm');
+        // Кнопки
         const cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn?.addEventListener('click', function() { window.location.href = 'boxes.html'; });
         
-        cancelBtn?.addEventListener('click', function() {
-            window.location.href = 'boxes.html';
-        });
-        
+        // Форма
+        const checkoutForm = document.getElementById('checkoutForm');
         checkoutForm?.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Валидация
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
+            if (!name || !phone) { alert(translations[savedLang].validationError); return; }
             
-            if (!name || !phone) {
-                alert(translations[savedLang].validationError);
-                return;
-            }
-            
-            // Сбор данных
             const formData = {
                 persons: document.querySelector('input[name="persons"]:checked')?.value,
                 allergens: Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(cb => cb.value),
-                name: name,
-                phone: phone,
-                messenger: document.getElementById('messenger').value,
+                name: name, phone: phone, messenger: document.getElementById('messenger').value,
                 delivery: document.querySelector('input[name="delivery"]:checked')?.value,
                 address: document.getElementById('address').value,
-                date: document.getElementById('date').value,
-                time: document.getElementById('time').value,
+                // ✅ Структурированный адрес из DaData
+                addressStructured: document.getElementById('address')?.dataset.structured 
+                    ? JSON.parse(document.getElementById('address').dataset.structured) : null,
+                date: document.getElementById('date').value, time: document.getElementById('time').value,
                 payment: document.querySelector('input[name="payment"]:checked')?.value,
                 comment: document.getElementById('comment').value
             };
             
-            // Здесь можно отправить данные на сервер или в Telegram
             console.log('Заказ:', formData);
+            // Здесь можно отправить formData на сервер: fetch('/api/order', { method: 'POST', body: JSON.stringify(formData) ... })
             
-            // Показать сообщение об успехе
             alert(translations[savedLang].orderSuccess);
-            
-            // Очистить корзину и вернуться на главную
             localStorage.removeItem('hedonism_cart');
             window.location.href = 'index.html';
         });
+        
+        // Инициализация DaData
+        initAddressAutocomplete();
         
         console.log('✅ checkout.html ready! Language: ' + savedLang.toUpperCase());
     });
