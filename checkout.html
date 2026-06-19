@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">Оформление заказа - Вестник Гедонизма</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
+        button { cursor: pointer; border: none; background: none; font: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        
+        /* БЕГУЩАЯ СТРОКА - как на index.html */
+        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        
+        /* ШАПКА */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-link.active { color: #FFD93D; }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-icons { display: flex; gap: 12px; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
+        .btn-back:hover { background: #070395; color: white; }
+        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 150px; display: none; z-index: 100; margin-top: 5px; }
+        .lang-dropdown.show { display: block; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: uppercase; }
+        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
+        .lang-code { font-weight: 600; margin-right: 5px; }
+        .lang-descr { color: #666; font-size: 12px; }
+        
+        /* ОФОРМЛЕНИЕ ЗАКАЗА */
+        .checkout-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
+        .checkout-container { max-width: 900px; margin: 0 auto; }
+        .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
+        .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
+        
+        /* ФОРМА */
+        .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
+        .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
+        .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
+        
+        /* ПОЛЯ ФОРМЫ */
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 15px; border: 1.5px solid #070395; border-radius: 10px; font-size: 14px; color: #070395; background: white; transition: border-color 0.3s; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #FFD93D; }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        
+        /* ВЫБОР ПЕРСОН */
+        .persons-select { display: flex; gap: 10px; flex-wrap: wrap; }
+        .person-option { flex: 1; min-width: 120px; }
+        .person-radio { display: none; }
+        .person-label { display: flex; align-items: center; justify-content: center; padding: 12px 15px; border: 2px solid #070395; border-radius: 10px; font-size: 14px; font-weight: 500; color: #070395; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .person-radio:checked + .person-label { background: #070395; color: white; }
+        .person-label:hover { border-color: #FFD93D; }
+        
+        /* АЛЛЕРГЕНЫ */
+        .allergens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+        .allergen-option { display: flex; align-items: center; gap: 8px; }
+        .allergen-checkbox { width: 18px; height: 18px; accent-color: #070395; }
+        .allergen-label { font-size: 13px; color: #070395; cursor: pointer; }
+        
+        /* ДОСТАВКА */
+        .delivery-options { display: flex; gap: 15px; flex-wrap: wrap; }
+        .delivery-option { flex: 1; min-width: 150px; }
+        .delivery-radio { display: none; }
+        .delivery-label { display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 2px solid #070395; border-radius: 10px; font-size: 14px; color: #070395; cursor: pointer; transition: all 0.3s; }
+        .delivery-radio:checked + .delivery-label { background: #070395; color: white; }
+        .delivery-label:hover { border-color: #FFD93D; }
+        .delivery-label svg { width: 20px; height: 20px; flex-shrink: 0; }
+        
+        /* ОПЛАТА */
+        .payment-options { display: flex; flex-direction: column; gap: 10px; }
+        .payment-option { display: flex; align-items: center; gap: 10px; }
+        .payment-radio { width: 18px; height: 18px; accent-color: #070395; }
+        .payment-label { font-size: 14px; color: #070395; cursor: pointer; }
+        
+        /* КНОПКИ */
+        .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
+        .btn-submit { flex: 1; background: #070395; color: white; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer; }
+        .btn-submit:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
+        .btn-cancel { flex: 1; background: transparent; color: #070395; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: 1.5px solid #070395; cursor: pointer; }
+        .btn-cancel:hover { background: #070395; color: white; }
+        
+        /* FOOTER */
+        .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
+        .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        .social-links { display: flex; gap: 15px; }
+        .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; }
+        .social-link:hover { color: #FFD93D; }
+        
+        /* СКРЫТИЕ СКРОЛЛБАРА */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        html { scrollbar-width: none; }
+        body { -ms-overflow-style: none; }
+        
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
+        
+        @media (max-width: 768px) { 
+            .header { padding: 10px 0; } 
+            .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; }
+            .checkout-page { padding-top: 130px; }
+            .header-container { padding: 0 15px; } 
+            .logo { width: 38px; height: 38px; font-size: 20px; } 
+            .checkout-title { font-size: 28px; }
+            .checkout-form { padding: 20px; }
+            .form-title { font-size: 18px; }
+            .persons-select { flex-direction: column; }
+            .person-label { width: 100%; }
+            .allergens-grid { grid-template-columns: repeat(2, 1fr); }
+            .delivery-options { flex-direction: column; }
+            .checkout-actions { flex-direction: column; }
+            .header-right { gap: 8px; }
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 6px; }
+            .icon-btn svg { width: 18px; height: 18px; }
+            .btn-back { padding: 8px 18px; font-size: 11px; }
+        }
+        
+        @media (max-width: 480px) { 
+            .header { padding: 8px 0; }
+            .marquee-bar { top: 54px; font-size: 10px; padding: 4px 0; letter-spacing: 0.5px; }
+            .checkout-page { padding-top: 125px; }
+            .logo { width: 35px; height: 35px; font-size: 18px; }
+            .header-icons { gap: 6px; }
+            .icon-btn { padding: 5px; }
+            .icon-btn svg { width: 16px; height: 16px; }
+            .cart-count { width: 14px; height: 14px; font-size: 8px; }
+            .lang-selector { display: none; }
+            .header-right { gap: 6px; }
+            .btn-back { padding: 6px 14px; font-size: 10px; }
+            .allergens-grid { grid-template-columns: 1fr; }
+            .form-input, .form-select, .form-textarea { padding: 10px 12px; font-size: 13px; }
+            .person-label, .delivery-label { padding: 10px 12px; font-size: 13px; }
+            .btn-submit, .btn-cancel { padding: 12px 20px; font-size: 13px; }
+            .footer { padding: 15px 0; }
+            .social-links { gap: 10px; }
+            .social-link { width: 20px; height: 20px; }
+            .social-link svg { width: 16px; height: 16px; }
+            .footer-copyright { font-size: 11px; }
+        }
+        
+        @media (max-width: 360px) {
+            .logo { width: 32px; height: 32px; font-size: 16px; }
+            .btn-back { padding: 5px 12px; font-size: 9px; }
+            .checkout-title { font-size: 24px; }
+            .form-title { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="header-left">
+                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+                <nav class="nav-menu">
+                    <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ БОКС</a>
+                    <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
+                <div class="lang-selector" id="langBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span id="langCurrent">RU</span>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- БЕГУЩАЯ СТРОКА -->
+    <div class="marquee-bar">
+        <div class="marquee-content" data-i18n="marquee">
+            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+        </div>
+    </div>
+
+    <!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
+    <section class="checkout-page">
+        <div class="container checkout-container">
+            <h1 class="checkout-title" data-i18n="checkoutTitle">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+            <p class="checkout-subtitle" data-i18n="checkoutSubtitle">Заполните данные для доставки вашего бокса</p>
+            
+            <form class="checkout-form" id="checkoutForm">
+                <!-- ПЕРСОНЫ -->
+                <div class="form-section">
+                    <h2 class="form-title" data-i18n="sectionPersons">Количество персон</h2>
+                    <div class="persons-select">
+                        <label class="person-option">
+                            <input type="radio" name="persons" value="2" class="person-radio" checked>
+                            <span class="person-label" data-i18n="persons2">На 2 персоны</span>
+                        </label>
+                        <label class="person-option">
+                            <input type="radio" name="persons" value="4" class="person-radio">
+                            <span class="person-label" data-i18n="persons4">На 4 персоны</span>
+                        </label>
+                        <label class="person-option">
+                            <input type="radio" name="persons" value="6" class="person-radio">
+                            <span class="person-label" data-i18n="persons6">На 6 персон</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- АЛЛЕРГЕНЫ -->
+                <div class="form-section">
+                    <h2 class="form-title" data-i18n="sectionAllergens">Укажите аллергены</h2>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 15px;" data-i18n="allergensHint">Отметьте продукты, которые нужно исключить из заказа</p>
+                    <div class="allergens-grid">
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Грибы" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen1">Грибы</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Горчица" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen2">Горчица</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Лактоза" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen3">Лактоза</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Яйца" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen4">Яйца</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Глютен" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen5">Глютен</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Красная рыба" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen6">Красная рыба</span>
+                        </label>
+                        <label class="allergen-option">
+                            <input type="checkbox" name="allergen" value="Орехи" class="allergen-checkbox">
+                            <span class="allergen-label" data-i18n="allergen7">Орехи</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- КОНТАКТЫ -->
+                <div class="form-section">
+                    <h2 class="form-title" data-i18n="sectionContacts">Контактные данные</h2>
+                    <div class="form-group">
+                        <label class="form-label" for="name" data-i18n="labelName">Имя *</label>
+                        <input type="text" id="name" name="name" class="form-input" required placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="messenger" data-i18n="labelMessenger">Предпочтительный способ связи</label>
+                        <select id="messenger" name="messenger" class="form-select">
+                            <option value="MAX" data-i18n="messenger1">MAX</option>
+                            <option value="Telegram" data-i18n="messenger2">Telegram</option>
+                            <option value="WhatsApp" data-i18n="messenger3">WhatsApp</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- ДОСТАВКА -->
+                <div class="form-section">
+                    <h2 class="form-title" data-i18n="sectionDelivery">Доставка</h2>
+                    <div class="delivery-options">
+                        <label class="delivery-option">
+                            <input type="radio" name="delivery" value="pickup" class="delivery-radio" checked>
+                            <span class="delivery-label">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span data-i18n="deliveryPickup">Самовывоз</span>
+                            </span>
+                        </label>
+                        <label class="delivery-option">
+                            <input type="radio" name="delivery" value="courier" class="delivery-radio">
+                            <span class="delivery-label">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                <span data-i18n="deliveryCourier">Курьер (+800 ₽)</span>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!-- Адрес (показывается только для курьера) -->
+                    <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
+                        <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
+                        <textarea id="address" name="address" class="form-textarea" placeholder="Улица, дом, квартира, этаж, домофон"></textarea>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                        <div class="form-group">
+                            <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
+                            <input type="date" id="date" name="date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
+                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ОПЛАТА -->
+                <div class="form-section">
+                    <h2 class="form-title" data-i18n="sectionPayment">Оплата</h2>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="sber" class="payment-radio" checked>
+                            <span class="payment-label" data-i18n="payment1">Перевод на Сбер</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="tbank" class="payment-radio">
+                            <span class="payment-label" data-i18n="payment2">Перевод на Т-Банк</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="alfa" class="payment-radio">
+                            <span class="payment-label" data-i18n="payment3">Перевод на Альфа</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash" class="payment-radio">
+                            <span class="payment-label" data-i18n="payment4">Наличные</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- КОММЕНТАРИЙ -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="form-label" for="comment" data-i18n="labelComment">Комментарий к заказу</label>
+                        <textarea id="comment" name="comment" class="form-textarea" placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
+                    </div>
+                </div>
+                
+                <!-- КНОПКИ -->
+                <div class="checkout-actions">
+                    <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
+                    <button type="submit" class="btn-submit" data-i18n="btnSubmit">ПОДТВЕРДИТЬ ЗАКАЗ</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
+            <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
+            <div class="social-links">
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+    const translations = {
+        ru: {
+            pageTitle: "Оформление заказа - Вестник Гедонизма",
+            navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
+            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
+            checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА",
+            checkoutSubtitle: "Заполните данные для доставки вашего бокса",
+            sectionPersons: "Количество персон",
+            persons2: "На 2 персоны", persons4: "На 4 персоны", persons6: "На 6 персон",
+            sectionAllergens: "Укажите аллергены",
+            allergensHint: "Отметьте продукты, которые нужно исключить из заказа",
+            allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
+            sectionContacts: "Контактные данные",
+            labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
+            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
+            sectionDelivery: "Доставка",
+            deliveryPickup: "Самовывоз", deliveryCourier: "Курьер (+800 ₽)",
+            labelAddress: "Адрес доставки *", labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
+            sectionPayment: "Оплата",
+            payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфа", payment4: "Наличные",
+            labelComment: "Комментарий к заказу",
+            btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
+            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            orderSuccess: "✅ Спасибо за заказ!\nМы свяжемся с вами в течение часа для подтверждения.",
+            validationError: "Пожалуйста, заполните все обязательные поля"
+        },
+        en: {
+            pageTitle: "Checkout - Hedonism Dispatch",
+            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
+            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            checkoutTitle: "CHECKOUT",
+            checkoutSubtitle: "Fill in your details for box delivery",
+            sectionPersons: "Number of persons",
+            persons2: "For 2", persons4: "For 4", persons6: "For 6",
+            sectionAllergens: "Allergens",
+            allergensHint: "Mark products to exclude from your order",
+            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red fish", allergen7: "Nuts",
+            sectionContacts: "Contact details",
+            labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
+            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
+            sectionDelivery: "Delivery",
+            deliveryPickup: "Pickup", deliveryCourier: "Courier (+800 ₽)",
+            labelAddress: "Delivery address *", labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
+            sectionPayment: "Payment",
+            payment1: "Transfer to Sber", payment2: "Transfer to T-Bank", payment3: "Transfer to Alfa", payment4: "Cash",
+            labelComment: "Order comment",
+            btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
+            footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
+            orderSuccess: "✅ Thank you for your order!\nWe'll contact you within an hour to confirm.",
+            validationError: "Please fill in all required fields"
+        }
+    };
+
+    function applyLanguage(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            if (translations[lang][key]) el.textContent = translations[lang][key];
+        });
+        const langCurrent = document.getElementById('langCurrent');
+        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+        document.documentElement.lang = lang;
+        localStorage.setItem('hedonism_lang', lang);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
+        applyLanguage(savedLang);
+        
+        // Переключатель языка
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                langDropdown.classList.toggle('show');
+            });
+            
+            langDropdown.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const selectedLink = e.target.closest('a');
+                    if (selectedLink) {
+                        const selectedLang = selectedLink.dataset.lang;
+                        applyLanguage(selectedLang);
+                    }
+                    setTimeout(() => {
+                        langDropdown.classList.remove('show');
+                    }, 100);
+                });
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                    langDropdown.classList.remove('show');
+                }
+            });
+        }
+        
+        // Показ/скрытие поля адреса
+        const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
+        const addressField = document.getElementById('addressField');
+        
+        deliveryRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'courier') {
+                    addressField.style.display = 'block';
+                    document.getElementById('address').required = true;
+                } else {
+                    addressField.style.display = 'none';
+                    document.getElementById('address').required = false;
+                }
+            });
+        });
+        
+        // Установка минимальной даты (сегодня)
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        dateInput.value = today;
+        
+        // Установка времени по умолчанию (18:00)
+        const timeInput = document.getElementById('time');
+        timeInput.value = '18:00';
+        
+        // Обработка формы
+        const checkoutForm = document.getElementById('checkoutForm');
+        const cancelBtn = document.getElementById('cancelBtn');
+        
+        cancelBtn?.addEventListener('click', function() {
+            window.location.href = 'boxes.html';
+        });
+        
+        checkoutForm?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Валидация
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            if (!name || !phone) {
+                alert(translations[savedLang].validationError);
+                return;
+            }
+            
+            // Сбор данных
+            const formData = {
+                persons: document.querySelector('input[name="persons"]:checked')?.value,
+                allergens: Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(cb => cb.value),
+                name: name,
+                phone: phone,
+                messenger: document.getElementById('messenger').value,
+                delivery: document.querySelector('input[name="delivery"]:checked')?.value,
+                address: document.getElementById('address').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                payment: document.querySelector('input[name="payment"]:checked')?.value,
+                comment: document.getElementById('comment').value
+            };
+            
+            // Здесь можно отправить данные на сервер или в Telegram
+            console.log('Заказ:', formData);
+            
+            // Показать сообщение об успехе
+            alert(translations[savedLang].orderSuccess);
+            
+            // Очистить корзину и вернуться на главную
+            localStorage.removeItem('hedonism_cart');
+            window.location.href = 'index.html';
+        });
+        
+        console.log('✅ checkout.html ready! Language: ' + savedLang.toUpperCase());
+    });
+    </script>
+</body>
+</html>
