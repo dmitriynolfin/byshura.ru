@@ -103,7 +103,7 @@
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; }
         .social-link:hover { color: #FFD93D; }
         
-        /* КОРЗИНА */
+        /* КОРЗИНА С РАСШИРЕННЫМИ ДАННЫМИ */
         .cart-modal { 
             position: fixed; top: 0; right: -100%;
             width: 400px; max-width: 100%; height: 100vh; 
@@ -115,11 +115,56 @@
         .cart-close { font-size: 28px; color: #070395; line-height: 1; padding: 5px; }
         .cart-items { flex: 1; overflow-y: auto; }
         .cart-empty { text-align: center; color: #666; padding: 40px 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
-        .cart-item-name { font-weight: 500; font-size: 14px; }
-        .cart-item-price { color: #070395; font-weight: 600; }
-        .cart-item-remove { color: #999; cursor: pointer; font-size: 18px; margin-left: 10px; }
+        
+        /* Улучшенный элемент корзины с опциями */
+        .cart-item { 
+            padding: 15px 0; border-bottom: 1px solid #eee; 
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .cart-item-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .cart-item-name { font-weight: 500; font-size: 14px; color: #070395; }
+        .cart-item-price { color: #070395; font-weight: 600; font-size: 16px; }
+        
+        .cart-item-options { 
+            font-size: 12px; color: #666; 
+            background: #f8f9fa; padding: 8px 12px; border-radius: 8px;
+        }
+        .cart-item-option { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .cart-item-option:last-child { margin-bottom: 0; }
+        .cart-item-option-label { color: #999; }
+        .cart-item-option-value { color: #070395; font-weight: 500; }
+        .cart-item-allergens { 
+            display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; 
+        }
+        .cart-item-allergen { 
+            font-size: 11px; background: #ffebee; color: #c62828; 
+            padding: 2px 8px; border-radius: 10px; 
+        }
+        
+        .cart-item-controls { 
+            display: flex; align-items: center; gap: 10px; 
+            margin-top: 5px;
+        }
+        .quantity-control { 
+            display: flex; align-items: center; gap: 8px; 
+            background: #f8f9fa; padding: 5px; border-radius: 20px;
+        }
+        .quantity-btn {
+            width: 28px; height: 28px; border: none;
+            background: white; border-radius: 50%;
+            color: #070395; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+        }
+        .quantity-btn:hover { background: #070395; color: white; }
+        .quantity-value { font-weight: 600; min-width: 20px; text-align: center; }
+        
+        .cart-item-remove { 
+            color: #999; cursor: pointer; font-size: 18px; 
+            padding: 5px; transition: color 0.3s;
+        }
         .cart-item-remove:hover { color: #e74c3c; }
+        
         .cart-footer { padding-top: 20px; border-top: 1px solid #eee; }
         .cart-total { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 15px; font-size: 18px; }
         .btn-checkout { width: 100%; background: #070395; color: white; padding: 15px; border-radius: 30px; font-weight: 600; text-transform: uppercase; transition: background 0.3s; font-size: 14px; }
@@ -171,6 +216,10 @@
             .about-content h3 { font-size: 18px; }
             .about-content p { font-size: 13px; }
             .header-right { gap: 8px; }
+            
+            /* Корзина на мобильных */
+            .cart-item-header { flex-direction: column; gap: 5px; }
+            .cart-item-controls { justify-content: space-between; }
         }
         
         @media (max-width: 480px) { 
@@ -374,7 +423,9 @@
             cartTotal: "Итого:",
             btnCheckout: "ОФОРМИТЬ ЗАКАЗ",
             checkoutSuccess: "✅ Заказ оформлен!\nМы свяжемся с вами в течение часа.",
-            cartAlert: "Добавьте товары в корзину"
+            cartAlert: "Добавьте товары в корзину",
+            itemPersons: "Персон:", itemAllergens: "Без:", itemQuantity: "Кол-во:",
+            btnRemove: "Удалить"
         },
         en: {
             pageTitle: "Hedonism Dispatch - Food Delivery",
@@ -399,11 +450,17 @@
             cartTotal: "Total:",
             btnCheckout: "CHECKOUT",
             checkoutSuccess: "✅ Order placed!\nWe'll contact you within an hour.",
-            cartAlert: "Add items to cart first"
+            cartAlert: "Add items to cart first",
+            itemPersons: "Persons:", itemAllergens: "No:", itemQuantity: "Qty:",
+            btnRemove: "Remove"
         }
     };
 
+    let currentLang = 'ru';
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+
     function applyLanguage(lang) {
+        currentLang = lang;
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang][key]) {
@@ -414,6 +471,119 @@
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+        renderCart(); // Перерисовать корзину при смене языка
+    }
+
+    // ===== КОРЗИНА С РАСШИРЕННЫМИ ДАННЫМИ =====
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalQty;
+        }
+    }
+    
+    function renderCart() {
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const lang = currentLang;
+        
+        if (cart.length === 0) {
+            if (cartItems) cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`;
+            if (cartTotal) cartTotal.textContent = '0 ₽';
+            return;
+        }
+        
+        let html = '';
+        let total = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            // Формируем строку с аллергенами
+            const allergensText = item.options?.allergens?.length > 0 
+                ? item.options.allergens.join(', ') 
+                : (lang === 'ru' ? 'нет' : 'none');
+            
+            html += `
+                <div class="cart-item" data-item-id="${item.id}">
+                    <div class="cart-item-header">
+                        <span class="cart-item-name">${item.name}</span>
+                        <span class="cart-item-price">${itemTotal.toLocaleString('ru-RU')} ₽</span>
+                    </div>
+                    
+                    <div class="cart-item-options">
+                        <div class="cart-item-option">
+                            <span class="cart-item-option-label">${translations[lang].itemPersons}</span>
+                            <span class="cart-item-option-value">${item.options?.persons || 2}</span>
+                        </div>
+                        <div class="cart-item-option">
+                            <span class="cart-item-option-label">${translations[lang].itemAllergens}</span>
+                            <span class="cart-item-option-value">${allergensText}</span>
+                        </div>
+                        ${item.options?.allergens?.length > 0 ? 
+                            `<div class="cart-item-allergens">
+                                ${item.options.allergens.map(a => `<span class="cart-item-allergen">${a}</span>`).join('')}
+                            </div>` : ''}
+                    </div>
+                    
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" data-action="decrease" data-item-id="${item.id}">−</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn" data-action="increase" data-item-id="${item.id}">+</button>
+                        </div>
+                        <span class="cart-item-remove" data-action="remove" data-item-id="${item.id}" title="${translations[lang].btnRemove}">&times;</span>
+                    </div>
+                </div>
+            `;
+        });
+        
+        if (cartItems) cartItems.innerHTML = html;
+        if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+        
+        // Обработчики кнопок в корзине
+        cartItems?.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const itemId = parseInt(this.dataset.itemId);
+                const action = this.dataset.action;
+                updateCartItemQuantity(itemId, action);
+            });
+        });
+        
+        cartItems?.querySelectorAll('.cart-item-remove').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const itemId = parseInt(this.dataset.itemId);
+                removeFromCart(itemId);
+            });
+        });
+    }
+    
+    function updateCartItemQuantity(itemId, action) {
+        const item = cart.find(i => i.id === itemId);
+        if (!item) return;
+        
+        if (action === 'increase') {
+            item.quantity++;
+        } else if (action === 'decrease' && item.quantity > 1) {
+            item.quantity--;
+        }
+        
+        saveCart();
+        updateCartCount();
+        renderCart();
+    }
+    
+    function removeFromCart(itemId) {
+        cart = cart.filter(item => item.id !== itemId);
+        saveCart();
+        updateCartCount();
+        renderCart();
+    }
+    
+    function saveCart() {
+        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -471,16 +641,11 @@
             goToSlide((currentSlide + 1) % slides.length);
         }, 5000);
         
-        // 4. Корзина
+        // 4. Корзина - инициализация
         const cartBtn = document.getElementById('cartBtn');
         const cartModal = document.getElementById('cartModal');
         const cartOverlay = document.getElementById('cartOverlay');
         const cartClose = document.getElementById('cartClose');
-        const cartCount = document.getElementById('cartCount');
-        const cartTotal = document.getElementById('cartTotal');
-        const cartItems = document.getElementById('cartItems');
-        
-        let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
         
         function openCart() {
             cartModal?.classList.add('open');
@@ -498,53 +663,6 @@
         cartBtn?.addEventListener('click', openCart);
         cartClose?.addEventListener('click', closeCart);
         cartOverlay?.addEventListener('click', closeCart);
-        
-        function addToCart(name, price) {
-            cart.push({ name, price, id: Date.now() });
-            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
-            updateCartCount();
-            renderCart();
-            openCart();
-        }
-        
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
-            updateCartCount();
-            renderCart();
-        }
-        
-        function updateCartCount() {
-            if (cartCount) cartCount.textContent = cart.length;
-        }
-        
-        function renderCart() {
-            const lang = localStorage.getItem('hedonism_lang') || 'ru';
-            if (cart.length === 0) {
-                if (cartItems) cartItems.innerHTML = `<p class="cart-empty">${translations[lang].cartEmpty}</p>`;
-                if (cartTotal) cartTotal.textContent = '0 ₽';
-                return;
-            }
-            
-            let html = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                total += item.price;
-                html += `<div class="cart-item"><span class="cart-item-name">${item.name}</span><div><span class="cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span><span class="cart-item-remove" data-id="${item.id}">&times;</span></div></div>`;
-            });
-            
-            if (cartItems) cartItems.innerHTML = html;
-            if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
-            
-            if (cartItems) {
-                cartItems.querySelectorAll('.cart-item-remove').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        removeFromCart(parseInt(e.target.dataset.id));
-                    });
-                });
-            }
-        }
         
         // 5. Навигация
         document.getElementById('orderBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
@@ -600,20 +718,21 @@
         
         // 8. Оформление заказа
         document.getElementById('checkoutBtn')?.addEventListener('click', function() {
-            const lang = localStorage.getItem('hedonism_lang') || 'ru';
             if (cart.length === 0) {
-                alert(translations[lang].cartAlert);
+                alert(translations[currentLang].cartAlert);
                 return;
             }
-            alert(translations[lang].checkoutSuccess);
+            alert(translations[currentLang].checkoutSuccess);
             cart = [];
-            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+            saveCart();
             updateCartCount();
             closeCart();
         });
         
+        // Инициализация корзины
         updateCartCount();
-        console.log('✅ index.html ready! Language: ' + savedLang.toUpperCase());
+        renderCart();
+        console.log('✅ index.html ready! Language: ' + currentLang.toUpperCase());
     });
     </script>
 </body>
