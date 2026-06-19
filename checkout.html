@@ -123,13 +123,7 @@
         .order-item-option { display: flex; gap: 5px; }
         .order-item-option-label { color: #999; }
         .order-item-option-value { color: #070395; font-weight: 500; }
-        .order-item-allergens { 
-            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; 
-        }
-        .order-item-allergen { 
-            font-size: 11px; background: #ffebee; color: #c62828; 
-            padding: 2px 8px; border-radius: 10px; 
-        }
+        /* ✅ Убраны стили для красных тегов аллергенов */
         .order-item-controls { 
             display: flex; align-items: center; gap: 10px; margin-left: 15px; 
         }
@@ -170,16 +164,7 @@
         .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 15px; border: 1.5px solid #070395; border-radius: 10px; font-size: 14px; color: #070395; background: white; transition: border-color 0.3s; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #FFD93D; }
         .form-textarea { min-height: 100px; resize: vertical; }
-        .persons-select { display: flex; gap: 10px; flex-wrap: wrap; }
-        .person-option { flex: 1; min-width: 120px; }
-        .person-radio { display: none; }
-        .person-label { display: flex; align-items: center; justify-content: center; padding: 12px 15px; border: 2px solid #070395; border-radius: 10px; font-size: 14px; font-weight: 500; color: #070395; cursor: pointer; transition: all 0.3s; text-align: center; }
-        .person-radio:checked + .person-label { background: #070395; color: white; }
-        .person-label:hover { border-color: #FFD93D; }
-        .allergens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-        .allergen-option { display: flex; align-items: center; gap: 8px; }
-        .allergen-checkbox { width: 18px; height: 18px; accent-color: #070395; }
-        .allergen-label { font-size: 13px; color: #070395; cursor: pointer; }
+        /* ✅ Убраны стили persons-select и allergens-grid (блоки удалены) */
         .delivery-options { display: flex; gap: 15px; flex-wrap: wrap; }
         .delivery-option { flex: 1; min-width: 150px; }
         .delivery-radio { display: none; }
@@ -222,9 +207,6 @@
             .checkout-title { font-size: 28px; }
             .checkout-form { padding: 20px; }
             .form-title { font-size: 18px; }
-            .persons-select { flex-direction: column; }
-            .person-label { width: 100%; }
-            .allergens-grid { grid-template-columns: repeat(2, 1fr); }
             .delivery-options { flex-direction: column; }
             .checkout-actions { flex-direction: column; }
             .header-right { gap: 8px; }
@@ -250,9 +232,8 @@
             .lang-selector { display: none; }
             .header-right { gap: 6px; }
             .btn-back { padding: 6px 14px; font-size: 10px; }
-            .allergens-grid { grid-template-columns: 1fr; }
             .form-input, .form-select, .form-textarea { padding: 10px 12px; font-size: 13px; }
-            .person-label, .delivery-label { padding: 10px 12px; font-size: 13px; }
+            .delivery-label { padding: 10px 12px; font-size: 13px; }
             .btn-submit, .btn-cancel { padding: 12px 20px; font-size: 13px; }
             .footer { padding: 15px 0; }
             .social-links { gap: 10px; }
@@ -348,60 +329,7 @@
             </div>
             
             <form class="checkout-form" id="checkoutForm">
-                <!-- ПЕРСОНЫ (для всего заказа) -->
-                <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionPersons">Контактные персоны</h2>
-                    <div class="persons-select">
-                        <label class="person-option">
-                            <input type="radio" name="orderPersons" value="2" class="person-radio" checked>
-                            <span class="person-label" data-i18n="persons2">На 2 персоны</span>
-                        </label>
-                        <label class="person-option">
-                            <input type="radio" name="orderPersons" value="4" class="person-radio">
-                            <span class="person-label" data-i18n="persons4">На 4 персоны</span>
-                        </label>
-                        <label class="person-option">
-                            <input type="radio" name="orderPersons" value="6" class="person-radio">
-                            <span class="person-label" data-i18n="persons6">На 6 персон</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- АЛЛЕРГЕНЫ (для всего заказа) -->
-                <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionAllergens">Общие ограничения</h2>
-                    <p style="font-size: 13px; color: #666; margin-bottom: 15px;" data-i18n="allergensHint">Отметьте продукты, которые нужно исключить из ВСЕГО заказа</p>
-                    <div class="allergens-grid">
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Грибы" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen1">Грибы</span>
-                        </label>
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Горчица" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen2">Горчица</span>
-                        </label>
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Лактоза" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen3">Лактоза</span>
-                        </label>
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Яйца" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen4">Яйца</span>
-                        </label>
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Глютен" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen5">Глютен</span>
-                        </label>
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Красная рыба" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen6">Красная рыба</span>
-                        </label>
-                        <label class="allergen-option">
-                            <input type="checkbox" name="orderAllergen" value="Орехи" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen7">Орехи</span>
-                        </label>
-                    </div>
-                </div>
+                <!-- ✅ УБРАНЫ БЛОКИ "Контактные персоны" и "Общие ограничения" -->
                 
                 <!-- КОНТАКТЫ -->
                 <div class="form-section">
@@ -547,11 +475,6 @@
             checkoutSubtitle: "Заполните данные для доставки вашего бокса",
             orderSummaryTitle: "Ваш заказ",
             orderTotal: "Итого:",
-            sectionPersons: "Контактные персоны",
-            persons2: "На 2 персоны", persons4: "На 4 персоны", persons6: "На 6 персон",
-            sectionAllergens: "Общие ограничения",
-            allergensHint: "Отметьте продукты, которые нужно исключить из ВСЕГО заказа",
-            allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
             sectionContacts: "Контактные данные",
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
@@ -579,11 +502,6 @@
             checkoutSubtitle: "Fill in your details for box delivery",
             orderSummaryTitle: "Your Order",
             orderTotal: "Total:",
-            sectionPersons: "Number of persons",
-            persons2: "For 2", persons4: "For 4", persons6: "For 6",
-            sectionAllergens: "General restrictions",
-            allergensHint: "Mark products to exclude from the ENTIRE order",
-            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red fish", allergen7: "Nuts",
             sectionContacts: "Contact details",
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
@@ -605,7 +523,6 @@
         }
     };
 
-    // ✅ Глобальная переменная для отслеживания языка
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
@@ -670,29 +587,35 @@
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             
-            // Формируем строку с аллергенами
-            const allergensText = item.options?.allergens?.length > 0 
-                ? item.options.allergens.join(', ') 
-                : (lang === 'ru' ? 'нет' : 'none');
+            // ✅ Формируем опции: персоны + аллергены (только если есть)
+            let optionsHtml = '';
+            
+            // Персоны
+            optionsHtml += `
+                <div class="order-item-option">
+                    <span class="order-item-option-label">${translations[lang].itemPersons}</span>
+                    <span class="order-item-option-value">${item.options?.persons || 2}</span>
+                </div>
+            `;
+            
+            // ✅ Аллергены: показываем только если они есть
+            if (item.options?.allergens?.length > 0) {
+                optionsHtml += `
+                    <div class="order-item-option">
+                        <span class="order-item-option-label">${translations[lang].itemAllergens}</span>
+                        <span class="order-item-option-value">${item.options.allergens.join(', ')}</span>
+                    </div>
+                `;
+            }
             
             html += `
                 <div class="order-item" data-item-id="${item.id}">
                     <div class="order-item-info">
                         <div class="order-item-name">${item.name}</div>
                         <div class="order-item-options">
-                            <div class="order-item-option">
-                                <span class="order-item-option-label">${translations[lang].itemPersons}</span>
-                                <span class="order-item-option-value">${item.options?.persons || 2}</span>
-                            </div>
-                            <div class="order-item-option">
-                                <span class="order-item-option-label">${translations[lang].itemAllergens}</span>
-                                <span class="order-item-option-value">${allergensText}</span>
-                            </div>
+                            ${optionsHtml}
                         </div>
-                        ${item.options?.allergens?.length > 0 ? 
-                            `<div class="order-item-allergens">
-                                ${item.options.allergens.map(a => `<span class="order-item-allergen">${a}</span>`).join('')}
-                            </div>` : ''}
+                        <!-- ✅ Убраны красные теги аллергенов -->
                     </div>
                     <div class="order-item-controls">
                         <div class="quantity-control">
@@ -1013,10 +936,6 @@
                 // Контактные данные
                 name, phone, 
                 messenger: document.getElementById('messenger').value,
-                
-                // Общие настройки заказа
-                orderPersons: document.querySelector('input[name="orderPersons"]:checked')?.value,
-                orderAllergens: Array.from(document.querySelectorAll('input[name="orderAllergen"]:checked')).map(cb => cb.value),
                 
                 // Доставка
                 delivery: document.querySelector('input[name="delivery"]:checked')?.value,
