@@ -109,15 +109,55 @@
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .cart-overlay.open { opacity: 1; visibility: visible; }
         
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } .pickup-container { grid-template-columns: 1fr; text-align: center; } .pickup-info { align-items: center; } .header-right { gap: 15px; } }
-        @media (max-width: 768px) { .header { padding: 12px 0; } .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; } .hero { margin-top: 30px; } .header-container { padding: 0 15px; } .logo { width: 40px; height: 40px; font-size: 20px; } .btn-shop { padding: 8px 15px; font-size: 11px; } .btn-order { padding: 15px 40px; font-size: 13px; } .cart-modal { width: 100%; } .footer-container { flex-direction: column; gap: 15px; text-align: center; } .pickup-title { font-size: 28px; } .about-card { flex-direction: column; text-align: center; } }
-        @media (max-width: 480px) { .header-icons { gap: 8px; } .icon-btn { padding: 6px; } .btn-order { padding: 12px 30px; font-size: 12px; } .slider-dots { bottom: 20px; } .dot { width: 12px; height: 12px; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.5s ease forwards; }
-    </style>
-</head>
-<body>
+/* АДАПТИВНОСТЬ */
+@media (max-width: 1024px) { 
+    .container { padding: 0 20px; } 
+    .nav-menu { display: none; } 
+    .pickup-container { grid-template-columns: 1fr; text-align: center; } 
+    .pickup-info { align-items: center; } 
+    .header-right { gap: 15px; } 
+}
+
+@media (max-width: 768px) { 
+    /* Скрыть скроллбар */
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    html { scrollbar-width: none; }
+    body { -ms-overflow-style: none; }
+    
+    .header { padding: 12px 0; max-width: 100vw; overflow-x: hidden; } 
+    .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; } 
+    .hero { margin-top: 30px; } 
+    .header-container { padding: 0 15px; } 
+    .logo { width: 40px; height: 40px; font-size: 20px; } 
+    .btn-shop { padding: 8px 15px; font-size: 11px; } 
+    .btn-order { padding: 15px 40px; font-size: 13px; } 
+    .cart-modal { width: 100%; } 
+    .footer-container { flex-direction: column; gap: 15px; text-align: center; } 
+    .pickup-title { font-size: 28px; } 
+    .about-card { flex-direction: column; text-align: center; } 
+    
+    /* Уменьшить gap на мобильных */
+    .header-right { gap: 10px; }
+    .header-icons { gap: 8px; }
+}
+
+@media (max-width: 480px) { 
+    .header-icons { gap: 6px; } 
+    .icon-btn { padding: 6px; } 
+    .btn-order { padding: 12px 30px; font-size: 12px; } 
+    .slider-dots { bottom: 20px; } 
+    .dot { width: 12px; height: 12px; } 
+    
+    /* Скрыть переключатель языка на очень маленьких экранах */
+    .lang-selector { display: none; }
+    
+    /* Ещё уменьшить gap */
+    .header-right { gap: 8px; }
+    .btn-shop { padding: 6px 12px; font-size: 10px; }
+}
 
     <!-- ШАПКА -->
     <header class="header">
