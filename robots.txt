@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Разрешить индексацию всех страниц
+Sitemap: https://byshura.ru/sitemap.xml
+
+# Запретить индексацию служебных путей (опционально)
+Disallow: /node_modules/
+Disallow: /.git/
