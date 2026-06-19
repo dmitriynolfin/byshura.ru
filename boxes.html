@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-                <!-- ===== FAVICON ===== -->
-            <!-- Основной favicon для браузеров -->
-            <link rel="icon" type="image/x-icon" href="/favicon.ico">
-            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-            
-            <!-- Для современных браузеров -->
-            <link rel="icon" type="image/svg+xml" href="/icon.svg">
-            
-            <!-- Для Android / Chrome -->
-            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-            <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-            <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
-            
-            <!-- Манифест для PWA (опционально) -->
-            <link rel="manifest" href="/site.webmanifest">
-            
-            <!-- Для поисковиков и соцсетей (Open Graph) -->
-            <meta property="og:image" content="https://byshura.ru/favicon-512.png">
-            <meta property="og:image:width" content="512">
-            <meta property="og:image:height" content="512">
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
@@ -124,50 +116,25 @@
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        /* АДАПТИВНОСТЬ - УЛУЧШЕННАЯ */
-        @media (max-width: 1024px) { 
-            .container { padding: 0 20px; } 
-            .nav-menu { display: none; } 
-            .boxes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } 
-        }
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } .boxes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
         
         @media (max-width: 768px) { 
             .header { padding: 10px 0; } 
             .marquee-bar { top: 58px; font-size: 11px; padding: 5px 0; }
             .catalog { padding-top: 130px; }
             .header-container { padding: 0 15px; } 
-            
-            /* ЛОГОТИП И ИКОНКИ */
-            .logo { width: 38px; height: 38px; font-size: 20px; }
-            .footer-logo { width: 38px; height: 38px; font-size: 18px; }
-            
-            /* ИКОНКИ В ШАПКЕ */
+            .logo { width: 38px; height: 38px; font-size: 20px; } 
+            .page-title { font-size: 32px; } 
+            .boxes-grid { grid-template-columns: 1fr; } 
+            .cart-modal { width: 100%; max-width: 100%; right: -100%; }
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; } 
+            .header-right { gap: 8px; }
             .header-icons { gap: 8px; }
             .icon-btn { padding: 6px; }
             .icon-btn svg { width: 18px; height: 18px; }
-            
-            /* КНОПКИ */
             .btn-back { padding: 8px 18px; font-size: 11px; }
-            .btn-add-cart { padding: 10px 24px; font-size: 13px; }
             .cart-close { font-size: 24px; }
-            
-            /* КОРЗИНА */
-            .cart-modal { width: 100%; max-width: 100%; right: -100%; }
-            .cart-overlay { display: none; }
-            
-            /* FOOTER И СОЦСЕТИ */
-            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
-            .social-links { gap: 12px; }
-            .social-link { width: 22px; height: 22px; }
-            .social-link svg { width: 18px; height: 18px; }
-            
-            /* ЗАГОЛОВКИ И КОНТЕНТ */
-            .page-title { font-size: 32px; margin-bottom: 15px; }
-            .page-subtitle { font-size: 16px; margin-bottom: 40px; }
-            
-            /* КАРТОЧКИ БОКСОВ */
-            .boxes-grid { grid-template-columns: 1fr; gap: 30px; }
-            .box-card { border-radius: 16px; }
             .box-image { height: 240px; }
             .box-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 11px; }
             .box-content { padding: 20px; }
@@ -175,34 +142,22 @@
             .box-description { font-size: 13px; margin-bottom: 15px; }
             .box-feature { font-size: 12px; gap: 8px; margin-bottom: 6px; }
             .box-feature::before { font-size: 14px; }
-            .box-footer { padding-top: 15px; }
             .box-price { font-size: 24px; }
             .box-price span { font-size: 13px; }
-            
-            .header-right { gap: 8px; }
+            .btn-add-cart { padding: 10px 24px; font-size: 13px; }
         }
         
         @media (max-width: 480px) { 
             .header { padding: 8px 0; }
             .marquee-bar { top: 54px; font-size: 10px; padding: 4px 0; letter-spacing: 0.5px; }
             .catalog { padding-top: 125px; }
-            
-            /* ЛОГОТИП */
-            .logo { width: 35px; height: 35px; font-size: 18px; }
-            .footer-logo { width: 35px; height: 35px; font-size: 16px; }
-            
-            /* ИКОНКИ */
-            .header-icons { gap: 6px; }
+            .header-icons { gap: 6px; } 
             .icon-btn { padding: 5px; }
             .icon-btn svg { width: 16px; height: 16px; }
             .cart-count { width: 14px; height: 14px; font-size: 8px; }
-            
-            /* КНОПКИ */
+            .lang-selector { display: none; }
+            .header-right { gap: 6px; }
             .btn-back { padding: 6px 14px; font-size: 10px; }
-            .btn-add-cart { padding: 9px 20px; font-size: 12px; border-radius: 22px; }
-            .cart-close { font-size: 22px; }
-            
-            /* КАРТОЧКИ БОКСОВ */
             .box-image { height: 200px; }
             .box-badge { padding: 5px 10px; font-size: 10px; }
             .box-content { padding: 16px; }
@@ -211,28 +166,23 @@
             .box-feature { font-size: 11px; }
             .box-price { font-size: 22px; }
             .box-price span { font-size: 12px; }
-            
-            /* FOOTER */
+            .btn-add-cart { padding: 9px 20px; font-size: 12px; border-radius: 22px; }
             .footer { padding: 30px 0; }
             .social-links { gap: 10px; }
             .social-link { width: 20px; height: 20px; }
             .social-link svg { width: 16px; height: 16px; }
             .footer-copyright { font-size: 11px; }
-            
-            .header-right { gap: 6px; }
-            .lang-selector { display: none; }
         }
         
         @media (max-width: 360px) {
             .logo { width: 32px; height: 32px; font-size: 16px; }
             .btn-back { padding: 5px 12px; font-size: 9px; }
-            .btn-add-cart { padding: 8px 18px; font-size: 11px; }
+            .page-title { font-size: 28px; }
+            .page-subtitle { font-size: 14px; }
             .box-image { height: 180px; }
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
             .box-price { font-size: 20px; }
-            .page-title { font-size: 28px; }
-            .page-subtitle { font-size: 14px; }
         }
     </style>
 </head>
@@ -251,12 +201,7 @@
             </div>
             <div class="header-right">
                 <div class="header-icons">
-                    <button class="icon-btn" aria-label="Профиль">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </button>
+                    <!-- ✅ Иконка профиля УДАЛЕНА -->
                     <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -516,18 +461,38 @@
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
+        // Переключатель языка - ИСПРАВЛЕНО
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
+        
         if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
-            langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', e => { e.preventDefault(); applyLanguage(this.dataset.lang); langDropdown.classList.remove('show'); });
+            langBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                langDropdown.classList.toggle('show');
             });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
+            
+            // ✅ ИСПРАВЛЕНИЕ: используем e.target.closest('a') для надёжности
+            langDropdown.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedLink = e.target.closest('a');
+                    if (selectedLink) {
+                        const selectedLang = selectedLink.dataset.lang;
+                        applyLanguage(selectedLang);
+                    }
+                    // ✅ Гарантированно закрываем dropdown после выбора
+                    langDropdown.classList.remove('show');
+                });
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                    langDropdown.classList.remove('show');
+                }
             });
         }
         
+        // Корзина
         const cartBtn = document.getElementById('cartBtn'), cartModal = document.getElementById('cartModal'),
               cartOverlay = document.getElementById('cartOverlay'), cartClose = document.getElementById('cartClose'),
               cartCount = document.getElementById('cartCount'), cartTotal = document.getElementById('cartTotal'),
