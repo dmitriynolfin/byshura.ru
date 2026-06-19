@@ -658,29 +658,39 @@
     };
 
     let currentLang = 'ru';
-    let currentProduct = null; // Текущий товар для настройки в модалке
+    let currentProduct = null;
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
     function applyLanguage(lang) {
+        // ✅ Защита от неверного значения языка
+        if (!translations[lang]) {
+            console.warn(`⚠️ Неверный язык: "${lang}", используем "ru"`);
+            lang = 'ru';
+        }
         currentLang = lang;
+        
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
-            if (translations[lang][key]) el.textContent = translations[lang][key];
+            if (translations[lang] && translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
         });
+        
         const langCurrent = document.getElementById('langCurrent');
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+        
+        // Перерисовать корзину при смене языка
+        renderCart();
     }
 
     // ===== МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА =====
     function openProductModal(productData) {
         currentProduct = productData;
         document.getElementById('modalProductTitle').textContent = productData.name;
-        
-        // Сбросить форму к значениям по умолчанию
         document.querySelector('input[name="modalPersons"][value="2"]').checked = true;
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
-        
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
     }
@@ -693,38 +703,30 @@
     
     function getModalOptions() {
         const persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
-        const allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked'))
-            .map(cb => cb.value);
+        const allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
         return { persons, allergens };
     }
     
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
-        
         const cartItem = {
             id: Date.now(),
             productId: currentProduct.id,
             name: currentProduct.name,
             basePrice: currentProduct.price,
-            price: currentProduct.price, // Можно добавить наценку за доп. персон
+            price: currentProduct.price,
             quantity: 1,
-            options: {
-                persons: options.persons,
-                allergens: options.allergens
-            }
+            options: { persons: options.persons, allergens: options.allergens }
         };
-        
         cart.push(cartItem);
         saveCart();
         updateCartCount();
         closeProductModal();
-        openCart(); // Показать корзину после добавления
+        openCart();
         renderCart();
     }
 
     // ===== КОРЗИНА С РАСШИРЕННЫМИ ДАННЫМИ =====
-    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
-    
     function saveCart() {
         localStorage.setItem('hedonism_cart', JSON.stringify(cart));
     }
@@ -754,8 +756,6 @@
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
-            
-            // Формируем строку с аллергенами
             const allergensText = item.options?.allergens?.length > 0 
                 ? item.options.allergens.join(', ') 
                 : (lang === 'ru' ? 'нет' : 'none');
@@ -766,7 +766,6 @@
                         <span class="cart-item-name">${item.name}</span>
                         <span class="cart-item-price">${itemTotal.toLocaleString('ru-RU')} ₽</span>
                     </div>
-                    
                     <div class="cart-item-options">
                         <div class="cart-item-option">
                             <span class="cart-item-option-label">${translations[lang].itemPersons}</span>
@@ -781,14 +780,13 @@
                                 ${item.options.allergens.map(a => `<span class="cart-item-allergen">${a}</span>`).join('')}
                             </div>` : ''}
                     </div>
-                    
                     <div class="cart-item-controls">
                         <div class="quantity-control">
                             <button class="quantity-btn" data-action="decrease" data-item-id="${item.id}">−</button>
                             <span class="quantity-value">${item.quantity}</span>
                             <button class="quantity-btn" data-action="increase" data-item-id="${item.id}">+</button>
                         </div>
-                        <span class="cart-item-remove" data-action="remove" data-item-id="${item.id}">&times;</span>
+                        <span class="cart-item-remove" data-action="remove" data-item-id="${item.id}" title="${translations[lang].btnRemove || 'Удалить'}">&times;</span>
                     </div>
                 </div>
             `;
@@ -797,7 +795,6 @@
         if (cartItems) cartItems.innerHTML = html;
         if (cartTotal) cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
         
-        // Обработчики кнопок в корзине
         cartItems?.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const itemId = parseInt(this.dataset.itemId);
@@ -817,13 +814,8 @@
     function updateCartItemQuantity(itemId, action) {
         const item = cart.find(i => i.id === itemId);
         if (!item) return;
-        
-        if (action === 'increase') {
-            item.quantity++;
-        } else if (action === 'decrease' && item.quantity > 1) {
-            item.quantity--;
-        }
-        
+        if (action === 'increase') item.quantity++;
+        else if (action === 'decrease' && item.quantity > 1) item.quantity--;
         saveCart();
         updateCartCount();
         renderCart();
@@ -838,8 +830,12 @@
 
     // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
-        const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
-        applyLanguage(savedLang);
+        // ✅ Надёжное определение языка с дефолтом RU
+        const savedLang = localStorage.getItem('hedonism_lang');
+        const validLangs = ['ru', 'en'];
+        const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
+        console.log(`🌐 Загружаем язык: ${langToUse} (сохранён: ${savedLang})`);
+        applyLanguage(langToUse);
         
         // Переключатель языка
         const langBtn = document.getElementById('langBtn');
@@ -858,8 +854,8 @@
                     const selectedLink = e.target.closest('a');
                     if (selectedLink) {
                         const selectedLang = selectedLink.dataset.lang;
+                        console.log(`🔄 Переключаем язык: ${currentLang} → ${selectedLang}`);
                         applyLanguage(selectedLang);
-                        renderCart(); // Перерисовать корзину на новом языке
                     }
                     setTimeout(() => { langDropdown.classList.remove('show'); }, 100);
                 });
@@ -878,7 +874,6 @@
         const modalCancel = document.getElementById('modalCancel');
         const modalAddToCart = document.getElementById('modalAddToCart');
         
-        // Открытие модалки при клике на "В корзину"
         document.querySelectorAll('.btn-add-cart').forEach(btn => {
             btn.addEventListener('click', function() {
                 const productData = {
@@ -890,14 +885,12 @@
             });
         });
         
-        // Закрытие модалки
         modalClose?.addEventListener('click', closeProductModal);
         modalCancel?.addEventListener('click', closeProductModal);
         modalOverlay?.addEventListener('click', function(e) {
             if (e.target === modalOverlay) closeProductModal();
         });
         
-        // Добавление в корзину из модалки
         modalAddToCart?.addEventListener('click', function() {
             const options = getModalOptions();
             addToCartWithOptions(options);
@@ -925,24 +918,25 @@
         cartClose?.addEventListener('click', closeCart);
         cartOverlay?.addEventListener('click', closeCart);
         
-        // Оформление заказа
+        // ✅ ОФОРМЛЕНИЕ ЗАКАЗА - ПЕРЕХОД НА checkout.html
         const checkoutBtn = document.getElementById('checkoutBtn');
         checkoutBtn?.addEventListener('click', function() {
+            console.log(`🛒 Checkout clicked! Current language: ${currentLang}, cart length: ${cart.length}`);
+            
             if (cart.length === 0) { 
-                alert(translations[currentLang].cartAlert); 
+                const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
+                alert(alertMsg); 
                 return; 
             }
-            alert(translations[currentLang].checkoutSuccess);
-            cart = [];
-            saveCart();
-            updateCartCount();
-            closeCart();
-            window.location.href = 'index.html';
+            
+            // ✅ ПЕРЕХОД НА СТРАНИЦУ ОФОРМЛЕНИЯ ЗАКАЗА
+            window.location.href = 'checkout.html';
         });
         
         // Инициализация
         updateCartCount();
-        console.log('✅ boxes.html ready! Language: ' + currentLang.toUpperCase());
+        renderCart();
+        console.log(`✅ boxes.html ready! Language: ${currentLang.toUpperCase()}`);
     });
     </script>
 </body>
