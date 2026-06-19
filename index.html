@@ -48,16 +48,16 @@
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
-        .header-icons { display: flex; gap: 12px; } /* ✅ Оставили gap для корзины */
+        .header-icons { display: flex; gap: 12px; }
         .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
         .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .btn-shop { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; white-space: nowrap; }
         .btn-shop:hover { background: #070395; color: white; transform: translateY(-2px); }
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; }
-        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 150px; display: none; z-index: 100; margin-top: 5px; }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: uppercase; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
@@ -237,7 +237,6 @@
             </div>
             <div class="header-right">
                 <div class="header-icons">
-                    <!-- ✅ Иконка профиля УДАЛЕНА -->
                     <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                         <span class="cart-count" id="cartCount">0</span>
@@ -248,8 +247,8 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English</span></a>
+                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷🇺)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦🇪)</span></a>
                     </div>
                 </div>
             </div>
@@ -422,7 +421,7 @@
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
-        // 2. Переключатель языка - ИСПРАВЛЕНО
+        // 2. Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         
@@ -432,7 +431,6 @@
                 langDropdown.classList.toggle('show');
             });
             
-            // ✅ ИСПРАВЛЕНИЕ: используем e.target.closest('a') для надёжности
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -441,7 +439,6 @@
                         const selectedLang = selectedLink.dataset.lang;
                         applyLanguage(selectedLang);
                     }
-                    // ✅ Гарантированно закрываем dropdown после выбора
                     langDropdown.classList.remove('show');
                 });
             });
@@ -616,7 +613,7 @@
         });
         
         updateCartCount();
-        console.log('✅ Сайт готов! Язык: ' + savedLang.toUpperCase());
+        console.log('✅ index.html ready! Language: ' + savedLang.toUpperCase());
     });
     </script>
 </body>
