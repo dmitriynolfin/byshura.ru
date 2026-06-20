@@ -162,10 +162,7 @@
             padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee;
             font-size: 18px; font-weight: 600; color: #070395;
         }
-        /* ✅ Для EN: валюта ПЕРЕД числом в итоге */
-        html[lang="en"] .order-total {
-            flex-direction: row-reverse;
-        }
+        /* ✅ УБРАНО: Для EN больше нет row-reverse, TOTAL слева как в RU */
         
         /* ФОРМА */
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
@@ -407,14 +404,12 @@
             <form class="checkout-form" id="checkoutForm">
                 <!-- КОНТАКТЫ - УЛУЧШЕННЫЙ ИНТЕРФЕЙС -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionContacts">
-                        <span class="icon">👤</span>
+                    <h2 class="form-title">
                         <span data-i18n="sectionContactsText">Контактные данные</span>
                     </h2>
                     <div class="form-group">
-                        <label class="form-label" for="name">
-                            <span class="icon">✍️</span>
-                            <span data-i18n="labelName">Имя *</span>
+                        <label class="form-label" for="name" data-i18n="labelName">
+                            Имя *
                         </label>
                         <div class="contact-input-wrapper">
                             <span class="icon">👤</span>
@@ -425,9 +420,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="phone">
-                            <span class="icon">📱</span>
-                            <span data-i18n="labelPhone">Телефон *</span>
+                        <label class="form-label" for="phone" data-i18n="labelPhone">
+                            Телефон *
                         </label>
                         <div class="contact-input-wrapper">
                             <span class="icon">📞</span>
@@ -438,9 +432,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="messenger">
-                            <span class="icon">💬</span>
-                            <span data-i18n="labelMessenger">Предпочтительный способ связи</span>
+                        <label class="form-label" for="messenger" data-i18n="labelMessenger">
+                            Предпочтительный способ связи
                         </label>
                         <select id="messenger" name="messenger" class="form-select">
                             <option value="MAX" data-i18n="messenger1">MAX</option>
@@ -453,8 +446,7 @@
                 
                 <!-- ДОСТАВКА -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionDelivery">
-                        <span class="icon">🚚</span>
+                    <h2 class="form-title">
                         <span data-i18n="sectionDeliveryText">Доставка</span>
                     </h2>
                     <div class="delivery-options">
@@ -476,9 +468,8 @@
                     
                     <!-- Адрес с автодополнением -->
                     <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
-                        <label class="form-label" for="address">
-                            <span class="icon">📍</span>
-                            <span data-i18n="labelAddress">Адрес доставки *</span>
+                        <label class="form-label" for="address" data-i18n="labelAddress">
+                            Адрес доставки *
                         </label>
                         <div class="address-input-wrapper">
                             <input 
@@ -507,16 +498,14 @@
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
                         <div class="form-group">
-                            <label class="form-label" for="date">
-                                <span class="icon">📅</span>
-                                <span data-i18n="labelDate">Дата *</span>
+                            <label class="form-label" for="date" data-i18n="labelDate">
+                                Дата *
                             </label>
                             <input type="date" id="date" name="date" class="form-input" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="time">
-                                <span class="icon">🕔</span>
-                                <span data-i18n="labelTime">Время (17:00-23:00) *</span>
+                            <label class="form-label" for="time" data-i18n="labelTime">
+                                Время (17:00-23:00) *
                             </label>
                             <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" required>
                         </div>
@@ -525,8 +514,7 @@
                 
                 <!-- ОПЛАТА -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionPayment">
-                        <span class="icon">💳</span>
+                    <h2 class="form-title">
                         <span data-i18n="sectionPaymentText">Оплата</span>
                     </h2>
                     <div class="payment-options">
@@ -552,13 +540,12 @@
                 <!-- КОММЕНТАРИЙ -->
                 <div class="form-section">
                     <div class="form-group">
-                        <label class="form-label" for="comment">
-                            <span class="icon">✏️</span>
-                            <span data-i18n="labelComment">Комментарий к заказу</span>
+                        <label class="form-label" for="comment" data-i18n="labelComment">
+                            Комментарий к заказу
                         </label>
                         <textarea id="comment" name="comment" class="form-textarea" 
                                   data-placeholder-ru="Пожелания по доставке, сервировке и т.д."
-                                  data-placeholder-en="Delivery preferences, serving notes, etc."
+                                  data-placeholder-en="Requests for delivery, serving, etc."
                                   placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
                     </div>
                 </div>
@@ -600,15 +587,15 @@
             checkoutSubtitle: "Заполните данные для доставки вашего бокса",
             orderSummaryTitle: "Ваш заказ",
             orderTotal: "Итого:",
-            sectionContacts: "👤", sectionContactsText: "Контактные данные",
+            sectionContactsText: "Контактные данные",
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
-            sectionDelivery: "🚚", sectionDeliveryText: "Доставка",
+            sectionDeliveryText: "Доставка",
             deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер",
             labelAddress: "Адрес доставки *", 
             addressHint: "Введите улицу, дом или метро — подсказки появятся автоматически",
             labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
-            sectionPayment: "💳", sectionPaymentText: "Оплата",
+            sectionPaymentText: "Оплата",
             payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфа", payment4: "Наличные",
             labelComment: "Комментарий к заказу",
             btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
@@ -635,15 +622,15 @@
             checkoutSubtitle: "Fill in your details for box delivery",
             orderSummaryTitle: "Your Order",
             orderTotal: "Total:",
-            sectionContacts: "👤", sectionContactsText: "Contact Details",
+            sectionContactsText: "Contact Details",
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
-            sectionDelivery: "🚚", sectionDeliveryText: "Delivery",
+            sectionDeliveryText: "Delivery",
             deliveryPickup: "Pickup in Prime Park", deliveryCourier: "Courier",
             labelAddress: "Delivery Address *",
             addressHint: "Enter street, building or area (Dubai)",
             labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
-            sectionPayment: "💳", sectionPaymentText: "Payment",
+            sectionPaymentText: "Payment",
             payment1: "Transfer to Sber", payment2: "Transfer to T-Bank", payment3: "Transfer to Alfa", payment4: "Cash",
             labelComment: "Order comment",
             btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
