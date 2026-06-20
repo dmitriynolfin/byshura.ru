@@ -112,10 +112,15 @@
         }
         .order-item { 
             display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 15px 0; border-bottom: 1px solid #f5f5f5;
+            padding: 15px 0; border-bottom: 1px solid #f5f5f5; gap: 15px;
         }
         .order-item:last-child { border-bottom: none; }
-        .order-item-info { flex: 1; }
+        .order-item-info { flex: 1; min-width: 0; }
+        .order-item-thumb {
+            width: 70px; height: 70px; border-radius: 12px;
+            background-size: cover; background-position: center;
+            flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
         .order-item-name { font-weight: 600; color: #070395; margin-bottom: 5px; }
         .order-item-options { 
             font-size: 13px; color: #666; margin-bottom: 8px; 
@@ -123,7 +128,6 @@
         .order-item-option { display: flex; gap: 5px; }
         .order-item-option-label { color: #999; }
         .order-item-option-value { color: #070395; font-weight: 500; }
-        /* ✅ Убраны стили для красных тегов аллергенов */
         .order-item-controls { 
             display: flex; align-items: center; gap: 10px; margin-left: 15px; 
         }
@@ -146,7 +150,7 @@
         .order-item-remove:hover { color: #e74c3c; }
         .order-item-price { 
             font-weight: 600; color: #070395; font-size: 16px; 
-            min-width: 70px; text-align: right;
+            min-width: 70px; text-align: right; white-space: nowrap;
         }
         .order-total { 
             display: flex; justify-content: space-between; 
@@ -158,28 +162,83 @@
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
         .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
+        .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; display: flex; align-items: center; gap: 10px; }
+        .form-title::before {
+            content: ''; width: 4px; height: 20px;
+            background: #FFD93D; border-radius: 2px;
+        }
         .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
-        .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 15px; border: 1.5px solid #070395; border-radius: 10px; font-size: 14px; color: #070395; background: white; transition: border-color 0.3s; }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #FFD93D; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; display: flex; align-items: center; gap: 6px; }
+        .form-label .icon { font-size: 16px; }
+        .form-input, .form-select, .form-textarea { 
+            width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; 
+            font-size: 14px; color: #070395; background: white; transition: all 0.3s;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { 
+            outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); 
+        }
+        .form-input::placeholder { color: #999; }
         .form-textarea { min-height: 100px; resize: vertical; }
-        /* ✅ Убраны стили persons-select и allergens-grid (блоки удалены) */
+        
+        /* ✅ УЛУЧШЕННЫЙ БЛОК КОНТАКТОВ */
+        .contact-input-wrapper {
+            position: relative;
+        }
+        .contact-input-wrapper .icon {
+            position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+            color: #999; font-size: 18px; pointer-events: none;
+        }
+        .contact-input-wrapper .form-input {
+            padding-left: 48px;
+        }
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23070395' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            padding-right: 40px;
+        }
+        
         .delivery-options { display: flex; gap: 15px; flex-wrap: wrap; }
         .delivery-option { flex: 1; min-width: 150px; }
         .delivery-radio { display: none; }
-        .delivery-label { display: flex; align-items: center; gap: 10px; padding: 12px 15px; border: 2px solid #070395; border-radius: 10px; font-size: 14px; color: #070395; cursor: pointer; transition: all 0.3s; }
-        .delivery-radio:checked + .delivery-label { background: #070395; color: white; }
-        .delivery-label:hover { border-color: #FFD93D; }
+        .delivery-label { 
+            display: flex; align-items: center; gap: 10px; padding: 14px 18px; 
+            border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; 
+            color: #070395; cursor: pointer; transition: all 0.3s; background: #fafafa;
+        }
+        .delivery-radio:checked + .delivery-label { 
+            background: #070395; color: white; border-color: #070395;
+            box-shadow: 0 4px 12px rgba(7,3,149,0.2);
+        }
+        .delivery-label:hover { border-color: #FFD93D; background: #fff9e6; }
         .delivery-label svg { width: 20px; height: 20px; flex-shrink: 0; }
+        
         .payment-options { display: flex; flex-direction: column; gap: 10px; }
-        .payment-option { display: flex; align-items: center; gap: 10px; }
-        .payment-radio { width: 18px; height: 18px; accent-color: #070395; }
-        .payment-label { font-size: 14px; color: #070395; cursor: pointer; }
+        .payment-option { 
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer;
+            transition: all 0.3s; background: #fafafa;
+        }
+        .payment-option:hover { border-color: #FFD93D; background: #fff9e6; }
+        .payment-radio { width: 20px; height: 20px; accent-color: #070395; }
+        .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
+        .payment-option input:checked + .payment-label { font-weight: 600; }
+        
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
-        .btn-submit { flex: 1; background: #070395; color: white; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer; }
+        .btn-submit { 
+            flex: 1; background: #070395; color: white; padding: 16px 30px; 
+            border-radius: 30px; font-weight: 600; font-size: 14px; 
+            text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
         .btn-submit:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
-        .btn-cancel { flex: 1; background: transparent; color: #070395; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: 1.5px solid #070395; cursor: pointer; }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-cancel { 
+            flex: 1; background: transparent; color: #070395; padding: 16px 30px; 
+            border-radius: 30px; font-weight: 600; font-size: 14px; 
+            text-transform: uppercase; transition: all 0.3s; border: 2px solid #070395; cursor: pointer;
+        }
         .btn-cancel:hover { background: #070395; color: white; }
         
         /* FOOTER */
@@ -216,8 +275,10 @@
             .btn-back { padding: 8px 18px; font-size: 11px; }
             
             /* Сводка заказа на мобильных */
-            .order-item { flex-direction: column; gap: 10px; }
-            .order-item-controls { margin-left: 0; width: 100%; justify-content: space-between; }
+            .order-item { flex-direction: row; gap: 12px; }
+            .order-item-thumb { width: 60px; height: 60px; }
+            .order-item-info { min-width: 0; }
+            .order-item-controls { margin-left: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
             .order-item-price { text-align: left; }
         }
         @media (max-width: 480px) { 
@@ -232,9 +293,11 @@
             .lang-selector { display: none; }
             .header-right { gap: 6px; }
             .btn-back { padding: 6px 14px; font-size: 10px; }
-            .form-input, .form-select, .form-textarea { padding: 10px 12px; font-size: 13px; }
-            .delivery-label { padding: 10px 12px; font-size: 13px; }
-            .btn-submit, .btn-cancel { padding: 12px 20px; font-size: 13px; }
+            .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 13px; }
+            .contact-input-wrapper .form-input { padding-left: 44px; }
+            .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
+            .delivery-label { padding: 12px 16px; font-size: 13px; }
+            .btn-submit, .btn-cancel { padding: 14px 20px; font-size: 13px; }
             .footer { padding: 15px 0; }
             .social-links { gap: 10px; }
             .social-link { width: 20px; height: 20px; }
@@ -242,16 +305,20 @@
             .footer-copyright { font-size: 11px; }
             
             /* Сводка заказа на очень маленьких экранах */
-            .order-item-name { font-size: 14px; }
+            .order-item { flex-direction: column; }
+            .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
+            .order-item-name { font-size: 16px; }
             .order-item-options { font-size: 12px; }
             .quantity-control { gap: 3px; }
             .quantity-btn { width: 22px; height: 22px; font-size: 13px; }
+            .order-item-price { font-size: 18px; }
         }
         @media (max-width: 360px) {
             .logo { width: 32px; height: 32px; font-size: 16px; }
             .btn-back { padding: 5px 12px; font-size: 9px; }
             .checkout-title { font-size: 24px; }
             .form-title { font-size: 16px; }
+            .order-item-thumb { height: 100px; }
         }
     </style>
 </head>
@@ -324,26 +391,46 @@
                 </div>
                 <div class="order-total">
                     <span data-i18n="orderTotal">Итого:</span>
-                    <span id="orderTotal">0 ₽</span>
+                    <span id="orderTotal"><span class="price-value">0</span> <span class="currency">₽</span></span>
                 </div>
             </div>
             
             <form class="checkout-form" id="checkoutForm">
-                <!-- ✅ УБРАНЫ БЛОКИ "Контактные персоны" и "Общие ограничения" -->
-                
-                <!-- КОНТАКТЫ -->
+                <!-- КОНТАКТЫ - УЛУЧШЕННЫЙ ИНТЕРФЕЙС -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionContacts">Контактные данные</h2>
+                    <h2 class="form-title" data-i18n="sectionContacts">
+                        <span class="icon">👤</span>
+                        <span data-i18n="sectionContactsText">Контактные данные</span>
+                    </h2>
                     <div class="form-group">
-                        <label class="form-label" for="name" data-i18n="labelName">Имя *</label>
-                        <input type="text" id="name" name="name" class="form-input" required placeholder="Ваше имя">
+                        <label class="form-label" for="name">
+                            <span class="icon">✍️</span>
+                            <span data-i18n="labelName">Имя *</span>
+                        </label>
+                        <div class="contact-input-wrapper">
+                            <span class="icon">👤</span>
+                            <input type="text" id="name" name="name" class="form-input" required 
+                                   data-placeholder-ru="Ваше имя" data-placeholder-en="Your name"
+                                   placeholder="Ваше имя">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
-                        <input type="tel" id="phone" name="phone" class="form-input" required placeholder="+7 (___) ___-__-__">
+                        <label class="form-label" for="phone">
+                            <span class="icon">📱</span>
+                            <span data-i18n="labelPhone">Телефон *</span>
+                        </label>
+                        <div class="contact-input-wrapper">
+                            <span class="icon">📞</span>
+                            <input type="tel" id="phone" name="phone" class="form-input" required 
+                                   data-placeholder-ru="+7 (___) ___-__-__" data-placeholder-en="+971 __ ___ ____"
+                                   placeholder="+7 (___) ___-__-__">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="messenger" data-i18n="labelMessenger">Предпочтительный способ связи</label>
+                        <label class="form-label" for="messenger">
+                            <span class="icon">💬</span>
+                            <span data-i18n="labelMessenger">Предпочтительный способ связи</span>
+                        </label>
                         <select id="messenger" name="messenger" class="form-select">
                             <option value="MAX" data-i18n="messenger1">MAX</option>
                             <option value="Telegram" data-i18n="messenger2">Telegram</option>
@@ -354,7 +441,10 @@
                 
                 <!-- ДОСТАВКА -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionDelivery">Доставка</h2>
+                    <h2 class="form-title" data-i18n="sectionDelivery">
+                        <span class="icon">🚚</span>
+                        <span data-i18n="sectionDeliveryText">Доставка</span>
+                    </h2>
                     <div class="delivery-options">
                         <label class="delivery-option">
                             <input type="radio" name="delivery" value="pickup" class="delivery-radio" checked>
@@ -367,20 +457,25 @@
                             <input type="radio" name="delivery" value="courier" class="delivery-radio">
                             <span class="delivery-label">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                                <span data-i18n="deliveryCourier">Курьер (+800 ₽)</span>
+                                <span><span data-i18n="deliveryCourier">Курьер</span> <span class="courier-price">(+800 <span class="currency">₽</span>)</span></span>
                             </span>
                         </label>
                     </div>
                     
                     <!-- Адрес с автодополнением -->
                     <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
-                        <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
+                        <label class="form-label" for="address">
+                            <span class="icon">📍</span>
+                            <span data-i18n="labelAddress">Адрес доставки *</span>
+                        </label>
                         <div class="address-input-wrapper">
                             <input 
                                 type="text" 
                                 id="address" 
                                 name="address" 
                                 class="form-input" 
+                                data-placeholder-ru="Начните вводить адрес (Москва)..." 
+                                data-placeholder-en="Enter address (Dubai)..."
                                 placeholder="Начните вводить адрес..." 
                                 autocomplete="off"
                                 data-dd-city="Москва"
@@ -400,11 +495,17 @@
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
                         <div class="form-group">
-                            <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
+                            <label class="form-label" for="date">
+                                <span class="icon">📅</span>
+                                <span data-i18n="labelDate">Дата *</span>
+                            </label>
                             <input type="date" id="date" name="date" class="form-input" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
+                            <label class="form-label" for="time">
+                                <span class="icon">🕔</span>
+                                <span data-i18n="labelTime">Время (17:00-23:00) *</span>
+                            </label>
                             <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" required>
                         </div>
                     </div>
@@ -412,7 +513,10 @@
                 
                 <!-- ОПЛАТА -->
                 <div class="form-section">
-                    <h2 class="form-title" data-i18n="sectionPayment">Оплата</h2>
+                    <h2 class="form-title" data-i18n="sectionPayment">
+                        <span class="icon">💳</span>
+                        <span data-i18n="sectionPaymentText">Оплата</span>
+                    </h2>
                     <div class="payment-options">
                         <label class="payment-option">
                             <input type="radio" name="payment" value="sber" class="payment-radio" checked>
@@ -436,15 +540,24 @@
                 <!-- КОММЕНТАРИЙ -->
                 <div class="form-section">
                     <div class="form-group">
-                        <label class="form-label" for="comment" data-i18n="labelComment">Комментарий к заказу</label>
-                        <textarea id="comment" name="comment" class="form-textarea" placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
+                        <label class="form-label" for="comment">
+                            <span class="icon">✏️</span>
+                            <span data-i18n="labelComment">Комментарий к заказу</span>
+                        </label>
+                        <textarea id="comment" name="comment" class="form-textarea" 
+                                  data-placeholder-ru="Пожелания по доставке, сервировке и т.д."
+                                  data-placeholder-en="Delivery preferences, serving notes, etc."
+                                  placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
                     </div>
                 </div>
                 
                 <!-- КНОПКИ -->
                 <div class="checkout-actions">
                     <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
-                    <button type="submit" class="btn-submit" data-i18n="btnSubmit">ПОДТВЕРДИТЬ ЗАКАЗ</button>
+                    <button type="submit" class="btn-submit" id="submitBtn" data-i18n="btnSubmit">
+                        <span class="btn-text">ПОДТВЕРДИТЬ ЗАКАЗ</span>
+                        <span class="btn-loading" style="display:none">⏳</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -475,15 +588,15 @@
             checkoutSubtitle: "Заполните данные для доставки вашего бокса",
             orderSummaryTitle: "Ваш заказ",
             orderTotal: "Итого:",
-            sectionContacts: "Контактные данные",
+            sectionContacts: "👤", sectionContactsText: "Контактные данные",
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
-            sectionDelivery: "Доставка",
-            deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер по Москве (+800 ₽)",
+            sectionDelivery: "🚚", sectionDeliveryText: "Доставка",
+            deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер",
             labelAddress: "Адрес доставки *", 
-            addressHint: "Введите улицу, дом или метро (Москва)",
+            addressHint: "Введите улицу, дом или метро — подсказки появятся автоматически",
             labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
-            sectionPayment: "Оплата",
+            sectionPayment: "💳", sectionPaymentText: "Оплата",
             payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфа", payment4: "Наличные",
             labelComment: "Комментарий к заказу",
             btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
@@ -492,7 +605,12 @@
             validationError: "Пожалуйста, заполните все обязательные поля",
             emptyCart: "Корзина пуста. <a href='boxes.html'>Добавьте товары</a>",
             itemPersons: "Персон:", itemAllergens: "Аллергены:", itemQuantity: "Кол-во:",
-            btnRemove: "Удалить"
+            btnRemove: "Удалить",
+            namePlaceholder: "Ваше имя",
+            phonePlaceholder: "+7 (___) ___-__-__",
+            addressPlaceholder: "Начните вводить адрес (Москва)...",
+            commentPlaceholder: "Пожелания по доставке, сервировке и т.д.",
+            courierPrice: "(+800 ₽)"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -502,15 +620,15 @@
             checkoutSubtitle: "Fill in your details for box delivery",
             orderSummaryTitle: "Your Order",
             orderTotal: "Total:",
-            sectionContacts: "Contact details",
+            sectionContacts: "👤", sectionContactsText: "Contact Details",
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
-            sectionDelivery: "Delivery",
-            deliveryPickup: "Pickup in Prime Park", deliveryCourier: "Courier in Dubai (+800 AED)",
+            sectionDelivery: "🚚", sectionDeliveryText: "Delivery",
+            deliveryPickup: "Pickup in Prime Park", deliveryCourier: "Courier",
             labelAddress: "Delivery Address *",
             addressHint: "Enter street, building or area (Dubai)",
             labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
-            sectionPayment: "Payment",
+            sectionPayment: "💳", sectionPaymentText: "Payment",
             payment1: "Transfer to Sber", payment2: "Transfer to T-Bank", payment3: "Transfer to Alfa", payment4: "Cash",
             labelComment: "Order comment",
             btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
@@ -519,7 +637,12 @@
             validationError: "Please fill in all required fields",
             emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
             itemPersons: "Persons:", itemAllergens: "No:", itemQuantity: "Qty:",
-            btnRemove: "Remove"
+            btnRemove: "Remove",
+            namePlaceholder: "Your name",
+            phonePlaceholder: "+971 __ ___ ____",
+            addressPlaceholder: "Enter address (Dubai)...",
+            commentPlaceholder: "Delivery preferences, serving notes, etc.",
+            courierPrice: "(+800 AED)"
         }
     };
 
@@ -527,56 +650,50 @@
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
     function applyLanguage(lang) {
+        if (!translations[lang]) { lang = 'ru'; }
         currentLang = lang;
         
+        // Обновляем тексты
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
-            if (translations[lang][key]) el.textContent = translations[lang][key];
+            if (translations[lang] && translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
         });
         
-        // Обновляем плейсхолдеры и подсказки при смене языка
-        const addressInput = document.getElementById('address');
-        const addressHint = document.querySelector('[data-i18n="addressHint"]');
-        if (addressInput) {
-            if (lang === 'ru') {
-                addressInput.placeholder = 'Начните вводить адрес (Москва)...';
-                addressInput.dataset.ddCity = 'Москва';
-                addressInput.dataset.osmCity = 'Moscow';
-            } else {
-                addressInput.placeholder = 'Enter address (Dubai)...';
-                addressInput.dataset.ddCity = 'Москва';
-                addressInput.dataset.osmCity = 'Dubai';
-            }
-        }
-        if (addressHint) {
-            addressHint.textContent = translations[lang].addressHint;
-        }
-
-        // Очищаем старые подсказки при смене языка
-        const suggestionsList = document.getElementById('addressSuggestions');
-        if (suggestionsList) {
-            suggestionsList.classList.remove('show');
-            suggestionsList.innerHTML = '';
-        }
-
+        // ✅ Обновляем валюту в ценах
+        const currency = lang === 'en' ? 'AED' : '₽';
+        document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
+        document.querySelectorAll('.courier-price').forEach(el => {
+            el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
+        });
+        
+        // ✅ Обновляем плейсхолдеры
+        document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
+            const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
+            if (el.dataset[key]) el.placeholder = el.dataset[key];
+        });
+        
+        // Обновляем индикатор языка
         const langCurrent = document.getElementById('langCurrent');
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         
-        // Перерисовать сводку заказа на новом языке
+        // Перерисовать сводку заказа
         renderOrderSummary();
     }
 
-    // ===== СВОДКА ЗАКАЗА =====
+    // ===== СВОДКА ЗАКАЗА С МИНИАТЮРАМИ =====
     function renderOrderSummary() {
         const container = document.getElementById('orderItemsContainer');
         const totalEl = document.getElementById('orderTotal');
         const lang = currentLang;
+        const currency = lang === 'en' ? 'AED' : '₽';
         
         if (cart.length === 0) {
             container.innerHTML = `<p style="text-align:center;color:#666;padding:20px;">${translations[lang].emptyCart}</p>`;
-            if (totalEl) totalEl.textContent = '0 ₽';
+            if (totalEl) totalEl.innerHTML = `<span class="price-value">0</span> <span class="currency">${currency}</span>`;
             return;
         }
         
@@ -587,35 +704,24 @@
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             
+            // ✅ Миниатюра товара (заглушка, заменить на реальные URL)
+            const thumbUrl = item.productId ? 
+                `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}` : 
+                'https://placehold.co/100x100/FFD93D/070395?text=🍋';
+            
             // ✅ Формируем опции: персоны + аллергены (только если есть)
             let optionsHtml = '';
-            
-            // Персоны
-            optionsHtml += `
-                <div class="order-item-option">
-                    <span class="order-item-option-label">${translations[lang].itemPersons}</span>
-                    <span class="order-item-option-value">${item.options?.persons || 2}</span>
-                </div>
-            `;
-            
-            // ✅ Аллергены: показываем только если они есть
+            optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemPersons}</span><span class="order-item-option-value">${item.options?.persons || 2}</span></div>`;
             if (item.options?.allergens?.length > 0) {
-                optionsHtml += `
-                    <div class="order-item-option">
-                        <span class="order-item-option-label">${translations[lang].itemAllergens}</span>
-                        <span class="order-item-option-value">${item.options.allergens.join(', ')}</span>
-                    </div>
-                `;
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
             }
             
             html += `
                 <div class="order-item" data-item-id="${item.id}">
+                    <div class="order-item-thumb" style="background-image: url('${thumbUrl}')"></div>
                     <div class="order-item-info">
                         <div class="order-item-name">${item.name}</div>
-                        <div class="order-item-options">
-                            ${optionsHtml}
-                        </div>
-                        <!-- ✅ Убраны красные теги аллергенов -->
+                        <div class="order-item-options">${optionsHtml}</div>
                     </div>
                     <div class="order-item-controls">
                         <div class="quantity-control">
@@ -625,15 +731,15 @@
                         </div>
                         <span class="order-item-remove" data-action="remove" data-item-id="${item.id}" title="${translations[lang].btnRemove}">&times;</span>
                     </div>
-                    <div class="order-item-price">${itemTotal.toLocaleString('ru-RU')} ₽</div>
+                    <div class="order-item-price"><span class="price-value">${itemTotal.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span></div>
                 </div>
             `;
         });
         
         container.innerHTML = html;
-        if (totalEl) totalEl.textContent = total.toLocaleString('ru-RU') + ' ₽';
+        if (totalEl) totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
         
-        // Обработчики кнопок в сводке
+        // Обработчики кнопок
         container.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const itemId = parseInt(this.dataset.itemId);
@@ -641,7 +747,6 @@
                 updateCartItemQuantity(itemId, action);
             });
         });
-        
         container.querySelectorAll('.order-item-remove').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const itemId = parseInt(this.dataset.itemId);
@@ -653,13 +758,8 @@
     function updateCartItemQuantity(itemId, action) {
         const item = cart.find(i => i.id === itemId);
         if (!item) return;
-        
-        if (action === 'increase') {
-            item.quantity++;
-        } else if (action === 'decrease' && item.quantity > 1) {
-            item.quantity--;
-        }
-        
+        if (action === 'increase') item.quantity++;
+        else if (action === 'decrease' && item.quantity > 1) item.quantity--;
         saveCart();
         renderOrderSummary();
         updateCartCount();
@@ -682,6 +782,81 @@
             const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCount.textContent = totalQty;
         }
+    }
+
+    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ =====
+    async function sendOrderNotifications(orderData) {
+        console.log('📤 Отправка уведомлений:', orderData);
+        
+        // ✅ 1. MAX Messenger (через API, если есть)
+        // Примечание: MAX не имеет публичного API для отправки сообщений
+        // Здесь должна быть интеграция с вашим бэкендом
+        console.log('📱 MAX: +79636221265', orderData);
+        
+        // ✅ 2. Telegram Bot (через API)
+        // Для работы нужен bot token и backend
+        const telegramBotToken = 'YOUR_BOT_TOKEN_HERE'; // Замените на реальный токен
+        const telegramChatId = '@sash_shura'; // или ID чата
+        const telegramMessage = `
+🛒 *Новый заказ!*
+👤 ${orderData.name}
+📱 ${orderData.phone}
+💬 ${orderData.messenger}
+🚚 ${orderData.delivery === 'courier' ? 'Курьер: ' + orderData.address : 'Самовывоз'}
+📅 ${orderData.date} ${orderData.time}
+💳 ${orderData.payment}
+💰 *Итого: ${orderData.total} ${currentLang === 'en' ? 'AED' : '₽'}*
+
+📦 Товары:
+${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons} персон)`).join('\n')}
+        `.trim();
+        
+        if (telegramBotToken !== 'YOUR_BOT_TOKEN_HERE') {
+            try {
+                await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: telegramChatId,
+                        text: telegramMessage,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                console.log('✅ Telegram уведомление отправлено');
+            } catch (e) {
+                console.error('❌ Ошибка отправки в Telegram:', e);
+            }
+        } else {
+            // Fallback: открыть Telegram Web
+            const telegramLink = `https://t.me/sash_shura?text=${encodeURIComponent('Новый заказ: ' + orderData.name)}`;
+            console.log('🔗 Telegram fallback:', telegramLink);
+        }
+        
+        // ✅ 3. Email (через backend или mailto:)
+        const emailSubject = `Новый заказ от ${orderData.name}`;
+        const emailBody = `
+Заказ от: ${orderData.name}
+Телефон: ${orderData.phone}
+Связь: ${orderData.messenger}
+Доставка: ${orderData.delivery === 'courier' ? 'Курьер: ' + orderData.address : 'Самовывоз в Prime Park'}
+Дата: ${orderData.date} ${orderData.time}
+Оплата: ${orderData.payment}
+Комментарий: ${orderData.comment || '-'}
+
+Товары:
+${orderData.items.map(i => `- ${i.name} × ${i.quantity} (${i.options?.persons} персон, без: ${i.options?.allergens?.join(', ') || 'нет'})`).join('\n')}
+
+Итого: ${orderData.total} ${currentLang === 'en' ? 'AED' : '₽'}
+        `.trim();
+        
+        // Fallback: mailto: ссылка
+        const mailtoLink = `mailto:saschhen@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        console.log('📧 Email fallback:', mailtoLink);
+        
+        // Если есть backend, отправьте POST запрос:
+        // await fetch('/api/send-order', { method: 'POST', body: JSON.stringify(orderData) });
+        
+        return { telegram: true, email: mailtoLink, max: 'via-backend' };
     }
 
     // ===== ДВОЙНАЯ ИНТЕГРАЦИЯ: DADATA (RU) + OSM (EN) =====
@@ -717,7 +892,6 @@
                 suggestionsList.innerHTML = '';
                 return;
             }
-            
             clearTimeout(addressDebounceTimer);
             addressDebounceTimer = setTimeout(() => {
                 if (currentLang === 'ru') {
@@ -777,7 +951,6 @@
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
         loadingIndicator.classList.add('show');
-        
         try {
             const response = await fetch(DADATA_URL, {
                 method: 'POST', mode: 'cors',
@@ -786,7 +959,6 @@
             });
             if (!response.ok) throw new Error('API error');
             const data = await response.json();
-            
             suggestionsList.innerHTML = data.suggestions.map(s => `
                 <div class="suggestion-item" data-value="${escapeHtml(s.value)}" data-full="${escapeHtml(JSON.stringify(s.data))}">
                     <div class="suggestion-main">${highlightMatch(s.value, query)}</div>
@@ -806,24 +978,19 @@
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
         loadingIndicator.classList.add('show');
-        
         try {
             const bbox = '54.8,24.7,55.6,25.3';
             const url = `${PHOTON_URL}q=${encodeURIComponent(query)}&limit=5&lang=en&countrycode=ae&bbox=${bbox}`;
-            
             const response = await fetch(url);
             if (!response.ok) throw new Error('Network error');
             const data = await response.json();
-            
             suggestionsList.innerHTML = data.features.map(f => {
                 const p = f.properties;
                 const text = [p.name, p.street, p.city, p.state].filter(Boolean).join(', ');
-                return `
-                    <div class="suggestion-item" data-value="${text}" data-full="${escapeHtml(JSON.stringify(p))}">
-                        <div class="suggestion-main">${highlightMatch(text, query)}</div>
-                        <div class="suggestion-details">${p.city || p.state || 'Dubai'}</div>
-                    </div>
-                `;
+                return `<div class="suggestion-item" data-value="${text}" data-full="${escapeHtml(JSON.stringify(p))}">
+                    <div class="suggestion-main">${highlightMatch(text, query)}</div>
+                    <div class="suggestion-details">${p.city || p.state || 'Dubai'}</div>
+                </div>`;
             }).join('');
             suggestionsList.classList.add('show');
         } catch (e) {
@@ -839,28 +1006,18 @@
         const addressInput = document.getElementById('address');
         addressInput.value = value;
         document.getElementById('addressSuggestions').classList.remove('show');
-        
         if (fullJson) {
             try {
                 const data = JSON.parse(fullJson);
                 if (currentLang === 'ru') {
                     addressInput.dataset.structured = JSON.stringify({
-                        source: 'dadata',
-                        street: data.street_with_type, 
-                        house: data.house, 
-                        city: data.city,
-                        region: data.region_with_type,
-                        postal_code: data.postal_code
+                        source: 'dadata', street: data.street_with_type, house: data.house, 
+                        city: data.city, region: data.region_with_type, postal_code: data.postal_code
                     });
                 } else {
                     addressInput.dataset.structured = JSON.stringify({
-                        source: 'osm',
-                        name: data.name,
-                        street: data.street, 
-                        city: data.city || 'Dubai',
-                        state: data.state,
-                        country: data.country,
-                        postcode: data.postcode
+                        source: 'osm', name: data.name, street: data.street, 
+                        city: data.city || 'Dubai', state: data.state, country: data.country, postcode: data.postcode
                     });
                 }
             } catch(e) { console.warn('Failed to parse structured address'); }
@@ -919,61 +1076,74 @@
         });
         
         const dateInput = document.getElementById('date');
-        dateInput.min = new Date().toISOString().split('T')[0]; dateInput.value = dateInput.min;
+        dateInput.min = new Date().toISOString().split('T')[0]; 
+        dateInput.value = dateInput.min;
         document.getElementById('time').value = '18:00';
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
-        // Отправка формы
-        document.getElementById('checkoutForm')?.addEventListener('submit', function(e) {
+        // ✅ ОТПРАВКА ФОРМЫ С УВЕДОМЛЕНИЯМИ
+        document.getElementById('checkoutForm')?.addEventListener('submit', async function(e) {
             e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            if (!name || !phone) { alert(translations[currentLang].validationError); return; }
             
-            // Сбор данных заказа с полной структурой корзины
+            if (!name || !phone) { 
+                alert(translations[currentLang].validationError); 
+                return; 
+            }
+            
+            // Блокируем кнопку
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.btn-text').style.display = 'none';
+            submitBtn.querySelector('.btn-loading').style.display = 'inline';
+            
+            // Сбор данных заказа
             const orderData = {
-                // Контактные данные
                 name, phone, 
                 messenger: document.getElementById('messenger').value,
-                
-                // Доставка
                 delivery: document.querySelector('input[name="delivery"]:checked')?.value,
                 address: document.getElementById('address').value,
                 addressStructured: document.getElementById('address')?.dataset.structured 
                     ? JSON.parse(document.getElementById('address').dataset.structured) : null,
                 date: document.getElementById('date').value, 
                 time: document.getElementById('time').value,
-                
-                // Оплата
                 payment: document.querySelector('input[name="payment"]:checked')?.value,
                 comment: document.getElementById('comment').value,
-                
-                // ✅ ПОЛНАЯ КОРЗИНА С ОПЦИЯМИ
                 items: cart.map(item => ({
-                    id: item.id,
-                    productId: item.productId,
-                    name: item.name,
-                    basePrice: item.basePrice,
-                    price: item.price,
-                    quantity: item.quantity,
-                    options: item.options // { persons, allergens }
+                    id: item.id, productId: item.productId, name: item.name,
+                    basePrice: item.basePrice, price: item.price, quantity: item.quantity,
+                    options: item.options
                 })),
-                
-                // Итого
-                total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+                total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+                currency: currentLang === 'en' ? 'AED' : '₽',
+                lang: currentLang
             };
             
             console.log('📦 Полный заказ:', orderData);
-            // Здесь можно отправить на сервер:
-            // fetch('/api/order', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(orderData) })
             
-            alert(translations[currentLang].orderSuccess);
-            cart = [];
-            saveCart();
-            updateCartCount();
-            renderOrderSummary();
-            window.location.href = 'index.html';
+            try {
+                // ✅ Отправка уведомлений
+                await sendOrderNotifications(orderData);
+                
+                // ✅ Успех
+                alert(translations[currentLang].orderSuccess);
+                
+                // ✅ Очистка корзины и редирект
+                cart = [];
+                saveCart();
+                updateCartCount();
+                renderOrderSummary();
+                window.location.href = 'index.html';
+                
+            } catch (error) {
+                console.error('❌ Ошибка при оформлении заказа:', error);
+                alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.');
+                submitBtn.disabled = false;
+                submitBtn.querySelector('.btn-text').style.display = 'inline';
+                submitBtn.querySelector('.btn-loading').style.display = 'none';
+            }
         });
         
         // Запуск автодополнения
