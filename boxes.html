@@ -74,8 +74,15 @@
         .box-feature { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
         .box-feature::before { content: "✓"; color: #FFD93D; font-weight: bold; font-size: 16px; }
         .box-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; }
-        .box-price { font-size: 28px; font-weight: 700; color: #070395; }
-        .box-price span { font-size: 14px; color: #999; font-weight: 400; }
+        
+        /* ✅ ЦЕНА КАК НА CHECKOUT.HTML */
+        .box-price { 
+            font-size: 16px; font-weight: 600; color: #070395; 
+            display: flex; align-items: baseline; gap: 4px;
+        }
+        .box-price .price-value { font-weight: 600; }
+        .box-price .currency { font-size: 14px; color: #999; font-weight: 400; }
+        
         .btn-select { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
         .btn-select:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
         
@@ -304,8 +311,8 @@
             .box-description { font-size: 13px; margin-bottom: 15px; }
             .box-feature { font-size: 12px; gap: 8px; margin-bottom: 6px; }
             .box-feature::before { font-size: 14px; }
-            .box-price { font-size: 24px; }
-            .box-price span { font-size: 13px; }
+            /* ✅ Цена на планшетах */
+            .box-price { font-size: 16px; }
             .btn-select { padding: 10px 24px; font-size: 13px; }
             
             /* Модальные окна на мобильных */
@@ -335,8 +342,9 @@
             .box-title { font-size: 18px; }
             .box-description { font-size: 12px; }
             .box-feature { font-size: 11px; }
-            .box-price { font-size: 22px; }
-            .box-price span { font-size: 12px; }
+            /* ✅ Цена на мобильных */
+            .box-price { font-size: 16px; }
+            .box-price .currency { font-size: 13px; }
             .btn-select { padding: 9px 20px; font-size: 12px; border-radius: 22px; }
             .footer { padding: 30px 0; }
             .social-links { gap: 10px; }
@@ -361,7 +369,8 @@
             .box-image { height: 180px; }
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
-            .box-price { font-size: 20px; }
+            /* ✅ Цена на очень маленьких экранах */
+            .box-price { font-size: 15px; }
             .gallery-slider { height: 160px; }
         }
     </style>
