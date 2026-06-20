@@ -64,7 +64,8 @@
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
         .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
-        .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; }
+        .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; cursor: pointer; }
+        .box-image:hover { opacity: 0.95; }
         .box-badge { position: absolute; top: 15px; left: 15px; background: #FFD93D; color: #070395; padding: 8px 15px; border-radius: 20px; font-weight: 600; font-size: 12px; text-transform: uppercase; }
         .box-content { padding: 25px; }
         .box-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #070395; }
@@ -75,8 +76,45 @@
         .box-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; }
         .box-price { font-size: 28px; font-weight: 700; color: #070395; }
         .box-price span { font-size: 14px; color: #999; font-weight: 400; }
-        .btn-add-cart { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
-        .btn-add-cart:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
+        .btn-select { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
+        .btn-select:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
+        
+        /* ✅ ГАЛЕРЕЯ ФОТО В МОДАЛКЕ */
+        .gallery-slider {
+            position: relative; width: 100%; height: 250px;
+            border-radius: 12px; overflow: hidden; margin-bottom: 20px;
+            background: #f8f9fa;
+        }
+        .gallery-track {
+            display: flex; transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .gallery-slide {
+            min-width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+        }
+        .gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.9); border: none;
+            width: 40px; height: 40px; border-radius: 50%;
+            font-size: 20px; color: #070395; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .gallery-nav:hover { background: #FFD93D; color: #070395; }
+        .gallery-nav.prev { left: 10px; }
+        .gallery-nav.next { right: 10px; }
+        .gallery-dots {
+            display: flex; justify-content: center; gap: 8px;
+            margin-top: 10px;
+        }
+        .gallery-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: #ddd; border: none; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .gallery-dot.active { background: #070395; transform: scale(1.2); }
         
         /* МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА */
         .modal-overlay {
@@ -89,7 +127,7 @@
         .product-modal {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%; max-width: 500px;
+            width: 90%; max-width: 550px;
             max-height: 90vh;
             background: white; border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
@@ -99,46 +137,77 @@
         }
         
         .modal-header {
-            padding: 20px; border-bottom: 1px solid #eee;
+            padding: 15px 20px; border-bottom: 1px solid #eee;
             display: flex; justify-content: space-between; align-items: center;
         }
         .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
         .modal-close {
             background: none; border: none; font-size: 24px;
             color: #666; cursor: pointer; padding: 5px;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
         }
-        .modal-close:hover { color: #070395; }
+        .modal-close:hover { background: #f5f5f5; color: #070395; }
         
         .modal-body { padding: 20px; overflow-y: auto; }
         
         .modal-section { margin-bottom: 25px; }
         .modal-section-title {
             font-size: 16px; font-weight: 600; color: #070395;
-            margin-bottom: 15px;
+            margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
+        }
+        .modal-section-title::before {
+            content: ''; width: 4px; height: 16px;
+            background: #FFD93D; border-radius: 2px;
         }
         
-        /* Выбор персон */
-        .persons-select { display: flex; gap: 10px; flex-wrap: wrap; }
-        .person-option { flex: 1; min-width: 80px; }
+        /* ✅ УЛУЧШЕННЫЙ ВЫБОР ПЕРСОН */
+        .persons-select { 
+            display: flex; gap: 12px; flex-wrap: wrap; 
+        }
+        .person-option { flex: 1; min-width: 90px; }
         .person-radio { display: none; }
         .person-label {
-            display: flex; align-items: center; justify-content: center;
-            padding: 10px; border: 2px solid #070395; border-radius: 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 15px 10px; border: 2px solid #e0e0e0; border-radius: 12px;
             font-size: 14px; font-weight: 500; color: #070395;
             cursor: pointer; transition: all 0.3s; text-align: center;
+            background: #fafafa;
         }
+        .person-label:hover { border-color: #FFD93D; background: #fff9e6; }
         .person-radio:checked + .person-label {
-            background: #070395; color: white;
+            background: #070395; color: white; border-color: #070395;
+            box-shadow: 0 4px 12px rgba(7,3,149,0.2);
         }
-        .person-label:hover { border-color: #FFD93D; }
+        .person-icon { font-size: 24px; margin-bottom: 5px; }
+        .person-count { font-size: 18px; font-weight: 700; }
         
-        /* Аллергены */
-        .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .allergen-option { display: flex; align-items: center; gap: 8px; }
-        .allergen-checkbox {
-            width: 18px; height: 18px; accent-color: #070395; cursor: pointer;
+        /* ✅ УЛУЧШЕННЫЙ ВЫБОР АЛЛЕРГЕНОВ */
+        .allergens-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; 
         }
-        .allergen-label { font-size: 13px; color: #070395; cursor: pointer; }
+        .allergen-option { 
+            display: flex; align-items: center; gap: 10px; 
+            padding: 10px 12px; border: 1px solid #e0e0e0; 
+            border-radius: 10px; cursor: pointer;
+            transition: all 0.2s; background: #fafafa;
+        }
+        .allergen-option:hover { border-color: #FFD93D; background: #fff9e6; }
+        .allergen-checkbox { 
+            width: 20px; height: 20px; accent-color: #070395; 
+            cursor: pointer; flex-shrink: 0;
+        }
+        .allergen-label { 
+            font-size: 14px; color: #070395; cursor: pointer; 
+            flex: 1;
+        }
+        .allergen-option input:checked + .allergen-label {
+            font-weight: 600; color: #070395;
+        }
+        .allergen-icon { 
+            font-size: 18px; margin-right: 5px; 
+        }
         
         /* Кнопки модалки */
         .modal-actions {
@@ -178,19 +247,10 @@
             padding: 25px;
             text-align: center;
         }
-        .cart-prompt-icon {
-            font-size: 48px; margin-bottom: 15px;
-        }
-        .cart-prompt-title {
-            font-size: 18px; font-weight: 600; color: #070395;
-            margin-bottom: 10px;
-        }
-        .cart-prompt-text {
-            font-size: 14px; color: #666; margin-bottom: 25px;
-        }
-        .cart-prompt-actions {
-            display: flex; gap: 10px;
-        }
+        .cart-prompt-icon { font-size: 48px; margin-bottom: 15px; }
+        .cart-prompt-title { font-size: 18px; font-weight: 600; color: #070395; margin-bottom: 10px; }
+        .cart-prompt-text { font-size: 14px; color: #666; margin-bottom: 25px; }
+        .cart-prompt-actions { display: flex; gap: 10px; }
         .btn-prompt-continue {
             flex: 1; background: transparent; color: #070395;
             padding: 12px; border-radius: 25px; font-weight: 600;
@@ -246,13 +306,15 @@
             .box-feature::before { font-size: 14px; }
             .box-price { font-size: 24px; }
             .box-price span { font-size: 13px; }
-            .btn-add-cart { padding: 10px 24px; font-size: 13px; }
+            .btn-select { padding: 10px 24px; font-size: 13px; }
             
             /* Модальные окна на мобильных */
-            .product-modal, .cart-prompt { width: 95%; max-width: none; }
+            .product-modal { width: 95%; max-width: none; max-height: 95vh; }
+            .gallery-slider { height: 200px; }
             .allergens-grid { grid-template-columns: 1fr; }
-            .persons-select { flex-direction: column; }
-            .person-label { width: 100%; }
+            .persons-select { flex-direction: row; flex-wrap: wrap; }
+            .person-label { padding: 12px 8px; }
+            .cart-prompt { width: 95%; max-width: none; padding: 20px; }
             .cart-prompt-actions { flex-direction: column; }
         }
         
@@ -275,12 +337,20 @@
             .box-feature { font-size: 11px; }
             .box-price { font-size: 22px; }
             .box-price span { font-size: 12px; }
-            .btn-add-cart { padding: 9px 20px; font-size: 12px; border-radius: 22px; }
+            .btn-select { padding: 9px 20px; font-size: 12px; border-radius: 22px; }
             .footer { padding: 30px 0; }
             .social-links { gap: 10px; }
             .social-link { width: 20px; height: 20px; }
             .social-link svg { width: 16px; height: 16px; }
             .footer-copyright { font-size: 11px; }
+            
+            .gallery-slider { height: 180px; }
+            .gallery-nav { width: 32px; height: 32px; font-size: 16px; }
+            .person-label { padding: 10px 6px; font-size: 13px; }
+            .person-icon { font-size: 20px; }
+            .person-count { font-size: 16px; }
+            .allergen-option { padding: 8px 10px; }
+            .allergen-label { font-size: 13px; }
         }
         
         @media (max-width: 360px) {
@@ -292,6 +362,7 @@
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
             .box-price { font-size: 20px; }
+            .gallery-slider { height: 160px; }
         }
     </style>
 </head>
@@ -310,7 +381,6 @@
             </div>
             <div class="header-right">
                 <div class="header-icons">
-                    <!-- ✅ Иконка корзины → сразу на checkout.html -->
                     <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn" title="Оформить заказ">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -353,7 +423,7 @@
             <div class="boxes-grid">
                 <!-- БОКС 1 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Lemon+Box');">
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Lemon+Box+1');" data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Lemon+1","https://placehold.co/600x400/FFD93D/070395?text=Lemon+2","https://placehold.co/600x400/FFD93D/070395?text=Lemon+3"]'>
                         <span class="box-badge" data-i18n="badgeHit">ХИТ</span>
                     </div>
                     <div class="box-content">
@@ -366,14 +436,14 @@
                             <div class="box-feature" data-i18n="feat4">На 2 персоны</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">3 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-product-id="box1" data-product-name="Бокс «Лимонный»" data-product-price="3500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <div class="box-price"><span class="price-value">3 500</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="box1" data-product-name="Бокс «Лимонный»" data-product-price="3500" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 <!-- БОКС 2 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Hedonist+Box');">
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Hedonist+Box+1');" data-gallery='["https://placehold.co/600x400/070395/white?text=Hedonist+1","https://placehold.co/600x400/070395/white?text=Hedonist+2","https://placehold.co/600x400/070395/white?text=Hedonist+3"]'>
                         <span class="box-badge" data-i18n="badgePremium">PREMIUM</span>
                     </div>
                     <div class="box-content">
@@ -386,14 +456,15 @@
                             <div class="box-feature" data-i18n="feat4">На 2 персоны</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">6 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-product-id="box2" data-product-name="Бокс «Гедонист»" data-product-price="6500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <div class="box-price"><span class="price-value">6 500</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="box2" data-product-name="Бокс «Гедонист»" data-product-price="6500" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 <!-- БОКС 3 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Family+Box');"></div>
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Family+Box+1');" data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Family+1","https://placehold.co/600x400/FFD93D/070395?text=Family+2","https://placehold.co/600x400/FFD93D/070395?text=Family+3"]'>
+                    </div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box3Title">Бокс «Семейный»</h3>
                         <p class="box-description" data-i18n="box3Descr">Для теплых семейных ужинов. Сытно, вкусно и по-домашнему.</p>
@@ -404,14 +475,15 @@
                             <div class="box-feature" data-i18n="feat11">На 4 персоны</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">5 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-product-id="box3" data-product-name="Бокс «Семейный»" data-product-price="5500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <div class="box-price"><span class="price-value">5 500</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="box3" data-product-name="Бокс «Семейный»" data-product-price="5500" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 <!-- БОКС 4 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Party+Box');"></div>
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Party+Box+1');" data-gallery='["https://placehold.co/600x400/070395/white?text=Party+1","https://placehold.co/600x400/070395/white?text=Party+2","https://placehold.co/600x400/070395/white?text=Party+3"]'>
+                    </div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box4Title">Бокс «Вечеринка»</h3>
                         <p class="box-description" data-i18n="box4Descr">Идеально для встречи с друзьями. Закуски, которые исчезают первыми.</p>
@@ -422,14 +494,14 @@
                             <div class="box-feature" data-i18n="feat15">На 6-8 персон</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">8 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-product-id="box4" data-product-name="Бокс «Вечеринка»" data-product-price="8500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <div class="box-price"><span class="price-value">8 500</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="box4" data-product-name="Бокс «Вечеринка»" data-product-price="8500" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 <!-- БОКС 5 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Breakfast+Box');">
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/FFD93D/070395?text=Breakfast+Box+1');" data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Breakfast+1","https://placehold.co/600x400/FFD93D/070395?text=Breakfast+2","https://placehold.co/600x400/FFD93D/070395?text=Breakfast+3"]'>
                         <span class="box-badge" data-i18n="badgeNew">NEW</span>
                     </div>
                     <div class="box-content">
@@ -442,14 +514,15 @@
                             <div class="box-feature" data-i18n="feat4">На 2 персоны</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">2 500 <span>₽</span></div>
-                            <button class="btn-add-cart" data-product-id="box5" data-product-name="Бокс «Завтрак»" data-product-price="2500" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <div class="box-price"><span class="price-value">2 500</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="box5" data-product-name="Бокс «Завтрак»" data-product-price="2500" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 <!-- БОКС 6 -->
                 <div class="box-card">
-                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Dessert+Box');"></div>
+                    <div class="box-image" style="background-image: url('https://placehold.co/600x400/070395/white?text=Dessert+Box+1');" data-gallery='["https://placehold.co/600x400/070395/white?text=Dessert+1","https://placehold.co/600x400/070395/white?text=Dessert+2","https://placehold.co/600x400/070395/white?text=Dessert+3"]'>
+                    </div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box6Title">Бокс «Десертный»</h3>
                         <p class="box-description" data-i18n="box6Descr">Сладкое завершение идеального вечера. Авторские десерты от нашего кондитера.</p>
@@ -460,8 +533,8 @@
                             <div class="box-feature" data-i18n="feat4">На 2 персоны</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">3 000 <span>₽</span></div>
-                            <button class="btn-add-cart" data-product-id="box6" data-product-name="Бокс «Десертный»" data-product-price="3000" data-i18n="btnCart">В КОРЗИНУ</button>
+                            <div class="box-price"><span class="price-value">3 000</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="box6" data-product-name="Бокс «Десертный»" data-product-price="3000" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
@@ -488,7 +561,7 @@
         </div>
     </footer>
 
-    <!-- МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА -->
+    <!-- МОДАЛЬНОЕ ОКНО С ГАЛЕРЕЕЙ И НАСТРОЙКАМИ -->
     <div class="modal-overlay" id="productModalOverlay">
         <div class="product-modal">
             <div class="modal-header">
@@ -496,21 +569,41 @@
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
             <div class="modal-body">
+                <!-- ✅ ГАЛЕРЕЯ ФОТО -->
+                <div class="gallery-slider" id="gallerySlider">
+                    <div class="gallery-track" id="galleryTrack"></div>
+                    <button class="gallery-nav prev" id="galleryPrev">❮</button>
+                    <button class="gallery-nav next" id="galleryNext">❯</button>
+                    <div class="gallery-dots" id="galleryDots"></div>
+                </div>
+                
                 <!-- Выбор персон -->
                 <div class="modal-section">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
                     <div class="persons-select">
                         <label class="person-option">
                             <input type="radio" name="modalPersons" value="2" class="person-radio" checked>
-                            <span class="person-label" data-i18n="persons2">На 2 персоны</span>
+                            <span class="person-label">
+                                <span class="person-icon">👥</span>
+                                <span class="person-count">2</span>
+                                <span data-i18n="persons2Short">персоны</span>
+                            </span>
                         </label>
                         <label class="person-option">
                             <input type="radio" name="modalPersons" value="4" class="person-radio">
-                            <span class="person-label" data-i18n="persons4">На 4 персоны</span>
+                            <span class="person-label">
+                                <span class="person-icon">👨‍👩‍👧‍👦</span>
+                                <span class="person-count">4</span>
+                                <span data-i18n="persons4Short">персоны</span>
+                            </span>
                         </label>
                         <label class="person-option">
                             <input type="radio" name="modalPersons" value="6" class="person-radio">
-                            <span class="person-label" data-i18n="persons6">На 6 персон</span>
+                            <span class="person-label">
+                                <span class="person-icon">🎉</span>
+                                <span class="person-count">6</span>
+                                <span data-i18n="persons6Short">персон</span>
+                            </span>
                         </label>
                     </div>
                 </div>
@@ -521,31 +614,31 @@
                     <div class="allergens-grid">
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Грибы" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen1">Грибы</span>
+                            <span class="allergen-label"><span class="allergen-icon">🍄</span><span data-i18n="allergen1">Грибы</span></span>
                         </label>
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Горчица" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen2">Горчица</span>
+                            <span class="allergen-label"><span class="allergen-icon">🟡</span><span data-i18n="allergen2">Горчица</span></span>
                         </label>
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Лактоза" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen3">Лактоза</span>
+                            <span class="allergen-label"><span class="allergen-icon">🥛</span><span data-i18n="allergen3">Лактоза</span></span>
                         </label>
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Яйца" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen4">Яйца</span>
+                            <span class="allergen-label"><span class="allergen-icon">🥚</span><span data-i18n="allergen4">Яйца</span></span>
                         </label>
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Глютен" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen5">Глютен</span>
+                            <span class="allergen-label"><span class="allergen-icon">🌾</span><span data-i18n="allergen5">Глютен</span></span>
                         </label>
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Красная рыба" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen6">Красная рыба</span>
+                            <span class="allergen-label"><span class="allergen-icon">🐟</span><span data-i18n="allergen6">Красная рыба</span></span>
                         </label>
                         <label class="allergen-option">
                             <input type="checkbox" name="modalAllergen" value="Орехи" class="allergen-checkbox">
-                            <span class="allergen-label" data-i18n="allergen7">Орехи</span>
+                            <span class="allergen-label"><span class="allergen-icon">🥜</span><span data-i18n="allergen7">Орехи</span></span>
                         </label>
                     </div>
                 </div>
@@ -591,12 +684,11 @@
             feat12: "8 видов закусок", feat13: "Коктейльный сет", feat14: "Фингер-фуд", feat15: "На 6-8 персон",
             feat16: "Свежая выпечка", feat17: "Сезонные фрукты", feat18: "Кофе/чай",
             feat19: "5 авторских десертов", feat20: "Шампанское", feat21: "Ягодный соус",
-            btnCart: "В КОРЗИНУ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             modalPersons: "Количество персон", modalAllergens: "Исключить аллергены",
-            persons2: "На 2 персоны", persons4: "На 4 персоны", persons6: "На 6 персон",
+            persons2Short: "персоны", persons4Short: "персоны", persons6Short: "персон",
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
-            // ✅ Новые переводы для модалки "Перейти в корзину?"
             cartPromptTitle: "Товар добавлен!",
             cartPromptText: "Перейти в корзину или продолжить выбирать?",
             btnContinue: "Продолжить",
@@ -620,12 +712,11 @@
             feat12: "8 types of appetizers", feat13: "Cocktail set", feat14: "Finger food", feat15: "For 6-8 people",
             feat16: "Fresh pastries", feat17: "Seasonal fruits", feat18: "Coffee/tea",
             feat19: "5 signature desserts", feat20: "Champagne", feat21: "Berry sauce",
-            btnCart: "ADD TO CART", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
+            btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             modalPersons: "Number of persons", modalAllergens: "Exclude allergens",
-            persons2: "For 2", persons4: "For 4", persons6: "For 6",
+            persons2Short: "people", persons4Short: "people", persons6Short: "people",
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
-            // ✅ Новые переводы для модалки "Перейти в корзину?"
             cartPromptTitle: "Item added!",
             cartPromptText: "Go to cart or continue shopping?",
             btnContinue: "Continue",
@@ -636,17 +727,25 @@
     let currentLang = 'ru';
     let currentProduct = null;
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+    let currentGalleryImages = [];
+    let currentGalleryIndex = 0;
 
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
         currentLang = lang;
         
+        // Обновляем тексты
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
                 el.textContent = translations[lang][key];
             }
         });
+        
+        // ✅ Обновляем валюту в ценах
+        const currencyEl = document.querySelectorAll('.currency');
+        const currency = lang === 'en' ? 'AED' : '₽';
+        currencyEl.forEach(el => el.textContent = currency);
         
         const langCurrent = document.getElementById('langCurrent');
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
@@ -655,12 +754,76 @@
         updateCartCount();
     }
 
+    // ===== ГАЛЕРЕЯ ФОТО =====
+    function initGallery(images) {
+        const track = document.getElementById('galleryTrack');
+        const dots = document.getElementById('galleryDots');
+        const prevBtn = document.getElementById('galleryPrev');
+        const nextBtn = document.getElementById('galleryNext');
+        
+        currentGalleryImages = images;
+        currentGalleryIndex = 0;
+        
+        // Создаём слайды
+        track.innerHTML = images.map((img, i) => 
+            `<div class="gallery-slide" style="background-image: url('${img}')"></div>`
+        ).join('');
+        
+        // Создаём точки
+        dots.innerHTML = images.map((_, i) => 
+            `<button class="gallery-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></button>`
+        ).join('');
+        
+        // Обработчики
+        function goToSlide(index) {
+            currentGalleryIndex = index;
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        prevBtn.onclick = () => {
+            const newIndex = (currentGalleryIndex - 1 + images.length) % images.length;
+            goToSlide(newIndex);
+        };
+        
+        nextBtn.onclick = () => {
+            const newIndex = (currentGalleryIndex + 1) % images.length;
+            goToSlide(newIndex);
+        };
+        
+        dots.querySelectorAll('.gallery-dot').forEach(dot => {
+            dot.onclick = () => goToSlide(parseInt(dot.dataset.index));
+        });
+        
+        // Свайпы на мобильных
+        let startX = 0;
+        track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        track.addEventListener('touchend', e => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (diff > 50) nextBtn.click();
+            else if (diff < -50) prevBtn.click();
+        });
+    }
+
     // ===== МОДАЛЬНОЕ ОКНО НАСТРОЙКИ ТОВАРА =====
-    function openProductModal(productData) {
+    function openProductModal(productData, galleryImages) {
         currentProduct = productData;
         document.getElementById('modalProductTitle').textContent = productData.name;
+        
+        // Сброс формы
         document.querySelector('input[name="modalPersons"][value="2"]').checked = true;
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
+        
+        // ✅ Инициализация галереи
+        if (galleryImages && galleryImages.length > 0) {
+            initGallery(galleryImages);
+            document.getElementById('gallerySlider').style.display = 'block';
+        } else {
+            document.getElementById('gallerySlider').style.display = 'none';
+        }
+        
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
     }
@@ -692,8 +855,6 @@
         saveCart();
         updateCartCount();
         closeProductModal();
-        
-        // ✅ ПОКАЗЫВАЕМ МОДАЛКУ "ПЕРЕЙТИ В КОРЗИНУ?"
         showCartPrompt();
     }
     
@@ -760,20 +921,22 @@
             });
         }
         
-        // Модальное окно настройки товара
+        // Модальное окно с галереей и настройками
         const modalOverlay = document.getElementById('productModalOverlay');
         const modalClose = document.getElementById('modalClose');
         const modalCancel = document.getElementById('modalCancel');
         const modalAddToCart = document.getElementById('modalAddToCart');
         
-        document.querySelectorAll('.btn-add-cart').forEach(btn => {
+        document.querySelectorAll('.btn-select').forEach(btn => {
             btn.addEventListener('click', function() {
                 const productData = {
                     id: this.dataset.productId,
                     name: this.dataset.productName,
                     price: parseInt(this.dataset.productPrice)
                 };
-                openProductModal(productData);
+                // ✅ Получаем изображения из data-gallery
+                const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
+                openProductModal(productData, galleryImages);
             });
         });
         
