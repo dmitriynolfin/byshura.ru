@@ -151,11 +151,20 @@
         .order-item-price { 
             font-weight: 600; color: #070395; font-size: 16px; 
             min-width: 70px; text-align: right; white-space: nowrap;
+            display: flex; align-items: baseline; gap: 4px;
+        }
+        /* ✅ Для EN: валюта ПЕРЕД числом */
+        html[lang="en"] .order-item-price {
+            flex-direction: row-reverse;
         }
         .order-total { 
             display: flex; justify-content: space-between; 
             padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee;
             font-size: 18px; font-weight: 600; color: #070395;
+        }
+        /* ✅ Для EN: валюта ПЕРЕД числом в итоге */
+        html[lang="en"] .order-total {
+            flex-direction: row-reverse;
         }
         
         /* ФОРМА */
@@ -435,6 +444,7 @@
                             <option value="MAX" data-i18n="messenger1">MAX</option>
                             <option value="Telegram" data-i18n="messenger2">Telegram</option>
                             <option value="WhatsApp" data-i18n="messenger3">WhatsApp</option>
+                            <option value="SMS" data-i18n="messenger4">SMS</option>
                         </select>
                     </div>
                 </div>
@@ -590,7 +600,7 @@
             orderTotal: "Итого:",
             sectionContacts: "👤", sectionContactsText: "Контактные данные",
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
-            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
+            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
             sectionDelivery: "🚚", sectionDeliveryText: "Доставка",
             deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер",
             labelAddress: "Адрес доставки *", 
@@ -610,7 +620,14 @@
             phonePlaceholder: "+7 (___) ___-__-__",
             addressPlaceholder: "Начните вводить адрес (Москва)...",
             commentPlaceholder: "Пожелания по доставке, сервировке и т.д.",
-            courierPrice: "(+800 ₽)"
+            courierPrice: "(+800 ₽)",
+            // ✅ Названия боксов на RU
+            box1Name: "Бокс «Лимонный»",
+            box2Name: "Бокс «Гедонист»",
+            box3Name: "Бокс «Семейный»",
+            box4Name: "Бокс «Вечеринка»",
+            box5Name: "Бокс «Завтрак»",
+            box6Name: "Бокс «Десертный»"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -622,7 +639,7 @@
             orderTotal: "Total:",
             sectionContacts: "👤", sectionContactsText: "Contact Details",
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
-            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp",
+            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
             sectionDelivery: "🚚", sectionDeliveryText: "Delivery",
             deliveryPickup: "Pickup in Prime Park", deliveryCourier: "Courier",
             labelAddress: "Delivery Address *",
@@ -642,7 +659,14 @@
             phonePlaceholder: "+971 __ ___ ____",
             addressPlaceholder: "Enter address (Dubai)...",
             commentPlaceholder: "Delivery preferences, serving notes, etc.",
-            courierPrice: "(+800 AED)"
+            courierPrice: "(+800 AED)",
+            // ✅ Названия боксов на EN
+            box1Name: "Lemon Box",
+            box2Name: "Hedonist Box",
+            box3Name: "Family Box",
+            box4Name: "Party Box",
+            box5Name: "Breakfast Box",
+            box6Name: "Dessert Box"
         }
     };
 
@@ -674,17 +698,25 @@
             if (el.dataset[key]) el.placeholder = el.dataset[key];
         });
         
-        // Обновляем индикатор языка
+        // ✅ Обновляем lang атрибут для CSS-селекторов
+        document.documentElement.lang = lang;
+        
+        // ✅ Обновляем locale для date input
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            // Браузеры автоматически используют lang атрибут для локализации календаря
+            // Дополнительно можно установить значение, если нужно
+        }
+        
         const langCurrent = document.getElementById('langCurrent');
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
-        document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         
         // Перерисовать сводку заказа
         renderOrderSummary();
     }
 
-    // ===== СВОДКА ЗАКАЗА С МИНИАТЮРАМИ =====
+    // ===== СВОДКА ЗАКАЗА С МИНИАТЮРАМИ И ЛОКАЛИЗАЦИЕЙ =====
     function renderOrderSummary() {
         const container = document.getElementById('orderItemsContainer');
         const totalEl = document.getElementById('orderTotal');
@@ -704,12 +736,16 @@
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             
-            // ✅ Миниатюра товара (заглушка, заменить на реальные URL)
+            // ✅ Миниатюра товара
             const thumbUrl = item.productId ? 
                 `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}` : 
                 'https://placehold.co/100x100/FFD93D/070395?text=🍋';
             
-            // ✅ Формируем опции: персоны + аллергены (только если есть)
+            // ✅ Локализованное название бокса
+            const boxNameKey = `${item.productId}Name`;
+            const itemName = translations[lang][boxNameKey] || item.name;
+            
+            // ✅ Формируем опции: персоны + аллергены
             let optionsHtml = '';
             optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemPersons}</span><span class="order-item-option-value">${item.options?.persons || 2}</span></div>`;
             if (item.options?.allergens?.length > 0) {
@@ -720,7 +756,7 @@
                 <div class="order-item" data-item-id="${item.id}">
                     <div class="order-item-thumb" style="background-image: url('${thumbUrl}')"></div>
                     <div class="order-item-info">
-                        <div class="order-item-name">${item.name}</div>
+                        <div class="order-item-name">${itemName}</div>
                         <div class="order-item-options">${optionsHtml}</div>
                     </div>
                     <div class="order-item-controls">
@@ -788,27 +824,24 @@
     async function sendOrderNotifications(orderData) {
         console.log('📤 Отправка уведомлений:', orderData);
         
-        // ✅ 1. MAX Messenger (через API, если есть)
-        // Примечание: MAX не имеет публичного API для отправки сообщений
-        // Здесь должна быть интеграция с вашим бэкендом
+        // ✅ 1. MAX Messenger
         console.log('📱 MAX: +79636221265', orderData);
         
-        // ✅ 2. Telegram Bot (через API)
-        // Для работы нужен bot token и backend
-        const telegramBotToken = 'YOUR_BOT_TOKEN_HERE'; // Замените на реальный токен
-        const telegramChatId = '@sash_shura'; // или ID чата
+        // ✅ 2. Telegram Bot
+        const telegramBotToken = 'YOUR_BOT_TOKEN_HERE';
+        const telegramChatId = '@sash_shura';
         const telegramMessage = `
-🛒 *Новый заказ!*
+🛒 *New Order!*
 👤 ${orderData.name}
 📱 ${orderData.phone}
 💬 ${orderData.messenger}
-🚚 ${orderData.delivery === 'courier' ? 'Курьер: ' + orderData.address : 'Самовывоз'}
+🚚 ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup'}
 📅 ${orderData.date} ${orderData.time}
 💳 ${orderData.payment}
-💰 *Итого: ${orderData.total} ${currentLang === 'en' ? 'AED' : '₽'}*
+💰 *Total: ${orderData.total} ${orderData.currency}*
 
-📦 Товары:
-${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons} персон)`).join('\n')}
+📦 Items:
+${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons} persons)`).join('\n')}
         `.trim();
         
         if (telegramBotToken !== 'YOUR_BOT_TOKEN_HERE') {
@@ -822,39 +855,31 @@ ${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons
                         parse_mode: 'Markdown'
                     })
                 });
-                console.log('✅ Telegram уведомление отправлено');
+                console.log('✅ Telegram notification sent');
             } catch (e) {
-                console.error('❌ Ошибка отправки в Telegram:', e);
+                console.error('❌ Telegram error:', e);
             }
-        } else {
-            // Fallback: открыть Telegram Web
-            const telegramLink = `https://t.me/sash_shura?text=${encodeURIComponent('Новый заказ: ' + orderData.name)}`;
-            console.log('🔗 Telegram fallback:', telegramLink);
         }
         
-        // ✅ 3. Email (через backend или mailto:)
-        const emailSubject = `Новый заказ от ${orderData.name}`;
+        // ✅ 3. Email
+        const emailSubject = `New order from ${orderData.name}`;
         const emailBody = `
-Заказ от: ${orderData.name}
-Телефон: ${orderData.phone}
-Связь: ${orderData.messenger}
-Доставка: ${orderData.delivery === 'courier' ? 'Курьер: ' + orderData.address : 'Самовывоз в Prime Park'}
-Дата: ${orderData.date} ${orderData.time}
-Оплата: ${orderData.payment}
-Комментарий: ${orderData.comment || '-'}
+Order from: ${orderData.name}
+Phone: ${orderData.phone}
+Contact: ${orderData.messenger}
+Delivery: ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup in Prime Park'}
+Date: ${orderData.date} ${orderData.time}
+Payment: ${orderData.payment}
+Comment: ${orderData.comment || '-'}
 
-Товары:
-${orderData.items.map(i => `- ${i.name} × ${i.quantity} (${i.options?.persons} персон, без: ${i.options?.allergens?.join(', ') || 'нет'})`).join('\n')}
+Items:
+${orderData.items.map(i => `- ${i.name} × ${i.quantity} (${i.options?.persons} persons, no: ${i.options?.allergens?.join(', ') || 'none'})`).join('\n')}
 
-Итого: ${orderData.total} ${currentLang === 'en' ? 'AED' : '₽'}
+Total: ${orderData.total} ${orderData.currency}
         `.trim();
         
-        // Fallback: mailto: ссылка
         const mailtoLink = `mailto:saschhen@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
         console.log('📧 Email fallback:', mailtoLink);
-        
-        // Если есть backend, отправьте POST запрос:
-        // await fetch('/api/send-order', { method: 'POST', body: JSON.stringify(orderData) });
         
         return { telegram: true, email: mailtoLink, max: 'via-backend' };
     }
