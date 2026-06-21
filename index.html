@@ -117,24 +117,19 @@
         @media (max-width: 1024px) { 
             .container { padding: 0 20px; } 
             .nav-menu { display: none; } 
-            /* ✅ УБРАНО: text-align: center для pickup-container */
             .pickup-container { grid-template-columns: 1fr; }
-            /* ✅ УБРАНО: align-items: center для pickup-info */
-            .pickup-info { }
             .header-right { gap: 15px; } 
         }
         
         @media (max-width: 768px) { 
-            /* ✅ 1. Утолщённая шапка на мобильных */
             .header { padding: 12px 0; }
-            /* ✅ 1. ОПУСКАЕМ бегущую строку ниже */
-            .marquee-bar { top: 68px; font-size: 11px; padding: 6px 0; }
-            .hero { margin-top: 38px; }
+            /* ✅ ЕЩЁ НИЖЕ: было 68px, стало 78px */
+            .marquee-bar { top: 78px; font-size: 11px; padding: 6px 0; }
+            .hero { margin-top: 48px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .footer-logo { width: 42px; height: 42px; font-size: 20px; }
             
-            /* ✅ 2. Большие кнопки и иконки на мобильных */
             .header-icons { gap: 10px; }
             .icon-btn { 
                 padding: 10px; 
@@ -155,7 +150,6 @@
             .pickup-descr { font-size: 16px; }
             .pickup-icon { width: 38px; height: 38px; font-size: 18px; }
             .pickup-text { font-size: 16px; }
-            /* ✅ 2. Выравнивание карточек по центру на планшетах */
             .about-card { flex-direction: column; text-align: center; gap: 18px; padding: 20px; }
             .about-image { width: 90px; height: 90px; }
             .about-content h3 { font-size: 19px; }
@@ -164,15 +158,13 @@
         }
         
         @media (max-width: 480px) { 
-            /* ✅ 1. Ещё более толстая шапка на очень маленьких экранах */
             .header { padding: 10px 0; }
-            /* ✅ 1. ОПУСКАЕМ бегущую строку ещё ниже */
-            .marquee-bar { top: 64px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
-            .hero { margin-top: 36px; min-height: 600px; }
+            /* ✅ ЕЩЁ НИЖЕ: было 64px, стало 76px */
+            .marquee-bar { top: 76px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
+            .hero { margin-top: 46px; min-height: 600px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .footer-logo { width: 40px; height: 40px; font-size: 18px; }
             
-            /* ✅ 2. Максимально большие кликабельные зоны */
             .header-icons { gap: 8px; }
             .icon-btn { 
                 padding: 12px; 
@@ -208,7 +200,6 @@
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; }
             
-            /* ✅ 3. ПОКАЗЫВАЕМ переключатель языка на мобильных! */
             .lang-selector { 
                 display: flex !important; 
                 padding: 8px 12px; 
@@ -248,7 +239,6 @@
             </div>
             <div class="header-right">
                 <div class="header-icons">
-                    <!-- ✅ Иконка корзины → сразу на checkout.html -->
                     <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn" title="Оформить заказ">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                         <span class="cart-count" id="cartCount">0</span>
@@ -259,8 +249,8 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷🇺)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦🇪)</span></a>
+                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦)</span></a>
                     </div>
                 </div>
             </div>
@@ -412,11 +402,9 @@
         updateCartCount();
     }
 
-    // ===== КОРЗИНА: счётчик с защитой от NaN =====
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
-            // ✅ Защита от NaN: проверяем, что cart - массив и items имеют quantity
             const totalQty = Array.isArray(cart) ? 
                 cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
             cartCount.textContent = totalQty > 0 ? totalQty : '0';
@@ -424,14 +412,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // 1. Инициализация языка
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
-        console.log(`🌐 Загружаем язык: ${langToUse} (сохранён: ${savedLang})`);
         applyLanguage(langToUse);
         
-        // 2. Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         
@@ -446,9 +431,7 @@
                     e.preventDefault();
                     const selectedLink = e.target.closest('a');
                     if (selectedLink) {
-                        const selectedLang = selectedLink.dataset.lang;
-                        console.log(`🔄 Переключаем язык: ${currentLang} → ${selectedLang}`);
-                        applyLanguage(selectedLang);
+                        applyLanguage(selectedLink.dataset.lang);
                     }
                     langDropdown.classList.remove('show');
                 });
@@ -461,7 +444,6 @@
             });
         }
         
-        // 3. Слайдер
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
@@ -482,11 +464,7 @@
             goToSlide((currentSlide + 1) % slides.length);
         }, 5000);
         
-        // 4. ✅ ИКОНКА КОРЗИНЫ → СРАЗУ НА CHECKOUT
         document.getElementById('cartBtn')?.addEventListener('click', function() {
-            console.log('🛒 Cart icon clicked on index.html → redirecting to checkout.html');
-            
-            // Опционально: предупредить, если корзина пуста
             if (cart.length === 0) {
                 const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
                 if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) {
@@ -494,12 +472,9 @@
                     return;
                 }
             }
-            
-            // Переход на оформление заказа
             window.location.href = 'checkout.html';
         });
         
-        // 5. Навигация
         document.getElementById('orderBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         document.getElementById('shopBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
@@ -517,7 +492,6 @@
             });
         });
         
-        // 6. Анимации при скролле
         const fadeElements = document.querySelectorAll('.fade-in');
         fadeElements.forEach(el => {
             el.style.opacity = '0';
@@ -537,7 +511,6 @@
         window.addEventListener('scroll', checkFade);
         checkFade();
         
-        // 7. Шапка при скролле
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
             if (header) {
@@ -546,9 +519,7 @@
             }
         });
         
-        // Инициализация
         updateCartCount();
-        console.log(`✅ index.html ready! Language: ${currentLang.toUpperCase()}`);
     });
     </script>
 </body>
