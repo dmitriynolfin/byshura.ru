@@ -61,7 +61,6 @@
             100% { transform: translateY(-50%) rotate(360deg); }
         }
         @media (max-width: 480px) {
-            /* ✅ ИСПРАВЛЕНО: Правильное позиционирование на мобильных */
             .suggestions-list { 
                 position: absolute !important; 
                 left: 0 !important; 
@@ -245,6 +244,14 @@
         }
         .btn-cancel:hover { background: #070395; color: white; }
         
+        /* ✅ СТИЛИ ДЛЯ ПОЛЕЙ ДАТЫ И ВРЕМЕНИ */
+        .datetime-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
         /* FOOTER */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
@@ -324,23 +331,34 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ ИСПРАВЛЕНО: Дата и время такого же размера, как Самовывоз/Курьер */
+            /* ✅ ИСПРАВЛЕНО: Поля Дата и Время компактного размера по содержимому */
             .datetime-grid {
-                display: grid;
-                grid-template-columns: 1fr !important;
-                gap: 15px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
                 margin-top: 20px;
+                align-items: flex-start;
             }
             .datetime-grid .form-group {
-                width: 100%;
+                flex: 0 0 auto;
                 margin-bottom: 0;
             }
-            .datetime-grid .form-input {
-                width: 100%;
-                max-width: 100%;
-                padding: 12px 16px;
-                font-size: 13px;
-                min-height: 48px;
+            .datetime-grid .form-label {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+            .datetime-grid input[type="date"],
+            .datetime-grid input[type="time"] {
+                width: auto !important;
+                min-width: fit-content;
+                padding: 6px 10px !important;
+                font-size: 13px !important;
+                min-height: auto !important;
+                height: 32px !important;
+                border-radius: 8px !important;
+                border-width: 1.5px !important;
+                display: inline-block;
+                box-sizing: content-box;
             }
             
             /* Сводка заказа на очень маленьких экранах */
@@ -361,6 +379,17 @@
             .order-item-thumb { height: 100px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
+            
+            /* ✅ На самых маленьких экранах поля ещё компактнее */
+            .datetime-grid input[type="date"],
+            .datetime-grid input[type="time"] {
+                padding: 5px 8px !important;
+                font-size: 12px !important;
+                height: 28px !important;
+            }
+            .datetime-grid .form-label {
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -512,7 +541,7 @@
                         </small>
                     </div>
                     
-                    <!-- ✅ ИСПРАВЛЕНО: Дата и время в отдельном контейнере -->
+                    <!-- ✅ Дата и время -->
                     <div class="datetime-grid">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
@@ -870,7 +899,6 @@
             return;
         }
 
-        // ✅ ИСПРАВЛЕНО: Улучшенная обработка ввода для мобильных устройств
         addressInput.addEventListener('input', function(e) {
             const query = e.target.value.trim();
             if (query.length < 2) {
@@ -888,7 +916,6 @@
             }, DEBOUNCE_DELAY);
         });
 
-        // ✅ ИСПРАВЛЕНО: Дополнительная обработка focus для мобильных
         addressInput.addEventListener('focus', function() {
             const query = this.value.trim();
             if (query.length >= 2 && suggestionsList.innerHTML) {
