@@ -48,7 +48,11 @@
         .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
         .btn-back:hover { background: #070395; color: white; }
-        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; }
+        
+        /* ✅ ОБНОВЛЕННЫЕ СТИЛИ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКА */
+        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
+        .lang-selector:hover { background: rgba(7,3,149,0.1); }
+        
         .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
         .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
@@ -152,7 +156,9 @@
             .social-link svg { width: 16px; height: 16px; }
             .footer-copyright { font-size: 11px; }
             .header-right { gap: 6px; }
-            .lang-selector { display: none; }
+            
+            /* ✅ ТЕПЕРЬ ПЕРЕКЛЮЧАТЕЛЬ ВИДЕН НА МОБИЛЬНЫХ (как на index) */
+            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
         }
         
         @media (max-width: 360px) {
@@ -195,16 +201,20 @@
                     </button>
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
+                
+                <!-- ✅ ОБНОВЛЕННЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (как на index.html) -->
                 <div class="lang-selector" id="langBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
+                    <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷🇺)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦🇪)</span></a>
+                        <a href="#" data-lang="ru">
+                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-descr">Русский (Москва)</span>
+                        </a>
+                        <a href="#" data-lang="en">
+                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-descr">English (Dubai)</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -296,7 +306,6 @@
             phil2Title: "ИСТОРИЯ В КАЖДОМ УКУСЕ", phil2Descr: "Мы исследуем гастрономическое наследие разных эпох и культур, чтобы поделиться им с вами.",
             phil3Title: "НАСЛАЖДЕНИЕ МОМЕНТОМ", phil3Descr: "Гедонизм — это не про излишества, а про осознанное удовольствие от простых вещей: еды, общения, тишины.",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            // ✅ Новое сообщение для предупреждения
             cartAlert: "Добавьте товары в корзину на странице боксов"
         },
         en: {
@@ -312,7 +321,6 @@
             phil2Title: "HISTORY IN EVERY BITE", phil2Descr: "We explore the gastronomic heritage of different eras and cultures to share it with you.",
             phil3Title: "ENJOY THE MOMENT", phil3Descr: "Hedonism isn't about excess — it's about mindful pleasure from simple things: food, conversation, silence.",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            // ✅ Новое сообщение для предупреждения
             cartAlert: "Add items to cart on the Boxes page first"
         }
     };
@@ -331,8 +339,19 @@
             }
         });
         
+        // ✅ ОБНОВЛЕНИЕ ФЛАГА И КОДА ЯЗЫКА (как на index.html)
+        const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
-        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+        if (langFlag && langCurrent) {
+            if (lang === 'ru') {
+                langFlag.textContent = '🇷🇺';
+                langCurrent.textContent = 'RU';
+            } else {
+                langFlag.textContent = '🇦🇪';
+                langCurrent.textContent = 'EN';
+            }
+        }
+        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
