@@ -421,15 +421,15 @@
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷🇺</span>
+                    <span id="langFlag">🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-code">🇷 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">🇦 EN</span>
+                            <span class="lang-code">🇪 EN</span>
                             <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
@@ -441,8 +441,8 @@
     <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
         <div class="marquee-content" data-i18n="marquee">
-             Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • 
-             Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+            🚚 Доставка в день заказа •  Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • 
         </div>
     </div>
 
@@ -606,7 +606,7 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная"></a>
+            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg></a>
@@ -622,7 +622,7 @@
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты •  Уникальный опыт • 🎁 Подарочная упаковка • ",
+            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
             checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА",
             checkoutSubtitle: "Заполните данные для доставки вашего бокса",
             orderSummaryTitle: "Ваш заказ",
@@ -653,7 +653,7 @@
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients •  Unique experience • 🎁 Gift packaging • ",
+            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             checkoutTitle: "CHECKOUT",
             checkoutSubtitle: "Fill in your details for box delivery",
             orderSummaryTitle: "Your Order",
@@ -686,14 +686,20 @@
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
-    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА =====
+    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА (ЧИСЛА, +1) =====
     function generateOrderNumber() {
-        const date = new Date();
-        const dateStr = date.getFullYear().toString() + 
-                       (date.getMonth()+1).toString().padStart(2,'0') + 
-                       date.getDate().toString().padStart(2,'0');
-        const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-        return `HD-${dateStr}-${random}`;
+        const STORAGE_KEY = 'hedonism_last_order_id';
+        
+        // Получаем последний номер (начинаем с 1000, чтобы первый заказ был 1001)
+        let currentId = parseInt(localStorage.getItem(STORAGE_KEY)) || 1000;
+        
+        // Увеличиваем на 1
+        const nextId = currentId + 1;
+        
+        // Сохраняем для следующего раза
+        localStorage.setItem(STORAGE_KEY, nextId);
+        
+        return String(nextId);
     }
 
     function applyLanguage(lang) {
@@ -766,7 +772,7 @@
             total += itemTotal;
             const thumbUrl = item.productId ? 
                 `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}` : 
-                'https://placehold.co/100x100/FFD93D/070395?text=';
+                'https://placehold.co/100x100/FFD93D/070395?text=🍋';
             const boxNameKey = `${item.productId}Name`;
             const itemName = translations[lang][boxNameKey] || item.name;
             
@@ -889,7 +895,7 @@
         // 1. TELEGRAM БОТ (если настроен)
         if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
             const tgMessage = `🛒 *НОВЫЙ ЗАКАЗ!*\n\n` +
-                ` *Номер:* \`${orderData.orderNumber}\`\n` +
+                `🔢 *Номер:* \`${orderData.orderNumber}\`\n` +
                 `👤 *Имя:* ${orderData.name}\n` +
                 `📱 *Телефон:* ${orderData.phone}\n` +
                 `💬 *Мессенджер:* ${orderData.messenger}\n\n` +
@@ -916,10 +922,10 @@
                     console.error('❌ Telegram API error:', await response.text());
                 }
             } catch (e) {
-                console.error(' Telegram error:', e);
+                console.error('❌ Telegram error:', e);
             }
         } else {
-            console.warn('⚠️ Telegram бот не настроен. Инструкция:');
+            console.warn('️ Telegram бот не настроен. Инструкция:');
             console.warn('1. Создайте бота через @BotFather в Telegram');
             console.warn('2. Получите токен и вставьте в OWNER_CONFIG.telegramBotToken');
             console.warn('3. Узнайте свой chat_id через @userinfobot');
@@ -928,9 +934,8 @@
         }
         
         // 2. EMAIL — формируем mailto: ссылку
-        const emailSubject = `🛒 Новый заказ ${orderData.orderNumber} от ${orderData.name}`;
-        const emailBody = `НОВЫЙ ЗАКАЗ!\n\n` +
-            `Номер: ${orderData.orderNumber}\n` +
+        const emailSubject = `🛒 Новый заказ #${orderData.orderNumber} от ${orderData.name}`;
+        const emailBody = `НОВЫЙ ЗАКАЗ #${orderData.orderNumber}\n\n` +
             `Имя: ${orderData.name}\n` +
             `Телефон: ${orderData.phone}\n` +
             `Мессенджер: ${orderData.messenger}\n\n` +
@@ -945,12 +950,12 @@
         console.log('📧 Email для владельца:', orderData.emailLink);
         
         // 3. MAX — формируем ссылку
-        const maxMessage = `Новый заказ ${orderData.orderNumber}!\n${orderData.name}\n${orderData.phone}\n${deliveryText}\n${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
+        const maxMessage = `Заказ #${orderData.orderNumber}!\n${orderData.name}\n${orderData.phone}\n${deliveryText}\n${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
         orderData.maxLink = `https://max.ru/share/text?text=${encodeURIComponent(maxMessage)}`;
         console.log('📱 MAX для владельца:', orderData.maxLink);
         
         // 4. WHATSAPP — формируем ссылку
-        const waMessage = `🛒 Новый заказ!\n\nНомер: ${orderData.orderNumber}\nИмя: ${orderData.name}\nТелефон: ${orderData.phone}\nДоставка: ${deliveryText}\nДата: ${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
+        const waMessage = ` Новый заказ #${orderData.orderNumber}!\n\nИмя: ${orderData.name}\nТелефон: ${orderData.phone}\nДоставка: ${deliveryText}\nДата: ${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
         orderData.whatsappLink = `https://wa.me/${OWNER_CONFIG.ownerPhone}?text=${encodeURIComponent(waMessage)}`;
         console.log('💬 WhatsApp для владельца:', orderData.whatsappLink);
     }
@@ -1224,7 +1229,7 @@
                 if (btnText) btnText.style.display = 'none';
                 if (btnLoading) btnLoading.style.display = 'inline';
                 
-                // Генерируем уникальный номер заказа
+                // Генерируем уникальный номер заказа (числовой)
                 const orderNumber = generateOrderNumber();
                 console.log('🔢 Номер заказа:', orderNumber);
                 
@@ -1252,7 +1257,7 @@
                     lang: currentLang
                 };
                 
-                console.log('📦 Полный заказ:', orderData);
+                console.log(' Полный заказ:', orderData);
                 
                 try {
                     // 1. Отправляем уведомления владельцу
