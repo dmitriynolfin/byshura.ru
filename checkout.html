@@ -72,22 +72,23 @@
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
         /* ШАПКА */
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); }
+        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
         .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
         .nav-link.active { color: #FFD93D; }
         .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
-        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
         .btn-back:hover { background: #070395; color: white; }
-        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; }
+        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
+        .lang-selector:hover { background: rgba(7,3,149,0.1); }
         .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
         .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
@@ -153,29 +154,20 @@
             min-width: 70px; text-align: right; white-space: nowrap;
             display: flex; align-items: baseline; gap: 4px;
         }
-        /* ✅ Для EN: валюта ПЕРЕД числом */
-        html[lang="en"] .order-item-price {
-            flex-direction: row-reverse;
-        }
+        html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         .order-total { 
             display: flex; justify-content: space-between; 
             padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee;
             font-size: 18px; font-weight: 600; color: #070395;
         }
-        /* ✅ УБРАНО: Для EN больше нет row-reverse, TOTAL слева как в RU */
         
         /* ФОРМА */
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
         .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; display: flex; align-items: center; gap: 10px; }
-        .form-title::before {
-            content: ''; width: 4px; height: 20px;
-            background: #FFD93D; border-radius: 2px;
-        }
+        .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
         .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; display: flex; align-items: center; gap: 6px; }
-        .form-label .icon { font-size: 16px; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
         .form-input, .form-select, .form-textarea { 
             width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; 
             font-size: 14px; color: #070395; background: white; transition: all 0.3s;
@@ -186,17 +178,12 @@
         .form-input::placeholder { color: #999; }
         .form-textarea { min-height: 100px; resize: vertical; }
         
-        /* ✅ УЛУЧШЕННЫЙ БЛОК КОНТАКТОВ */
-        .contact-input-wrapper {
-            position: relative;
-        }
+        .contact-input-wrapper { position: relative; }
         .contact-input-wrapper .icon {
             position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
             color: #999; font-size: 18px; pointer-events: none;
         }
-        .contact-input-wrapper .form-input {
-            padding-left: 48px;
-        }
+        .contact-input-wrapper .form-input { padding-left: 48px; }
         .form-select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23070395' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -250,10 +237,10 @@
         /* FOOTER */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
         .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
-        .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; }
+        .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         
         /* СКРЫТИЕ СКРОЛЛБАРА */
@@ -262,23 +249,32 @@
         body { -ms-overflow-style: none; }
         
         /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
+        @media (max-width: 1024px) { 
+            .container { padding: 0 20px; } 
+            .nav-menu { display: none; } 
+        }
+        
         @media (max-width: 768px) { 
-            .header { padding: 10px 0; } 
-            .marquee-bar { top: 62px; font-size: 12px; padding: 6px 0; }
-            .checkout-page { padding-top: 130px; }
-            .header-container { padding: 0 15px; } 
-            .logo { width: 38px; height: 38px; font-size: 20px; } 
+            .header { padding: 12px 0; }
+            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
+            .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
+            .checkout-page { padding-top: 112px; }
+            .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .footer-logo { width: 42px; height: 42px; font-size: 20px; }
+            
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            
             .checkout-title { font-size: 28px; }
             .checkout-form { padding: 20px; }
             .form-title { font-size: 18px; }
             .delivery-options { flex-direction: column; }
             .checkout-actions { flex-direction: column; }
-            .header-right { gap: 8px; }
-            .header-icons { gap: 8px; }
-            .icon-btn { padding: 6px; }
-            .icon-btn svg { width: 18px; height: 18px; }
-            .btn-back { padding: 8px 18px; font-size: 11px; }
+            .header-right { gap: 10px; }
             
             /* Сводка заказа на мобильных */
             .order-item { flex-direction: row; gap: 12px; }
@@ -287,28 +283,38 @@
             .order-item-controls { margin-left: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
             .order-item-price { text-align: left; }
         }
+        
         @media (max-width: 480px) { 
-            .header { padding: 8px 0; }
-            .marquee-bar { top: 54px; font-size: 10px; padding: 4px 0; letter-spacing: 0.5px; }
-            .checkout-page { padding-top: 125px; }
-            .logo { width: 35px; height: 35px; font-size: 18px; }
-            .header-icons { gap: 6px; }
-            .icon-btn { padding: 5px; }
-            .icon-btn svg { width: 16px; height: 16px; }
-            .cart-count { width: 14px; height: 14px; font-size: 8px; }
-            .lang-selector { display: none; }
-            .header-right { gap: 6px; }
-            .btn-back { padding: 6px 14px; font-size: 10px; }
+            .header { padding: 10px 0; }
+            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
+            .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
+            .checkout-page { padding-top: 112px; }
+            .logo { width: 40px; height: 40px; font-size: 20px; }
+            .footer-logo { width: 40px; height: 40px; font-size: 18px; }
+            
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            
+            .checkout-title { font-size: 24px; }
+            .checkout-form { padding: 18px; }
+            .form-title { font-size: 16px; }
             .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 13px; }
             .contact-input-wrapper .form-input { padding-left: 44px; }
             .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
             .delivery-label { padding: 12px 16px; font-size: 13px; }
-            .btn-submit, .btn-cancel { padding: 14px 20px; font-size: 13px; }
-            .footer { padding: 15px 0; }
-            .social-links { gap: 10px; }
-            .social-link { width: 20px; height: 20px; }
-            .social-link svg { width: 16px; height: 16px; }
-            .footer-copyright { font-size: 11px; }
+            .footer { padding: 18px 0; }
+            .social-links { gap: 12px; }
+            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
+            .social-link svg { width: 18px; height: 18px; }
+            .footer-copyright { font-size: 12px; }
+            .header-right { gap: 8px; }
+            
+            /* ✅ ПОКАЗЫВАЕМ переключатель языка на мобильных! */
+            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
             /* Сводка заказа на очень маленьких экранах */
             .order-item { flex-direction: column; }
@@ -319,12 +325,15 @@
             .quantity-btn { width: 22px; height: 22px; font-size: 13px; }
             .order-item-price { font-size: 18px; }
         }
+        
         @media (max-width: 360px) {
-            .logo { width: 32px; height: 32px; font-size: 16px; }
-            .btn-back { padding: 5px 12px; font-size: 9px; }
-            .checkout-title { font-size: 24px; }
-            .form-title { font-size: 16px; }
+            .logo { width: 38px; height: 38px; font-size: 18px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .checkout-title { font-size: 22px; }
+            .form-title { font-size: 15px; }
             .order-item-thumb { height: 100px; }
+            .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
+            .icon-btn svg { width: 22px; height: 22px; }
         }
     </style>
 </head>
@@ -363,7 +372,7 @@
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
                             <span class="lang-code">RU</span>
-                            <span class="lang-descr">Русский (Москва 🇷🇺)</span>
+                            <span class="lang-descr">Русский (Москва 🇷)</span>
                         </a>
                         <a href="#" data-lang="en">
                             <span class="lang-code">EN</span>
@@ -402,15 +411,13 @@
             </div>
             
             <form class="checkout-form" id="checkoutForm">
-                <!-- КОНТАКТЫ - УЛУЧШЕННЫЙ ИНТЕРФЕЙС -->
+                <!-- КОНТАКТЫ -->
                 <div class="form-section">
                     <h2 class="form-title">
                         <span data-i18n="sectionContactsText">Контактные данные</span>
                     </h2>
                     <div class="form-group">
-                        <label class="form-label" for="name" data-i18n="labelName">
-                            Имя *
-                        </label>
+                        <label class="form-label" for="name" data-i18n="labelName">Имя *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">👤</span>
                             <input type="text" id="name" name="name" class="form-input" required 
@@ -420,9 +427,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="phone" data-i18n="labelPhone">
-                            Телефон *
-                        </label>
+                        <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">📞</span>
                             <input type="tel" id="phone" name="phone" class="form-input" required 
@@ -432,9 +437,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="messenger" data-i18n="labelMessenger">
-                            Предпочтительный способ связи
-                        </label>
+                        <label class="form-label" for="messenger" data-i18n="labelMessenger">Предпочтительный способ связи</label>
                         <select id="messenger" name="messenger" class="form-select">
                             <option value="MAX" data-i18n="messenger1">MAX</option>
                             <option value="Telegram" data-i18n="messenger2">Telegram</option>
@@ -466,24 +469,14 @@
                         </label>
                     </div>
                     
-                    <!-- Адрес с автодополнением -->
                     <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
-                        <label class="form-label" for="address" data-i18n="labelAddress">
-                            Адрес доставки *
-                        </label>
+                        <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
                         <div class="address-input-wrapper">
-                            <input 
-                                type="text" 
-                                id="address" 
-                                name="address" 
-                                class="form-input" 
-                                data-placeholder-ru="Начните вводить адрес (Москва)..." 
-                                data-placeholder-en="Enter address (Dubai)..."
-                                placeholder="Начните вводить адрес..." 
-                                autocomplete="off"
-                                data-dd-city="Москва"
-                                data-osm-city="Dubai"
-                            >
+                            <input type="text" id="address" name="address" class="form-input" 
+                                   data-placeholder-ru="Начните вводить адрес (Москва)..." 
+                                   data-placeholder-en="Enter address (Dubai)..."
+                                   placeholder="Начните вводить адрес..." autocomplete="off"
+                                   data-dd-city="Москва" data-osm-city="Dubai">
                             <div class="address-loading" id="addressLoading">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M21 12a9 9 0 11-6.219-8.56" stroke-linecap="round"/>
@@ -498,15 +491,11 @@
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
                         <div class="form-group">
-                            <label class="form-label" for="date" data-i18n="labelDate">
-                                Дата *
-                            </label>
+                            <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
                             <input type="date" id="date" name="date" class="form-input" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="time" data-i18n="labelTime">
-                                Время (17:00-23:00) *
-                            </label>
+                            <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
                             <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" required>
                         </div>
                     </div>
@@ -540,9 +529,7 @@
                 <!-- КОММЕНТАРИЙ -->
                 <div class="form-section">
                     <div class="form-group">
-                        <label class="form-label" for="comment" data-i18n="labelComment">
-                            Комментарий к заказу
-                        </label>
+                        <label class="form-label" for="comment" data-i18n="labelComment">Комментарий к заказу</label>
                         <textarea id="comment" name="comment" class="form-textarea" 
                                   data-placeholder-ru="Пожелания по доставке, сервировке и т.д."
                                   data-placeholder-en="Requests for delivery, serving, etc."
@@ -577,7 +564,6 @@
 
     <!-- JAVASCRIPT -->
     <script>
-    // ===== ПЕРЕВОДЫ =====
     const translations = {
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма",
@@ -606,13 +592,8 @@
             itemPersons: "Персон:", itemAllergens: "Аллергены:", itemQuantity: "Кол-во:",
             btnRemove: "Удалить",
             courierPrice: "(+800 ₽)",
-            // Названия боксов на RU
-            box1Name: "Бокс «Лимонный»",
-            box2Name: "Бокс «Гедонист»",
-            box3Name: "Бокс «Семейный»",
-            box4Name: "Бокс «Вечеринка»",
-            box5Name: "Бокс «Завтрак»",
-            box6Name: "Бокс «Десертный»"
+            box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
+            box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -641,25 +622,18 @@
             itemPersons: "Persons:", itemAllergens: "No:", itemQuantity: "Qty:",
             btnRemove: "Remove",
             courierPrice: "(+800 AED)",
-            // Названия боксов на EN
-            box1Name: "Lemon Box",
-            box2Name: "Hedonist Box",
-            box3Name: "Family Box",
-            box4Name: "Party Box",
-            box5Name: "Breakfast Box",
-            box6Name: "Dessert Box"
+            box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
+            box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box"
         }
     };
 
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
-    // ✅ ИСПРАВЛЕННАЯ ФУНКЦИЯ ПРИМЕНЕНИЯ ЯЗЫКА
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
         currentLang = lang;
         
-        // 1. Обновляем тексты
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
@@ -667,50 +641,36 @@
             }
         });
         
-        // 2. ✅ Обновляем placeholder'ы
         document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
             const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
-            if (el.dataset[key]) {
-                el.placeholder = el.dataset[key];
-            }
+            if (el.dataset[key]) { el.placeholder = el.dataset[key]; }
         });
         
-        // 3. ✅ Обновляем валюту
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
         document.querySelectorAll('.courier-price').forEach(el => {
             el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
         });
         
-        // 4. ✅ Обновляем lang атрибут для всей страницы и календаря
         document.documentElement.lang = lang;
         
-        // 5. ✅ Принудительно обновляем календарь (date input)
         const dateInput = document.getElementById('date');
         if (dateInput) {
             const currentValue = dateInput.value;
             dateInput.setAttribute('lang', lang);
-            // Перезаписываем значение для обновления отображения
             if (currentValue) {
                 dateInput.value = '';
-                setTimeout(() => {
-                    dateInput.value = currentValue;
-                }, 10);
+                setTimeout(() => { dateInput.value = currentValue; }, 10);
             }
         }
         
-        // 6. Обновляем индикатор языка
         const langCurrent = document.getElementById('langCurrent');
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         localStorage.setItem('hedonism_lang', lang);
-        
-        // 7. Перерисовать сводку заказа
         renderOrderSummary();
-        
         console.log(`🌐 Language switched to: ${lang.toUpperCase()}`);
     }
 
-    // ===== СВОДКА ЗАКАЗА С МИНИАТЮРАМИ И ЛОКАЛИЗАЦИЕЙ =====
     function renderOrderSummary() {
         const container = document.getElementById('orderItemsContainer');
         const totalEl = document.getElementById('orderTotal');
@@ -723,23 +683,17 @@
             return;
         }
         
-        let html = '';
-        let total = 0;
+        let html = '', total = 0;
         
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
-            
-            // Миниатюра товара
             const thumbUrl = item.productId ? 
                 `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}` : 
                 'https://placehold.co/100x100/FFD93D/070395?text=🍋';
-            
-            // ✅ Локализованное название бокса
             const boxNameKey = `${item.productId}Name`;
             const itemName = translations[lang][boxNameKey] || item.name;
             
-            // Формируем опции: персоны + аллергены
             let optionsHtml = '';
             optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemPersons}</span><span class="order-item-option-value">${item.options?.persons || 2}</span></div>`;
             if (item.options?.allergens?.length > 0) {
@@ -767,9 +721,14 @@
         });
         
         container.innerHTML = html;
-        if (totalEl) totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
+        if (totalEl) {
+            if (lang === 'en') {
+                totalEl.innerHTML = `<span class="currency">${currency}</span> <span class="price-value">${total.toLocaleString('ru-RU')}</span>`;
+            } else {
+                totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
+            }
+        }
         
-        // Обработчики кнопок
         container.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const itemId = parseInt(this.dataset.itemId);
@@ -802,87 +761,44 @@
         updateCartCount();
     }
     
-    function saveCart() {
-        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
-    }
+    function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
     
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
-            const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalQty;
+            const totalQty = Array.isArray(cart) ? 
+                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            cartCount.textContent = totalQty > 0 ? totalQty : '0';
         }
     }
 
-    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ =====
     async function sendOrderNotifications(orderData) {
         console.log('📤 Отправка уведомлений:', orderData);
-        
-        // 1. MAX Messenger
         console.log('📱 MAX: +79636221265', orderData);
         
-        // 2. Telegram Bot
         const telegramBotToken = 'YOUR_BOT_TOKEN_HERE';
         const telegramChatId = '@sash_shura';
-        const telegramMessage = `
-🛒 *New Order!*
-👤 ${orderData.name}
-📱 ${orderData.phone}
-💬 ${orderData.messenger}
-🚚 ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup'}
-📅 ${orderData.date} ${orderData.time}
-💳 ${orderData.payment}
-💰 *Total: ${orderData.total} ${orderData.currency}*
-
-📦 Items:
-${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons} persons)`).join('\n')}
-        `.trim();
+        const telegramMessage = `🛒 *New Order!* 👤 ${orderData.name} 📱 ${orderData.phone} 💬 ${orderData.messenger} 🚚 ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup'} 📅 ${orderData.date} ${orderData.time} 💳 ${orderData.payment} 💰 *Total: ${orderData.total} ${orderData.currency}* 📦 Items:\n${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons} persons)`).join('\n')}`;
         
         if (telegramBotToken !== 'YOUR_BOT_TOKEN_HERE') {
             try {
                 await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: telegramChatId,
-                        text: telegramMessage,
-                        parse_mode: 'Markdown'
-                    })
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: telegramChatId, text: telegramMessage, parse_mode: 'Markdown' })
                 });
                 console.log('✅ Telegram notification sent');
-            } catch (e) {
-                console.error('❌ Telegram error:', e);
-            }
+            } catch (e) { console.error('❌ Telegram error:', e); }
         }
         
-        // 3. Email
         const emailSubject = `New order from ${orderData.name}`;
-        const emailBody = `
-Order from: ${orderData.name}
-Phone: ${orderData.phone}
-Contact: ${orderData.messenger}
-Delivery: ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup in Prime Park'}
-Date: ${orderData.date} ${orderData.time}
-Payment: ${orderData.payment}
-Comment: ${orderData.comment || '-'}
-
-Items:
-${orderData.items.map(i => `- ${i.name} × ${i.quantity} (${i.options?.persons} persons, no: ${i.options?.allergens?.join(', ') || 'none'})`).join('\n')}
-
-Total: ${orderData.total} ${orderData.currency}
-        `.trim();
-        
+        const emailBody = `Order from: ${orderData.name}\nPhone: ${orderData.phone}\nContact: ${orderData.messenger}\nDelivery: ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup in Prime Park'}\nDate: ${orderData.date} ${orderData.time}\nPayment: ${orderData.payment}\nComment: ${orderData.comment || '-'}\n\nItems:\n${orderData.items.map(i => `- ${i.name} × ${i.quantity}`).join('\n')}\n\nTotal: ${orderData.total} ${orderData.currency}`;
         const mailtoLink = `mailto:saschhen@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
         console.log('📧 Email fallback:', mailtoLink);
-        
-        return { telegram: true, email: mailtoLink, max: 'via-backend' };
     }
 
-    // ===== ДВОЙНАЯ ИНТЕГРАЦИЯ: DADATA (RU) + OSM (EN) =====
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
     const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
     const PHOTON_URL = 'https://photon.komoot.io/api/?';
-    
     let addressDebounceTimer;
     const DEBOUNCE_DELAY = 300;
 
@@ -956,11 +872,10 @@ Total: ${orderData.total} ${orderData.currency}
                 const addressField = document.getElementById('addressField');
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
-                    addressInput.required = true;
+                    document.getElementById('address').required = true;
                 } else {
                     addressField.style.display = 'none';
-                    addressInput.required = false;
-                    suggestionsList.classList.remove('show');
+                    document.getElementById('address').required = false;
                 }
             });
         });
@@ -1052,30 +967,19 @@ Total: ${orderData.total} ${orderData.currency}
     function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
     function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-    // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
-        
-        // Сначала применяем язык
         applyLanguage(savedLang);
         
-        // Затем принудительно обновляем placeholder'ы ещё раз (на случай если не сработало)
         setTimeout(() => {
             document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
                 const key = savedLang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
-                if (el.dataset[key]) {
-                    el.placeholder = el.dataset[key];
-                }
+                if (el.dataset[key]) { el.placeholder = el.dataset[key]; }
             });
-            
-            // И календарь
             const dateInput = document.getElementById('date');
-            if (dateInput) {
-                dateInput.setAttribute('lang', savedLang);
-            }
+            if (dateInput) { dateInput.setAttribute('lang', savedLang); }
         }, 100);
         
-        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -1083,21 +987,19 @@ Total: ${orderData.total} ${orderData.currency}
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault(); e.stopPropagation();
-                    const selectedLang = e.target.closest('a').dataset.lang;
-                    applyLanguage(selectedLang);
-                    setTimeout(() => { langDropdown.classList.remove('show'); }, 100);
+                    const selectedLink = e.target.closest('a');
+                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
+                    setTimeout(() => langDropdown.classList.remove('show'), 100);
                 });
             });
             document.addEventListener('click', function(e) {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) { langDropdown.classList.remove('show'); }
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
             });
         }
         
-        // Сводка заказа
         renderOrderSummary();
         updateCartCount();
         
-        // Логика формы
         const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
         const addressField = document.getElementById('addressField');
         deliveryRadios.forEach(radio => {
@@ -1119,33 +1021,24 @@ Total: ${orderData.total} ${orderData.currency}
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
-        // ✅ ОТПРАВКА ФОРМЫ С УВЕДОМЛЕНИЯМИ
         document.getElementById('checkoutForm')?.addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             
-            if (!name || !phone) { 
-                alert(translations[currentLang].validationError); 
-                return; 
-            }
+            if (!name || !phone) { alert(translations[currentLang].validationError); return; }
             
-            // Блокируем кнопку
             submitBtn.disabled = true;
             submitBtn.querySelector('.btn-text').style.display = 'none';
             submitBtn.querySelector('.btn-loading').style.display = 'inline';
             
-            // Сбор данных заказа
             const orderData = {
-                name, phone, 
-                messenger: document.getElementById('messenger').value,
+                name, phone, messenger: document.getElementById('messenger').value,
                 delivery: document.querySelector('input[name="delivery"]:checked')?.value,
                 address: document.getElementById('address').value,
-                addressStructured: document.getElementById('address')?.dataset.structured 
-                    ? JSON.parse(document.getElementById('address').dataset.structured) : null,
-                date: document.getElementById('date').value, 
-                time: document.getElementById('time').value,
+                addressStructured: document.getElementById('address')?.dataset.structured ? JSON.parse(document.getElementById('address').dataset.structured) : null,
+                date: document.getElementById('date').value, time: document.getElementById('time').value,
                 payment: document.querySelector('input[name="payment"]:checked')?.value,
                 comment: document.getElementById('comment').value,
                 items: cart.map(item => ({
@@ -1159,21 +1052,11 @@ Total: ${orderData.total} ${orderData.currency}
             };
             
             console.log('📦 Полный заказ:', orderData);
-            
             try {
-                // ✅ Отправка уведомлений
                 await sendOrderNotifications(orderData);
-                
-                // ✅ Успех
                 alert(translations[currentLang].orderSuccess);
-                
-                // ✅ Очистка корзины и редирект
-                cart = [];
-                saveCart();
-                updateCartCount();
-                renderOrderSummary();
+                cart = []; saveCart(); updateCartCount(); renderOrderSummary();
                 window.location.href = 'index.html';
-                
             } catch (error) {
                 console.error('❌ Ошибка при оформлении заказа:', error);
                 alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.');
@@ -1183,10 +1066,15 @@ Total: ${orderData.total} ${orderData.currency}
             }
         });
         
-        // Запуск автодополнения
         initAddressAutocomplete();
-        
         console.log('✅ checkout.html ready! Language: ' + currentLang.toUpperCase());
+    });
+    
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            cart = JSON.parse(e.newValue) || [];
+            updateCartCount();
+        }
     });
     </script>
 </body>
