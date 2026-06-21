@@ -273,15 +273,18 @@
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
+                    <!-- ✅ ДОБАВЛЕН ФЛАГ -->
+                    <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦)</span></a>
+                        <a href="#" data-lang="ru">
+                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-descr">Русский (Москва)</span>
+                        </a>
+                        <a href="#" data-lang="en">
+                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-descr">English (Dubai)</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -539,7 +542,7 @@
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             modalPersons: "Number of persons", modalAllergens: "Exclude allergens",
             persons2Short: "people", persons4Short: "people", persons6Short: "people",
-            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red fish", allergen7: "Nuts",
+            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
             btnContinue: "Continue", btnGoToCart: "Go to cart"
@@ -583,13 +586,25 @@
         const currency = lang === 'en' ? 'AED' : '₽';
         currencyEl.forEach(el => el.textContent = currency);
         
+        // ✅ ИСПРАВЛЕНО: Обновляем флаг и код языка
+        const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
-        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+        if (langFlag && langCurrent) {
+            if (lang === 'ru') {
+                langFlag.textContent = '🇷🇺';
+                langCurrent.textContent = 'RU';
+            } else {
+                langFlag.textContent = '🇦🇪';
+                langCurrent.textContent = 'EN';
+            }
+        }
+        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         
         // ✅ Обновляем счётчик корзины при смене языка
         updateCartCount();
+        console.log(`🌐 Language switched to: ${lang.toUpperCase()}`);
     }
 
     function initGallery(images) {
@@ -652,9 +667,24 @@
         return { persons, allergens };
     }
     
-    // ✅ ДОБАВЛЕНИЕ В КОРЗИНУ С СОХРАНЕНИЕМ В LOCALSTORAGE
+    // ✅ ДОБАВЛЕНИЕ В КОРЗИНУ С ПЕРЕВОДОМ АЛЛЕРГЕНОВ И СОХРАНЕНИЕМ
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
+        
+        // ✅ Перевод аллергенов на выбранный язык
+        const allergensTranslated = options.allergens.map(allergen => {
+            const allergenMap = {
+                'Грибы': translations[currentLang].allergen1,
+                'Горчица': translations[currentLang].allergen2,
+                'Лактоза': translations[currentLang].allergen3,
+                'Яйца': translations[currentLang].allergen4,
+                'Глютен': translations[currentLang].allergen5,
+                'Красная рыба': translations[currentLang].allergen6,
+                'Орехи': translations[currentLang].allergen7
+            };
+            return allergenMap[allergen] || allergen;
+        });
+        
         const cartItem = {
             id: Date.now(),
             productId: currentProduct.id,
@@ -662,11 +692,11 @@
             basePrice: currentProduct.price,
             price: currentProduct.price,
             quantity: 1,
-            options: { persons: options.persons, allergens: options.allergens }
+            options: { persons: options.persons, allergens: allergensTranslated }
         };
         cart.push(cartItem);
-        saveCart(); // ✅ Сохраняем в localStorage
-        updateCartCount(); // ✅ Обновляем счётчик
+        saveCart();
+        updateCartCount();
         closeProductModal();
         showCartPrompt();
     }
@@ -694,7 +724,7 @@
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
         applyLanguage(langToUse);
         
-        // ✅ 2. Обновляем счётчик корзины (корзина уже загружена из localStorage глобально)
+        // ✅ 2. Обновляем счётчик корзины
         updateCartCount();
         
         // Переключатель языка
