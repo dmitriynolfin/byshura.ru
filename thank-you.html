@@ -23,14 +23,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- ===== EMAILJS SDK ===== -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // ⚠️ ЗАМЕНИТЕ НА ВАШ PUBLIC KEY ИЗ EMAILJS
-            emailjs.init("P1FeFwJx-soDvrD_G");
-        })();
-    </script>
+    <!-- ⚠️ УДАЛЕНО: Скрипт EmailJS больше не нужен -->
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -405,7 +398,7 @@
                     <div id="orderDetailsContainer"></div>
                 </div>
                 
-                <!-- СТАТУС ОТПРАВКИ УВЕДОМЛЕНИЙ (скрыт по умолчанию) -->
+                <!-- СТАТУС ОТПРАВКИ УВЕДОМЛЕНИЙ -->
                 <div class="notification-status" id="notificationStatus">
                     <span id="notificationStatusText"></span>
                 </div>
@@ -469,7 +462,7 @@
             noOrder: "Заказ не найден",
             noOrderText: "Похоже, вы перешли на эту страницу напрямую. Пожалуйста, оформите заказ.",
             btnGoToBoxes: "ПЕРЕЙТИ К БОКСАМ",
-            notificationSending: "📤 Отправка уведомления...",
+            notificationSending: "⏳ Отправка уведомления администратору...",
             notificationSuccess: "✅ Уведомление отправлено",
             notificationError: "⚠️ Ошибка отправки",
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
@@ -506,7 +499,7 @@
             noOrder: "Order not found",
             noOrderText: "It seems you came to this page directly. Please place an order first.",
             btnGoToBoxes: "GO TO BOXES",
-            notificationSending: "📤 Sending notification...",
+            notificationSending: "⏳ Sending admin notification...",
             notificationSuccess: "✅ Notification sent",
             notificationError: "⚠️ Sending failed",
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
@@ -517,12 +510,10 @@
     let currentLang = localStorage.getItem('hedonism_lang') || 'ru';
     let orderData = null;
     
-    // ===== КОНФИГУРАЦИЯ EMAILJS =====
-    // ⚠️ ЗАМЕНИТЕ НА ВАШИ ДАННЫЕ ИЗ EMAILJS
-    const EMAILJS_CONFIG = {
-        SERVICE_ID: 'service_kc6ep4k',      // Например: service_abc123
-        TEMPLATE_ID: 'template_10ccvvh',    // Например: template_xyz789
-        PUBLIC_KEY: 'P1FeFwJx-soDvrD_G'       // Например: user_abc123xyz
+    // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
+    // Вставлен ваш URL
+    const GAS_CONFIG = {
+        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbw8Lodp5r_SX1ChPsh1sNZF0Aitx9SY33sYq8NUE6yMF99gJQiB94ebXUM29FlcL7If/exec'
     };
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
@@ -617,58 +608,37 @@
         container.innerHTML = html;
     }
     
-    // ===== ОТПРАВКА EMAIL ЧЕРЕЗ EMAILJS =====
-    async function sendEmailNotification() {
+    // ===== ОТПРАВКА УВЕДОМЛЕНИЯ ЧЕРЕЗ GOOGLE APPS SCRIPT =====
+    async function sendGasNotification() {
         if (!orderData) return;
         
         const statusEl = document.getElementById('notificationStatus');
         const statusText = document.getElementById('notificationStatusText');
         const t = translations[currentLang];
         
-        // Показываем статус "отправка"
         statusEl.className = 'notification-status show info';
         statusText.textContent = t.notificationSending;
         
-        // Подготавливаем данные для шаблона EmailJS
-        const templateParams = {
-            order_number: orderData.orderNumber,
-            customer_name: orderData.name,
-            customer_phone: orderData.phone,
-            customer_messenger: orderData.messenger,
-            delivery_type: orderData.delivery === 'courier' ? 'Курьер' : 'Самовывоз в Prime Park',
-            delivery_address: orderData.address || '-',
-            order_date: orderData.date,
-            order_time: orderData.time,
-            payment_method: orderData.payment === 'sber' ? 'Сбер' : 
-                           orderData.payment === 'tbank' ? 'Т-Банк' : 
-                           orderData.payment === 'alfa' ? 'Альфа' : 'Наличные',
-            comment: orderData.comment || '-',
-            total: `${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`,
-            items: orderData.items.map(item => {
-                const boxName = translations[currentLang][`${item.productId}Name`] || item.name || 'Box';
-                return `• ${boxName} × ${item.quantity} (${item.options?.persons || 2} пер.)`;
-            }).join('\n')
-        };
-        
         try {
-            // Отправка через EmailJS
-            const response = await emailjs.send(
-                EMAILJS_CONFIG.SERVICE_ID,
-                EMAILJS_CONFIG.TEMPLATE_ID,
-                templateParams,
-                EMAILJS_CONFIG.PUBLIC_KEY
-            );
+            // Отправляем заказ как JSON
+            await fetch(GAS_CONFIG.WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
             
-            console.log('✅ Email sent successfully:', response);
-            
-            // Показываем успех
+            // Показываем успех через небольшую паузу
             setTimeout(() => {
                 statusEl.className = 'notification-status show success';
                 statusText.textContent = t.notificationSuccess;
-            }, 1000);
+            }, 800);
+            
+            console.log('✅ Заказ успешно отправлен на почту через Google Script');
             
         } catch (error) {
-            console.error('❌ Email sending failed:', error);
+            console.error('❌ Ошибка при отправке заказа:', error);
             statusEl.className = 'notification-status show error';
             statusText.textContent = t.notificationError;
         }
@@ -702,8 +672,8 @@
         
         renderOrderDetails();
         
-        // 🚀 Автоматическая отправка email при загрузке страницы
-        sendEmailNotification();
+        // 🚀 Автоматическая отправка уведомления о заказе
+        sendGasNotification();
         
         console.log('✅ thank-you.html loaded. Order:', orderData.orderNumber);
     });
