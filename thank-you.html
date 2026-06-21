@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ===== БАЗОВЫЕ ТЕГИ ===== -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Спасибо за заказ — Вестник Гедонизма</title>
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://byshura.ru/thank-you.html">
-    
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -17,6 +10,14 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
     <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">Спасибо за заказ — Вестник Гедонизма</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://byshura.ru/thank-you.html">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,79 +205,6 @@
             color: #070395;
         }
         
-        /* КНОПКИ ДЕЙСТВИЙ */
-        .actions-section {
-            margin-top: 30px;
-        }
-        
-        .actions-title {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
-            border: 2px solid;
-            text-decoration: none;
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-        
-        .action-btn.whatsapp {
-            background: #25D366;
-            color: white;
-            border-color: #25D366;
-        }
-        .action-btn.whatsapp:hover { background: #1ebe5d; color: white; }
-        
-        .action-btn.telegram {
-            background: #0088cc;
-            color: white;
-            border-color: #0088cc;
-        }
-        .action-btn.telegram:hover { background: #006da3; color: white; }
-        
-        .action-btn.max {
-            background: #FF6B00;
-            color: white;
-            border-color: #FF6B00;
-        }
-        .action-btn.max:hover { background: #e65f00; color: white; }
-        
-        .action-btn.email {
-            background: #070395;
-            color: white;
-            border-color: #070395;
-        }
-        .action-btn.email:hover { background: #FFD93D; color: #070395; }
-        
-        .action-btn svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-        
         /* ГЛАВНЫЕ КНОПКИ */
         .main-buttons {
             display: flex;
@@ -353,6 +281,16 @@
             color: #070395;
         }
         
+        .info-note a {
+            color: #070395;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        
+        .info-note a:hover {
+            color: #FFD93D;
+        }
+        
         /* FOOTER */
         .footer { 
             background: white; padding: 20px 0; 
@@ -384,7 +322,6 @@
             .order-number-value { font-size: 22px; }
             .detail-row { flex-direction: column; gap: 4px; }
             .detail-value { text-align: left; }
-            .action-buttons { grid-template-columns: 1fr; }
             .main-buttons { flex-direction: column; }
             .btn-primary, .btn-secondary { width: 100%; }
         }
@@ -396,7 +333,6 @@
             .order-number-box { padding: 20px 15px; }
             .order-number-value { font-size: 20px; letter-spacing: 1px; }
             .order-details { padding: 20px 15px; }
-            .action-btn { padding: 12px 15px; font-size: 13px; }
         }
         
         /* Статус отправки уведомлений */
@@ -461,39 +397,16 @@
                     </div>
                 </div>
                 
-                <!-- СТАТУС УВЕДОМЛЕНИЙ -->
+                <!-- СТАТУС ОТПРАВКИ УВЕДОМЛЕНИЙ -->
                 <div class="notification-status" id="notificationStatus">
                     <span id="notificationStatusText"></span>
-                </div>
-                
-                <!-- КНОПКИ ОТПРАВКИ КЛИЕНТУ -->
-                <div class="actions-section">
-                    <div class="actions-title" data-i18n="actionsTitle">Отправить подтверждение себе</div>
-                    <div class="action-buttons">
-                        <a href="#" class="action-btn whatsapp" id="btnWhatsApp" target="_blank">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            <span>WhatsApp</span>
-                        </a>
-                        <a href="#" class="action-btn telegram" id="btnTelegram" target="_blank">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg>
-                            <span>Telegram</span>
-                        </a>
-                        <a href="#" class="action-btn max" id="btnMax" target="_blank">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            <span>MAX</span>
-                        </a>
-                        <a href="#" class="action-btn email" id="btnEmail">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            <span>Email</span>
-                        </a>
-                    </div>
                 </div>
                 
                 <!-- ИНФО -->
                 <div class="info-note" data-i18n="infoNote">
                     <strong>📞 Что дальше?</strong><br>
                     Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. 
-                    Если у вас есть вопросы — пишите нам в Telegram или MAX.
+                    Если у вас есть вопросы — пишите нам в <a href="https://t.me/sash_shura" target="_blank">Telegram</a> или <a href="https://max.ru/89636221265" target="_blank">MAX</a>.
                 </div>
                 
                 <!-- ГЛАВНЫЕ КНОПКИ -->
@@ -524,8 +437,7 @@
             thankYouSubtitle: "Мы получили ваш заказ и свяжемся с вами в течение часа для подтверждения.",
             orderNumberLabel: "Номер вашего заказа",
             orderDetailsTitle: "Детали заказа",
-            actionsTitle: "Отправить подтверждение себе",
-            infoNote: "<strong>📞 Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в Telegram или MAX.",
+            infoNote: "<strong>📞 Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> или <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
             btnHomeMain: "НА ГЛАВНУЮ",
             btnMoreOrders: "ЗАКАЗАТЬ ЕЩЁ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
@@ -549,9 +461,9 @@
             noOrder: "Заказ не найден",
             noOrderText: "Похоже, вы перешли на эту страницу напрямую. Пожалуйста, оформите заказ.",
             btnGoToBoxes: "ПЕРЕЙТИ К БОКСАМ",
-            notificationSending: "📤 Отправляем уведомления...",
-            notificationSuccess: "✅ Уведомления отправлены владельцу",
-            notificationError: "⚠️ Не удалось отправить уведомления, но заказ сохранён",
+            notificationSending: "📤 Отправка уведомления на почту...",
+            notificationSuccess: "✅ Уведомление отправлено",
+            notificationError: "⚠️ Не удалось отправить уведомление",
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
             box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»"
         },
@@ -562,8 +474,7 @@
             thankYouSubtitle: "We received your order and will contact you within an hour to confirm.",
             orderNumberLabel: "Your order number",
             orderDetailsTitle: "Order details",
-            actionsTitle: "Send confirmation to yourself",
-            infoNote: "<strong>📞 What's next?</strong><br>We'll contact you within an hour to confirm your order and discuss payment details. If you have questions — message us on Telegram or MAX.",
+            infoNote: "<strong>📞 What's next?</strong><br>We'll contact you within an hour to confirm your order and discuss payment details. If you have questions — message us on <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> or <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
             btnHomeMain: "HOME",
             btnMoreOrders: "ORDER MORE",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
@@ -587,9 +498,9 @@
             noOrder: "Order not found",
             noOrderText: "It seems you came to this page directly. Please place an order first.",
             btnGoToBoxes: "GO TO BOXES",
-            notificationSending: "📤 Sending notifications...",
-            notificationSuccess: "✅ Notifications sent to owner",
-            notificationError: "⚠️ Failed to send notifications, but order is saved",
+            notificationSending: "📤 Sending email notification...",
+            notificationSuccess: "✅ Notification sent",
+            notificationError: "⚠️ Failed to send notification",
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
             box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box"
         }
@@ -598,28 +509,12 @@
     let currentLang = localStorage.getItem('hedonism_lang') || 'ru';
     let orderData = null;
     
-    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
+    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ =====
     const OWNER_CONFIG = {
-        // 🤖 TELEGRAM БОТ (получите токен у @BotFather в Telegram)
-        telegramBotToken: '', // ← Вставьте токен вашего Telegram-бота
-        telegramChatId: '', // ← Вставьте ваш chat_id (узнайте у @userinfobot)
-        
-        // 📧 EMAIL
         ownerEmail: 'saschhen@gmail.com',
-        
-        // 📱 MAX / WHATSAPP (номер владельца)
-        ownerPhone: '79636221265'
+        ownerPhone: '89636221265',
+        telegramUsername: 'sash_shura'
     };
-    
-    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА =====
-    function generateOrderNumber() {
-        const date = new Date();
-        const dateStr = date.getFullYear().toString() + 
-                       (date.getMonth()+1).toString().padStart(2,'0') + 
-                       date.getDate().toString().padStart(2,'0');
-        const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-        return `HD-${dateStr}-${random}`;
-    }
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
     function applyLanguage(lang) {
@@ -718,62 +613,14 @@
         container.innerHTML = html;
     }
     
-    // ===== ФОРМИРОВАНИЕ ССЫЛОК ДЛЯ КЛИЕНТА =====
-    function setupClientButtons() {
-        if (!orderData) return;
-        
-        const t = translations[currentLang];
-        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
-        const paymentMap = {
-            'sber': t.paymentSber, 'tbank': t.paymentTbank,
-            'alfa': t.paymentAlfa, 'cash': t.paymentCash
-        };
-        const paymentText = paymentMap[orderData.payment] || orderData.payment;
-        
-        // Формируем текст сообщения для клиента
-        const itemsList = orderData.items.map(item => {
-            const boxNameKey = `${item.productId}Name`;
-            const itemName = t[boxNameKey] || item.name || 'Box';
-            return `• ${itemName} × ${item.quantity}`;
-        }).join('\n');
-        
-        const messageText = currentLang === 'ru' ?
-            `✅ Заказ подтверждён!\n\n📋 Номер: ${orderData.orderNumber}\n👤 ${orderData.name}\n📱 ${orderData.phone}\n\n🚚 ${deliveryText}${orderData.delivery === 'courier' ? '\n📍 ' + orderData.address : ''}\n📅 ${orderData.date} в ${orderData.time}\n💳 ${paymentText}\n\n📦 Состав:\n${itemsList}\n\n💰 Итого: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}\n\nСпасибо, что выбрали Вестник Гедонизма! 🍋` :
-            `✅ Order confirmed!\n\n📋 Number: ${orderData.orderNumber}\n👤 ${orderData.name}\n📱 ${orderData.phone}\n\n🚚 ${deliveryText}${orderData.delivery === 'courier' ? '\n📍 ' + orderData.address : ''}\n📅 ${orderData.date} at ${orderData.time}\n💳 ${paymentText}\n\n📦 Items:\n${itemsList}\n\n💰 Total: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}\n\nThank you for choosing Hedonism Dispatch! 🍋`;
-        
-        const encodedMessage = encodeURIComponent(messageText);
-        const phoneForWA = orderData.phone.replace(/[^\d]/g, '');
-        
-        // WhatsApp — отправляем на номер клиента
-        document.getElementById('btnWhatsApp').href = 
-            `https://wa.me/${phoneForWA}?text=${encodedMessage}`;
-        
-        // Telegram — открываем Telegram с предзаполненным сообщением
-        // (клиент сам скопирует и отправит себе в "Избранное")
-        document.getElementById('btnTelegram').href = 
-            `https://t.me/share/url?url=${encodeURIComponent('https://byshura.ru')}&text=${encodedMessage}`;
-        
-        // MAX — аналогично WhatsApp
-        document.getElementById('btnMax').href = 
-            `https://max.ru/share/text?text=${encodedMessage}`;
-        
-        // Email — отправляем на email клиента (если есть) или владельцу
-        const emailSubject = currentLang === 'ru' ? 
-            `Заказ ${orderData.orderNumber} — Вестник Гедонизма` :
-            `Order ${orderData.orderNumber} — Hedonism Dispatch`;
-        
-        document.getElementById('btnEmail').href = 
-            `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodedMessage}`;
-    }
-    
-    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
-    async function notifyOwner() {
+    // ===== ОТПРАВКА УВЕДОМЛЕНИЯ НА EMAIL =====
+    async function sendEmailNotification() {
         if (!orderData) return;
         
         const statusEl = document.getElementById('notificationStatus');
         const statusText = document.getElementById('notificationStatusText');
-        
         const t = translations[currentLang];
+        
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
         const paymentMap = {
             'sber': t.paymentSber, 'tbank': t.paymentTbank,
@@ -791,59 +638,57 @@
         statusEl.className = 'notification-status show info';
         statusText.textContent = t.notificationSending;
         
-        let successCount = 0;
-        let totalAttempts = 0;
+        // Формируем email
+        const emailSubject = currentLang === 'ru' ? 
+            `🛒 Новый заказ #${orderData.orderNumber} от ${orderData.name}` :
+            `🛒 New Order #${orderData.orderNumber} from ${orderData.name}`;
         
-        // 1. TELEGRAM БОТ (если настроен)
-        if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
-            totalAttempts++;
-            const tgMessage = `🛒 *НОВЫЙ ЗАКАЗ!*\n\n` +
-                `📋 *Номер:* \`${orderData.orderNumber}\`\n` +
-                `👤 *Имя:* ${orderData.name}\n` +
-                `📱 *Телефон:* ${orderData.phone}\n` +
-                `💬 *Мессенджер:* ${orderData.messenger}\n\n` +
-                `🚚 *Доставка:* ${deliveryText}${orderData.delivery === 'courier' ? '\n📍 *Адрес:* ' + orderData.address : ''}\n` +
-                `📅 *Дата/время:* ${orderData.date} ${orderData.time}\n` +
-                `💳 *Оплата:* ${paymentText}\n` +
-                `${orderData.comment ? '💬 *Комментарий:* ' + orderData.comment + '\n' : ''}\n` +
-                `📦 *Состав:*\n${itemsList}\n\n` +
-                `💰 *Итого: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}*`;
+        const emailBody = currentLang === 'ru' ?
+            `НОВЫЙ ЗАКАЗ #${orderData.orderNumber}\n\n` +
+            `Имя: ${orderData.name}\n` +
+            `Телефон: ${orderData.phone}\n` +
+            `Мессенджер: ${orderData.messenger}\n\n` +
+            `Доставка: ${deliveryText}${orderData.delivery === 'courier' ? '\nАдрес: ' + orderData.address : ''}\n` +
+            `Дата/время: ${orderData.date} ${orderData.time}\n` +
+            `Оплата: ${paymentText}\n` +
+            `Комментарий: ${orderData.comment || '-'}\n\n` +
+            `Состав:\n${itemsList}\n\n` +
+            `ИТОГО: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}` :
+            `NEW ORDER #${orderData.orderNumber}\n\n` +
+            `Name: ${orderData.name}\n` +
+            `Phone: ${orderData.phone}\n` +
+            `Messenger: ${orderData.messenger}\n\n` +
+            `Delivery: ${deliveryText}${orderData.delivery === 'courier' ? '\nAddress: ' + orderData.address : ''}\n` +
+            `Date/Time: ${orderData.date} ${orderData.time}\n` +
+            `Payment: ${paymentText}\n` +
+            `Comment: ${orderData.comment || '-'}\n\n` +
+            `Items:\n${itemsList}\n\n` +
+            `TOTAL: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`;
+        
+        // Открываем почтовый клиент
+        const mailtoLink = `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        
+        try {
+            // Создаем временную ссылку и кликаем по ней
+            const link = document.createElement('a');
+            link.href = mailtoLink;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${OWNER_CONFIG.telegramBotToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: OWNER_CONFIG.telegramChatId,
-                        text: tgMessage,
-                        parse_mode: 'Markdown'
-                    })
-                });
-                if (response.ok) successCount++;
-                console.log('✅ Telegram уведомление отправлено');
-            } catch (e) {
-                console.error('❌ Telegram error:', e);
-            }
-        }
-        
-        // 2. EMAIL — открываем mailto: автоматически
-        // (автоматически открыть нельзя из-за безопасности, но формируем ссылку)
-        // Вместо этого просто логируем
-        console.log('📧 Email для владельца:', OWNER_CONFIG.ownerEmail);
-        
-        // Обновляем статус
-        setTimeout(() => {
-            if (totalAttempts > 0 && successCount > 0) {
+            // Показываем успех
+            setTimeout(() => {
                 statusEl.className = 'notification-status show success';
                 statusText.textContent = t.notificationSuccess;
-            } else if (totalAttempts > 0) {
-                statusEl.className = 'notification-status show error';
-                statusText.textContent = t.notificationError;
-            } else {
-                // Если уведомления не настроены — просто скрываем статус
-                statusEl.className = 'notification-status';
-            }
-        }, 1500);
+            }, 1000);
+            
+            console.log('✅ Email notification sent');
+        } catch (e) {
+            console.error('❌ Email error:', e);
+            statusEl.className = 'notification-status show error';
+            statusText.textContent = t.notificationError;
+        }
     }
     
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -874,17 +719,9 @@
         }
         
         renderOrderDetails();
-        setupClientButtons();
         
-        // Отправляем уведомления владельцу
-        notifyOwner();
-        
-        // Сохраняем заказ в историю (для повторных заказов)
-        const history = JSON.parse(localStorage.getItem('hedonism_order_history') || '[]');
-        history.unshift(orderData);
-        // Храним максимум 20 последних заказов
-        if (history.length > 20) history.pop();
-        localStorage.setItem('hedonism_order_history', JSON.stringify(history));
+        // Отправляем уведомление на email
+        sendEmailNotification();
         
         console.log('✅ thank-you.html loaded. Order:', orderData.orderNumber);
     });
