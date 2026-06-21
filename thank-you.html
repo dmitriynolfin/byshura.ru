@@ -23,6 +23,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- ===== EMAILJS SDK ===== -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // ⚠️ ЗАМЕНИТЕ НА ВАШ PUBLIC KEY ИЗ EMAILJS
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -36,7 +45,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
         
-        /* ШАПКА (упрощённая) */
+        /* ШАПКА */
         .header { 
             background: rgba(255,255,255,0.98); padding: 15px 0; 
             border-bottom: 1px solid rgba(7,3,149,0.2); 
@@ -344,6 +353,7 @@
             display: none;
             align-items: center;
             gap: 10px;
+            justify-content: center;
         }
         .notification-status.show { display: flex; }
         .notification-status.success {
@@ -392,12 +402,10 @@
                 <!-- ДЕТАЛИ ЗАКАЗА -->
                 <div class="order-details">
                     <h3 data-i18n="orderDetailsTitle">Детали заказа</h3>
-                    <div id="orderDetailsContainer">
-                        <!-- Сюда JS добавит детали -->
-                    </div>
+                    <div id="orderDetailsContainer"></div>
                 </div>
                 
-                <!-- СТАТУС ОТПРАВКИ УВЕДОМЛЕНИЙ -->
+                <!-- СТАТУС ОТПРАВКИ УВЕДОМЛЕНИЙ (скрыт по умолчанию) -->
                 <div class="notification-status" id="notificationStatus">
                     <span id="notificationStatusText"></span>
                 </div>
@@ -406,7 +414,7 @@
                 <div class="info-note" data-i18n="infoNote">
                     <strong>📞 Что дальше?</strong><br>
                     Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. 
-                    Если у вас есть вопросы — пишите нам в <a href="https://t.me/sash_shura" target="_blank">Telegram</a> или <a href="https://max.ru/89636221265" target="_blank">MAX</a>.
+                    Если у вас есть вопросы — пишите нам в <a href="https://t.me/sash_shura" target="_blank">Telegram</a> или <a href="https://max.ru/u/f9LHodD0cOKYB0iG_5YC8RHK4q8UsRYG3xGhyQVJmQhF97wjHm0LSVvJdYQ" target="_blank">MAX</a>.
                 </div>
                 
                 <!-- ГЛАВНЫЕ КНОПКИ -->
@@ -461,9 +469,9 @@
             noOrder: "Заказ не найден",
             noOrderText: "Похоже, вы перешли на эту страницу напрямую. Пожалуйста, оформите заказ.",
             btnGoToBoxes: "ПЕРЕЙТИ К БОКСАМ",
-            notificationSending: "📤 Отправка уведомления на почту...",
+            notificationSending: "📤 Отправка уведомления...",
             notificationSuccess: "✅ Уведомление отправлено",
-            notificationError: "⚠️ Не удалось отправить уведомление",
+            notificationError: "⚠️ Ошибка отправки",
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
             box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»"
         },
@@ -498,9 +506,9 @@
             noOrder: "Order not found",
             noOrderText: "It seems you came to this page directly. Please place an order first.",
             btnGoToBoxes: "GO TO BOXES",
-            notificationSending: "📤 Sending email notification...",
+            notificationSending: "📤 Sending notification...",
             notificationSuccess: "✅ Notification sent",
-            notificationError: "⚠️ Failed to send notification",
+            notificationError: "⚠️ Sending failed",
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
             box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box"
         }
@@ -509,11 +517,12 @@
     let currentLang = localStorage.getItem('hedonism_lang') || 'ru';
     let orderData = null;
     
-    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ =====
-    const OWNER_CONFIG = {
-        ownerEmail: 'saschhen@gmail.com',
-        ownerPhone: '89636221265',
-        telegramUsername: 'sash_shura'
+    // ===== КОНФИГУРАЦИЯ EMAILJS =====
+    // ⚠️ ЗАМЕНИТЕ НА ВАШИ ДАННЫЕ ИЗ EMAILJS
+    const EMAILJS_CONFIG = {
+        SERVICE_ID: 'YOUR_SERVICE_ID',      // Например: service_abc123
+        TEMPLATE_ID: 'YOUR_TEMPLATE_ID',    // Например: template_xyz789
+        PUBLIC_KEY: 'YOUR_PUBLIC_KEY'       // Например: user_abc123xyz
     };
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
@@ -537,7 +546,6 @@
     
     // ===== ПОЛУЧЕНИЕ ДАННЫХ ЗАКАЗА =====
     function loadOrderData() {
-        // Пробуем получить из sessionStorage (сохраняется при переходе с checkout)
         const sessionData = sessionStorage.getItem('hedonism_last_order');
         if (sessionData) {
             try {
@@ -557,10 +565,8 @@
         const t = translations[currentLang];
         const container = document.getElementById('orderDetailsContainer');
         
-        // Номер заказа
         document.getElementById('orderNumberDisplay').textContent = orderData.orderNumber || '—';
         
-        // Переводы для полей
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
         const paymentMap = {
             'sber': t.paymentSber,
@@ -588,7 +594,6 @@
             html += `<div class="detail-row"><span class="detail-label">${t.detailComment}</span><span class="detail-value">${escapeHtml(orderData.comment)}</span></div>`;
         }
         
-        // Список товаров
         html += `<div class="items-list">`;
         html += `<div style="font-weight:600;margin-bottom:10px;color:#070395;">${t.detailItems}</div>`;
         
@@ -604,7 +609,6 @@
         
         html += `</div>`;
         
-        // Итого
         html += `<div class="total-row">
             <span>${t.detailTotal}</span>
             <span>${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}</span>
@@ -613,7 +617,7 @@
         container.innerHTML = html;
     }
     
-    // ===== ОТПРАВКА УВЕДОМЛЕНИЯ НА EMAIL =====
+    // ===== ОТПРАВКА EMAIL ЧЕРЕЗ EMAILJS =====
     async function sendEmailNotification() {
         if (!orderData) return;
         
@@ -621,61 +625,41 @@
         const statusText = document.getElementById('notificationStatusText');
         const t = translations[currentLang];
         
-        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
-        const paymentMap = {
-            'sber': t.paymentSber, 'tbank': t.paymentTbank,
-            'alfa': t.paymentAlfa, 'cash': t.paymentCash
-        };
-        const paymentText = paymentMap[orderData.payment] || orderData.payment;
-        
-        const itemsList = orderData.items.map(item => {
-            const boxNameKey = `${item.productId}Name`;
-            const itemName = t[boxNameKey] || item.name || 'Box';
-            return `• ${itemName} × ${item.quantity} (${item.options?.persons || 2} pers.)`;
-        }).join('\n');
-        
         // Показываем статус "отправка"
         statusEl.className = 'notification-status show info';
         statusText.textContent = t.notificationSending;
         
-        // Формируем email
-        const emailSubject = currentLang === 'ru' ? 
-            `🛒 Новый заказ #${orderData.orderNumber} от ${orderData.name}` :
-            `🛒 New Order #${orderData.orderNumber} from ${orderData.name}`;
-        
-        const emailBody = currentLang === 'ru' ?
-            `НОВЫЙ ЗАКАЗ #${orderData.orderNumber}\n\n` +
-            `Имя: ${orderData.name}\n` +
-            `Телефон: ${orderData.phone}\n` +
-            `Мессенджер: ${orderData.messenger}\n\n` +
-            `Доставка: ${deliveryText}${orderData.delivery === 'courier' ? '\nАдрес: ' + orderData.address : ''}\n` +
-            `Дата/время: ${orderData.date} ${orderData.time}\n` +
-            `Оплата: ${paymentText}\n` +
-            `Комментарий: ${orderData.comment || '-'}\n\n` +
-            `Состав:\n${itemsList}\n\n` +
-            `ИТОГО: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}` :
-            `NEW ORDER #${orderData.orderNumber}\n\n` +
-            `Name: ${orderData.name}\n` +
-            `Phone: ${orderData.phone}\n` +
-            `Messenger: ${orderData.messenger}\n\n` +
-            `Delivery: ${deliveryText}${orderData.delivery === 'courier' ? '\nAddress: ' + orderData.address : ''}\n` +
-            `Date/Time: ${orderData.date} ${orderData.time}\n` +
-            `Payment: ${paymentText}\n` +
-            `Comment: ${orderData.comment || '-'}\n\n` +
-            `Items:\n${itemsList}\n\n` +
-            `TOTAL: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`;
-        
-        // Открываем почтовый клиент
-        const mailtoLink = `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        // Подготавливаем данные для шаблона EmailJS
+        const templateParams = {
+            order_number: orderData.orderNumber,
+            customer_name: orderData.name,
+            customer_phone: orderData.phone,
+            customer_messenger: orderData.messenger,
+            delivery_type: orderData.delivery === 'courier' ? 'Курьер' : 'Самовывоз в Prime Park',
+            delivery_address: orderData.address || '-',
+            order_date: orderData.date,
+            order_time: orderData.time,
+            payment_method: orderData.payment === 'sber' ? 'Сбер' : 
+                           orderData.payment === 'tbank' ? 'Т-Банк' : 
+                           orderData.payment === 'alfa' ? 'Альфа' : 'Наличные',
+            comment: orderData.comment || '-',
+            total: `${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`,
+            items: orderData.items.map(item => {
+                const boxName = translations[currentLang][`${item.productId}Name`] || item.name || 'Box';
+                return `• ${boxName} × ${item.quantity} (${item.options?.persons || 2} пер.)`;
+            }).join('\n')
+        };
         
         try {
-            // Создаем временную ссылку и кликаем по ней
-            const link = document.createElement('a');
-            link.href = mailtoLink;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Отправка через EmailJS
+            const response = await emailjs.send(
+                EMAILJS_CONFIG.SERVICE_ID,
+                EMAILJS_CONFIG.TEMPLATE_ID,
+                templateParams,
+                EMAILJS_CONFIG.PUBLIC_KEY
+            );
+            
+            console.log('✅ Email sent successfully:', response);
             
             // Показываем успех
             setTimeout(() => {
@@ -683,9 +667,8 @@
                 statusText.textContent = t.notificationSuccess;
             }, 1000);
             
-            console.log('✅ Email notification sent');
-        } catch (e) {
-            console.error('❌ Email error:', e);
+        } catch (error) {
+            console.error('❌ Email sending failed:', error);
             statusEl.className = 'notification-status show error';
             statusText.textContent = t.notificationError;
         }
@@ -704,7 +687,6 @@
         applyLanguage(currentLang);
         
         if (!loadOrderData()) {
-            // Если нет данных заказа — показываем сообщение
             const card = document.querySelector('.success-card');
             const t = translations[currentLang];
             card.innerHTML = `
@@ -720,7 +702,7 @@
         
         renderOrderDetails();
         
-        // Отправляем уведомление на email
+        // 🚀 Автоматическая отправка email при загрузке страницы
         sendEmailNotification();
         
         console.log('✅ thank-you.html loaded. Order:', orderData.orderNumber);
