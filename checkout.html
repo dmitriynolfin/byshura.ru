@@ -646,7 +646,6 @@
             labelComment: "Комментарий к заказу",
             btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            orderSuccess: "✅ Спасибо за заказ!\nМы свяжемся с вами в течение часа для подтверждения.",
             validationError: "Пожалуйста, заполните все обязательные поля",
             emptyCart: "Корзина пуста. <a href='boxes.html'>Добавьте товары</a>",
             itemPersons: "Персон:", itemAllergens: "Аллергены:", itemQuantity: "Кол-во:",
@@ -678,7 +677,6 @@
             labelComment: "Order comment",
             btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            orderSuccess: "✅ Thank you for your order!\nWe'll contact you within an hour to confirm.",
             validationError: "Please fill in all required fields",
             emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
             itemPersons: "Persons:", itemAllergens: "Allergens:", itemQuantity: "Qty:",
@@ -693,6 +691,16 @@
 
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+
+    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА =====
+    function generateOrderNumber() {
+        const date = new Date();
+        const dateStr = date.getFullYear().toString() + 
+                       (date.getMonth()+1).toString().padStart(2,'0') + 
+                       date.getDate().toString().padStart(2,'0');
+        const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+        return `HD-${dateStr}-${random}`;
+    }
 
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
@@ -858,30 +866,115 @@
         }
     }
 
-    async function sendOrderNotifications(orderData) {
-        console.log('📤 Отправка уведомлений:', orderData);
-        console.log('📱 MAX: +79636221265', orderData);
+    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
+    // ⚠️ ВАЖНО: Заполните эти поля для получения уведомлений!
+    const OWNER_CONFIG = {
+        // 🤖 TELEGRAM БОТ — получите токен у @BotFather в Telegram
+        // Инструкция:
+        // 1. Откройте Telegram, найдите @BotFather
+        // 2. Отправьте /newbot, придумайте имя и username (должен заканчиваться на bot)
+        // 3. Скопируйте токен вида "1234567890:ABCdefGHI..." и вставьте ниже
+        telegramBotToken: '',
         
-        const telegramBotToken = 'YOUR_BOT_TOKEN_HERE';
-        const telegramChatId = '@sash_shura';
-        const telegramMessage = `🛒 *New Order!* 👤 ${orderData.name} 📱 ${orderData.phone} 💬 ${orderData.messenger} 🚚 ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup'} 📅 ${orderData.date} ${orderData.time} 💳 ${orderData.payment} 💰 *Total: ${orderData.total} ${orderData.currency}* 📦 Items:\n${orderData.items.map(i => `• ${i.name} × ${i.quantity} (${i.options?.persons} persons)`).join('\n')}`;
+        // 🆔 Ваш chat_id — узнайте у @userinfobot в Telegram
+        // Отправьте /start боту, он пришлёт ваш ID (число)
+        telegramChatId: '',
         
-        if (telegramBotToken !== 'YOUR_BOT_TOKEN_HERE') {
+        // 📧 Email владельца (для уведомлений)
+        ownerEmail: 'saschhen@gmail.com',
+        
+        // 📱 Номер владельца в международном формате (без +)
+        ownerPhone: '79636221265'
+    };
+
+    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
+    async function notifyOwner(orderData) {
+        console.log('📤 Отправка уведомлений владельцу:', orderData);
+        
+        const t = translations[currentLang];
+        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
+        const paymentMap = {
+            'sber': t.payment1, 'tbank': t.payment2,
+            'alfa': t.payment3, 'cash': t.payment4
+        };
+        const paymentText = paymentMap[orderData.payment] || orderData.payment;
+        
+        const itemsList = orderData.items.map(item => {
+            const boxNameKey = `${item.productId}Name`;
+            const itemName = t[boxNameKey] || item.name || 'Box';
+            return `• ${itemName} × ${item.quantity} (${item.options?.persons || 2} pers.)`;
+        }).join('\n');
+        
+        // 1. TELEGRAM БОТ (если настроен)
+        if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
+            const tgMessage = `🛒 *НОВЫЙ ЗАКАЗ!*\n\n` +
+                `📋 *Номер:* \`${orderData.orderNumber}\`\n` +
+                `👤 *Имя:* ${orderData.name}\n` +
+                `📱 *Телефон:* ${orderData.phone}\n` +
+                `💬 *Мессенджер:* ${orderData.messenger}\n\n` +
+                `🚚 *Доставка:* ${deliveryText}${orderData.delivery === 'courier' ? '\n📍 *Адрес:* ' + orderData.address : ''}\n` +
+                `📅 *Дата/время:* ${orderData.date} ${orderData.time}\n` +
+                `💳 *Оплата:* ${paymentText}\n` +
+                `${orderData.comment ? '💬 *Комментарий:* ' + orderData.comment + '\n' : ''}\n` +
+                `📦 *Состав:*\n${itemsList}\n\n` +
+                `💰 *Итого: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}*`;
+            
             try {
-                await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: telegramChatId, text: telegramMessage, parse_mode: 'Markdown' })
+                const response = await fetch(`https://api.telegram.org/bot${OWNER_CONFIG.telegramToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: OWNER_CONFIG.telegramChatId,
+                        text: tgMessage,
+                        parse_mode: 'Markdown'
+                    })
                 });
-                console.log('✅ Telegram notification sent');
-            } catch (e) { console.error('❌ Telegram error:', e); }
+                if (response.ok) {
+                    console.log('✅ Telegram уведомление отправлено владельцу');
+                } else {
+                    console.error('❌ Telegram API error:', await response.text());
+                }
+            } catch (e) {
+                console.error('❌ Telegram error:', e);
+            }
+        } else {
+            console.warn('⚠️ Telegram бот не настроен. Инструкция:');
+            console.warn('1. Создайте бота через @BotFather в Telegram');
+            console.warn('2. Получите токен и вставьте в OWNER_CONFIG.telegramBotToken');
+            console.warn('3. Узнайте свой chat_id через @userinfobot');
+            console.warn('4. Вставьте chat_id в OWNER_CONFIG.telegramChatId');
+            console.warn('5. Отправьте боту /start чтобы активировать');
         }
         
-        const emailSubject = `New order from ${orderData.name}`;
-        const emailBody = `Order from: ${orderData.name}\nPhone: ${orderData.phone}\nContact: ${orderData.messenger}\nDelivery: ${orderData.delivery === 'courier' ? 'Courier: ' + orderData.address : 'Pickup in Prime Park'}\nDate: ${orderData.date} ${orderData.time}\nPayment: ${orderData.payment}\nComment: ${orderData.comment || '-'}\n\nItems:\n${orderData.items.map(i => `- ${i.name} × ${i.quantity}`).join('\n')}\n\nTotal: ${orderData.total} ${orderData.currency}`;
-        const mailtoLink = `mailto:saschhen@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        console.log('📧 Email fallback:', mailtoLink);
+        // 2. EMAIL — формируем mailto: ссылку
+        const emailSubject = `🛒 Новый заказ ${orderData.orderNumber} от ${orderData.name}`;
+        const emailBody = `НОВЫЙ ЗАКАЗ!\n\n` +
+            `Номер: ${orderData.orderNumber}\n` +
+            `Имя: ${orderData.name}\n` +
+            `Телефон: ${orderData.phone}\n` +
+            `Мессенджер: ${orderData.messenger}\n\n` +
+            `Доставка: ${deliveryText}${orderData.delivery === 'courier' ? '\nАдрес: ' + orderData.address : ''}\n` +
+            `Дата/время: ${orderData.date} ${orderData.time}\n` +
+            `Оплата: ${paymentText}\n` +
+            `Комментарий: ${orderData.comment || '-'}\n\n` +
+            `Состав:\n${itemsList}\n\n` +
+            `ИТОГО: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`;
+        
+        orderData.emailLink = `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        console.log('📧 Email для владельца:', orderData.emailLink);
+        
+        // 3. MAX — формируем ссылку
+        const maxMessage = `Новый заказ ${orderData.orderNumber}!\n${orderData.name}\n${orderData.phone}\n${deliveryText}\n${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
+        orderData.maxLink = `https://max.ru/share/text?text=${encodeURIComponent(maxMessage)}`;
+        console.log('📱 MAX для владельца:', orderData.maxLink);
+        
+        // 4. WHATSAPP — формируем ссылку
+        const waMessage = `🛒 Новый заказ!\n\nНомер: ${orderData.orderNumber}\nИмя: ${orderData.name}\nТелефон: ${orderData.phone}\nДоставка: ${deliveryText}\nДата: ${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
+        orderData.whatsappLink = `https://wa.me/${OWNER_CONFIG.ownerPhone}?text=${encodeURIComponent(waMessage)}`;
+        console.log('💬 WhatsApp для владельца:', orderData.whatsappLink);
     }
 
+    // ===== DADATA / OSM AUTOCOMPLETE =====
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
     const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
     const PHOTON_URL = 'https://photon.komoot.io/api/?';
@@ -1114,24 +1207,37 @@
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
+        // ===== ОТПРАВКА ЗАКАЗА =====
         document.getElementById('checkoutForm')?.addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             
-            if (!name || !phone) { alert(translations[currentLang].validationError); return; }
+            if (!name || !phone) { 
+                alert(translations[currentLang].validationError); 
+                return; 
+            }
             
             submitBtn.disabled = true;
             submitBtn.querySelector('.btn-text').style.display = 'none';
             submitBtn.querySelector('.btn-loading').style.display = 'inline';
             
+            // Генерируем уникальный номер заказа
+            const orderNumber = generateOrderNumber();
+            
             const orderData = {
-                name, phone, messenger: document.getElementById('messenger').value,
+                orderNumber: orderNumber,
+                createdAt: new Date().toISOString(),
+                name, 
+                phone, 
+                messenger: document.getElementById('messenger').value,
                 delivery: document.querySelector('input[name="delivery"]:checked')?.value,
                 address: document.getElementById('address').value,
-                addressStructured: document.getElementById('address')?.dataset.structured ? JSON.parse(document.getElementById('address').dataset.structured) : null,
-                date: document.getElementById('date').value, time: document.getElementById('time').value,
+                addressStructured: document.getElementById('address')?.dataset.structured ? 
+                    JSON.parse(document.getElementById('address').dataset.structured) : null,
+                date: document.getElementById('date').value, 
+                time: document.getElementById('time').value,
                 payment: document.querySelector('input[name="payment"]:checked')?.value,
                 comment: document.getElementById('comment').value,
                 items: cart.map(item => ({
@@ -1145,11 +1251,23 @@
             };
             
             console.log('📦 Полный заказ:', orderData);
+            
             try {
-                await sendOrderNotifications(orderData);
-                alert(translations[currentLang].orderSuccess);
-                cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                window.location.href = 'index.html';
+                // 1. Отправляем уведомления владельцу
+                await notifyOwner(orderData);
+                
+                // 2. Сохраняем заказ в sessionStorage для thank-you страницы
+                sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                
+                // 3. Очищаем корзину
+                cart = []; 
+                saveCart(); 
+                updateCartCount(); 
+                renderOrderSummary();
+                
+                // 4. Переходим на страницу благодарности
+                window.location.href = 'thank-you.html';
+                
             } catch (error) {
                 console.error('❌ Ошибка при оформлении заказа:', error);
                 alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.');
