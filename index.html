@@ -123,7 +123,6 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
             .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
             .hero { margin-top: 42px; }
             .header-container { padding: 0 15px; }
@@ -151,7 +150,6 @@
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .hero { margin-top: 42px; min-height: 600px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
@@ -225,11 +223,18 @@
                 </div>
                 <a href="boxes.html" class="btn-shop" id="shopBtn" data-i18n="btnOrder">СДЕЛАТЬ ЗАКАЗ</a>
                 <div class="lang-selector" id="langBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <!-- ✅ ДОБАВЛЕН ФЛАГ -->
+                    <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">RU</span><span class="lang-descr">Русский (Москва 🇷)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">EN</span><span class="lang-descr">English (Dubai 🇦)</span></a>
+                        <a href="#" data-lang="ru">
+                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-descr">Русский (Москва)</span>
+                        </a>
+                        <a href="#" data-lang="en">
+                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-descr">English (Dubai)</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -334,7 +339,7 @@
         en: {
             pageTitle: "Hedonism Dispatch - Food Delivery",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee: "🚚 Same-day delivery •  Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             heroBtn: "ORDER BOX",
             card1Title: "OUR TEAM", card1Descr: "Our family consists of two people. But we're sure there will be more of us soon",
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
@@ -360,8 +365,19 @@
             }
         });
         
+        // ✅ ИСПРАВЛЕНО: Обновляем флаг и код языка
+        const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
-        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
+        if (langFlag && langCurrent) {
+            if (lang === 'ru') {
+                langFlag.textContent = '🇷🇺';
+                langCurrent.textContent = 'RU';
+            } else {
+                langFlag.textContent = '🇦🇪';
+                langCurrent.textContent = 'EN';
+            }
+        }
+        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
@@ -485,6 +501,14 @@
         });
         
         updateCartCount();
+    });
+    
+    // ✅ Слушаем изменения localStorage из других вкладок/страниц
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            cart = JSON.parse(e.newValue) || [];
+            updateCartCount();
+        }
     });
     </script>
 </body>
