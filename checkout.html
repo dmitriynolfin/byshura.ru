@@ -256,7 +256,6 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
             .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
             .checkout-page { padding-top: 112px; }
             .header-container { padding: 0 15px; }
@@ -286,7 +285,6 @@
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .checkout-page { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
@@ -313,8 +311,15 @@
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; }
             
-            /* ✅ ПОКАЗЫВАЕМ переключатель языка на мобильных! */
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            
+            /* ✅ ИСПРАВЛЕНО: Время и дата на одной строке */
+            .form-group:has(#time), .form-group:has(#date) {
+                width: 100%;
+            }
+            #time, #date {
+                width: 100%;
+            }
             
             /* Сводка заказа на очень маленьких экранах */
             .order-item { flex-direction: column; }
@@ -363,20 +368,16 @@
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
+                    <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">RU</span>
-                            <span class="lang-descr">Русский (Москва 🇷)</span>
+                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">EN</span>
-                            <span class="lang-descr">English (Dubai 🇦)</span>
+                            <span class="lang-code">🇦 EN</span>
+                            <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
                 </div>
@@ -430,10 +431,11 @@
                         <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">📞</span>
+                            <!-- ✅ ИСПРАВЛЕНО: Убран +7, поле пустое -->
                             <input type="tel" id="phone" name="phone" class="form-input" required 
-                                   data-placeholder-ru="+7 (___) ___-__-__" 
-                                   data-placeholder-en="+971 __ ___ ____"
-                                   placeholder="+7 (___) ___-__-__">
+                                   data-placeholder-ru="Ваш номер телефона" 
+                                   data-placeholder-en="Your phone number"
+                                   placeholder="Ваш номер телефона">
                         </div>
                     </div>
                     <div class="form-group">
@@ -489,6 +491,7 @@
                         </small>
                     </div>
                     
+                    <!-- ✅ ИСПРАВЛЕНО: Дата и время на отдельных строках на мобильных -->
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
@@ -593,7 +596,10 @@
             btnRemove: "Удалить",
             courierPrice: "(+800 ₽)",
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
-            box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»"
+            box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»",
+            // ✅ ИСПРАВЛЕНО: Перевод аллергенов на русский
+            allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", 
+            allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -619,11 +625,14 @@
             orderSuccess: "✅ Thank you for your order!\nWe'll contact you within an hour to confirm.",
             validationError: "Please fill in all required fields",
             emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
-            itemPersons: "Persons:", itemAllergens: "No:", itemQuantity: "Qty:",
+            itemPersons: "Persons:", itemAllergens: "Allergens:", itemQuantity: "Qty:",
             btnRemove: "Remove",
             courierPrice: "(+800 AED)",
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
-            box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box"
+            box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box",
+            // ✅ ИСПРАВЛЕНО: Перевод аллергенов на английский
+            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
+            allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts"
         }
     };
 
@@ -634,6 +643,7 @@
         if (!translations[lang]) { lang = 'ru'; }
         currentLang = lang;
         
+        // Обновляем тексты
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
@@ -641,16 +651,31 @@
             }
         });
         
+        // Обновляем placeholder'ы
         document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
             const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
             if (el.dataset[key]) { el.placeholder = el.dataset[key]; }
         });
         
+        // Обновляем валюту
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
         document.querySelectorAll('.courier-price').forEach(el => {
             el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
         });
+        
+        // ✅ ИСПРАВЛЕНО: Обновляем флаг и код языка
+        const langFlag = document.getElementById('langFlag');
+        const langCurrent = document.getElementById('langCurrent');
+        if (langFlag && langCurrent) {
+            if (lang === 'ru') {
+                langFlag.textContent = '🇷🇺';
+                langCurrent.textContent = 'RU';
+            } else {
+                langFlag.textContent = '🇦🇪';
+                langCurrent.textContent = 'EN';
+            }
+        }
         
         document.documentElement.lang = lang;
         
@@ -664,8 +689,6 @@
             }
         }
         
-        const langCurrent = document.getElementById('langCurrent');
-        if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         localStorage.setItem('hedonism_lang', lang);
         renderOrderSummary();
         console.log(`🌐 Language switched to: ${lang.toUpperCase()}`);
@@ -697,7 +720,20 @@
             let optionsHtml = '';
             optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemPersons}</span><span class="order-item-option-value">${item.options?.persons || 2}</span></div>`;
             if (item.options?.allergens?.length > 0) {
-                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
+                // ✅ ИСПРАВЛЕНО: Перевод аллергенов
+                const allergensTranslated = item.options.allergens.map(allergen => {
+                    const allergenMap = {
+                        'Грибы': translations[lang].allergen1,
+                        'Горчица': translations[lang].allergen2,
+                        'Лактоза': translations[lang].allergen3,
+                        'Яйца': translations[lang].allergen4,
+                        'Глютен': translations[lang].allergen5,
+                        'Красная рыба': translations[lang].allergen6,
+                        'Орехи': translations[lang].allergen7
+                    };
+                    return allergenMap[allergen] || allergen;
+                });
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemAllergens}</span><span class="order-item-option-value">${allergensTranslated.join(', ')}</span></div>`;
             }
             
             html += `
