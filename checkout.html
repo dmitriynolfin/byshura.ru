@@ -13,7 +13,6 @@
     <meta property="og:image" content="https://byshura.ru/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
-    <title>Оформление заказа — Вестник Гедонизма</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://byshura.ru/checkout.html">
     <meta charset="UTF-8">
@@ -295,7 +294,6 @@
             .checkout-actions { flex-direction: column; }
             .header-right { gap: 10px; }
             
-            /* Сводка заказа на мобильных */
             .order-item { flex-direction: row; gap: 12px; }
             .order-item-thumb { width: 60px; height: 60px; }
             .order-item-info { min-width: 0; }
@@ -333,7 +331,6 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ ИСПРАВЛЕНО: Поля Дата и Время компактного размера с центрированным текстом */
             .datetime-grid {
                 display: flex;
                 flex-wrap: wrap;
@@ -367,7 +364,6 @@
                 box-sizing: border-box;
             }
             
-            /* Сводка заказа на очень маленьких экранах */
             .order-item { flex-direction: column; }
             .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
             .order-item-name { font-size: 16px; }
@@ -386,7 +382,6 @@
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
             
-            /* ✅ На самых маленьких экранах поля ещё компактнее */
             .datetime-grid input[type="date"],
             .datetime-grid input[type="time"] {
                 padding: 5px 8px !important;
@@ -430,7 +425,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-code">🇺 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
@@ -460,16 +455,15 @@
             <!-- СВОДКА ЗАКАЗА -->
             <div class="order-summary">
                 <h2 class="order-summary-title" data-i18n="orderSummaryTitle">Ваш заказ</h2>
-                <div id="orderItemsContainer">
-                    <!-- Сюда JavaScript добавит товары из корзины -->
-                </div>
+                <div id="orderItemsContainer"></div>
                 <div class="order-total">
                     <span data-i18n="orderTotal">Итого:</span>
                     <span id="orderTotal"><span class="price-value">0</span> <span class="currency">₽</span></span>
                 </div>
             </div>
             
-            <form class="checkout-form" id="checkoutForm">
+            <!-- ✅ ДОБАВЛЕН novalidate -->
+            <form class="checkout-form" id="checkoutForm" novalidate>
                 <!-- КОНТАКТЫ -->
                 <div class="form-section">
                     <h2 class="form-title">
@@ -479,7 +473,7 @@
                         <label class="form-label" for="name" data-i18n="labelName">Имя *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">👤</span>
-                            <input type="text" id="name" name="name" class="form-input" required 
+                            <input type="text" id="name" name="name" class="form-input" 
                                    data-placeholder-ru="Ваше имя" 
                                    data-placeholder-en="Your name"
                                    placeholder="Ваше имя">
@@ -489,7 +483,7 @@
                         <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">📞</span>
-                            <input type="tel" id="phone" name="phone" class="form-input" required 
+                            <input type="tel" id="phone" name="phone" class="form-input" 
                                    data-placeholder-ru="Ваш номер телефона" 
                                    data-placeholder-en="Your phone number"
                                    placeholder="Ваш номер телефона">
@@ -548,15 +542,14 @@
                         </small>
                     </div>
                     
-                    <!-- ✅ Дата и время -->
                     <div class="datetime-grid">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
-                            <input type="date" id="date" name="date" class="form-input" required>
+                            <input type="date" id="date" name="date" class="form-input">
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
-                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" required>
+                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00">
                         </div>
                     </div>
                 </div>
@@ -628,7 +621,7 @@
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
+            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты •  Уникальный опыт • 🎁 Подарочная упаковка • ",
             checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА",
             checkoutSubtitle: "Заполните данные для доставки вашего бокса",
             orderSummaryTitle: "Ваш заказ",
@@ -867,23 +860,10 @@
     }
 
     // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
-    // ⚠️ ВАЖНО: Заполните эти поля для получения уведомлений!
     const OWNER_CONFIG = {
-        // 🤖 TELEGRAM БОТ — получите токен у @BotFather в Telegram
-        // Инструкция:
-        // 1. Откройте Telegram, найдите @BotFather
-        // 2. Отправьте /newbot, придумайте имя и username (должен заканчиваться на bot)
-        // 3. Скопируйте токен вида "1234567890:ABCdefGHI..." и вставьте ниже
-        telegramBotToken: '',
-        
-        // 🆔 Ваш chat_id — узнайте у @userinfobot в Telegram
-        // Отправьте /start боту, он пришлёт ваш ID (число)
-        telegramChatId: '',
-        
-        // 📧 Email владельца (для уведомлений)
+        telegramBotToken: '', // ← Вставьте токен от @BotFather
+        telegramChatId: '', // ← Вставьте ваш chat_id от @userinfobot
         ownerEmail: 'saschhen@gmail.com',
-        
-        // 📱 Номер владельца в международном формате (без +)
         ownerPhone: '79636221265'
     };
 
@@ -908,7 +888,7 @@
         // 1. TELEGRAM БОТ (если настроен)
         if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
             const tgMessage = `🛒 *НОВЫЙ ЗАКАЗ!*\n\n` +
-                `📋 *Номер:* \`${orderData.orderNumber}\`\n` +
+                ` *Номер:* \`${orderData.orderNumber}\`\n` +
                 `👤 *Имя:* ${orderData.name}\n` +
                 `📱 *Телефон:* ${orderData.phone}\n` +
                 `💬 *Мессенджер:* ${orderData.messenger}\n\n` +
@@ -920,7 +900,7 @@
                 `💰 *Итого: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}*`;
             
             try {
-                const response = await fetch(`https://api.telegram.org/bot${OWNER_CONFIG.telegramToken}/sendMessage`, {
+                const response = await fetch(`https://api.telegram.org/bot${OWNER_CONFIG.telegramBotToken}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1058,10 +1038,8 @@
                 const addressField = document.getElementById('addressField');
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
-                    document.getElementById('address').required = true;
                 } else {
                     addressField.style.display = 'none';
-                    document.getElementById('address').required = false;
                 }
             });
         });
@@ -1154,6 +1132,8 @@
     function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('🔍 DOM загружен, начинаем инициализацию...');
+        
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
@@ -1192,10 +1172,8 @@
             radio.addEventListener('change', function() {
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
-                    document.getElementById('address').required = true;
                 } else {
                     addressField.style.display = 'none';
-                    document.getElementById('address').required = false;
                 }
             });
         });
@@ -1207,75 +1185,103 @@
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
-        // ===== ОТПРАВКА ЗАКАЗА =====
-        document.getElementById('checkoutForm')?.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            
-            if (!name || !phone) { 
-                alert(translations[currentLang].validationError); 
-                return; 
-            }
-            
-            submitBtn.disabled = true;
-            submitBtn.querySelector('.btn-text').style.display = 'none';
-            submitBtn.querySelector('.btn-loading').style.display = 'inline';
-            
-            // Генерируем уникальный номер заказа
-            const orderNumber = generateOrderNumber();
-            
-            const orderData = {
-                orderNumber: orderNumber,
-                createdAt: new Date().toISOString(),
-                name, 
-                phone, 
-                messenger: document.getElementById('messenger').value,
-                delivery: document.querySelector('input[name="delivery"]:checked')?.value,
-                address: document.getElementById('address').value,
-                addressStructured: document.getElementById('address')?.dataset.structured ? 
-                    JSON.parse(document.getElementById('address').dataset.structured) : null,
-                date: document.getElementById('date').value, 
-                time: document.getElementById('time').value,
-                payment: document.querySelector('input[name="payment"]:checked')?.value,
-                comment: document.getElementById('comment').value,
-                items: cart.map(item => ({
-                    id: item.id, productId: item.productId, name: item.name,
-                    basePrice: item.basePrice, price: item.price, quantity: item.quantity,
-                    options: item.options
-                })),
-                total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-                currency: currentLang === 'en' ? 'AED' : '₽',
-                lang: currentLang
-            };
-            
-            console.log('📦 Полный заказ:', orderData);
-            
-            try {
-                // 1. Отправляем уведомления владельцу
-                await notifyOwner(orderData);
+        // ===== ОТПРАВКА ЗАКАЗА (с отладкой) =====
+        const checkoutForm = document.getElementById('checkoutForm');
+        console.log(' Форма найдена:', !!checkoutForm);
+        
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                console.log('✅ Форма отправлена, начинаем обработку...');
                 
-                // 2. Сохраняем заказ в sessionStorage для thank-you страницы
-                sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                const submitBtn = document.getElementById('submitBtn');
+                const name = document.getElementById('name').value.trim();
+                const phone = document.getElementById('phone').value.trim();
                 
-                // 3. Очищаем корзину
-                cart = []; 
-                saveCart(); 
-                updateCartCount(); 
-                renderOrderSummary();
+                console.log('📝 Имя:', name, '| Телефон:', phone);
+                console.log('🛒 Корзина:', cart.length, 'товаров');
                 
-                // 4. Переходим на страницу благодарности
-                window.location.href = 'thank-you.html';
+                // Проверка имени и телефона
+                if (!name || !phone) { 
+                    alert(translations[currentLang].validationError); 
+                    return; 
+                }
                 
-            } catch (error) {
-                console.error('❌ Ошибка при оформлении заказа:', error);
-                alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.');
-                submitBtn.disabled = false;
-                submitBtn.querySelector('.btn-text').style.display = 'inline';
-                submitBtn.querySelector('.btn-loading').style.display = 'none';
-            }
-        });
+                // Проверка корзины
+                if (cart.length === 0) {
+                    alert(currentLang === 'ru' ? 
+                        'Корзина пуста! Добавьте товары перед оформлением заказа.' : 
+                        'Cart is empty! Please add items before checkout.');
+                    return;
+                }
+                
+                // Блокируем кнопку
+                submitBtn.disabled = true;
+                submitBtn.querySelector('.btn-text').style.display = 'none';
+                submitBtn.querySelector('.btn-loading').style.display = 'inline';
+                
+                // Генерируем уникальный номер заказа
+                const orderNumber = generateOrderNumber();
+                console.log('🔢 Номер заказа:', orderNumber);
+                
+                const orderData = {
+                    orderNumber: orderNumber,
+                    createdAt: new Date().toISOString(),
+                    name, 
+                    phone, 
+                    messenger: document.getElementById('messenger').value,
+                    delivery: document.querySelector('input[name="delivery"]:checked')?.value,
+                    address: document.getElementById('address').value,
+                    addressStructured: document.getElementById('address')?.dataset.structured ? 
+                        JSON.parse(document.getElementById('address').dataset.structured) : null,
+                    date: document.getElementById('date').value, 
+                    time: document.getElementById('time').value,
+                    payment: document.querySelector('input[name="payment"]:checked')?.value,
+                    comment: document.getElementById('comment').value,
+                    items: cart.map(item => ({
+                        id: item.id, productId: item.productId, name: item.name,
+                        basePrice: item.basePrice, price: item.price, quantity: item.quantity,
+                        options: item.options
+                    })),
+                    total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+                    currency: currentLang === 'en' ? 'AED' : '₽',
+                    lang: currentLang
+                };
+                
+                console.log('📦 Полный заказ:', orderData);
+                
+                try {
+                    // 1. Отправляем уведомления владельцу
+                    console.log(' Отправка уведомлений...');
+                    await notifyOwner(orderData);
+                    console.log('✅ Уведомления отправлены');
+                    
+                    // 2. Сохраняем заказ в sessionStorage для thank-you страницы
+                    sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                    console.log(' Заказ сохранён в sessionStorage');
+                    
+                    // 3. Очищаем корзину
+                    cart = []; 
+                    saveCart(); 
+                    updateCartCount(); 
+                    renderOrderSummary();
+                    console.log('🗑️ Корзина очищена');
+                    
+                    // 4. Переходим на страницу благодарности
+                    console.log('🚀 Переход на thank-you.html...');
+                    window.location.href = 'thank-you.html';
+                    
+                } catch (error) {
+                    console.error('❌ Ошибка при оформлении заказа:', error);
+                    alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.\n\n' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('.btn-text').style.display = 'inline';
+                    submitBtn.querySelector('.btn-loading').style.display = 'none';
+                }
+            });
+        } else {
+            console.error('❌ Форма checkout не найдена!');
+        }
         
         initAddressAutocomplete();
         console.log('✅ checkout.html ready! Language: ' + currentLang.toUpperCase());
