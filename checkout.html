@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ru">
 <head>
     <!-- ===== FAVICON ===== -->
@@ -171,6 +171,8 @@
         .form-input, .form-select, .form-textarea { 
             width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; 
             font-size: 14px; color: #070395; background: white; transition: all 0.3s;
+            max-width: 100%;
+            box-sizing: border-box;
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus { 
             outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); 
@@ -313,12 +315,18 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ ИСПРАВЛЕНО: Время и дата на одной строке */
-            .form-group:has(#time), .form-group:has(#date) {
+            /* ✅ ИСПРАВЛЕНО: Дата и время на отдельных строках */
+            .datetime-grid {
+                display: grid;
+                grid-template-columns: 1fr !important;
+                gap: 12px;
+            }
+            .datetime-grid .form-group {
                 width: 100%;
             }
-            #time, #date {
+            .datetime-grid .form-input {
                 width: 100%;
+                max-width: 100%;
             }
             
             /* Сводка заказа на очень маленьких экранах */
@@ -376,7 +384,7 @@
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">🇦 EN</span>
+                            <span class="lang-code">🇦🇪 EN</span>
                             <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
@@ -431,7 +439,6 @@
                         <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">📞</span>
-                            <!-- ✅ ИСПРАВЛЕНО: Убран +7, поле пустое -->
                             <input type="tel" id="phone" name="phone" class="form-input" required 
                                    data-placeholder-ru="Ваш номер телефона" 
                                    data-placeholder-en="Your phone number"
@@ -491,8 +498,8 @@
                         </small>
                     </div>
                     
-                    <!-- ✅ ИСПРАВЛЕНО: Дата и время на отдельных строках на мобильных -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <!-- ✅ ИСПРАВЛЕНО: Дата и время в отдельном контейнере -->
+                    <div class="datetime-grid" style="margin-top: 20px;">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
                             <input type="date" id="date" name="date" class="form-input" required>
@@ -597,7 +604,6 @@
             courierPrice: "(+800 ₽)",
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
             box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»",
-            // ✅ ИСПРАВЛЕНО: Перевод аллергенов на русский
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", 
             allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи"
         },
@@ -630,7 +636,6 @@
             courierPrice: "(+800 AED)",
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
             box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box",
-            // ✅ ИСПРАВЛЕНО: Перевод аллергенов на английский
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
             allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts"
         }
@@ -643,7 +648,6 @@
         if (!translations[lang]) { lang = 'ru'; }
         currentLang = lang;
         
-        // Обновляем тексты
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
@@ -651,20 +655,17 @@
             }
         });
         
-        // Обновляем placeholder'ы
         document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
             const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
             if (el.dataset[key]) { el.placeholder = el.dataset[key]; }
         });
         
-        // Обновляем валюту
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
         document.querySelectorAll('.courier-price').forEach(el => {
             el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
         });
         
-        // ✅ ИСПРАВЛЕНО: Обновляем флаг и код языка
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
@@ -720,7 +721,6 @@
             let optionsHtml = '';
             optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemPersons}</span><span class="order-item-option-value">${item.options?.persons || 2}</span></div>`;
             if (item.options?.allergens?.length > 0) {
-                // ✅ ИСПРАВЛЕНО: Перевод аллергенов
                 const allergensTranslated = item.options.allergens.map(allergen => {
                     const allergenMap = {
                         'Грибы': translations[lang].allergen1,
