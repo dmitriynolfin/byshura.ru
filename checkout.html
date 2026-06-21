@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <!-- ===== FAVICON ===== -->
@@ -61,7 +61,16 @@
             100% { transform: translateY(-50%) rotate(360deg); }
         }
         @media (max-width: 480px) {
-            .suggestions-list { position: fixed; left: 15px; right: 15px; max-height: 40vh; }
+            /* ✅ ИСПРАВЛЕНО: Правильное позиционирование на мобильных */
+            .suggestions-list { 
+                position: absolute !important; 
+                left: 0 !important; 
+                right: 0 !important; 
+                top: 100% !important;
+                max-height: 50vh; 
+                z-index: 9999;
+                margin-top: 5px;
+            }
             .suggestion-main { font-size: 13px; }
             .suggestion-details { font-size: 11px; }
         }
@@ -315,18 +324,23 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ ИСПРАВЛЕНО: Дата и время на отдельных строках */
+            /* ✅ ИСПРАВЛЕНО: Дата и время такого же размера, как Самовывоз/Курьер */
             .datetime-grid {
                 display: grid;
                 grid-template-columns: 1fr !important;
-                gap: 12px;
+                gap: 15px;
+                margin-top: 20px;
             }
             .datetime-grid .form-group {
                 width: 100%;
+                margin-bottom: 0;
             }
             .datetime-grid .form-input {
                 width: 100%;
                 max-width: 100%;
+                padding: 12px 16px;
+                font-size: 13px;
+                min-height: 48px;
             }
             
             /* Сводка заказа на очень маленьких экранах */
@@ -499,7 +513,7 @@
                     </div>
                     
                     <!-- ✅ ИСПРАВЛЕНО: Дата и время в отдельном контейнере -->
-                    <div class="datetime-grid" style="margin-top: 20px;">
+                    <div class="datetime-grid">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
                             <input type="date" id="date" name="date" class="form-input" required>
@@ -856,9 +870,10 @@
             return;
         }
 
+        // ✅ ИСПРАВЛЕНО: Улучшенная обработка ввода для мобильных устройств
         addressInput.addEventListener('input', function(e) {
             const query = e.target.value.trim();
-            if (query.length < 3) {
+            if (query.length < 2) {
                 suggestionsList.classList.remove('show');
                 suggestionsList.innerHTML = '';
                 return;
@@ -871,6 +886,14 @@
                     fetchOSMSuggestions(query, addressInput.dataset.osmCity || 'Dubai');
                 }
             }, DEBOUNCE_DELAY);
+        });
+
+        // ✅ ИСПРАВЛЕНО: Дополнительная обработка focus для мобильных
+        addressInput.addEventListener('focus', function() {
+            const query = this.value.trim();
+            if (query.length >= 2 && suggestionsList.innerHTML) {
+                suggestionsList.classList.add('show');
+            }
         });
 
         document.addEventListener('click', function(e) {
