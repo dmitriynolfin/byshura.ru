@@ -425,11 +425,11 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇺 RU</span>
+                            <span class="lang-code">🇷🇺 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-code">🇦 EN</span>
                             <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
@@ -441,8 +441,8 @@
     <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
         <div class="marquee-content" data-i18n="marquee">
-            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
-            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
+             Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • 
+             Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
         </div>
     </div>
 
@@ -593,8 +593,9 @@
                 <!-- КНОПКИ -->
                 <div class="checkout-actions">
                     <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
-                    <button type="submit" class="btn-submit" id="submitBtn" data-i18n="btnSubmit">
-                        <span class="btn-text">ПОДТВЕРДИТЬ ЗАКАЗ</span>
+                    <!-- ✅ FIX: data-i18n moved to span to prevent destroying the loading icon -->
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span class="btn-text" data-i18n="btnSubmit">ПОДТВЕРДИТЬ ЗАКАЗ</span>
                         <span class="btn-loading" style="display:none">⏳</span>
                     </button>
                 </div>
@@ -605,7 +606,7 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
+            <a href="index.html" class="footer-logo" aria-label="Главная"></a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 19.54 3l-5.44 17.68-2.156-2.71zM12.42 14.32l.92-3.72 6.02-3.68-7.38 5.24.44 2.16z"/></svg></a>
@@ -652,7 +653,7 @@
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients •  Unique experience • 🎁 Gift packaging • ",
             checkoutTitle: "CHECKOUT",
             checkoutSubtitle: "Fill in your details for box delivery",
             orderSummaryTitle: "Your Order",
@@ -765,7 +766,7 @@
             total += itemTotal;
             const thumbUrl = item.productId ? 
                 `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}` : 
-                'https://placehold.co/100x100/FFD93D/070395?text=🍋';
+                'https://placehold.co/100x100/FFD93D/070395?text=';
             const boxNameKey = `${item.productId}Name`;
             const itemName = translations[lang][boxNameKey] || item.name;
             
@@ -915,7 +916,7 @@
                     console.error('❌ Telegram API error:', await response.text());
                 }
             } catch (e) {
-                console.error('❌ Telegram error:', e);
+                console.error(' Telegram error:', e);
             }
         } else {
             console.warn('⚠️ Telegram бот не настроен. Инструкция:');
@@ -1185,7 +1186,7 @@
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
-        // ===== ОТПРАВКА ЗАКАЗА (с отладкой) =====
+        // ===== ОТПРАВКА ЗАКАЗА (с защитой от ошибок) =====
         const checkoutForm = document.getElementById('checkoutForm');
         console.log(' Форма найдена:', !!checkoutForm);
         
@@ -1215,10 +1216,13 @@
                     return;
                 }
                 
-                // Блокируем кнопку
+                // Блокируем кнопку (с проверкой на существование элементов)
                 submitBtn.disabled = true;
-                submitBtn.querySelector('.btn-text').style.display = 'none';
-                submitBtn.querySelector('.btn-loading').style.display = 'inline';
+                const btnText = submitBtn.querySelector('.btn-text');
+                const btnLoading = submitBtn.querySelector('.btn-loading');
+                
+                if (btnText) btnText.style.display = 'none';
+                if (btnLoading) btnLoading.style.display = 'inline';
                 
                 // Генерируем уникальный номер заказа
                 const orderNumber = generateOrderNumber();
@@ -1275,8 +1279,8 @@
                     console.error('❌ Ошибка при оформлении заказа:', error);
                     alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.\n\n' + error.message);
                     submitBtn.disabled = false;
-                    submitBtn.querySelector('.btn-text').style.display = 'inline';
-                    submitBtn.querySelector('.btn-loading').style.display = 'none';
+                    if (btnText) btnText.style.display = 'inline';
+                    if (btnLoading) btnLoading.style.display = 'none';
                 }
             });
         } else {
