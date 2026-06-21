@@ -1,9 +1,19 @@
 User-agent: *
 Allow: /
+Allow: /*.css$
+Allow: /*.js$
+Disallow: /checkout.html
+Disallow: /*?lang=
+Disallow: /cgi-bin/
 
-# Разрешить индексацию всех страниц
+User-agent: Yandex
+Allow: /
+Disallow: /checkout.html
+Clean-params: lang
+
+User-agent: GoogleBot
+Allow: /
+Disallow: /checkout.html
+
 Sitemap: https://byshura.ru/sitemap.xml
-
-# Запретить индексацию служебных путей (опционально)
-Disallow: /node_modules/
-Disallow: /.git/
+Host: https://byshura.ru
