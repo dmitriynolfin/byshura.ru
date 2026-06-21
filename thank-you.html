@@ -513,7 +513,7 @@
     // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
     // Вставлен ваш URL
     const GAS_CONFIG = {
-        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbxu76NBGFj25iqQ_W4OZJcOXneN1tfb_jtlY4CRkxLwmCZc72DOE5KsJoWaSbPI644/exec'
+        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbx_WrUWyprLzFvIZH04QYfh9_7Z_9yirjoOVsgYLT5yn_B1MW6Hbu89uMZyO5igOq5d/exec'
     };
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
@@ -607,42 +607,42 @@
         
         container.innerHTML = html;
     }
-    
     // ===== ОТПРАВКА УВЕДОМЛЕНИЯ ЧЕРЕЗ GOOGLE APPS SCRIPT =====
-    async function sendGasNotification() {
-        if (!orderData) return;
+async function sendGasNotification() {
+    if (!orderData) return;
+    
+    const statusEl = document.getElementById('notificationStatus');
+    const statusText = document.getElementById('notificationStatusText');
+    const t = translations[currentLang];
+    
+    statusEl.className = 'notification-status show info';
+    statusText.textContent = t.notificationSending;
+    
+    try {
+        // Создаем FormData вместо JSON
+        const formData = new FormData();
+        formData.append('orderData', JSON.stringify(orderData));
         
-        const statusEl = document.getElementById('notificationStatus');
-        const statusText = document.getElementById('notificationStatusText');
-        const t = translations[currentLang];
+        // Отправляем без custom headers (чтобы не было preflight)
+        await fetch(GAS_CONFIG.WEBHOOK_URL, {
+            method: 'POST',
+            body: formData
+            // НЕ добавляем headers - это важно!
+        });
         
-        statusEl.className = 'notification-status show info';
-        statusText.textContent = t.notificationSending;
+        setTimeout(() => {
+            statusEl.className = 'notification-status show success';
+            statusText.textContent = t.notificationSuccess;
+        }, 1000);
         
-        try {
-            // Отправляем заказ как JSON
-            await fetch(GAS_CONFIG.WEBHOOK_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            });
-            
-            // Показываем успех через небольшую паузу
-            setTimeout(() => {
-                statusEl.className = 'notification-status show success';
-                statusText.textContent = t.notificationSuccess;
-            }, 800);
-            
-            console.log('✅ Заказ успешно отправлен на почту через Google Script');
-            
-        } catch (error) {
-            console.error('❌ Ошибка при отправке заказа:', error);
-            statusEl.className = 'notification-status show error';
-            statusText.textContent = t.notificationError;
-        }
+        console.log('✅ Заказ отправлен');
+        
+    } catch (error) {
+        console.error('❌ Ошибка:', error);
+        statusEl.className = 'notification-status show error';
+        statusText.textContent = t.notificationError;
     }
+}
     
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function escapeHtml(text) {
