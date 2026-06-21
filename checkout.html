@@ -331,7 +331,7 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ ИСПРАВЛЕНО: Поля Дата и Время компактного размера по содержимому */
+            /* ✅ ИСПРАВЛЕНО: Поля Дата и Время компактного размера с центрированным текстом */
             .datetime-grid {
                 display: flex;
                 flex-wrap: wrap;
@@ -357,8 +357,12 @@
                 height: 32px !important;
                 border-radius: 8px !important;
                 border-width: 1.5px !important;
-                display: inline-block;
-                box-sizing: content-box;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                line-height: 32px;
+                box-sizing: border-box;
             }
             
             /* Сводка заказа на очень маленьких экранах */
@@ -386,6 +390,7 @@
                 padding: 5px 8px !important;
                 font-size: 12px !important;
                 height: 28px !important;
+                line-height: 28px;
             }
             .datetime-grid .form-label {
                 font-size: 11px;
