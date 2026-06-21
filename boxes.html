@@ -157,7 +157,6 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
             .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
             .catalog { padding-top: 112px; }
             .header-container { padding: 0 15px; }
@@ -183,7 +182,6 @@
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             .header-right { gap: 10px; }
             
-            /* Модальные окна */
             .product-modal { width: 95%; max-width: none; max-height: 95vh; }
             .gallery-slider { height: 200px; }
             .allergens-grid { grid-template-columns: 1fr; }
@@ -195,7 +193,6 @@
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            /* ✅ БЕГУЩАЯ СТРОКА ПЛОТНО ПРИЛЕГАЕТ К ШАПКЕ */
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .catalog { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
@@ -493,6 +490,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
+    // ===== ПЕРЕВОДЫ =====
     const translations = {
         ru: {
             pageTitle: "Боксы - Вестник Гедонизма",
@@ -548,11 +546,27 @@
         }
     };
 
+    // ✅ ГЛОБАЛЬНАЯ ИНИЦИАЛИЗАЦИЯ КОРЗИНЫ ИЗ LOCALSTORAGE
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     let currentLang = 'ru';
     let currentProduct = null;
-    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     let currentGalleryImages = [];
     let currentGalleryIndex = 0;
+
+    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ СЧЁТЧИКА КОРЗИНЫ
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = Array.isArray(cart) ? 
+                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            cartCount.textContent = totalQty > 0 ? totalQty : '0';
+        }
+    }
+
+    // ✅ ФУНКЦИЯ СОХРАНЕНИЯ КОРЗИНЫ В LOCALSTORAGE
+    function saveCart() {
+        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+    }
 
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
@@ -573,6 +587,8 @@
         if (langCurrent) langCurrent.textContent = lang.toUpperCase();
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+        
+        // ✅ Обновляем счётчик корзины при смене языка
         updateCartCount();
     }
 
@@ -636,6 +652,7 @@
         return { persons, allergens };
     }
     
+    // ✅ ДОБАВЛЕНИЕ В КОРЗИНУ С СОХРАНЕНИЕМ В LOCALSTORAGE
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
         const cartItem = {
@@ -648,8 +665,8 @@
             options: { persons: options.persons, allergens: options.allergens }
         };
         cart.push(cartItem);
-        saveCart();
-        updateCartCount();
+        saveCart(); // ✅ Сохраняем в localStorage
+        updateCartCount(); // ✅ Обновляем счётчик
         closeProductModal();
         showCartPrompt();
     }
@@ -669,22 +686,18 @@
         window.location.href = 'checkout.html';
     }
 
-    function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
-    
-    function updateCartCount() {
-        const cartCount = document.getElementById('cartCount');
-        if (cartCount) {
-            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
-            cartCount.textContent = totalQty > 0 ? totalQty : '0';
-        }
-    }
-
+    // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
+        // ✅ 1. Сначала загружаем язык
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
         applyLanguage(langToUse);
         
+        // ✅ 2. Обновляем счётчик корзины (корзина уже загружена из localStorage глобально)
+        updateCartCount();
+        
+        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -702,28 +715,47 @@
             });
         }
         
+        // Обработчики кнопок "Выбрать"
         document.querySelectorAll('.btn-select').forEach(btn => {
             btn.addEventListener('click', function() {
-                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
+                const productData = { 
+                    id: this.dataset.productId, 
+                    name: this.dataset.productName, 
+                    price: parseInt(this.dataset.productPrice) 
+                };
                 const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
                 openProductModal(productData, galleryImages);
             });
         });
         
+        // Закрытие модального окна
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
-        document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
+        document.getElementById('productModalOverlay')?.addEventListener('click', e => { 
+            if (e.target.id === 'productModalOverlay') closeProductModal(); 
+        });
         document.getElementById('modalAddToCart')?.addEventListener('click', () => addToCartWithOptions(getModalOptions()));
         
+        // ✅ ИКОНКА КОРЗИНЫ → СРАЗУ НА CHECKOUT
         document.getElementById('cartBtn')?.addEventListener('click', () => window.location.href = 'checkout.html');
         
+        // Модальное окно "Перейти в корзину?"
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
         document.getElementById('promptContinue')?.addEventListener('click', closeCartPrompt);
         document.getElementById('promptCart')?.addEventListener('click', goToCheckout);
-        cartPromptOverlay?.addEventListener('click', e => { if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); });
+        cartPromptOverlay?.addEventListener('click', e => { 
+            if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); 
+        });
         
-        updateCartCount();
-        console.log(`✅ boxes.html ready! Language: ${currentLang.toUpperCase()}`);
+        console.log(`✅ boxes.html ready! Language: ${currentLang.toUpperCase()}, Cart items: ${cart.length}`);
+    });
+    
+    // ✅ Слушаем изменения localStorage из других вкладок/страниц
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            cart = JSON.parse(e.newValue) || [];
+            updateCartCount();
+        }
     });
     </script>
 </body>
