@@ -606,7 +606,7 @@
         
         container.innerHTML = html;
     }
-    // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
+ // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
 async function sendGasNotification() {
     if (!orderData) return;
     
@@ -618,24 +618,17 @@ async function sendGasNotification() {
     statusText.textContent = t.notificationSending;
     
     try {
-        // Создаем FormData (это простой запрос, без preflight)
+        // Создаем FormData
         const formData = new FormData();
         formData.append('orderData', JSON.stringify(orderData));
         
-        // Отправляем FormData (без mode: 'no-cors')
+        // Отправляем POST запрос
         const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
-            method: 'POST',
+            method: 'POST',  // ← Обязательно POST!
             body: formData
-            // НЕ добавляем headers и mode!
         });
         
-        // Пробуем прочитать ответ
-        try {
-            const result = await response.json();
-            console.log('Ответ сервера:', result);
-        } catch (e) {
-            console.log('Не удалось прочитать ответ (но запрос ушёл)');
-        }
+        console.log('Статус ответа:', response.status);
         
         setTimeout(() => {
             statusEl.className = 'notification-status show success';
@@ -650,7 +643,6 @@ async function sendGasNotification() {
         statusText.textContent = t.notificationError;
     }
 }
-                        
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function escapeHtml(text) {
         if (!text) return '';
