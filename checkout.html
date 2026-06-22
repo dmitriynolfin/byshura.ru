@@ -229,6 +229,48 @@
         .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .payment-option input:checked + .payment-label { font-weight: 600; }
         
+        /* ✅ ЧЕКБОКС СОГЛАСИЯ НА ОБРАБОТКУ ДАННЫХ */
+        .consent-group {
+            margin: 25px 0 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #FFD93D;
+        }
+        .consent-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .consent-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: #070395;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .consent-text {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .consent-text a {
+            color: #070395;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .consent-text a:hover {
+            color: #FFD93D;
+            text-decoration: underline;
+        }
+        
+        /* ✅ СКРЫВАЕМ чекбокс для EN версии */
+        html[lang="en"] .consent-group {
+            display: none !important;
+        }
+        
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
         .btn-submit { 
             flex: 1; background: #070395; color: white; padding: 16px 30px; 
@@ -379,6 +421,16 @@
             .legal-divider {
                 color: #ccc;
                 font-size: 11px;
+            }
+            
+            /* ✅ АДАПТАЦИЯ ЧЕКБОКСА СОГЛАСИЯ ДЛЯ МОБИЛЬНЫХ */
+            .consent-group {
+                padding: 12px;
+                margin: 20px 0 25px;
+            }
+            .consent-text {
+                font-size: 12px;
+                line-height: 1.4;
             }
             
             .datetime-grid {
@@ -640,6 +692,16 @@
                     </div>
                 </div>
                 
+                <!-- ✅ ЧЕКБОКС СОГЛАСИЯ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ (только для RU) -->
+                <div class="consent-group">
+                    <label class="consent-checkbox">
+                        <input type="checkbox" id="consentCheckbox" name="consent" required>
+                        <span class="consent-text">
+                            Я даю согласие на обработку <a href="privacy-policy.html" target="_blank">персональных данных</a> и принимаю условия <a href="offer.html" target="_blank">публичной оферты</a>
+                        </span>
+                    </label>
+                </div>
+                
                 <!-- КНОПКИ -->
                 <div class="checkout-actions">
                     <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
@@ -698,6 +760,7 @@
             btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             validationError: "Пожалуйста, заполните все обязательные поля",
+            consentError: "Необходимо дать согласие на обработку персональных данных",
             emptyCart: "Корзина пуста. <a href='boxes.html'>Добавьте товары</a>",
             itemPersons: "Персон:", itemAllergens: "Аллергены:", itemQuantity: "Кол-во:",
             btnRemove: "Удалить",
@@ -729,6 +792,7 @@
             btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             validationError: "Please fill in all required fields",
+            consentError: "Consent to data processing is required",
             emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
             itemPersons: "Persons:", itemAllergens: "Allergens:", itemQuantity: "Qty:",
             btnRemove: "Remove",
@@ -793,7 +857,7 @@
             }
         }
         
-        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
+        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок и чекбокса
         document.documentElement.lang = lang;
         
         const dateInput = document.getElementById('date');
@@ -1269,6 +1333,20 @@
                 if (!name || !phone) { 
                     alert(translations[currentLang].validationError); 
                     return; 
+                }
+                
+                // ✅ ПРОВЕРКА ЧЕКБОКСА СОГЛАСИЯ (только для RU)
+                if (currentLang === 'ru') {
+                    const consentCheckbox = document.getElementById('consentCheckbox');
+                    if (consentCheckbox && !consentCheckbox.checked) {
+                        alert(translations[currentLang].consentError);
+                        submitBtn.disabled = false;
+                        const btnText = submitBtn.querySelector('.btn-text');
+                        const btnLoading = submitBtn.querySelector('.btn-loading');
+                        if (btnText) btnText.style.display = 'inline';
+                        if (btnLoading) btnLoading.style.display = 'none';
+                        return;
+                    }
                 }
                 
                 // Проверка корзины
