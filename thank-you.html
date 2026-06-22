@@ -512,7 +512,7 @@
     // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
     // Вставьте сюда ваш Web App URL из Google Apps Script
     const GAS_CONFIG = {
-        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbw-0mTIX-nmgzWhZyP7B_z8oKz6FZ2U6ipNj_Lsw6OLkhft_yejQp2COmZ8KmXMx8Ag/exec'
+        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbz_BIEK_uRFDfvQJhKoMtQ8Ud3Um_vVGTXQuBrjYB_WKAbXmlfEi4th3Xwbaf93d0HP/exec'
     };
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
@@ -607,45 +607,43 @@
         container.innerHTML = html;
     }
     
-        // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
-        async function sendGasNotification() {
-            if (!orderData) return;
-            
-            const statusEl = document.getElementById('notificationStatus');
-            const statusText = document.getElementById('notificationStatusText');
-            const t = translations[currentLang];
-            
-            statusEl.className = 'notification-status show info';
-            statusText.textContent = t.notificationSending;
-            
-            try {
-                // Отправляем БЕЗ заголовка Content-Type (чтобы не было preflight OPTIONS)
-                const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
-                    method: 'POST',
-                    // НЕ добавляем headers!
-                    body: JSON.stringify(orderData)
-                });
+                   // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
+            async function sendGasNotification() {
+                if (!orderData) return;
                 
-                const result = await response.json();
-                console.log('Ответ сервера:', result);
+                const statusEl = document.getElementById('notificationStatus');
+                const statusText = document.getElementById('notificationStatusText');
+                const t = translations[currentLang];
                 
-                if (result.result === 'success') {
+                statusEl.className = 'notification-status show info';
+                statusText.textContent = t.notificationSending;
+                
+                try {
+                    // Используем mode: 'no-cors' чтобы избежать OPTIONS preflight
+                    await fetch(GAS_CONFIG.WEBHOOK_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',  // ← Важно!
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'  // ← Простой content-type
+                        },
+                        body: JSON.stringify(orderData)
+                    });
+                    
+                    // С no-cors мы не можем прочитать ответ, но запрос уйдёт
                     setTimeout(() => {
                         statusEl.className = 'notification-status show success';
                         statusText.textContent = t.notificationSuccess;
                     }, 1000);
-                    console.log('✅ Заказ сохранён');
-                } else {
-                    throw new Error(result.message || 'Error');
+                    
+                    console.log('✅ Заказ отправлен');
+                    
+                } catch (error) {
+                    console.error('❌ Ошибка:', error);
+                    statusEl.className = 'notification-status show error';
+                    statusText.textContent = t.notificationError;
                 }
-                
-            } catch (error) {
-                console.error('❌ Ошибка:', error);
-                statusEl.className = 'notification-status show error';
-                statusText.textContent = t.notificationError;
             }
-        }
-            
+                        
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function escapeHtml(text) {
         if (!text) return '';
