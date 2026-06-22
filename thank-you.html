@@ -618,33 +618,30 @@ async function sendGasNotification() {
     statusText.textContent = t.notificationSending;
     
     try {
-        // Создаем FormData
-        const formData = new FormData();
-        formData.append('orderData', JSON.stringify(orderData));
+        // Используем URLSearchParams вместо FormData
+        const params = new URLSearchParams();
+        params.append('orderData', JSON.stringify(orderData));
         
-        // Отправляем с mode: 'no-cors' чтобы обойти CORS
+        // Отправляем без mode: 'no-cors'
         const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
             method: 'POST',
-            mode: 'no-cors',  // ← Важно!
-            body: formData
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params.toString()
         });
         
-        // С no-cors мы не можем прочитать ответ, но запрос ушёл
-        // Просто показываем успех
+        console.log('✅ Статус:', response.status);
+        
         setTimeout(() => {
             statusEl.className = 'notification-status show success';
             statusText.textContent = t.notificationSuccess;
-        }, 1500);
-        
-        console.log('✅ Заказ отправлен (статус:', response.status, ')');
+        }, 1000);
         
     } catch (error) {
         console.error('❌ Ошибка:', error);
-        // Даже если ошибка в консоли, показываем успех (заказ скорее всего ушёл)
-        setTimeout(() => {
-            statusEl.className = 'notification-status show success';
-            statusText.textContent = t.notificationSuccess;
-        }, 1500);
+        statusEl.className = 'notification-status show error';
+        statusText.textContent = t.notificationError;
     }
 }
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
