@@ -266,10 +266,7 @@
             text-decoration: underline;
         }
         
-        /* ✅ СКРЫВАЕМ чекбокс для EN версии */
-        html[lang="en"] .consent-group {
-            display: none !important;
-        }
+        /* ✅ УБРАНО СКРЫТИЕ для EN версии - чекбокс теперь виден на всех языках */
         
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
         .btn-submit { 
@@ -468,6 +465,16 @@
             }
             .legal-links-en a:hover {
                 color: #070395;
+            }
+            
+            /* ✅ АДАПТАЦИЯ ЧЕКБОКСА СОГЛАСИЯ ДЛЯ МОБИЛЬНЫХ */
+            .consent-group {
+                padding: 12px;
+                margin: 20px 0 25px;
+            }
+            .consent-text {
+                font-size: 12px;
+                line-height: 1.4;
             }
             
             .datetime-grid {
@@ -729,12 +736,12 @@
                     </div>
                 </div>
                 
-                <!-- ✅ ЧЕКБОКС СОГЛАСИЯ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ (только для RU) -->
+                <!-- ✅ ЧЕКБОКС СОГЛАСИЯ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ (для всех языков) -->
                 <!-- ✅ ДОБАВЛЕН АТРИБУТ checked -->
                 <div class="consent-group">
                     <label class="consent-checkbox">
                         <input type="checkbox" id="consentCheckbox" name="consent" required checked>
-                        <span class="consent-text">
+                        <span class="consent-text" data-i18n="consentText">
                             Я даю согласие на обработку <a href="privacy-policy.html" target="_blank">персональных данных</a> и принимаю условия <a href="offer.html" target="_blank">публичной оферты</a>
                         </span>
                     </label>
@@ -806,6 +813,7 @@
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             validationError: "Пожалуйста, заполните все обязательные поля",
             consentError: "Необходимо дать согласие на обработку персональных данных",
+            consentText: "Я даю согласие на обработку <a href='privacy-policy.html' target='_blank'>персональных данных</a> и принимаю условия <a href='offer.html' target='_blank'>публичной оферты</a>",
             emptyCart: "Корзина пуста. <a href='boxes.html'>Добавьте товары</a>",
             itemPersons: "Персон:", itemAllergens: "Аллергены:", itemQuantity: "Кол-во:",
             btnRemove: "Удалить",
@@ -838,6 +846,7 @@
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             validationError: "Please fill in all required fields",
             consentError: "Consent to data processing is required",
+            consentText: "I consent to the processing of <a href='privacy-policy-en.html' target='_blank'>personal data</a> and accept the terms of the <a href='offer-en.html' target='_blank'>public offer</a>",
             emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
             itemPersons: "Persons:", itemAllergens: "Allergens:", itemQuantity: "Qty:",
             btnRemove: "Remove",
@@ -875,7 +884,11 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
+                if (key === 'consentText' || key === 'infoNote') {
+                    el.innerHTML = translations[lang][key];
+                } else {
+                    el.textContent = translations[lang][key];
+                }
             }
         });
         
@@ -902,7 +915,7 @@
             }
         }
         
-        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок и чекбокса
+        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
         
         const dateInput = document.getElementById('date');
@@ -1380,18 +1393,16 @@
                     return; 
                 }
                 
-                // ✅ ПРОВЕРКА ЧЕКБОКСА СОГЛАСИЯ (только для RU)
-                if (currentLang === 'ru') {
-                    const consentCheckbox = document.getElementById('consentCheckbox');
-                    if (consentCheckbox && !consentCheckbox.checked) {
-                        alert(translations[currentLang].consentError);
-                        submitBtn.disabled = false;
-                        const btnText = submitBtn.querySelector('.btn-text');
-                        const btnLoading = submitBtn.querySelector('.btn-loading');
-                        if (btnText) btnText.style.display = 'inline';
-                        if (btnLoading) btnLoading.style.display = 'none';
-                        return;
-                    }
+                // ✅ ПРОВЕРКА ЧЕКБОКСА СОГЛАСИЯ (для всех языков)
+                const consentCheckbox = document.getElementById('consentCheckbox');
+                if (consentCheckbox && !consentCheckbox.checked) {
+                    alert(translations[currentLang].consentError);
+                    submitBtn.disabled = false;
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const btnLoading = submitBtn.querySelector('.btn-loading');
+                    if (btnText) btnText.style.display = 'inline';
+                    if (btnLoading) btnLoading.style.display = 'none';
+                    return;
                 }
                 
                 // Проверка корзины
