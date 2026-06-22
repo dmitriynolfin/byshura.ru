@@ -305,6 +305,31 @@
             display: none !important;
         }
         
+        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ для EN версии */
+        .legal-links-en {
+            display: none;
+            gap: 15px;
+            align-items: center;
+        }
+        .legal-links-en a {
+            font-size: 12px;
+            color: #666;
+            transition: color 0.3s;
+        }
+        .legal-links-en a:hover {
+            color: #070395;
+        }
+        
+        /* ✅ ПОКАЗЫВАЕМ легальные ссылки для EN версии */
+        html[lang="en"] .legal-links-en {
+            display: flex !important;
+        }
+        
+        /* ✅ СКРЫВАЕМ легальные ссылки для RU версии */
+        html[lang="ru"] .legal-links-en {
+            display: none !important;
+        }
+        
         /* СКРЫТИЕ СКРОЛЛБАРА */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
@@ -351,7 +376,7 @@
             .social-link svg { width: 18px; height: 18px; }
             .footer-copyright { font-size: 12px; }
             
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ */
+            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (RU) */
             .legal-links-ru {
                 display: flex;
                 flex-wrap: wrap;
@@ -372,6 +397,28 @@
             .legal-divider {
                 color: #ccc;
                 font-size: 11px;
+            }
+            
+            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (EN) */
+            .legal-links-en {
+                display: none;
+                flex-wrap: wrap;
+                gap: 5px 10px;
+                align-items: center;
+                justify-content: center;
+                margin-top: 8px;
+                width: 100%;
+            }
+            html[lang="en"] .legal-links-en {
+                display: flex !important;
+            }
+            .legal-links-en a {
+                font-size: 11px;
+                color: #666;
+                white-space: nowrap;
+            }
+            .legal-links-en a:hover {
+                color: #070395;
             }
         }
         
@@ -465,6 +512,13 @@
                 <span class="legal-divider">|</span>
                 <a href="offer.html" target="_blank">Публичная оферта</a>
             </div>
+            
+            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для EN) -->
+            <div class="legal-links-en">
+                <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
+                <span class="legal-divider">|</span>
+                <a href="offer-en.html" target="_blank">Public Offer</a>
+            </div>
         </div>
     </footer>
 
@@ -479,7 +533,7 @@
             thankYouSubtitle: "Мы получили ваш заказ и свяжемся с вами в течение часа для подтверждения.",
             orderNumberLabel: "Номер вашего заказа",
             orderDetailsTitle: "Детали заказа",
-            infoNote: "<strong> Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> или <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
+            infoNote: "<strong>📞 Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> или <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
             btnHomeMain: "НА ГЛАВНУЮ",
             btnMoreOrders: "ЗАКАЗАТЬ ЕЩЁ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
