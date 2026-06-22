@@ -607,47 +607,45 @@
         container.innerHTML = html;
     }
     
-    // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
-    async function sendGasNotification() {
-        if (!orderData) return;
-        
-        const statusEl = document.getElementById('notificationStatus');
-        const statusText = document.getElementById('notificationStatusText');
-        const t = translations[currentLang];
-        
-        statusEl.className = 'notification-status show info';
-        statusText.textContent = t.notificationSending;
-        
-        try {
-            // Отправляем данные как JSON
-            const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderData)
-            });
+        // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
+        async function sendGasNotification() {
+            if (!orderData) return;
             
-            const result = await response.json();
-            console.log('Ответ сервера:', result);
+            const statusEl = document.getElementById('notificationStatus');
+            const statusText = document.getElementById('notificationStatusText');
+            const t = translations[currentLang];
             
-            if (result.result === 'success') {
-                setTimeout(() => {
-                    statusEl.className = 'notification-status show success';
-                    statusText.textContent = t.notificationSuccess;
-                }, 1000);
-                console.log('✅ Заказ сохранён');
-            } else {
-                throw new Error(result.message || 'Unknown error');
+            statusEl.className = 'notification-status show info';
+            statusText.textContent = t.notificationSending;
+            
+            try {
+                // Отправляем БЕЗ заголовка Content-Type (чтобы не было preflight OPTIONS)
+                const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
+                    method: 'POST',
+                    // НЕ добавляем headers!
+                    body: JSON.stringify(orderData)
+                });
+                
+                const result = await response.json();
+                console.log('Ответ сервера:', result);
+                
+                if (result.result === 'success') {
+                    setTimeout(() => {
+                        statusEl.className = 'notification-status show success';
+                        statusText.textContent = t.notificationSuccess;
+                    }, 1000);
+                    console.log('✅ Заказ сохранён');
+                } else {
+                    throw new Error(result.message || 'Error');
+                }
+                
+            } catch (error) {
+                console.error('❌ Ошибка:', error);
+                statusEl.className = 'notification-status show error';
+                statusText.textContent = t.notificationError;
             }
-            
-        } catch (error) {
-            console.error('❌ Ошибка:', error);
-            statusEl.className = 'notification-status show error';
-            statusText.textContent = t.notificationError;
         }
-    }
-    
+            
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function escapeHtml(text) {
         if (!text) return '';
