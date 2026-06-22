@@ -174,6 +174,31 @@
             display: none !important;
         }
         
+        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ для EN версии */
+        .legal-links-en {
+            display: none;
+            gap: 15px;
+            align-items: center;
+        }
+        .legal-links-en a {
+            font-size: 12px;
+            color: #666;
+            transition: color 0.3s;
+        }
+        .legal-links-en a:hover {
+            color: #070395;
+        }
+        
+        /* ✅ ПОКАЗЫВАЕМ легальные ссылки для EN версии */
+        html[lang="en"] .legal-links-en {
+            display: flex !important;
+        }
+        
+        /* ✅ СКРЫВАЕМ легальные ссылки для RU версии */
+        html[lang="ru"] .legal-links-en {
+            display: none !important;
+        }
+        
         /* ✅ КОРЗИНА СКРЫТА (код оставлен для совместимости) */
         .cart-modal { display: none; }
         .cart-overlay { display: none; }
@@ -255,7 +280,7 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ */
+            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (RU) */
             .legal-links-ru {
                 display: flex;
                 flex-wrap: wrap;
@@ -276,6 +301,28 @@
             .legal-divider {
                 color: #ccc;
                 font-size: 11px;
+            }
+            
+            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (EN) */
+            .legal-links-en {
+                display: none;
+                flex-wrap: wrap;
+                gap: 5px 10px;
+                align-items: center;
+                justify-content: center;
+                margin-top: 8px;
+                width: 100%;
+            }
+            html[lang="en"] .legal-links-en {
+                display: flex !important;
+            }
+            .legal-links-en a {
+                font-size: 11px;
+                color: #666;
+                white-space: nowrap;
+            }
+            .legal-links-en a:hover {
+                color: #070395;
             }
             
             .gallery-slider { height: 180px; }
@@ -493,6 +540,13 @@
                 <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
                 <a href="offer.html" target="_blank">Публичная оферта</a>
+            </div>
+            
+            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для EN) -->
+            <div class="legal-links-en">
+                <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
+                <span class="legal-divider">|</span>
+                <a href="offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
