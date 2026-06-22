@@ -184,6 +184,30 @@
             word-break: break-word;
         }
         
+        /* Строка доставки */
+        .delivery-fee-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+            font-size: 14px;
+            color: #666;
+            background: #fff9e6;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .delivery-fee-label {
+            font-weight: 500;
+            color: #070395;
+        }
+        
+        .delivery-fee-value {
+            font-weight: 600;
+            color: #070395;
+        }
+        
         .items-list {
             margin-top: 15px;
             padding-top: 15px;
@@ -211,6 +235,13 @@
             font-weight: 700;
             color: #070395;
         }
+        
+        /* Для английского языка: валюта перед суммой */
+        html[lang="en"] .total-row .price-value { order: 2; }
+        html[lang="en"] .total-row .currency { order: 1; margin-right: 4px; }
+        html[lang="en"] .item-qty .price-value { order: 2; }
+        html[lang="en"] .item-qty .currency { order: 1; margin-right: 4px; }
+        html[lang="en"] .delivery-fee-value { flex-direction: row-reverse; }
         
         /* ГЛАВНЫЕ КНОПКИ */
         .main-buttons {
@@ -347,6 +378,7 @@
             .detail-value { text-align: left; }
             .main-buttons { flex-direction: column; }
             .btn-primary, .btn-secondary { width: 100%; }
+            .delivery-fee-row { flex-direction: column; gap: 5px; text-align: left; }
         }
         
         @media (max-width: 480px) { 
@@ -500,6 +532,7 @@
             detailComment: "Комментарий:",
             detailItems: "Состав заказа:",
             detailTotal: "Итого:",
+            deliveryFee: "Доставка курьером:",
             deliveryPickup: "Самовывоз в Prime Park",
             deliveryCourier: "Курьер",
             paymentSber: "Перевод на Сбер",
@@ -537,6 +570,7 @@
             detailComment: "Comment:",
             detailItems: "Order items:",
             detailTotal: "Total:",
+            deliveryFee: "Courier delivery:",
             deliveryPickup: "Pickup in Prime Park",
             deliveryCourier: "Courier",
             paymentSber: "Transfer to Sber",
@@ -614,6 +648,15 @@
         };
         const paymentText = paymentMap[orderData.payment] || orderData.payment;
         
+        // Формат цены: для EN - "AED 3 500", для RU - "3 500 ₽"
+        const formatPrice = (amount, currency) => {
+            const formatted = amount.toLocaleString('ru-RU');
+            if (currentLang === 'en') {
+                return `<span class="currency">${currency}</span> <span class="price-value">${formatted}</span>`;
+            }
+            return `<span class="price-value">${formatted}</span> <span class="currency">${currency}</span>`;
+        };
+        
         let html = '';
         html += `<div class="detail-row"><span class="detail-label">${t.detailName}</span><span class="detail-value">${escapeHtml(orderData.name)}</span></div>`;
         html += `<div class="detail-row"><span class="detail-label">${t.detailPhone}</span><span class="detail-value">${escapeHtml(orderData.phone)}</span></div>`;
@@ -641,15 +684,28 @@
             const itemTotal = item.price * item.quantity;
             html += `<div class="item-row">
                 <span class="item-name">${escapeHtml(itemName)} × ${item.quantity}</span>
-                <span class="item-qty">${itemTotal.toLocaleString('ru-RU')} ${orderData.currency}</span>
+                <span class="item-qty">${formatPrice(itemTotal, orderData.currency)}</span>
             </div>`;
         });
         
         html += `</div>`;
         
+        // Если доставка курьером — добавляем строку с её стоимостью
+        if (orderData.delivery === 'courier') {
+            const courierPrice = 800; // Стоимость курьера
+            html += `<div class="delivery-fee-row">
+                <span class="delivery-fee-label">${t.deliveryFee}</span>
+                <span class="delivery-fee-value">${formatPrice(courierPrice, orderData.currency)}</span>
+            </div>`;
+        }
+        
+        // Итоговая сумма: товары + доставка (если курьер)
+        const courierPrice = orderData.delivery === 'courier' ? 800 : 0;
+        const totalWithDelivery = (orderData.total || 0) + courierPrice;
+        
         html += `<div class="total-row">
             <span>${t.detailTotal}</span>
-            <span>${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}</span>
+            <span>${formatPrice(totalWithDelivery, orderData.currency)}</span>
         </div>`;
         
         container.innerHTML = html;
