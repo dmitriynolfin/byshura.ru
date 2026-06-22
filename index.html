@@ -403,12 +403,27 @@
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            /* ✅ Адаптация легальных ссылок для мобильных */
+            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ */
             .legal-links-ru {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
-                margin-top: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px 10px;
+                align-items: center;
+                justify-content: center;
+                margin-top: 8px;
+                width: 100%;
+            }
+            .legal-links-ru a {
+                font-size: 11px;
+                color: #666;
+                white-space: nowrap;
+            }
+            .legal-links-ru a:hover {
+                color: #070395;
+            }
+            .legal-divider {
+                color: #ccc;
+                font-size: 11px;
             }
         }
         
