@@ -13,6 +13,7 @@
     <meta property="og:image" content="https://byshura.ru/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Спасибо за заказ — Вестник Гедонизма</title>
@@ -22,8 +23,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- ⚠️ УДАЛЕНО: Скрипт EmailJS больше не нужен -->
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -422,7 +421,7 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
+            <a href="index.html" class="footer-logo" aria-label="Главная"></a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
         </div>
     </footer>
@@ -438,7 +437,7 @@
             thankYouSubtitle: "Мы получили ваш заказ и свяжемся с вами в течение часа для подтверждения.",
             orderNumberLabel: "Номер вашего заказа",
             orderDetailsTitle: "Детали заказа",
-            infoNote: "<strong>📞 Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> или <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
+            infoNote: "<strong> Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> или <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
             btnHomeMain: "НА ГЛАВНУЮ",
             btnMoreOrders: "ЗАКАЗАТЬ ЕЩЁ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
@@ -462,9 +461,9 @@
             noOrder: "Заказ не найден",
             noOrderText: "Похоже, вы перешли на эту страницу напрямую. Пожалуйста, оформите заказ.",
             btnGoToBoxes: "ПЕРЕЙТИ К БОКСАМ",
-            notificationSending: "⏳ Отправка уведомления администратору...",
-            notificationSuccess: "✅ Уведомление отправлено",
-            notificationError: "⚠️ Ошибка отправки",
+            notificationSending: "⏳ Отправка заказа...",
+            notificationSuccess: "✅ Заказ успешно отправлен",
+            notificationError: "️ Ошибка отправки",
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
             box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»"
         },
@@ -499,8 +498,8 @@
             noOrder: "Order not found",
             noOrderText: "It seems you came to this page directly. Please place an order first.",
             btnGoToBoxes: "GO TO BOXES",
-            notificationSending: "⏳ Sending admin notification...",
-            notificationSuccess: "✅ Notification sent",
+            notificationSending: "⏳ Sending order...",
+            notificationSuccess: "✅ Order sent successfully",
             notificationError: "⚠️ Sending failed",
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
             box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box"
@@ -511,9 +510,9 @@
     let orderData = null;
     
     // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
-    // Вставлен ваш URL
+    // Вставьте сюда ваш Web App URL из Google Apps Script
     const GAS_CONFIG = {
-        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbwxdVt-2DIMfoxcMDw88-jv9SayxBFwj9Zr7wfUpeyyBomdmk6aDV6b1L1DGcQTisp7/exec'
+        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbxW7bsmLl43N_hCWuk1mG6l-hqBB_Svyu-zBBmHcJNINZPx43YL9gVQutG6XLI0Yrpv/exec'
     };
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
@@ -607,42 +606,47 @@
         
         container.innerHTML = html;
     }
-    // ===== ОТПРАВКА УВЕДОМЛЕНИЯ ЧЕРЕЗ GOOGLE APPS SCRIPT =====
-async function sendGasNotification() {
-    if (!orderData) return;
     
-    const statusEl = document.getElementById('notificationStatus');
-    const statusText = document.getElementById('notificationStatusText');
-    const t = translations[currentLang];
-    
-    statusEl.className = 'notification-status show info';
-    statusText.textContent = t.notificationSending;
-    
-    try {
-        // Создаем FormData вместо JSON
-        const formData = new FormData();
-        formData.append('orderData', JSON.stringify(orderData));
+    // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
+    async function sendGasNotification() {
+        if (!orderData) return;
         
-        // Отправляем без custom headers (чтобы не было preflight)
-        await fetch(GAS_CONFIG.WEBHOOK_URL, {
-            method: 'POST',
-            body: formData
-            // НЕ добавляем headers - это важно!
-        });
+        const statusEl = document.getElementById('notificationStatus');
+        const statusText = document.getElementById('notificationStatusText');
+        const t = translations[currentLang];
         
-        setTimeout(() => {
-            statusEl.className = 'notification-status show success';
-            statusText.textContent = t.notificationSuccess;
-        }, 1000);
+        statusEl.className = 'notification-status show info';
+        statusText.textContent = t.notificationSending;
         
-        console.log('✅ Заказ отправлен');
-        
-    } catch (error) {
-        console.error('❌ Ошибка:', error);
-        statusEl.className = 'notification-status show error';
-        statusText.textContent = t.notificationError;
+        try {
+            // Отправляем данные как JSON
+            const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
+            
+            const result = await response.json();
+            console.log('Ответ сервера:', result);
+            
+            if (result.result === 'success') {
+                setTimeout(() => {
+                    statusEl.className = 'notification-status show success';
+                    statusText.textContent = t.notificationSuccess;
+                }, 1000);
+                console.log('✅ Заказ сохранён');
+            } else {
+                throw new Error(result.message || 'Unknown error');
+            }
+            
+        } catch (error) {
+            console.error('❌ Ошибка:', error);
+            statusEl.className = 'notification-status show error';
+            statusText.textContent = t.notificationError;
+        }
     }
-}
     
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function escapeHtml(text) {
@@ -672,7 +676,7 @@ async function sendGasNotification() {
         
         renderOrderDetails();
         
-        // 🚀 Автоматическая отправка уведомления о заказе
+        // 🚀 Сохранение заказа в Google Таблицу
         sendGasNotification();
         
         console.log('✅ thank-you.html loaded. Order:', orderData.orderNumber);
