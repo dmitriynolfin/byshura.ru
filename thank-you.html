@@ -37,7 +37,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* ===== ШАПКА (как в boxes.html) ===== */
+        /* ===== ШАПКА (упрощённая) ===== */
         .header { 
             position: fixed; top: 0; left: 0; width: 100%; 
             background: rgba(255,255,255,0.98); padding: 15px 0; 
@@ -45,50 +45,19 @@
             backdrop-filter: blur(10px); transition: all 0.3s;
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
-        .header-left { display: flex; align-items: center; gap: 30px; }
+        .header-left { display: flex; align-items: center; }
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0;
         }
-        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
-        .header-icons { display: flex; gap: 12px; }
-        .icon-btn { 
-            padding: 8px; color: #070395; transition: transform 0.3s; 
-            position: relative; display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; min-width: 44px; min-height: 44px;
-        }
-        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { 
-            position: absolute; top: -2px; right: -2px; background: #FFD93D; 
-            color: #070395; font-size: 9px; font-weight: 700; 
-            width: 16px; height: 16px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; line-height: 1;
-        }
+        .header-right { display: flex; align-items: center; }
         .btn-home { 
             border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; 
             font-weight: 600; font-size: 13px; transition: all 0.3s; 
             min-height: 44px; display: flex; align-items: center;
         }
         .btn-home:hover { background: #070395; color: white; }
-        .lang-selector { 
-            display: flex; align-items: center; gap: 6px; font-weight: 600; 
-            font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; 
-            min-height: 44px; padding: 5px 10px; border-radius: 20px; 
-            background: rgba(7,3,149,0.05);
-        }
-        .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        .lang-dropdown { 
-            position: absolute; top: 100%; right: 0; background: white; 
-            border: 1px solid #eee; border-radius: 4px; 
-            box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); 
-            min-width: 220px; display: none; z-index: 100; margin-top: 5px;
-        }
-        .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
-        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
-        .lang-code { font-weight: 600; margin-right: 5px; }
-        .lang-descr { color: #666; font-size: 12px; }
         
         /* ОСНОВНОЙ БЛОК */
         .thank-you-page { 
@@ -368,13 +337,8 @@
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .footer-logo { width: 42px; height: 42px; font-size: 20px; }
-            
-            .header-icons { gap: 10px; }
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
-            .icon-btn svg { width: 22px; height: 22px; }
             .btn-home { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             .btn-primary, .btn-secondary { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            
             .success-card { padding: 35px 25px; }
             .success-title { font-size: 26px; }
             .success-subtitle { font-size: 14px; }
@@ -383,7 +347,6 @@
             .detail-value { text-align: left; }
             .main-buttons { flex-direction: column; }
             .btn-primary, .btn-secondary { width: 100%; }
-            .header-right { gap: 10px; }
         }
         
         @media (max-width: 480px) { 
@@ -391,14 +354,8 @@
             .thank-you-page { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .footer-logo { width: 40px; height: 40px; font-size: 18px; }
-            
-            .header-icons { gap: 8px; }
-            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
-            .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-home { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             .btn-primary, .btn-secondary { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            
             .success-card { padding: 30px 20px; }
             .success-icon { width: 80px; height: 80px; font-size: 40px; }
             .success-title { font-size: 22px; }
@@ -410,9 +367,6 @@
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
             .social-link svg { width: 18px; height: 18px; }
             .footer-copyright { font-size: 12px; }
-            .header-right { gap: 8px; }
-            
-            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
         }
         
         @media (max-width: 360px) {
@@ -452,38 +406,14 @@
 </head>
 <body>
 
-    <!-- ШАПКА (как в boxes.html) -->
+    <!-- ШАПКА (упрощённая) -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
                 <a href="index.html" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
-                <div class="header-icons">
-                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                </div>
                 <a href="index.html" class="btn-home" data-i18n="btnHome">НА ГЛАВНУЮ</a>
-                <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷🇺</span>
-                    <span id="langCurrent">RU</span>
-                    <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
-                            <span class="lang-descr">Русский (Москва)</span>
-                        </a>
-                        <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
-                            <span class="lang-descr">English (Dubai)</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </header>
@@ -648,18 +578,6 @@
             }
         });
         
-        const langFlag = document.getElementById('langFlag');
-        const langCurrent = document.getElementById('langCurrent');
-        if (langFlag && langCurrent) {
-            if (lang === 'ru') {
-                langFlag.textContent = '🇷🇺';
-                langCurrent.textContent = 'RU';
-            } else {
-                langFlag.textContent = '🇦🇪';
-                langCurrent.textContent = 'EN';
-            }
-        }
-        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
     }
@@ -797,24 +715,6 @@
         
         renderOrderDetails();
         sendGasNotification();
-        
-        // Переключатель языка
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
-            langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault(); e.stopPropagation();
-                    const selectedLink = e.target.closest('a');
-                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
-                    setTimeout(() => langDropdown.classList.remove('show'), 100);
-                });
-            });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
-            });
-        }
         
         console.log('✅ thank-you.html loaded. Order:', orderData?.orderNumber);
     });
