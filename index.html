@@ -518,7 +518,12 @@
     </section>
 
     <!-- PICKUP -->
-    <section class="pickup" id="contacts">
+    <section class="pickup" 
+             id="contacts"
+             data-desktop-ru="images/address_ru.png"
+             data-mobile-ru="images/address_ru_mobile.png"
+             data-desktop-en="images/address_en.png"
+             data-mobile-en="images/address_en_mobile.png">
         <div class="container pickup-container">
             <div>
                 <h2 class="pickup-title" data-i18n="pickupTitle">САМОВЫВОЗ</h2>
@@ -581,14 +586,27 @@
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
-    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ ФОНОВОГО ИЗОБРАЖЕНИЯ
+    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ ФОНОВОГО ИЗОБРАЖЕНИЯ PICKUP
     function updatePickupBackground() {
         const pickupSection = document.querySelector('.pickup');
         if (pickupSection) {
-            const bgImage = currentLang === 'ru' 
-                ? 'url(\'images/address_ru.png\')' 
-                : 'url(\'images/address_en.png\')';
-            pickupSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), ${bgImage}`;
+            const isMobile = window.innerWidth <= 768;
+            
+            // Определяем какое изображение использовать
+            let bgImage;
+            if (currentLang === 'ru') {
+                bgImage = isMobile 
+                    ? pickupSection.getAttribute('data-mobile-ru') 
+                    : pickupSection.getAttribute('data-desktop-ru');
+            } else {
+                bgImage = isMobile 
+                    ? pickupSection.getAttribute('data-mobile-en') 
+                    : pickupSection.getAttribute('data-desktop-en');
+            }
+            
+            if (bgImage) {
+                pickupSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('${bgImage}')`;
+            }
         }
     }
 
@@ -619,6 +637,9 @@
                 img.style.backgroundImage = `url('${desktopSrc}')`;
             }
         });
+        
+        // ✅ Адаптация PICKUP секции
+        updatePickupBackground();
     }
 
     function applyLanguage(lang) {
@@ -640,7 +661,7 @@
                 langFlag.textContent = '🇷🇺';
                 langCurrent.textContent = 'RU';
             } else {
-                langFlag.textContent = '🇦';
+                langFlag.textContent = '🇦🇪';
                 langCurrent.textContent = 'EN';
             }
         }
