@@ -438,7 +438,8 @@
         .notification-status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         .notification-status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
     </style>
-        <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
+    
+    <!-- 🔹 YANDEX METRIKA -->
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -452,7 +453,7 @@
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true,
-            ecommerce:"dataLayer"  // ✅ Для отслеживания заказов
+            ecommerce:"dataLayer"
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -467,7 +468,7 @@
                 <a href="index.html" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
-                <a href="index.html" class="btn-home" data-i18n="btnHome">НА ГЛАВНУЮ</a>
+                <a href="index.html" class="btn-home" id="btnHome" data-i18n="btnHome">НА ГЛАВНУЮ</a>
             </div>
         </div>
     </header>
@@ -503,13 +504,13 @@
                 <div class="info-note" data-i18n="infoNote">
                     <strong>📞 Что дальше?</strong><br>
                     Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. 
-                    Если у вас есть вопросы — пишите нам в <a href="https://t.me/sash_shura" target="_blank">Telegram</a> или <a href="https://max.ru/89636221265" target="_blank">MAX</a>.
+                    Если у вас есть вопросы — пишите нам в <a href="https://t.me/sash_shura" target="_blank" class="social-link-footer">Telegram</a> или <a href="https://max.ru/89636221265" target="_blank" class="social-link-footer">MAX</a>.
                 </div>
                 
                 <!-- ГЛАВНЫЕ КНОПКИ -->
                 <div class="main-buttons">
-                    <a href="index.html" class="btn-primary" data-i18n="btnHomeMain">НА ГЛАВНУЮ</a>
-                    <a href="boxes.html" class="btn-secondary" data-i18n="btnMoreOrders">ЗАКАЗАТЬ ЕЩЁ</a>
+                    <a href="index.html" class="btn-primary" id="btnHomeMain" data-i18n="btnHomeMain">НА ГЛАВНУЮ</a>
+                    <a href="boxes.html" class="btn-secondary" id="btnMoreOrders" data-i18n="btnMoreOrders">ЗАКАЗАТЬ ЕЩЁ</a>
                 </div>
             </div>
         </div>
@@ -534,16 +535,16 @@
             
             <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) -->
             <div class="legal-links-ru">
-                <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
+                <a href="privacy-policy.html" target="_blank" class="footer-link">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="offer.html" target="_blank">Публичная оферта</a>
+                <a href="offer.html" target="_blank" class="footer-link">Публичная оферта</a>
             </div>
             
             <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для EN) -->
             <div class="legal-links-en">
-                <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
+                <a href="privacy-policy-en.html" target="_blank" class="footer-link">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="offer-en.html" target="_blank">Public Offer</a>
+                <a href="offer-en.html" target="_blank" class="footer-link">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -635,6 +636,14 @@
     let currentLang = localStorage.getItem('hedonism_lang') || 'ru';
     let orderData = null;
     
+    // ===== YANDEX METRIKA HELPER =====
+    function ymTrack(goalId, params) {
+        if (typeof ym === 'function') {
+            ym(110092456, 'reachGoal', goalId, params);
+            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
+        }
+    }
+    
     // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
     const GAS_CONFIG = {
         WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbx6Rki5O1S6Qgsu_ytb_Y8MNIamn4RImKLQ2ROD8JceZhxOCIRP1QEpJYP62_EBQFz1/exec'
@@ -672,6 +681,9 @@
         
         // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
+        
+        // 🎯 Метрика: смена языка на thank-you
+        ymTrack('lang_switch', { from: currentLang === 'ru' ? 'en' : 'ru', to: lang, page: 'thank-you' });
         
         localStorage.setItem('hedonism_lang', lang);
     }
@@ -848,7 +860,83 @@
         renderOrderDetails();
         sendGasNotification();
         
-        console.log('✅ thank-you.html loaded. Order:', orderData?.orderNumber);
+        // 🎯 Метрика: страница thank-you загружена с заказом
+        ymTrack('thank_you_viewed', {
+            order_number: orderData.orderNumber,
+            total: orderData.total,
+            currency: orderData.currency,
+            lang: currentLang,
+            items_count: orderData.items?.length || 0
+        });
+        
+        // 🛒 E-commerce: покупка завершена
+        if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
+            dataLayer.push({
+                'ecommerce': {
+                    'purchase': {
+                        'actionField': {
+                            'id': orderData.orderNumber,
+                            'revenue': orderData.total + (orderData.delivery === 'courier' ? 800 : 0),
+                            'currency': orderData.currency === 'AED' ? 'AED' : 'RUB'
+                        },
+                        'products': (orderData.items || []).map(item => ({
+                            'id': item.productId,
+                            'name': item.name || item.productId,
+                            'price': item.price,
+                            'quantity': item.quantity
+                        }))
+                    }
+                }
+            });
+            console.log('🛒 Метрика: e-commerce purchase отправлен с thank-you');
+        }
+        
+        // 🎯 Метрика: клик по кнопке "НА ГЛАВНУЮ" в шапке
+        document.getElementById('btnHome')?.addEventListener('click', function() {
+            ymTrack('thank_you_home_click_header', { order_number: orderData.orderNumber });
+        });
+        
+        // 🎯 Метрика: клик по кнопке "НА ГЛАВНУЮ" в карточке
+        document.getElementById('btnHomeMain')?.addEventListener('click', function() {
+            ymTrack('thank_you_home_click_main', { order_number: orderData.orderNumber });
+        });
+        
+        // 🎯 Метрика: клик по кнопке "ЗАКАЗАТЬ ЕЩЁ"
+        document.getElementById('btnMoreOrders')?.addEventListener('click', function() {
+            ymTrack('thank_you_order_more_click', { order_number: orderData.orderNumber });
+        });
+        
+        // 🎯 Метрика: клик по соцсетям в футере
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId, { page: 'thank-you' });
+            });
+        });
+        
+        // 🎯 Метрика: клик по соцсетям в info-note
+        document.querySelectorAll('.social-link-footer').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.textContent.trim().toLowerCase();
+                const goalId = 'click_' + platform;
+                ymTrack(goalId, { page: 'thank-you-info' });
+            });
+        });
+        
+        // 🎯 Метрика: клик по ссылкам в футере
+        document.querySelectorAll('.footer-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href === 'privacy-policy.html' || href === 'privacy-policy-en.html') {
+                    ymTrack('thank_you_footer_privacy_click');
+                } else if (href === 'offer.html' || href === 'offer-en.html') {
+                    ymTrack('thank_you_footer_offer_click');
+                }
+            });
+        });
+        
+        console.log('✅ thank-you.html ready with Yandex.Metrika tracking. Order:', orderData?.orderNumber);
     });
     </script>
 </body>
