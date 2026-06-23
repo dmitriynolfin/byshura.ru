@@ -618,7 +618,7 @@
     
     // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
     const GAS_CONFIG = {
-        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbxAHKWn-aKM1nnooQJBWswZM5lKOrSW-GP-Jdi2K4jqmO8H90UpdBExeoCvDzjfin4e/exec'
+        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbzx1ddY2urVDjWat5mz4ELk-I7QnaPj2cThpZlRImXuLN4dfLEFEFOPcd1S93ETafTm/exec'
     };
     
     // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
@@ -746,37 +746,44 @@
         container.innerHTML = html;
     }
     
-    // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
-    async function sendGasNotification() {
-        if (!orderData) return;
-        
-        const statusEl = document.getElementById('notificationStatus');
-        const statusText = document.getElementById('notificationStatusText');
-        const t = translations[currentLang];
-        
-        statusEl.className = 'notification-status show info';
-        statusText.textContent = t.notificationSending;
-        
-        try {
-            const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify(orderData)
-            });
+        // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
+        async function sendGasNotification() {
+            if (!orderData) return;
             
-            console.log('✅ Статус:', response.status);
+            const statusEl = document.getElementById('notificationStatus');
+            const statusText = document.getElementById('notificationStatusText');
+            const t = translations[currentLang];
             
-            setTimeout(() => {
-                statusEl.className = 'notification-status show success';
-                statusText.textContent = t.notificationSuccess;
-            }, 1000);
+            statusEl.className = 'notification-status show info';
+            statusText.textContent = t.notificationSending;
             
-        } catch (error) {
-            console.error('❌ Ошибка:', error);
-            statusEl.className = 'notification-status show error';
-            statusText.textContent = t.notificationError;
+            try {
+                // ✅ ДОБАВЛЯЕМ согласие в данные заказа перед отправкой
+                const orderDataWithConsent = {
+                    ...orderData,
+                    consentGiven: true, // ✅ Чекбокс на checkout.html был required + checked
+                    consentTimestamp: new Date().toISOString()
+                };
+                
+                const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(orderDataWithConsent)
+                });
+                
+                console.log('✅ Статус:', response.status);
+                
+                setTimeout(() => {
+                    statusEl.className = 'notification-status show success';
+                    statusText.textContent = t.notificationSuccess;
+                }, 1000);
+                
+            } catch (error) {
+                console.error('❌ Ошибка:', error);
+                statusEl.className = 'notification-status show error';
+                statusText.textContent = t.notificationError;
+            }
         }
-    }
     
     // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
     function escapeHtml(text) {
