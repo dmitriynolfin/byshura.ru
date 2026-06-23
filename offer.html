@@ -107,7 +107,8 @@
             .btn-back { padding: 10px 20px; font-size: 12px; }
         }
     </style>
-        <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
+    
+    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -121,7 +122,7 @@
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true,
-            ecommerce:"dataLayer"  // ✅ Для отслеживания заказов
+            ecommerce:"dataLayer"
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -133,7 +134,7 @@
     <header class="header">
         <div class="container header-container">
             <a href="index.html" class="logo" aria-label="Главная">🍋</a>
-            <a href="index.html" class="btn-back">← НАЗАД</a>
+            <a href="index.html" class="btn-back" id="btnBack">← НАЗАД</a>
         </div>
     </header>
 
@@ -218,7 +219,7 @@
                     <li>Потребовать соразмерного уменьшения цены;</li>
                     <li>Отказаться от исполнения договора и потребовать возврата денег.</li>
                 </ul>
-                <p><strong>6.3.</strong> Претензии по качеству принимаются в течение 24 часов с момента получения заказа на email: <a href="mailto:saschhen@gmail.com">saschhen@gmail.com</a> с приложением фото/видео доказательств.</p>
+                <p><strong>6.3.</strong> Претензии по качеству принимаются в течение 24 часов с момента получения заказа на email: <a href="mailto:saschhen@gmail.com" id="emailLink">saschhen@gmail.com</a> с приложением фото/видео доказательств.</p>
             </section>
             
             <section class="policy-section">
@@ -251,7 +252,7 @@
                 Статус: Плательщик налога на профессиональный доход (самозанятая)<br>
                 ИНН: 501006570884<br>
                 Место постановки на учёт: Межрайонная инспекция Федеральной налоговой службы №8 по Московской области<br>
-                Email: <a href="mailto:saschhen@gmail.com">saschhen@gmail.com</a><br>
+                Email: <a href="mailto:saschhen@gmail.com" class="email-link">saschhen@gmail.com</a><br>
                 Телефон: +7 (963) 622-12-65</p>
             </section>
             
@@ -269,11 +270,68 @@
     <footer class="footer">
         <div class="container">
             © ВЕСТНИК ГЕДОНИЗМА, 2025<br>
-            <a href="index.html">Главная</a> | 
-            <a href="privacy-policy.html">Политика конфиденциальности</a> | 
-            <a href="offer.html">Публичная оферта</a>
+            <a href="index.html" class="footer-link">Главная</a> | 
+            <a href="privacy-policy.html" class="footer-link">Политика конфиденциальности</a> | 
+            <a href="offer.html" class="footer-link">Публичная оферта</a>
         </div>
     </footer>
 
+    <!-- JAVASCRIPT -->
+    <script>
+    // ===== YANDEX METRIKA HELPER =====
+    function ymTrack(goalId, params) {
+        if (typeof ym === 'function') {
+            ym(110092456, 'reachGoal', goalId, params);
+            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 🎯 Метрика: страница загружена
+        ymTrack('offer_viewed', { page: 'public_offer' });
+        
+        // 🎯 Метрика: клик по кнопке "НАЗАД"
+        document.getElementById('btnBack')?.addEventListener('click', function() {
+            ymTrack('offer_back_click');
+        });
+        
+        // 🎯 Метрика: клик по email-ссылкам
+        document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+            link.addEventListener('click', function() {
+                ymTrack('offer_email_click', { email: this.href.replace('mailto:', '') });
+            });
+        });
+        
+        // 🎯 Метрика: клик по ссылкам в футере
+        document.querySelectorAll('.footer-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href === 'index.html') {
+                    ymTrack('offer_footer_home_click');
+                } else if (href === 'privacy-policy.html') {
+                    ymTrack('offer_footer_privacy_click');
+                } else if (href === 'offer.html') {
+                    ymTrack('offer_footer_offer_click');
+                }
+            });
+        });
+        
+        // 🎯 Метрика: скролл до конца документа (прочитал оферту)
+        let offerRead = false;
+        window.addEventListener('scroll', function() {
+            const card = document.querySelector('.policy-card');
+            if (card && !offerRead) {
+                const rect = card.getBoundingClientRect();
+                // Если пользователь доскроллил до конца карточки (80%+)
+                if (rect.bottom < window.innerHeight * 0.2) {
+                    ymTrack('offer_fully_read');
+                    offerRead = true;
+                }
+            }
+        });
+        
+        console.log('✅ offer.html ready with Yandex.Metrika tracking');
+    });
+    </script>
 </body>
 </html>
