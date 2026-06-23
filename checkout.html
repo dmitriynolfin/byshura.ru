@@ -284,12 +284,34 @@
         }
         .btn-cancel:hover { background: #070395; color: white; }
         
-        /* ✅ СТИЛИ ДЛЯ ПОЛЕЙ ДАТЫ И ВРЕМЕНИ */
+        /* ✅ СТИЛИ ДЛЯ ПОЛЕЙ ДАТЫ И ВРЕМЕНИ С ОГРАНИЧЕНИЯМИ */
         .datetime-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-top: 20px;
+        }
+        
+        .date-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            display: block;
+        }
+        .date-hint strong {
+            color: #070395;
+        }
+        input[type="date"]:disabled,
+        input[type="time"]:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        /* ✅ СТИЛИ ДЛЯ БЛОКИРОВКИ ДАТ В КАЛЕНДАРЕ */
+        .date-block-distance-css,
+        .date-block-special-css {
+            /* CSS для блокировки дат будет добавлен динамически */
         }
         
         /* FOOTER */
@@ -692,11 +714,12 @@
                     <div class="datetime-grid">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
-                            <input type="date" id="date" name="date" class="form-input">
+                            <input type="date" id="date" name="date" class="form-input" readonly>
+                            <span class="date-hint" id="dateHint" data-i18n="dateHint">Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.</span>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
-                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00">
+                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" placeholder="18:00">
                         </div>
                     </div>
                 </div>
@@ -828,7 +851,9 @@
             box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
             box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»",
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", 
-            allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи"
+            allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
+            dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.",
+            dateDisabled: "Выберите доступную дату (Пт-Вс)"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -861,7 +886,9 @@
             box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
             box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box",
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
-            allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts"
+            allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
+            dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.",
+            dateDisabled: "Select an available date (Fri-Sun)"
         }
     };
 
@@ -871,16 +898,9 @@
     // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА (ЧИСЛА, +1) =====
     function generateOrderNumber() {
         const STORAGE_KEY = 'hedonism_last_order_id';
-        
-        // Получаем последний номер (начинаем с 1000, чтобы первый заказ был 1001)
         let currentId = parseInt(localStorage.getItem(STORAGE_KEY)) || 1000;
-        
-        // Увеличиваем на 1
         const nextId = currentId + 1;
-        
-        // Сохраняем для следующего раза
         localStorage.setItem(STORAGE_KEY, nextId);
-        
         return String(nextId);
     }
 
@@ -891,7 +911,7 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'consentText' || key === 'infoNote') {
+                if (key === 'consentText' || key === 'infoNote' || key === 'dateHint') {
                     el.innerHTML = translations[lang][key];
                 } else {
                     el.textContent = translations[lang][key];
@@ -922,7 +942,6 @@
             }
         }
         
-        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
         
         const dateInput = document.getElementById('date');
@@ -1055,8 +1074,8 @@
 
     // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
     const OWNER_CONFIG = {
-        telegramBotToken: '', // ← Вставьте токен от @BotFather
-        telegramChatId: '', // ← Вставьте ваш chat_id от @userinfobot
+        telegramBotToken: '',
+        telegramChatId: '',
         ownerEmail: 'saschhen@gmail.com',
         ownerPhone: '79636221265'
     };
@@ -1079,7 +1098,6 @@
             return `• ${itemName} × ${item.quantity} (${item.options?.persons || 2} pers.)`;
         }).join('\n');
         
-        // 1. TELEGRAM БОТ (если настроен)
         if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
             const tgMessage = `🛒 *НОВЫЙ ЗАКАЗ!*\n\n` +
                 `🔢 *Номер:* \`${orderData.orderNumber}\`\n` +
@@ -1112,15 +1130,9 @@
                 console.error('❌ Telegram error:', e);
             }
         } else {
-            console.warn('️ Telegram бот не настроен. Инструкция:');
-            console.warn('1. Создайте бота через @BotFather в Telegram');
-            console.warn('2. Получите токен и вставьте в OWNER_CONFIG.telegramBotToken');
-            console.warn('3. Узнайте свой chat_id через @userinfobot');
-            console.warn('4. Вставьте chat_id в OWNER_CONFIG.telegramChatId');
-            console.warn('5. Отправьте боту /start чтобы активировать');
+            console.warn('ℹ️ Telegram бот не настроен.');
         }
         
-        // 2. EMAIL — формируем mailto: ссылку
         const emailSubject = `🛒 Новый заказ #${orderData.orderNumber} от ${orderData.name}`;
         const emailBody = `НОВЫЙ ЗАКАЗ #${orderData.orderNumber}\n\n` +
             `Имя: ${orderData.name}\n` +
@@ -1136,12 +1148,10 @@
         orderData.emailLink = `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
         console.log('📧 Email для владельца:', orderData.emailLink);
         
-        // 3. MAX — формируем ссылку
         const maxMessage = `Заказ #${orderData.orderNumber}!\n${orderData.name}\n${orderData.phone}\n${deliveryText}\n${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
         orderData.maxLink = `https://max.ru/share/text?text=${encodeURIComponent(maxMessage)}`;
         console.log('📱 MAX для владельца:', orderData.maxLink);
         
-        // 4. WHATSAPP — формируем ссылку
         const waMessage = ` Новый заказ #${orderData.orderNumber}!\n\nИмя: ${orderData.name}\nТелефон: ${orderData.phone}\nДоставка: ${deliveryText}\nДата: ${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
         orderData.whatsappLink = `https://wa.me/${OWNER_CONFIG.ownerPhone}?text=${encodeURIComponent(waMessage)}`;
         console.log('💬 WhatsApp для владельца:', orderData.whatsappLink);
@@ -1324,6 +1334,97 @@
     function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
     function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
+    // ===== ЛОГИКА ОГРАНИЧЕНИЯ ДАТ И ВРЕМЕНИ (как в Tilda) =====
+    function initDateRestrictions() {
+        const dateInput = document.getElementById('date');
+        const timeInput = document.getElementById('time');
+        const dateHint = document.getElementById('dateHint');
+        
+        if (!dateInput || !timeInput) return;
+        
+        // ✅ Настройки ограничений
+        const daysLimit = 1; // Запрет дней от текущей даты
+        const disabledDays = [1, 2, 3, 4]; // Пн=1, Вт=2, Ср=3, Чт=4 — НЕДОСТУПНЫ (работаем Пт-Вс)
+        const disabledDates = [
+            '2026-05-28', '2026-05-29', '2026-05-30', '2026-05-31',
+            '2026-06-04', '2026-06-05', '2026-06-06', '2026-06-07',
+            '2026-06-25', '2026-06-26', '2026-06-27', '2026-06-28',
+            '2026-07-11', '2026-07-12'
+        ];
+        
+        // ✅ Блокировка ввода вручную
+        dateInput.setAttribute('readonly', 'readonly');
+        
+        // ✅ Установка минимальной даты (сегодня)
+        const today = new Date();
+        const minDate = today.toISOString().split('T')[0];
+        dateInput.min = minDate;
+        
+        // ✅ Ограничение времени: 17:00 - 23:00
+        timeInput.min = '17:00';
+        timeInput.max = '23:00';
+        timeInput.value = '18:00'; // Дефолтное значение
+        
+        // ✅ Генерация CSS для блокировки дней
+        const blockCss = [];
+        
+        // Блокировка дней недели (Пн-Чт) и конкретных дат
+        for (let i = 0; i < 60; i++) {
+            const checkDate = new Date();
+            checkDate.setDate(checkDate.getDate() + i);
+            const dayOfWeek = checkDate.getDay(); // 0=Вс, 1=Пн, ..., 6=Сб
+            const dateStr = checkDate.toISOString().split('T')[0];
+            
+            // Блокируем Пн(1), Вт(2), Ср(3), Чт(4)
+            if (disabledDays.includes(dayOfWeek)) {
+                blockCss.push(`input[type="date"][value="${dateStr}"] { opacity: 0.4; pointer-events: none; }`);
+            }
+            
+            // Блокируем конкретные даты
+            if (disabledDates.includes(dateStr)) {
+                blockCss.push(`input[type="date"][value="${dateStr}"] { opacity: 0.4; pointer-events: none; }`);
+            }
+        }
+        
+        // Добавляем CSS в документ
+        if (blockCss.length > 0) {
+            const styleEl = document.createElement('style');
+            styleEl.className = 'date-restrictions-css';
+            styleEl.textContent = blockCss.join('\n');
+            document.head.appendChild(styleEl);
+        }
+        
+        // ✅ Валидация при изменении даты
+        dateInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const dayOfWeek = selectedDate.getDay();
+            
+            if (disabledDays.includes(dayOfWeek) || disabledDates.includes(this.value)) {
+                alert(currentLang === 'ru' 
+                    ? 'Эта дата недоступна. Пожалуйста, выберите Пт, Сб или Вс.' 
+                    : 'This date is unavailable. Please select Fri, Sat, or Sun.');
+                this.value = '';
+            }
+        });
+        
+        // ✅ Валидация при изменении времени
+        timeInput.addEventListener('change', function() {
+            const time = this.value;
+            if (time < '17:00' || time > '23:00') {
+                alert(currentLang === 'ru'
+                    ? 'Доступное время: 17:00 - 23:00'
+                    : 'Available time: 17:00 - 23:00');
+                this.value = '18:00';
+            }
+        });
+        
+        // ✅ Обновление подсказки при смене языка
+        if (dateHint) {
+            dateHint.innerHTML = translations[currentLang].dateHint;
+        }
+    }
+
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🔍 DOM загружен, начинаем инициализацию...');
         
@@ -1378,9 +1479,12 @@
         
         document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
+        // ✅ Инициализация ограничений даты и времени
+        initDateRestrictions();
+        
         // ===== ОТПРАВКА ЗАКАЗА (с защитой от ошибок) =====
         const checkoutForm = document.getElementById('checkoutForm');
-        console.log(' Форма найдена:', !!checkoutForm);
+        console.log('✅ Форма найдена:', !!checkoutForm);
         
         if (checkoutForm) {
             checkoutForm.addEventListener('submit', async function(e) {
@@ -1420,7 +1524,22 @@
                     return;
                 }
                 
-                // Блокируем кнопку (с проверкой на существование элементов)
+                // Проверка даты и времени
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                if (!date || !time) {
+                    alert(currentLang === 'ru' ?
+                        'Пожалуйста, выберите дату и время доставки.' :
+                        'Please select delivery date and time.');
+                    submitBtn.disabled = false;
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const btnLoading = submitBtn.querySelector('.btn-loading');
+                    if (btnText) btnText.style.display = 'inline';
+                    if (btnLoading) btnLoading.style.display = 'none';
+                    return;
+                }
+                
+                // Блокируем кнопку
                 submitBtn.disabled = true;
                 const btnText = submitBtn.querySelector('.btn-text');
                 const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1428,7 +1547,7 @@
                 if (btnText) btnText.style.display = 'none';
                 if (btnLoading) btnLoading.style.display = 'inline';
                 
-                // Генерируем уникальный номер заказа (числовой)
+                // Генерируем уникальный номер заказа
                 const orderNumber = generateOrderNumber();
                 console.log('🔢 Номер заказа:', orderNumber);
                 
@@ -1442,8 +1561,8 @@
                     address: document.getElementById('address').value,
                     addressStructured: document.getElementById('address')?.dataset.structured ? 
                         JSON.parse(document.getElementById('address').dataset.structured) : null,
-                    date: document.getElementById('date').value, 
-                    time: document.getElementById('time').value,
+                    date: date, 
+                    time: time,
                     payment: document.querySelector('input[name="payment"]:checked')?.value,
                     comment: document.getElementById('comment').value,
                     items: cart.map(item => ({
@@ -1456,17 +1575,17 @@
                     lang: currentLang
                 };
                 
-                console.log(' Полный заказ:', orderData);
+                console.log('📦 Полный заказ:', orderData);
                 
                 try {
                     // 1. Отправляем уведомления владельцу
-                    console.log(' Отправка уведомлений...');
+                    console.log('📤 Отправка уведомлений...');
                     await notifyOwner(orderData);
                     console.log('✅ Уведомления отправлены');
                     
-                    // 2. Сохраняем заказ в sessionStorage для thank-you страницы
+                    // 2. Сохраняем заказ в sessionStorage
                     sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
-                    console.log(' Заказ сохранён в sessionStorage');
+                    console.log('💾 Заказ сохранён в sessionStorage');
                     
                     // 3. Очищаем корзину
                     cart = []; 
