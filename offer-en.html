@@ -124,7 +124,8 @@
             .btn-back { padding: 10px 20px; font-size: 12px; }
         }
     </style>
-        <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
+    
+    <!-- 🔹 YANDEX METRIKA -->
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -138,7 +139,7 @@
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true,
-            ecommerce:"dataLayer"  // ✅ Для отслеживания заказов
+            ecommerce:"dataLayer"
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -153,7 +154,7 @@
                 <a href="index.html" class="logo" aria-label="Home">🍋</a>
             </div>
             <div class="header-right">
-                <a href="index.html" class="btn-back">← BACK</a>
+                <a href="index.html" class="btn-back" id="btnBack">← BACK</a>
             </div>
         </div>
     </header>
@@ -239,7 +240,7 @@
                     <li>Request a proportional price reduction;</li>
                     <li>Refuse the contract and demand a full refund.</li>
                 </ul>
-                <p><strong>6.3.</strong> Quality claims are accepted within 24 hours of receipt via email: <a href="mailto:saschhen@gmail.com">saschhen@gmail.com</a> with photo/video evidence.</p>
+                <p><strong>6.3.</strong> Quality claims are accepted within 24 hours of receipt via email: <a href="mailto:saschhen@gmail.com" id="emailLink">saschhen@gmail.com</a> with photo/video evidence.</p>
             </section>
             
             <section class="policy-section">
@@ -272,7 +273,7 @@
                 Status: Taxpayer of professional income (Self-employed)<br>
                 TIN/INN: 501006570884<br>
                 Registration Authority: Interdistrict Inspectorate of the Federal Tax Service No. 8 for Moscow Region<br>
-                Email: <a href="mailto:saschhen@gmail.com">saschhen@gmail.com</a><br>
+                Email: <a href="mailto:saschhen@gmail.com" class="email-link">saschhen@gmail.com</a><br>
                 Phone: +7 (963) 622-12-65<br>
                 <em>*Operating in compliance with UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection and local e-commerce regulations.</em></p>
             </section>
@@ -292,14 +293,71 @@
         <div class="container">
             © HEDONISM DISPATCH, 2025<br>
             <div class="footer-links">
-                <a href="index.html">Home</a>
+                <a href="index.html" class="footer-link">Home</a>
                 <span class="footer-divider">|</span>
-                <a href="privacy-policy-en.html">Privacy Policy</a>
+                <a href="privacy-policy-en.html" class="footer-link">Privacy Policy</a>
                 <span class="footer-divider">|</span>
-                <a href="offer-en.html">Public Offer</a>
+                <a href="offer-en.html" class="footer-link">Public Offer</a>
             </div>
         </div>
     </footer>
 
+    <!-- JAVASCRIPT -->
+    <script>
+    // ===== YANDEX METRIKA HELPER =====
+    function ymTrack(goalId, params) {
+        if (typeof ym === 'function') {
+            ym(110092456, 'reachGoal', goalId, params);
+            console.log('🎯 Metrika: goal "' + goalId + '" sent');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 🎯 Metrika: page viewed
+        ymTrack('offer_viewed_en', { page: 'public_offer', lang: 'en' });
+        
+        // 🎯 Metrika: back button click
+        document.getElementById('btnBack')?.addEventListener('click', function() {
+            ymTrack('offer_back_click_en');
+        });
+        
+        // 🎯 Metrika: email link clicks
+        document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+            link.addEventListener('click', function() {
+                ymTrack('offer_email_click_en', { email: this.href.replace('mailto:', '') });
+            });
+        });
+        
+        // 🎯 Metrika: footer link clicks
+        document.querySelectorAll('.footer-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href === 'index.html') {
+                    ymTrack('offer_footer_home_click_en');
+                } else if (href === 'privacy-policy-en.html') {
+                    ymTrack('offer_footer_privacy_click_en');
+                } else if (href === 'offer-en.html') {
+                    ymTrack('offer_footer_offer_click_en');
+                }
+            });
+        });
+        
+        // 🎯 Metrika: scroll to end (user read the offer)
+        let offerRead = false;
+        window.addEventListener('scroll', function() {
+            const card = document.querySelector('.policy-card');
+            if (card && !offerRead) {
+                const rect = card.getBoundingClientRect();
+                // If user scrolled to 80%+ of the card
+                if (rect.bottom < window.innerHeight * 0.2) {
+                    ymTrack('offer_fully_read_en');
+                    offerRead = true;
+                }
+            }
+        });
+        
+        console.log('✅ offer-en.html ready with Yandex.Metrika tracking');
+    });
+    </script>
 </body>
 </html>
