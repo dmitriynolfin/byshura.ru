@@ -284,7 +284,7 @@
         }
         .btn-cancel:hover { background: #070395; color: white; }
         
-        /* ✅ СТИЛИ ДЛЯ ПОЛЕЙ ДАТЫ И ВРЕМЕНИ С ОГРАНИЧЕНИЯМИ */
+        /* ✅ СТИЛИ ДЛЯ ПОЛЕЙ ДАТЫ И ВРЕМЕНИ */
         .datetime-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -300,18 +300,6 @@
         }
         .date-hint strong {
             color: #070395;
-        }
-        input[type="date"]:disabled,
-        input[type="time"]:disabled {
-            background: #f5f5f5;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        
-        /* ✅ СТИЛИ ДЛЯ БЛОКИРОВКИ ДАТ В КАЛЕНДАРЕ */
-        .date-block-distance-css,
-        .date-block-special-css {
-            /* CSS для блокировки дат будет добавлен динамически */
         }
         
         /* FOOTER */
@@ -594,7 +582,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-code">🇷 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
@@ -714,12 +702,12 @@
                     <div class="datetime-grid">
                         <div class="form-group">
                             <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
-                            <input type="date" id="date" name="date" class="form-input" readonly>
+                            <input type="date" id="date" name="date" class="form-input">
                             <span class="date-hint" id="dateHint" data-i18n="dateHint">Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.</span>
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
-                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00" placeholder="18:00">
+                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00">
                         </div>
                     </div>
                 </div>
@@ -853,7 +841,7 @@
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", 
             allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
             dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.",
-            dateDisabled: "Выберите доступную дату (Пт-Вс)"
+            dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -888,7 +876,7 @@
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
             allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
             dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.",
-            dateDisabled: "Select an available date (Fri-Sun)"
+            dateDisabled: "Select an available date (Fri, Sat or Sun)"
         }
     };
 
@@ -1334,76 +1322,49 @@
     function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
     function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-    // ===== ЛОГИКА ОГРАНИЧЕНИЯ ДАТ И ВРЕМЕНИ (как в Tilda) =====
+    // ===== ЛОГИКА ОГРАНИЧЕНИЯ ДАТ И ВРЕМЕНИ =====
     function initDateRestrictions() {
         const dateInput = document.getElementById('date');
         const timeInput = document.getElementById('time');
-        const dateHint = document.getElementById('dateHint');
         
         if (!dateInput || !timeInput) return;
         
-        // ✅ Настройки ограничений
-        const daysLimit = 1; // Запрет дней от текущей даты
-        const disabledDays = [1, 2, 3, 4]; // Пн=1, Вт=2, Ср=3, Чт=4 — НЕДОСТУПНЫ (работаем Пт-Вс)
-        const disabledDates = [
-            '2026-05-28', '2026-05-29', '2026-05-30', '2026-05-31',
-            '2026-06-04', '2026-06-05', '2026-06-06', '2026-06-07',
-            '2026-06-25', '2026-06-26', '2026-06-27', '2026-06-28',
-            '2026-07-11', '2026-07-12'
-        ];
-        
-        // ✅ Блокировка ввода вручную
-        dateInput.setAttribute('readonly', 'readonly');
+        // ✅ Настройки ограничений - доступны только Пт(5), Сб(6), Вс(0)
+        const availableDays = [5, 6, 0]; // Пятница, Суббота, Воскресенье
         
         // ✅ Установка минимальной даты (сегодня)
         const today = new Date();
         const minDate = today.toISOString().split('T')[0];
         dateInput.min = minDate;
         
+        // ✅ Найти ближайшую доступную дату (Пт, Сб или Вс)
+        let nearestAvailableDate = new Date(today);
+        while (!availableDays.includes(nearestAvailableDate.getDay())) {
+            nearestAvailableDate.setDate(nearestAvailableDate.getDate() + 1);
+        }
+        dateInput.value = nearestAvailableDate.toISOString().split('T')[0];
+        
         // ✅ Ограничение времени: 17:00 - 23:00
         timeInput.min = '17:00';
         timeInput.max = '23:00';
         timeInput.value = '18:00'; // Дефолтное значение
-        
-        // ✅ Генерация CSS для блокировки дней
-        const blockCss = [];
-        
-        // Блокировка дней недели (Пн-Чт) и конкретных дат
-        for (let i = 0; i < 60; i++) {
-            const checkDate = new Date();
-            checkDate.setDate(checkDate.getDate() + i);
-            const dayOfWeek = checkDate.getDay(); // 0=Вс, 1=Пн, ..., 6=Сб
-            const dateStr = checkDate.toISOString().split('T')[0];
-            
-            // Блокируем Пн(1), Вт(2), Ср(3), Чт(4)
-            if (disabledDays.includes(dayOfWeek)) {
-                blockCss.push(`input[type="date"][value="${dateStr}"] { opacity: 0.4; pointer-events: none; }`);
-            }
-            
-            // Блокируем конкретные даты
-            if (disabledDates.includes(dateStr)) {
-                blockCss.push(`input[type="date"][value="${dateStr}"] { opacity: 0.4; pointer-events: none; }`);
-            }
-        }
-        
-        // Добавляем CSS в документ
-        if (blockCss.length > 0) {
-            const styleEl = document.createElement('style');
-            styleEl.className = 'date-restrictions-css';
-            styleEl.textContent = blockCss.join('\n');
-            document.head.appendChild(styleEl);
-        }
         
         // ✅ Валидация при изменении даты
         dateInput.addEventListener('change', function() {
             const selectedDate = new Date(this.value);
             const dayOfWeek = selectedDate.getDay();
             
-            if (disabledDays.includes(dayOfWeek) || disabledDates.includes(this.value)) {
+            if (!availableDays.includes(dayOfWeek)) {
                 alert(currentLang === 'ru' 
-                    ? 'Эта дата недоступна. Пожалуйста, выберите Пт, Сб или Вс.' 
-                    : 'This date is unavailable. Please select Fri, Sat, or Sun.');
-                this.value = '';
+                    ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' 
+                    : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
+                
+                // Найти ближайшую доступную дату
+                let newDate = new Date(selectedDate);
+                while (!availableDays.includes(newDate.getDay())) {
+                    newDate.setDate(newDate.getDate() + 1);
+                }
+                this.value = newDate.toISOString().split('T')[0];
             }
         });
         
@@ -1417,11 +1378,6 @@
                 this.value = '18:00';
             }
         });
-        
-        // ✅ Обновление подсказки при смене языка
-        if (dateHint) {
-            dateHint.innerHTML = translations[currentLang].dateHint;
-        }
     }
 
     // ===== ИНИЦИАЛИЗАЦИЯ =====
@@ -1472,15 +1428,10 @@
             });
         });
         
-        const dateInput = document.getElementById('date');
-        dateInput.min = new Date().toISOString().split('T')[0]; 
-        dateInput.value = dateInput.min;
-        document.getElementById('time').value = '18:00';
-        
-        document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
-        
         // ✅ Инициализация ограничений даты и времени
         initDateRestrictions();
+        
+        document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
         
         // ===== ОТПРАВКА ЗАКАЗА (с защитой от ошибок) =====
         const checkoutForm = document.getElementById('checkoutForm');
