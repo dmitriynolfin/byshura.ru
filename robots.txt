@@ -11,6 +11,10 @@ Allow: /
 Disallow: /checkout.html
 Clean-params: lang
 
+User-agent: *
+Allow: /favicon.ico
+Allow: /*.png$
+
 User-agent: GoogleBot
 Allow: /
 Disallow: /checkout.html
