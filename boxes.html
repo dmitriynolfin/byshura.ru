@@ -348,7 +348,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
-        <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
+    
+    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -362,7 +363,7 @@
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true,
-            ecommerce:"dataLayer"  // ✅ Для отслеживания заказов
+            ecommerce:"dataLayer"
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -697,6 +698,14 @@
     let currentGalleryImages = [];
     let currentGalleryIndex = 0;
 
+    // ===== YANDEX METRIKA HELPER =====
+    function ymTrack(goalId, params) {
+        if (typeof ym === 'function') {
+            ym(110092456, 'reachGoal', goalId, params);
+            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
+        }
+    }
+
     // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ СЧЁТЧИКА КОРЗИНЫ
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
@@ -742,6 +751,9 @@
         
         // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
+        
+        // 🎯 Метрика: смена языка
+        ymTrack('lang_switch', { from: currentLang === 'ru' ? 'en' : 'ru', to: lang });
         
         localStorage.setItem('hedonism_lang', lang);
         
@@ -796,6 +808,9 @@
         
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
+        
+        // 🎯 Метрика: открыта модальная настройка товара
+        ymTrack('box_modal_opened', { product_id: productData.id, product_name: productData.name });
     }
     
     function closeProductModal() {
@@ -842,6 +857,33 @@
         updateCartCount();
         closeProductModal();
         showCartPrompt();
+        
+        // 🎯 Метрика: товар добавлен в корзину
+        ymTrack('box_added_to_cart', {
+            product_id: currentProduct.id,
+            product_name: currentProduct.name,
+            price: currentProduct.price,
+            currency: currentLang === 'en' ? 'AED' : 'RUB',
+            persons: options.persons,
+            allergens_count: options.allergens.length
+        });
+        
+        // 🛒 E-commerce: добавление в корзину
+        if (typeof dataLayer !== 'undefined') {
+            dataLayer.push({
+                'ecommerce': {
+                    'add_to_cart': {
+                        'items': [{
+                            'id': currentProduct.id,
+                            'name': currentProduct.name,
+                            'price': currentProduct.price,
+                            'quantity': 1,
+                            'category': 'gastronomic_box'
+                        }]
+                    }
+                }
+            });
+        }
     }
     
     function showCartPrompt() {
@@ -856,6 +898,8 @@
     
     function goToCheckout() {
         closeCartPrompt();
+        // 🎯 Метрика: переход в корзину
+        ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
         window.location.href = 'checkout.html';
     }
 
@@ -869,6 +913,9 @@
         
         // ✅ 2. Обновляем счётчик корзины
         updateCartCount();
+        
+        // 🎯 Метрика: страница загружена
+        ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 6 });
         
         // Переключатель языка
         const langBtn = document.getElementById('langBtn');
@@ -897,6 +944,14 @@
                     price: parseInt(this.dataset.productPrice) 
                 };
                 const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
+                
+                // 🎯 Метрика: клик по кнопке "Выбрать" для конкретного бокса
+                ymTrack('box_select_click', { 
+                    product_id: productData.id, 
+                    product_name: productData.name,
+                    price: productData.price 
+                });
+                
                 openProductModal(productData, galleryImages);
             });
         });
@@ -910,7 +965,34 @@
         document.getElementById('modalAddToCart')?.addEventListener('click', () => addToCartWithOptions(getModalOptions()));
         
         // ✅ ИКОНКА КОРЗИНЫ → СРАЗУ НА CHECKOUT
-        document.getElementById('cartBtn')?.addEventListener('click', () => window.location.href = 'checkout.html');
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            // 🎯 Метрика: клик по корзине на странице боксов
+            ymTrack('cart_click_boxes', { cart_items: cart.length });
+            window.location.href = 'checkout.html';
+        });
+        
+        // 🎯 Метрика: клик по навигационным ссылкам
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href === 'index.html#contacts' || href.startsWith('#contacts')) {
+                    ymTrack('nav_contacts_click');
+                } else if (href === 'history.html') {
+                    ymTrack('nav_history_click');
+                } else if (href === 'index.html') {
+                    ymTrack('nav_home_click');
+                }
+            });
+        });
+        
+        // 🎯 Метрика: клик по соцсетям в футере
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
+            });
+        });
         
         // Модальное окно "Перейти в корзину?"
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
@@ -918,6 +1000,19 @@
         document.getElementById('promptCart')?.addEventListener('click', goToCheckout);
         cartPromptOverlay?.addEventListener('click', e => { 
             if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); 
+        });
+        
+        // 🎯 Метрика: скролл до футера (просмотр всей страницы)
+        let footerViewed = false;
+        window.addEventListener('scroll', function() {
+            const footer = document.querySelector('.footer');
+            if (footer && !footerViewed) {
+                const rect = footer.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    ymTrack('boxes_footer_viewed');
+                    footerViewed = true;
+                }
+            }
         });
         
         console.log(`✅ boxes.html ready! Language: ${currentLang.toUpperCase()}, Cart items: ${cart.length}`);
