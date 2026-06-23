@@ -551,7 +551,8 @@
             }
         }
     </style>
-        <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
+    
+    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -565,7 +566,7 @@
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true,
-            ecommerce:"dataLayer"  // ✅ Для отслеживания заказов
+            ecommerce:"dataLayer"
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -901,6 +902,37 @@
 
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+
+    // ===== YANDEX METRIKA HELPER =====
+    function ymTrack(goalId, params) {
+        if (typeof ym === 'function') {
+            ym(110092456, 'reachGoal', goalId, params);
+            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
+        }
+    }
+    
+    function ymEcommercePurchase(orderData) {
+        if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
+            dataLayer.push({
+                'ecommerce': {
+                    'purchase': {
+                        'actionField': {
+                            'id': orderData.orderNumber,
+                            'revenue': orderData.total,
+                            'currency': orderData.currency === 'AED' ? 'AED' : 'RUB'
+                        },
+                        'products': (orderData.items || []).map(item => ({
+                            'id': item.productId,
+                            'name': item.name || item.productId,
+                            'price': item.price,
+                            'quantity': item.quantity
+                        }))
+                    }
+                }
+            });
+            console.log('🛒 Метрика: e-commerce purchase отправлен');
+        }
+    }
 
     // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА (ЧИСЛА, +1) =====
     function generateOrderNumber() {
@@ -1548,6 +1580,9 @@
                 console.log('📦 Полный заказ:', orderData);
                 
                 try {
+                    // 🎯 ЯНДЕКС.МЕТРИКА: цель "начало оформления"
+                    ymTrack('checkout_start');
+                    
                     // 1. Отправляем уведомления владельцу
                     console.log('📤 Отправка уведомлений...');
                     await notifyOwner(orderData);
@@ -1564,6 +1599,14 @@
                     renderOrderSummary();
                     console.log('🗑️ Корзина очищена');
                     
+                    // 🎯 ЯНДЕКС.МЕТРИКА: цель "успешный заказ" + e-commerce
+                    ymTrack('order_success', {
+                        order_number: orderData.orderNumber,
+                        total: orderData.total,
+                        currency: orderData.currency
+                    });
+                    ymEcommercePurchase(orderData);
+                    
                     // 4. Переходим на страницу благодарности
                     console.log('🚀 Переход на thank-you.html...');
                     window.location.href = 'thank-you.html';
@@ -1579,6 +1622,15 @@
         } else {
             console.error('❌ Форма checkout не найдена!');
         }
+        
+        // ✅ Отслеживание кликов по соцсетям в футере
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
+            });
+        });
         
         initAddressAutocomplete();
         console.log('✅ checkout.html ready! Language: ' + currentLang.toUpperCase());
