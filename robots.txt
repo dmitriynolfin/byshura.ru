@@ -1,23 +1,31 @@
-User-agent: *
-Allow: /
-Allow: /*.css$
-Allow: /*.js$
-Disallow: /checkout.html
-Disallow: /*?lang=
-Disallow: /cgi-bin/
-
 User-agent: Yandex
 Allow: /
 Disallow: /checkout.html
-Clean-params: lang
+Disallow: /thank-you.html
+Disallow: /privacy-policy.html
+Disallow: /offer.html
+Disallow: /privacy-policy-en.html
+Disallow: /offer-en.html
 
 User-agent: *
+Allow: /
 Allow: /favicon.ico
 Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Disallow: /checkout.html
+Disallow: /thank-you.html
+Disallow: /privacy-policy.html
+Disallow: /offer.html
+Disallow: /privacy-policy-en.html
+Disallow: /offer-en.html
 
 User-agent: GoogleBot
 Allow: /
 Disallow: /checkout.html
+Disallow: /thank-you.html
 
 Sitemap: https://byshura.ru/sitemap.xml
 Host: https://byshura.ru
