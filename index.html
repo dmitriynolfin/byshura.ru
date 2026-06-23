@@ -505,7 +505,7 @@
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true,
-            ecommerce:"dataLayer"  // ✅ Для отслеживания заказов
+            ecommerce:"dataLayer"
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -721,6 +721,14 @@
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
+    // ===== YANDEX METRIKA HELPER =====
+    function ymTrack(goalId, params) {
+        if (typeof ym === 'function') {
+            ym(110092456, 'reachGoal', goalId, params);
+            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
+        }
+    }
+
     // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ ФОНОВОГО ИЗОБРАЖЕНИЯ PICKUP
     function updatePickupBackground() {
         const pickupSection = document.querySelector('.pickup');
@@ -807,6 +815,9 @@
         // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
         
+        // 🎯 Метрика: смена языка
+        ymTrack('lang_switch', { from: currentLang === 'ru' ? 'en' : 'ru', to: lang });
+        
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
     }
@@ -877,7 +888,10 @@
             goToSlide((currentSlide + 1) % slides.length);
         }, 5000);
         
+        // 🎯 Метрика: клик по кнопке корзины
         document.getElementById('cartBtn')?.addEventListener('click', function() {
+            ymTrack('cart_click_index', { cart_items: cart.length });
+            
             if (cart.length === 0) {
                 const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
                 if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) {
@@ -888,23 +902,67 @@
             window.location.href = 'checkout.html';
         });
         
-        document.getElementById('orderBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
-        document.getElementById('shopBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
+        // 🎯 Метрика: клик по кнопке "ЗАКАЗАТЬ БОКС" в HERO
+        document.getElementById('orderBtn')?.addEventListener('click', function() {
+            ymTrack('index_order_click', { source: 'hero' });
+            window.location.href = 'boxes.html';
+        });
         
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
+        // 🎯 Метрика: клик по кнопке "СДЕЛАТЬ ЗАКАЗ" в шапке
+        document.getElementById('shopBtn')?.addEventListener('click', function() {
+            ymTrack('index_order_click', { source: 'header' });
+            window.location.href = 'boxes.html';
+        });
+        
+        // 🎯 Метрика: клик по навигационным ссылкам
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
-                if (href !== '#' && !href.startsWith('#opencart')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        const offset = target.getBoundingClientRect().top + window.pageYOffset - 110;
-                        window.scrollTo({ top: offset, behavior: 'smooth' });
-                    }
+                if (href === 'boxes.html') {
+                    ymTrack('nav_boxes_click');
+                } else if (href === '#contacts' || href.startsWith('#contacts')) {
+                    ymTrack('nav_contacts_click');
+                } else if (href === 'history.html') {
+                    ymTrack('nav_history_click');
                 }
             });
         });
         
+        // 🎯 Метрика: клик по соцсетям в футере
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
+            });
+        });
+        
+        // 🎯 Метрика: скролл до секций
+        const trackedSections = {
+            'catalog': 'scroll_about',
+            'contacts': 'scroll_pickup'
+        };
+        
+        const sectionTracked = {};
+        
+        function checkSectionScroll() {
+            Object.entries(trackedSections).forEach(([id, goal]) => {
+                const section = document.getElementById(id);
+                if (section && !sectionTracked[goal]) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.7) {
+                        ymTrack(goal);
+                        sectionTracked[goal] = true;
+                    }
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkSectionScroll);
+        // Проверить сразу после загрузки
+        setTimeout(checkSectionScroll, 1000);
+        
+        // Анимация появления элементов
         const fadeElements = document.querySelectorAll('.fade-in');
         fadeElements.forEach(el => {
             el.style.opacity = '0';
@@ -936,6 +994,9 @@
         window.addEventListener('resize', adaptImagesForDevice);
         
         updateCartCount();
+        
+        // 🎯 Метрика: страница загружена
+        ymTrack('index_viewed', { lang: currentLang });
     });
     
     // ✅ Слушаем изменения localStorage из других вкладок/страниц
