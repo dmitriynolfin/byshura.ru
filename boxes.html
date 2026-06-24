@@ -132,14 +132,35 @@
         .modal-section { margin-bottom: 25px; }
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
+        
+        /* ✅ КАРТОЧКИ ПЕРСОН С ЦЕНОЙ */
         .persons-select { display: flex; gap: 12px; flex-wrap: wrap; }
         .person-option { flex: 1; min-width: 90px; }
         .person-radio { display: none; }
-        .person-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; font-weight: 500; color: #070395; cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa; }
+        .person-label { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            padding: 12px 8px; border: 2px solid #e0e0e0; border-radius: 12px; 
+            cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa;
+            min-height: 80px;
+        }
         .person-label:hover { border-color: #FFD93D; background: #fff9e6; }
-        .person-radio:checked + .person-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
-        .person-icon { font-size: 24px; margin-bottom: 5px; }
-        .person-count { font-size: 18px; font-weight: 700; }
+        .person-radio:checked + .person-label { 
+            background: #070395; color: white; border-color: #070395; 
+            box-shadow: 0 4px 12px rgba(7,3,149,0.2); 
+        }
+        .person-icon { font-size: 22px; margin-bottom: 4px; }
+        .person-count { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+        .person-price { 
+            font-size: 14px; font-weight: 600; color: #FFD93D; 
+            background: #070395; padding: 4px 10px; border-radius: 12px;
+            margin-top: 4px; white-space: nowrap;
+        }
+        .person-radio:checked + .person-label .person-price {
+            background: #FFD93D; color: #070395;
+        }
+        /* Скрываем цену для обычных боксов */
+        .person-price.hidden { display: none; }
+        
         .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .allergen-option { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fafafa; }
         .allergen-option:hover { border-color: #FFD93D; background: #fff9e6; }
@@ -419,7 +440,7 @@
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷🇺</span>
+                    <span id="langFlag">🇷</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
@@ -427,7 +448,7 @@
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-code">🇪 EN</span>
                             <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
@@ -438,7 +459,7 @@
 
     <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
-        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • </div>
+        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • </div>
     </div>
 
     <!-- КАТАЛОГ -->
@@ -653,10 +674,8 @@
                 </div>
                 <div class="modal-section">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
-                    <div class="persons-select">
-                        <label class="person-option"><input type="radio" name="modalPersons" value="2" class="person-radio" checked><span class="person-label"><span class="person-icon">👥</span><span class="person-count">2</span><span data-i18n="persons2Short">персоны</span></span></label>
-                        <label class="person-option"><input type="radio" name="modalPersons" value="4" class="person-radio"><span class="person-label"><span class="person-icon">👨‍‍👧👦</span><span class="person-count">4</span><span data-i18n="persons4Short">персоны</span></span></label>
-                        <label class="person-option"><input type="radio" name="modalPersons" value="6" class="person-radio"><span class="person-label"><span class="person-icon">🎉</span><span class="person-count">6</span><span data-i18n="persons6Short">персон</span></span></label>
+                    <div class="persons-select" id="personsSelect">
+                        <!-- ✅ Карточки персон с ценой (заполняются через JS) -->
                     </div>
                 </div>
                 <div class="modal-section">
@@ -665,17 +684,10 @@
                         <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Грибы" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🍄</span><span data-i18n="allergen1">Грибы</span></span></label>
                         <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Горчица" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🟡</span><span data-i18n="allergen2">Горчица</span></span></label>
                         <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Лактоза" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🥛</span><span data-i18n="allergen3">Лактоза</span></span></label>
-                        <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Яйца" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🥚</span><span data-i18n="allergen4">Яйца</span></span></label>
+                        <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Яйца" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon"></span><span data-i18n="allergen4">Яйца</span></span></label>
                         <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Глютен" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🌾</span><span data-i18n="allergen5">Глютен</span></span></label>
                         <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Красная рыба" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🐟</span><span data-i18n="allergen6">Красная рыба</span></span></label>
                         <label class="allergen-option"><input type="checkbox" name="modalAllergen" value="Орехи" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">🥜</span><span data-i18n="allergen7">Орехи</span></span></label>
-                    </div>
-                </div>
-                <!-- ДИНАМИЧЕСКАЯ ЦЕНА В МОДАЛКЕ -->
-                <div class="modal-section" id="modalPriceSection" style="display: none;">
-                    <div class="modal-section-title" data-i18n="modalPrice">Стоимость</div>
-                    <div class="box-price" id="modalPriceDisplay" style="font-size: 20px; justify-content: center;">
-                        <span class="price-value">8 000</span> <span class="currency">₽</span>
                     </div>
                 </div>
             </div>
@@ -706,7 +718,7 @@
         ru: {
             pageTitle: "Боксы - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
+            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             badgeHit: "ХИТ", badgePremium: "PREMIUM", badgeNew: "NEW",
             box1Title: "Бокс «Ужин Николая II»", 
@@ -726,17 +738,21 @@
             featNicholas2: "На 2-4-6 персон",
             featNicholas3: "Музыкальное сопровождение того времени",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalPrice: "Стоимость",
+            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены",
             persons2Short: "персоны", persons4Short: "персоны", persons6Short: "персон",
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
             cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжить выбирать?",
-            btnContinue: "Продолжить", btnGoToCart: "В корзину"
+            btnContinue: "Продолжить", btnGoToCart: "В корзину",
+            // ✅ Цены для бокса Николая II
+            nicholasPrice2: "8 000 ₽",
+            nicholasPrice4: "15 000 ₽",
+            nicholasPrice6: "20 000 ₽"
         },
         en: {
             pageTitle: "Boxes - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            marquee: "🚚 Same-day delivery •  Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
             badgeHit: "HIT", badgePremium: "PREMIUM", badgeNew: "NEW",
             box1Title: "Nicholas II Dinner Box", 
@@ -756,12 +772,16 @@
             featNicholas2: "For 2-4-6 people",
             featNicholas3: "Period music accompaniment",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalPrice: "Price",
+            modalPersons: "Number of persons", modalAllergens: "Exclude allergens",
             persons2Short: "people", persons4Short: "people", persons6Short: "people",
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
-            btnContinue: "Continue", btnGoToCart: "Go to cart"
+            btnContinue: "Continue", btnGoToCart: "Go to cart",
+            // ✅ Цены для бокса Николая II (EN)
+            nicholasPrice2: "AED 400",
+            nicholasPrice4: "AED 700",
+            nicholasPrice6: "AED 1 000"
         }
     };
 
@@ -827,24 +847,37 @@
     // ✅ ФОРМАТИРОВАНИЕ ЦЕНЫ
     function formatPrice(amount, lang) {
         if (lang === 'en') {
-            return `<span class="currency">AED</span> <span class="price-value">${amount}</span>`;
+            return `AED ${amount}`;
         }
-        return `<span class="price-value">${amount.toLocaleString('ru-RU')}</span> <span class="currency">₽</span>`;
+        return `${amount.toLocaleString('ru-RU')} ₽`;
     }
 
-    // ✅ ОБНОВЛЕНИЕ ЦЕНЫ В МОДАЛКЕ ДЛЯ БОКСА НИКОЛАЯ II
-    function updateNicholasPrice(persons) {
-        const priceSection = document.getElementById('modalPriceSection');
-        const priceDisplay = document.getElementById('modalPriceDisplay');
+    // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ПЕРСОН С ЦЕНАМИ
+    function renderPersonOptions(productId) {
+        const container = document.getElementById('personsSelect');
+        const isNicholas = productId === 'box1';
         
-        if (currentProduct?.id === 'box1') {
-            const price = getNicholasPrice(persons, currentLang);
-            priceDisplay.innerHTML = formatPrice(price, currentLang);
-            priceSection.style.display = 'block';
-            return price;
-        }
-        priceSection.style.display = 'none';
-        return currentProduct?.price || 0;
+        let html = '';
+        const persons = [2, 4, 6];
+        const icons = ['👥', '👨‍👩‍‍👦', '🎉'];
+        
+        persons.forEach((count, index) => {
+            const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
+            const priceClass = isNicholas ? '' : 'hidden';
+            
+            html += `
+                <label class="person-option">
+                    <input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}>
+                    <span class="person-label">
+                        <span class="person-icon">${icons[index]}</span>
+                        <span class="person-count">${count} ${currentLang === 'ru' ? (count === 6 ? 'персон' : 'персоны') : 'people'}</span>
+                        <span class="person-price ${priceClass}">${price}</span>
+                    </span>
+                </label>
+            `;
+        });
+        
+        container.innerHTML = html;
     }
 
     // ✅ LAZY LOAD ДЛЯ BACKGROUND-ИЗОБРАЖЕНИЙ
@@ -903,10 +936,10 @@
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
             if (lang === 'ru') {
-                langFlag.textContent = '🇷';
+                langFlag.textContent = '';
                 langCurrent.textContent = 'RU';
             } else {
-                langFlag.textContent = '🇦🇪';
+                langFlag.textContent = '🇪';
                 langCurrent.textContent = 'EN';
             }
         }
@@ -915,7 +948,12 @@
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
         
-        // 📊 GA4: смена языка
+        // ✅ Обновляем цены в карточках персон при смене языка
+        if (currentProduct) {
+            renderPersonOptions(currentProduct.id);
+        }
+        
+        //  GA4: смена языка
         trackGA4Event('language_change', {
             from_language: prevLang,
             to_language: lang,
@@ -924,12 +962,6 @@
         
         // 🎯 Метрика: смена языка
         ymTrack('lang_switch', { from: prevLang, to: lang });
-        
-        // ✅ Обновляем цену в модальном окне при смене языка
-        if (currentProduct?.id === 'box1') {
-            const persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
-            updateNicholasPrice(persons);
-        }
     }
 
     function initGallery(images) {
@@ -966,7 +998,10 @@
     function openProductModal(productData, galleryImages) {
         currentProduct = productData;
         document.getElementById('modalProductTitle').textContent = productData.name;
-        document.querySelector('input[name="modalPersons"][value="2"]').checked = true;
+        
+        // ✅ Генерируем карточки персон с ценами
+        renderPersonOptions(productData.id);
+        
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
         
         if (galleryImages && galleryImages.length > 0) {
@@ -974,15 +1009,6 @@
             document.getElementById('gallerySlider').style.display = 'block';
         } else {
             document.getElementById('gallerySlider').style.display = 'none';
-        }
-        
-        // ✅ Показываем/скрываем секцию цены для бокса Николая II
-        const priceSection = document.getElementById('modalPriceSection');
-        if (productData.id === 'box1') {
-            priceSection.style.display = 'block';
-            updateNicholasPrice('2');
-        } else {
-            priceSection.style.display = 'none';
         }
         
         document.getElementById('productModalOverlay').classList.add('open');
@@ -1054,7 +1080,7 @@
         closeProductModal();
         showCartPrompt();
         
-        // 📊 GA4: добавление в корзину (E-commerce)
+        //  GA4: добавление в корзину (E-commerce)
         trackGA4Event('add_to_cart', {
             currency: currentLang === 'en' ? 'AED' : 'RUB',
             value: finalPrice,
@@ -1186,15 +1212,6 @@
             });
         });
         
-        // ✅ ОБНОВЛЕНИЕ ЦЕНЫ ПРИ СМЕНЕ КОЛИЧЕСТВА ПЕРСОН (для бокса Николая II)
-        document.querySelectorAll('input[name="modalPersons"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (currentProduct?.id === 'box1') {
-                    updateNicholasPrice(this.value);
-                }
-            });
-        });
-        
         // Закрытие модального окна
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
@@ -1211,7 +1228,7 @@
                 cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
             });
             
-            // 🎯 Метрика: клик по корзине
+            //  Метрика: клик по корзине
             ymTrack('cart_click_boxes', { cart_items: cart.length });
             
             window.location.href = 'checkout.html';
