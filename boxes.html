@@ -149,7 +149,7 @@
             box-shadow: 0 4px 12px rgba(7,3,149,0.2); 
         }
         .person-icon { font-size: 22px; margin-bottom: 4px; line-height: 1; }
-        .person-count { display: none; } /* ✅ СКРЫВАЕМ ТЕКСТ "2 персоны" и т.д. */
+        .person-count { display: none; }
         .person-price { 
             font-size: 14px; font-weight: 600; color: #FFD93D; 
             background: #070395; padding: 4px 10px; border-radius: 12px;
@@ -158,7 +158,6 @@
         .person-radio:checked + .person-label .person-price {
             background: #FFD93D; color: #070395;
         }
-        /* Скрываем цену для обычных боксов */
         .person-price.hidden { display: none; }
         
         .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -186,11 +185,11 @@
         .btn-prompt-cart { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
         .btn-prompt-cart:hover { background: #FFD93D; color: #070395; }
         
-        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
+        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА, ШРИФТ 500) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         /* ✅ УБРАЛИ footer-logo (кнопку с лимоном) */
-        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
+        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; } /* ✅ font-weight: 500 как на index.html */
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -257,7 +256,6 @@
             .cart-prompt { width: 95%; max-width: none; padding: 20px; }
             .cart-prompt-actions { flex-direction: column; }
             
-            /* ✅ ОТКЛЮЧАЕМ АНИМАЦИИ НА МОБИЛЬНЫХ */
             .btn-order { animation: none !important; }
             .box-card:hover { transform: none !important; }
             
@@ -297,40 +295,60 @@
             .allergen-option { padding: 8px 10px; }
             .allergen-label { font-size: 13px; }
             
-            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ */
-            .persons-select { gap: 8px; }
-            .person-option { flex: 1; min-width: 60px; }
+            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ, КОМПАКТНЫЕ */
+            .persons-select { 
+                gap: 6px; 
+                justify-content: center;
+            }
+            .person-option { 
+                flex: 1 1 30%; 
+                min-width: 0;
+                max-width: 32%;
+            }
             .person-label { 
-                padding: 10px 4px; 
-                min-height: 60px;
+                padding: 8px 2px; 
+                min-height: 55px;
+                border-radius: 10px;
             }
             .person-icon { 
-                font-size: 18px; 
+                font-size: 16px; 
                 margin-bottom: 2px;
+                line-height: 1;
             }
             .person-price { 
-                font-size: 12px; 
-                padding: 3px 8px;
+                font-size: 11px; 
+                padding: 2px 6px;
                 margin-top: 2px;
+                border-radius: 10px;
             }
             
             /* ✅ ДЛЯ БОКСА НИКОЛАЯ II: УМЕНЬШАЕМ БЛОКИ С 2 И 4 ЭМОДЗИ */
             .person-option:nth-child(1) .person-label,
             .person-option:nth-child(2) .person-label {
-                padding: 8px 2px;
-                min-height: 55px;
+                padding: 6px 1px;
+                min-height: 50px;
             }
             .person-option:nth-child(1) .person-icon,
             .person-option:nth-child(2) .person-icon {
-                font-size: 16px;
+                font-size: 14px;
             }
-            /* ✅ БЛОК С 6 ЭМОДЗИ ОСТАЁТСЯ БОЛЬШЕ, ЧТОБЫ ВМЕСТИТЬСЯ В ОДНУ СТРОКУ */
+            .person-option:nth-child(1) .person-price,
+            .person-option:nth-child(2) .person-price {
+                font-size: 10px;
+                padding: 2px 5px;
+            }
+            
+            /* ✅ БЛОК С 6 ЭМОДЗИ - ЧУТЬ БОЛЬШЕ, НО ВСЁ ЕЩЁ В ОДНУ СТРОКУ */
             .person-option:nth-child(3) .person-label {
-                padding: 10px 4px;
-                min-height: 60px;
+                padding: 8px 3px;
+                min-height: 55px;
             }
             .person-option:nth-child(3) .person-icon {
-                font-size: 17px;
+                font-size: 15px;
+            }
+            .person-option:nth-child(3) .person-price {
+                font-size: 11px;
+                padding: 2px 6px;
             }
             
             /* ✅ FOOTER КАК НА index.html */
@@ -350,6 +368,20 @@
             .legal-links-en a:hover { color: #070395; }
         }
         
+        /* ✅ iPhone XR / 414px - ОСОБЫЕ СТИЛИ ДЛЯ ЭМОДЗИ */
+        @media (max-width: 414px) {
+            .persons-select { gap: 4px; }
+            .person-option { flex: 1 1 29%; max-width: 31%; }
+            .person-label { padding: 7px 1px; min-height: 52px; }
+            .person-icon { font-size: 15px; }
+            .person-option:nth-child(1) .person-icon,
+            .person-option:nth-child(2) .person-icon { font-size: 13px; }
+            .person-option:nth-child(3) .person-icon { font-size: 14px; }
+            .person-price { font-size: 10px; padding: 2px 4px; }
+            .person-option:nth-child(1) .person-price,
+            .person-option:nth-child(2) .person-price { font-size: 9px; padding: 1px 4px; }
+        }
+        
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
@@ -359,14 +391,13 @@
             .box-description { font-size: 11px; }
             .gallery-slider { height: 160px; }
             
-            /* ✅ ЕЩЁ БОЛЕЕ КОМПАКТНЫЕ ЭМОДЗИ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
-            .person-option { min-width: 55px; }
-            .person-label { padding: 8px 2px; min-height: 55px; }
-            .person-icon { font-size: 16px; }
+            .person-option { flex: 1 1 28%; max-width: 30%; }
+            .person-label { padding: 6px 1px; min-height: 50px; }
+            .person-icon { font-size: 14px; }
             .person-option:nth-child(1) .person-icon,
-            .person-option:nth-child(2) .person-icon { font-size: 14px; }
-            .person-option:nth-child(3) .person-icon { font-size: 15px; }
-            .person-price { font-size: 11px; padding: 2px 6px; }
+            .person-option:nth-child(2) .person-icon { font-size: 12px; }
+            .person-option:nth-child(3) .person-icon { font-size: 13px; }
+            .person-price { font-size: 9px; padding: 1px 4px; }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -602,7 +633,7 @@
         </div>
     </section>
 
-    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
+    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА, ШРИФТ 500) -->
     <footer class="footer">
         <div class="container footer-container">
             <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
@@ -721,7 +752,6 @@
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
             cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжить выбирать?",
             btnContinue: "Продолжить", btnGoToCart: "В корзину",
-            // ✅ Цены для бокса Николая II
             nicholasPrice2: "8 000 ₽",
             nicholasPrice4: "15 000 ₽",
             nicholasPrice6: "20 000 ₽"
@@ -755,14 +785,12 @@
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
             btnContinue: "Continue", btnGoToCart: "Go to cart",
-            // ✅ Цены для бокса Николая II (EN)
             nicholasPrice2: "AED 400",
             nicholasPrice4: "AED 700",
             nicholasPrice6: "AED 1 000"
         }
     };
 
-    // ✅ ГЛОБАЛЬНАЯ ИНИЦИАЛИЗАЦИЯ
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     let currentLang = 'ru';
     let currentProduct = null;
@@ -770,34 +798,27 @@
     let currentGalleryIndex = 0;
     const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER (оптимизировано) =====
     function trackGA4Event(eventName, params) {
         if (isProduction && typeof gtag === 'function') {
             gtag('event', eventName, params);
         }
     }
 
-    // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
             ym(110092456, 'reachGoal', goalId, params);
         }
     }
 
-    // ===== DEBOUNCE (для оптимизации) =====
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
+            const later = () => { clearTimeout(timeout); func(...args); };
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
         };
     }
 
-    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ СЧЁТЧИКА КОРЗИНЫ
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
@@ -807,57 +828,35 @@
         }
     }
 
-    // ✅ ФУНКЦИЯ СОХРАНЕНИЯ КОРЗИНЫ
     function saveCart() {
         localStorage.setItem('hedonism_cart', JSON.stringify(cart));
     }
 
-    // ✅ ПОЛУЧЕНИЕ ЦЕНЫ ДЛЯ БОКСА НИКОЛАЯ II
     function getNicholasPrice(persons, lang) {
-        const prices = {
-            ru: { 2: 8000, 4: 15000, 6: 20000 },
-            en: { 2: 400, 4: 700, 6: 1000 }
-        };
+        const prices = { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } };
         return prices[lang]?.[persons] || prices[lang]?.[2];
     }
 
-    // ✅ ФОРМАТИРОВАНИЕ ЦЕНЫ
     function formatPrice(amount, lang) {
-        if (lang === 'en') {
-            return `AED ${amount}`;
-        }
-        return `${amount.toLocaleString('ru-RU')} ₽`;
+        return lang === 'en' ? `AED ${amount}` : `${amount.toLocaleString('ru-RU')} ₽`;
     }
 
     // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ
     function renderPersonOptions(productId) {
         const container = document.getElementById('personsSelect');
         const isNicholas = productId === 'box1';
-        
         let html = '';
         const persons = [2, 4, 6];
-        // ✅ ТОЛЬКО ЭМОДЗИ, БЕЗ ТЕКСТА
         const icons = ['🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️'];
         
         persons.forEach((count, index) => {
             const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
             const priceClass = isNicholas ? '' : 'hidden';
-            
-            html += `
-                <label class="person-option">
-                    <input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}>
-                    <span class="person-label">
-                        <span class="person-icon">${icons[index]}</span>
-                        <span class="person-price ${priceClass}">${price}</span>
-                    </span>
-                </label>
-            `;
+            html += `<label class="person-option"><input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}><span class="person-label"><span class="person-icon">${icons[index]}</span><span class="person-price ${priceClass}">${price}</span></span></label>`;
         });
-        
         container.innerHTML = html;
     }
 
-    // ✅ LAZY LOAD ДЛЯ BACKGROUND-ИЗОБРАЖЕНИЙ
     function lazyLoadBackgrounds() {
         const images = document.querySelectorAll('.box-image[data-bg-desktop]');
         const observer = new IntersectionObserver((entries) => {
@@ -867,77 +866,50 @@
                     if (el.dataset.bgLoaded === 'false') {
                         const isMobile = window.innerWidth <= 768;
                         const src = isMobile ? el.dataset.bgMobile : el.dataset.bgDesktop;
-                        el.style.backgroundImage = `url('${src}')`;
-                        el.dataset.bgLoaded = 'true';
+                        if (src) { el.style.backgroundImage = `url('${src}')`; el.dataset.bgLoaded = 'true'; }
                         observer.unobserve(el);
                     }
                 }
             });
         }, { rootMargin: '100px' });
-        
         images.forEach(img => observer.observe(img));
     }
 
-    // ✅ АДАПТАЦИЯ ИЗОБРАЖЕНИЙ ПОД УСТРОЙСТВО
     function adaptImagesForDevice() {
         const isMobile = window.innerWidth <= 768;
-        
         document.querySelectorAll('.box-image[data-bg-desktop]').forEach(img => {
             if (img.dataset.bgLoaded === 'true') {
                 const src = isMobile ? img.dataset.bgMobile : img.dataset.bgDesktop;
-                if (src && !img.style.backgroundImage.includes(src)) {
-                    img.style.backgroundImage = `url('${src}')`;
-                }
+                if (src && !img.style.backgroundImage.includes(src)) { img.style.backgroundImage = `url('${src}')`; }
             }
         });
     }
 
     function applyLanguage(lang) {
-        if (!translations[lang]) { lang = 'ru'; }
+        if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
         currentLang = lang;
-        
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
+                if (key === 'infoNote') { el.innerHTML = translations[lang][key]; }
+                else { el.textContent = translations[lang][key]; }
             }
         });
-        
         const currencyEl = document.querySelectorAll('.currency');
         const currency = lang === 'en' ? 'AED' : '₽';
         currencyEl.forEach(el => el.textContent = currency);
-        
-        // ✅ Обновляем флаг и код языка
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            if (lang === 'ru') {
-                langFlag.textContent = '';
-                langCurrent.textContent = 'RU';
-            } else {
-                langFlag.textContent = '🇪';
-                langCurrent.textContent = 'EN';
-            }
+            if (lang === 'ru') { langFlag.textContent = ''; langCurrent.textContent = 'RU'; }
+            else { langFlag.textContent = '🇪'; langCurrent.textContent = 'EN'; }
         }
-        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
-        
-        // ✅ Обновляем цены в карточках персон при смене языка
-        if (currentProduct) {
-            renderPersonOptions(currentProduct.id);
-        }
-        
-        //  GA4: смена языка
-        trackGA4Event('language_change', {
-            from_language: prevLang,
-            to_language: lang,
-            page_location: window.location.href
-        });
-        
-        // 🎯 Метрика: смена языка
+        if (currentProduct) renderPersonOptions(currentProduct.id);
+        trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
@@ -946,23 +918,18 @@
         const dots = document.getElementById('galleryDots');
         const prevBtn = document.getElementById('galleryPrev');
         const nextBtn = document.getElementById('galleryNext');
-        
         currentGalleryImages = images;
         currentGalleryIndex = 0;
-        
         track.innerHTML = images.map((img, i) => `<div class="gallery-slide" style="background-image: url('${img}')"></div>`).join('');
         dots.innerHTML = images.map((_, i) => `<button class="gallery-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></button>`).join('');
-        
         function goToSlide(index) {
             currentGalleryIndex = index;
             track.style.transform = `translateX(-${index * 100}%)`;
             dots.querySelectorAll('.gallery-dot').forEach((dot, i) => dot.classList.toggle('active', i === index));
         }
-        
         prevBtn.onclick = () => goToSlide((currentGalleryIndex - 1 + images.length) % images.length);
         nextBtn.onclick = () => goToSlide((currentGalleryIndex + 1) % images.length);
         dots.querySelectorAll('.gallery-dot').forEach(dot => dot.onclick = () => goToSlide(parseInt(dot.dataset.index)));
-        
         let startX = 0;
         track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
         track.addEventListener('touchend', e => {
@@ -975,34 +942,13 @@
     function openProductModal(productData, galleryImages) {
         currentProduct = productData;
         document.getElementById('modalProductTitle').textContent = productData.name;
-        
-        // ✅ Генерируем карточки персон ТОЛЬКО С ЭМОДЗИ
         renderPersonOptions(productData.id);
-        
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
-        
-        if (galleryImages && galleryImages.length > 0) {
-            initGallery(galleryImages);
-            document.getElementById('gallerySlider').style.display = 'block';
-        } else {
-            document.getElementById('gallerySlider').style.display = 'none';
-        }
-        
+        if (galleryImages && galleryImages.length > 0) { initGallery(galleryImages); document.getElementById('gallerySlider').style.display = 'block'; }
+        else { document.getElementById('gallerySlider').style.display = 'none'; }
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
-        
-        // 📊 GA4: просмотр товара
-        trackGA4Event('view_item', {
-            items: [{
-                item_id: productData.id,
-                item_name: productData.name,
-                price: productData.price,
-                currency: currentLang === 'en' ? 'AED' : 'RUB',
-                item_category: 'gastronomic_box'
-            }]
-        });
-        
-        // 🎯 Метрика: открыта модальная настройка
+        trackGA4Event('view_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, currency: currentLang === 'en' ? 'AED' : 'RUB', item_category: 'gastronomic_box' }] });
         ymTrack('box_modal_opened', { product_id: productData.id, product_name: productData.name });
     }
     
@@ -1018,129 +964,38 @@
         return { persons, allergens };
     }
     
-    // ✅ ДОБАВЛЕНИЕ В КОРЗИНУ С GA4 + МЕТРИКА + ДИНАМИЧЕСКАЯ ЦЕНА
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
-        
-        // ✅ Перевод аллергенов
         const allergensTranslated = options.allergens.map(allergen => {
-            const allergenMap = {
-                'Грибы': translations[currentLang].allergen1,
-                'Горчица': translations[currentLang].allergen2,
-                'Лактоза': translations[currentLang].allergen3,
-                'Яйца': translations[currentLang].allergen4,
-                'Глютен': translations[currentLang].allergen5,
-                'Красная рыба': translations[currentLang].allergen6,
-                'Орехи': translations[currentLang].allergen7
-            };
+            const allergenMap = { 'Грибы': translations[currentLang].allergen1, 'Горчица': translations[currentLang].allergen2, 'Лактоза': translations[currentLang].allergen3, 'Яйца': translations[currentLang].allergen4, 'Глютен': translations[currentLang].allergen5, 'Красная рыба': translations[currentLang].allergen6, 'Орехи': translations[currentLang].allergen7 };
             return allergenMap[allergen] || allergen;
         });
-        
-        // ✅ Динамическая цена для бокса Николая II
         let finalPrice = currentProduct.price;
-        if (currentProduct.id === 'box1') {
-            finalPrice = getNicholasPrice(options.persons, currentLang);
-        }
-        
-        const cartItem = {
-            id: Date.now(),
-            productId: currentProduct.id,
-            name: currentProduct.name,
-            basePrice: currentProduct.price,
-            price: finalPrice,
-            quantity: 1,
-            options: { persons: options.persons, allergens: allergensTranslated }
-        };
-        cart.push(cartItem);
-        saveCart();
-        updateCartCount();
-        closeProductModal();
-        showCartPrompt();
-        
-        //  GA4: добавление в корзину (E-commerce)
-        trackGA4Event('add_to_cart', {
-            currency: currentLang === 'en' ? 'AED' : 'RUB',
-            value: finalPrice,
-            items: [{
-                item_id: currentProduct.id,
-                item_name: currentProduct.name,
-                price: finalPrice,
-                quantity: 1,
-                item_category: 'gastronomic_box',
-                item_variant: `${options.persons} persons`
-            }]
-        });
-        
-        // 🎯 Метрика: товар добавлен в корзину
-        ymTrack('box_added_to_cart', {
-            product_id: currentProduct.id,
-            product_name: currentProduct.name,
-            price: finalPrice,
-            currency: currentLang === 'en' ? 'AED' : 'RUB',
-            persons: options.persons,
-            allergens_count: options.allergens.length
-        });
+        if (currentProduct.id === 'box1') finalPrice = getNicholasPrice(options.persons, currentLang);
+        const cartItem = { id: Date.now(), productId: currentProduct.id, name: currentProduct.name, basePrice: currentProduct.price, price: finalPrice, quantity: 1, options: { persons: options.persons, allergens: allergensTranslated } };
+        cart.push(cartItem); saveCart(); updateCartCount(); closeProductModal(); showCartPrompt();
+        trackGA4Event('add_to_cart', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: finalPrice, items: [{ item_id: currentProduct.id, item_name: currentProduct.name, price: finalPrice, quantity: 1, item_category: 'gastronomic_box', item_variant: `${options.persons} persons` }] });
+        ymTrack('box_added_to_cart', { product_id: currentProduct.id, product_name: currentProduct.name, price: finalPrice, currency: currentLang === 'en' ? 'AED' : 'RUB', persons: options.persons, allergens_count: options.allergens.length });
     }
     
-    function showCartPrompt() {
-        document.getElementById('cartPromptOverlay').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeCartPrompt() {
-        document.getElementById('cartPromptOverlay').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-    
+    function showCartPrompt() { document.getElementById('cartPromptOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeCartPrompt() { document.getElementById('cartPromptOverlay').classList.remove('open'); document.body.style.overflow = ''; }
     function goToCheckout() {
         closeCartPrompt();
-        
-        // 📊 GA4: начало оформления
-        trackGA4Event('begin_checkout', {
-            currency: currentLang === 'en' ? 'AED' : 'RUB',
-            value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-            items: cart.map(item => ({
-                item_id: item.productId,
-                item_name: item.name,
-                price: item.price,
-                quantity: item.quantity
-            }))
-        });
-        
-        // 🎯 Метрика: переход в корзину
+        trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0), items: cart.map(item => ({ item_id: item.productId, item_name: item.name, price: item.price, quantity: item.quantity })) });
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
-        
         window.location.href = 'checkout.html';
     }
 
-    // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
-        // ✅ 1. Загружаем язык
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
         applyLanguage(langToUse);
-        
-        // ✅ 2. Lazy load изображений
         lazyLoadBackgrounds();
-        
-        // ✅ 3. Обновляем счётчик корзины
         updateCartCount();
-        
-        // 📊 GA4: просмотр страницы каталога (отложенный)
-        setTimeout(() => {
-            trackGA4Event('page_view', {
-                page_title: document.title,
-                page_location: window.location.href,
-                page_path: '/boxes.html',
-                language: currentLang
-            });
-        }, 1000);
-        
-        // 🎯 Метрика: страница загружена
+        setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes.html', language: currentLang }); }, 1000);
         ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 6 });
-        
-        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -1153,79 +1008,34 @@
                     setTimeout(() => langDropdown.classList.remove('show'), 100);
                 });
             });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
-            });
+            document.addEventListener('click', e => { if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show'); });
         }
-        
-        // Обработчики кнопок "Выбрать"
         document.querySelectorAll('.btn-select').forEach(btn => {
             btn.addEventListener('click', function() {
-                const productData = { 
-                    id: this.dataset.productId, 
-                    name: this.dataset.productName, 
-                    price: parseInt(this.dataset.productPrice) 
-                };
+                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
                 const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
-                
-                // 📊 GA4: клик по товару
-                trackGA4Event('select_item', {
-                    items: [{
-                        item_id: productData.id,
-                        item_name: productData.name,
-                        price: productData.price,
-                        item_category: 'gastronomic_box'
-                    }]
-                });
-                
-                // 🎯 Метрика: клик по кнопке "Выбрать"
-                ymTrack('box_select_click', { 
-                    product_id: productData.id, 
-                    product_name: productData.name,
-                    price: productData.price 
-                });
-                
+                trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
+                ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
                 openProductModal(productData, galleryImages);
             });
         });
-        
-        // Закрытие модального окна
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
-        document.getElementById('productModalOverlay')?.addEventListener('click', e => { 
-            if (e.target.id === 'productModalOverlay') closeProductModal(); 
-        });
+        document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
         document.getElementById('modalAddToCart')?.addEventListener('click', () => addToCartWithOptions(getModalOptions()));
-        
-        // ✅ ИКОНКА КОРЗИНЫ → CHECKOUT
         document.getElementById('cartBtn')?.addEventListener('click', function() {
-            // 📊 GA4: клик по корзине
-            trackGA4Event('cart_click', {
-                cart_items: cart.length,
-                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-            });
-            
-            //  Метрика: клик по корзине
+            trackGA4Event('cart_click', { cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
             ymTrack('cart_click_boxes', { cart_items: cart.length });
-            
             window.location.href = 'checkout.html';
         });
-        
-        // 🎯 Метрика: навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
-                if (href?.includes('contacts')) {
-                    ymTrack('nav_contacts_click');
-                } else if (href?.includes('history')) {
-                    ymTrack('nav_history_click');
-                } else if (href?.includes('index.html') && !href.includes('#')) {
-                    ymTrack('nav_home_click');
-                }
+                if (href?.includes('contacts')) ymTrack('nav_contacts_click');
+                else if (href?.includes('history')) ymTrack('nav_history_click');
+                else if (href?.includes('index.html') && !href.includes('#')) ymTrack('nav_home_click');
             });
         });
-        
-        // 🎯 Метрика: соцсети
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
@@ -1233,42 +1043,25 @@
                 ymTrack(goalId);
             });
         });
-        
-        // Модальное окно "Перейти в корзину?"
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
         document.getElementById('promptContinue')?.addEventListener('click', closeCartPrompt);
         document.getElementById('promptCart')?.addEventListener('click', goToCheckout);
-        cartPromptOverlay?.addEventListener('click', e => { 
-            if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); 
-        });
-        
-        // 🎯 Метрика: скролл до футера (debounced)
+        cartPromptOverlay?.addEventListener('click', e => { if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); });
         let footerViewed = false;
         const checkFooterScroll = debounce(function() {
             const footer = document.querySelector('.footer');
             if (footer && !footerViewed) {
                 const rect = footer.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
-                    ymTrack('boxes_footer_viewed');
-                    footerViewed = true;
-                }
+                if (rect.top < window.innerHeight) { ymTrack('boxes_footer_viewed'); footerViewed = true; }
             }
         }, 200);
-        
         window.addEventListener('scroll', checkFooterScroll);
-        
-        // ✅ Resize handler (debounced)
         window.addEventListener('resize', debounce(adaptImagesForDevice, 250));
-        
         console.log(`✅ boxes.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}, Cart: ${cart.length}`);
     });
     
-    // ✅ Слушаем изменения localStorage
     window.addEventListener('storage', function(e) {
-        if (e.key === 'hedonism_cart') {
-            cart = JSON.parse(e.newValue) || [];
-            updateCartCount();
-        }
+        if (e.key === 'hedonism_cart') { cart = JSON.parse(e.newValue) || []; updateCartCount(); }
     });
     </script>
 </body>
