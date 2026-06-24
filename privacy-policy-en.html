@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — Hedonism Dispatch Dubai</title>
-        <!-- Google tag (gtag.js) -->
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
-      gtag('config', 'G-L8704SB9ZW');
+      gtag('config', 'G-L8704SB9ZW', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
     </script>
+    
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://byshura.ru/privacy-policy-en.html">
     
@@ -128,7 +133,6 @@
     </style>
     
     <!-- 🔹 YANDEX METRIKA -->
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -145,7 +149,6 @@
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -295,6 +298,14 @@
 
     <!-- JAVASCRIPT -->
     <script>
+    // ===== GA4 HELPER =====
+    function trackGA4Event(eventName, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+            console.log('📊 GA4 event:', eventName, params);
+        }
+    }
+
     // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
@@ -304,50 +315,123 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // 🎯 Metrika: page viewed
+        // 📊 GA4: просмотр страницы политики конфиденциальности
+        trackGA4Event('page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: '/privacy-policy-en.html',
+            language: 'en',
+            page_type: 'legal_document'
+        });
+        
+        // 🎯 Метрика: страница политики (EN) загружена
         ymTrack('privacy_viewed_en', { page: 'privacy_policy', lang: 'en' });
         
-        // 🎯 Metrika: back button click
+        // 🎯 Метрика + GA4: клик по кнопке "BACK"
         document.getElementById('btnBack')?.addEventListener('click', function() {
+            trackGA4Event('click', {
+                element: 'back_button',
+                page: 'privacy-en',
+                destination: 'index.html'
+            });
+            
             ymTrack('privacy_back_click_en');
         });
         
-        // 🎯 Metrika: email link clicks
+        // 🎯 Метрика + GA4: клики по email-ссылкам
         document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
             link.addEventListener('click', function() {
-                ymTrack('privacy_email_click_en', { email: this.href.replace('mailto:', '') });
+                const email = this.href.replace('mailto:', '');
+                
+                trackGA4Event('email_click', {
+                    email: email,
+                    page: 'privacy-en',
+                    link_context: 'privacy_contact'
+                });
+                
+                ymTrack('privacy_email_click_en', { email: email });
             });
         });
         
-        // 🎯 Metrika: footer link clicks
+        // 🎯 Метрика + GA4: клики по ссылкам в футере
         document.querySelectorAll('.footer-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
+                let linkName = 'unknown';
+                
                 if (href === 'index.html') {
+                    linkName = 'home';
                     ymTrack('privacy_footer_home_click_en');
                 } else if (href === 'privacy-policy-en.html') {
+                    linkName = 'privacy_policy';
                     ymTrack('privacy_footer_privacy_click_en');
                 } else if (href === 'offer-en.html') {
+                    linkName = 'public_offer';
                     ymTrack('privacy_footer_offer_click_en');
                 }
+                
+                trackGA4Event('footer_link_click', {
+                    link_name: linkName,
+                    link_href: href,
+                    page: 'privacy-en'
+                });
             });
         });
         
-        // 🎯 Metrika: scroll to end (user read the policy)
+        // 🎯 Метрика + GA4: скролл до конца политики (пользователь прочитал)
         let privacyRead = false;
         window.addEventListener('scroll', function() {
             const card = document.querySelector('.policy-card');
             if (card && !privacyRead) {
                 const rect = card.getBoundingClientRect();
-                // If user scrolled to 80%+ of the card
+                // Если пользователь проскроллил 80%+ карточки
                 if (rect.bottom < window.innerHeight * 0.2) {
+                    trackGA4Event('policy_read', {
+                        page: 'privacy-en',
+                        read_percent: 100
+                    });
+                    
                     ymTrack('privacy_fully_read_en');
                     privacyRead = true;
                 }
             }
         });
         
-        console.log('✅ privacy-policy-en.html ready with Yandex.Metrika tracking');
+        // 📊 GA4: глубина скролла (25%, 50%, 75%, 100%)
+        let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+            
+            [25, 50, 75, 100].forEach(percent => {
+                if (scrollPercent >= percent && !scrollDepthTracked[percent]) {
+                    trackGA4Event('scroll_depth', {
+                        percent: percent,
+                        page: 'privacy-en'
+                    });
+                    scrollDepthTracked[percent] = true;
+                }
+            });
+        });
+        
+        // 📊 GA4: время на странице (30 сек, 60 сек)
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'privacy-en',
+                time_on_page: 30
+            });
+        }, 30000);
+        
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'privacy-en',
+                time_on_page: 60
+            });
+        }, 60000);
+        
+        console.log('✅ privacy-policy-en.html ready! GA4: G-L8704SB9ZW, Language: EN');
     });
     </script>
 </body>
