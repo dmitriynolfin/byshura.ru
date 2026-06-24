@@ -18,15 +18,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Оформление заказа - Вестник Гедонизма</title>
-        <!-- Google tag (gtag.js) -->
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
-      gtag('config', 'G-L8704SB9ZW');
+      gtag('config', 'G-L8704SB9ZW', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
     </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -274,8 +279,6 @@
             color: #FFD93D;
             text-decoration: underline;
         }
-        
-        /* ✅ УБРАНО СКРЫТИЕ для EN версии - чекбокс теперь виден на всех языках */
         
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
         .btn-submit { 
@@ -562,7 +565,6 @@
     </style>
     
     <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -579,7 +581,6 @@
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -611,7 +612,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷 RU</span>
+                            <span class="lang-code">🇷🇺 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
@@ -912,6 +913,14 @@
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
+    // ===== GA4 HELPER =====
+    function trackGA4Event(eventName, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+            console.log('📊 GA4 event:', eventName, params);
+        }
+    }
+
     // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
@@ -943,7 +952,7 @@
         }
     }
 
-    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА (ЧИСЛА, +1) =====
+    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА =====
     function generateOrderNumber() {
         const STORAGE_KEY = 'hedonism_last_order_id';
         let currentId = parseInt(localStorage.getItem(STORAGE_KEY)) || 1000;
@@ -954,6 +963,7 @@
 
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
+        const prevLang = currentLang;
         currentLang = lang;
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -978,6 +988,7 @@
             el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
         });
         
+        // ✅ Обновляем флаг и код языка
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
@@ -1004,7 +1015,18 @@
         
         localStorage.setItem('hedonism_lang', lang);
         renderOrderSummary();
-        console.log(`🌐 Language switched to: ${lang.toUpperCase()}`);
+        
+        // 📊 GA4: смена языка
+        trackGA4Event('language_change', {
+            from_language: prevLang,
+            to_language: lang,
+            page_location: window.location.href
+        });
+        
+        // 🎯 Метрика: смена языка
+        ymTrack('lang_switch', { from: prevLang, to: lang });
+        
+        console.log(`🌐 Language switched: ${prevLang} → ${lang.toUpperCase()}`);
     }
 
     function renderOrderSummary() {
@@ -1120,7 +1142,7 @@
         }
     }
 
-    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
+    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ =====
     const OWNER_CONFIG = {
         telegramBotToken: '',
         telegramChatId: '',
@@ -1128,7 +1150,7 @@
         ownerPhone: '79636221265'
     };
 
-    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ ВЛАДЕЛЬЦУ =====
+    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ =====
     async function notifyOwner(orderData) {
         console.log('📤 Отправка уведомлений владельцу:', orderData);
         
@@ -1389,27 +1411,21 @@
         
         if (!dateInput || !timeInput) return;
         
-        // ✅ Настройки ограничений - доступны только Пт(5), Сб(6), Вс(0)
         const availableDays = [5, 6, 0]; // Пятница, Суббота, Воскресенье
-        
-        // ✅ Установка минимальной даты (сегодня)
         const today = new Date();
         const minDate = today.toISOString().split('T')[0];
         dateInput.min = minDate;
         
-        // ✅ Найти ближайшую доступную дату (Пт, Сб или Вс)
         let nearestAvailableDate = new Date(today);
         while (!availableDays.includes(nearestAvailableDate.getDay())) {
             nearestAvailableDate.setDate(nearestAvailableDate.getDate() + 1);
         }
         dateInput.value = nearestAvailableDate.toISOString().split('T')[0];
         
-        // ✅ Ограничение времени: 17:00 - 23:00
         timeInput.min = '17:00';
         timeInput.max = '23:00';
-        timeInput.value = '18:00'; // Дефолтное значение
+        timeInput.value = '18:00';
         
-        // ✅ Валидация при изменении даты
         dateInput.addEventListener('change', function() {
             const selectedDate = new Date(this.value);
             const dayOfWeek = selectedDate.getDay();
@@ -1419,7 +1435,6 @@
                     ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' 
                     : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
                 
-                // Найти ближайшую доступную дату
                 let newDate = new Date(selectedDate);
                 while (!availableDays.includes(newDate.getDay())) {
                     newDate.setDate(newDate.getDate() + 1);
@@ -1428,7 +1443,6 @@
             }
         });
         
-        // ✅ Валидация при изменении времени
         timeInput.addEventListener('change', function() {
             const time = this.value;
             if (time < '17:00' || time > '23:00') {
@@ -1459,16 +1473,16 @@
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', function(e) { e.stopPropagation(); langDropdown.classList.toggle('show'); });
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
             langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', e => {
                     e.preventDefault(); e.stopPropagation();
                     const selectedLink = e.target.closest('a');
                     if (selectedLink) applyLanguage(selectedLink.dataset.lang);
                     setTimeout(() => langDropdown.classList.remove('show'), 100);
                 });
             });
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', e => {
                 if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
             });
         }
@@ -1476,24 +1490,114 @@
         renderOrderSummary();
         updateCartCount();
         
+        // 📊 GA4: просмотр страницы оформления
+        trackGA4Event('page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: '/checkout.html',
+            language: currentLang,
+            cart_items: cart.length,
+            cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+        });
+        
+        // 🎯 Метрика: страница оформления загружена
+        ymTrack('checkout_viewed', { lang: currentLang, cart_items: cart.length });
+        
         const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
         const addressField = document.getElementById('addressField');
         deliveryRadios.forEach(radio => {
             radio.addEventListener('change', function() {
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
+                    
+                    // 📊 GA4: выбран курьер
+                    trackGA4Event('add_shipping_info', {
+                        shipping_tier: 'courier',
+                        currency: currentLang === 'en' ? 'AED' : 'RUB',
+                        value: 800
+                    });
+                    
+                    // 🎯 Метрика: выбран курьер
+                    ymTrack('delivery_courier_selected');
                 } else {
                     addressField.style.display = 'none';
+                    
+                    // 📊 GA4: выбран самовывоз
+                    trackGA4Event('add_shipping_info', {
+                        shipping_tier: 'pickup',
+                        currency: currentLang === 'en' ? 'AED' : 'RUB',
+                        value: 0
+                    });
+                    
+                    // 🎯 Метрика: выбран самовывоз
+                    ymTrack('delivery_pickup_selected');
                 }
             });
+        });
+        
+        // 📊 GA4: отслеживание выбора оплаты
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // 📊 GA4: добавление информации об оплате
+                trackGA4Event('add_payment_info', {
+                    payment_type: this.value,
+                    currency: currentLang === 'en' ? 'AED' : 'RUB'
+                });
+                
+                // 🎯 Метрика: выбран способ оплаты
+                ymTrack('payment_selected', { method: this.value });
+            });
+        });
+        
+        // 🎯 Метрика: клик по кнопке "Отмена"
+        document.getElementById('cancelBtn')?.addEventListener('click', function() {
+            ymTrack('checkout_cancelled', { cart_items: cart.length });
+            window.location.href = 'boxes.html';
+        });
+        
+        // 🎯 Метрика: клик по соцсетям
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
+            });
+        });
+        
+        // 🎯 Метрика: изменение количества товара в сводке
+        document.getElementById('orderItemsContainer')?.addEventListener('click', function(e) {
+            const btn = e.target.closest('.quantity-btn');
+            const removeBtn = e.target.closest('.order-item-remove');
+            
+            if (btn) {
+                const itemId = parseInt(btn.dataset.itemId);
+                const action = btn.dataset.action;
+                const item = cart.find(i => i.id === itemId);
+                if (item) {
+                    ymTrack('cart_quantity_changed', {
+                        product_id: item.productId,
+                        action: action,
+                        new_quantity: action === 'increase' ? item.quantity + 1 : item.quantity - 1
+                    });
+                }
+            }
+            
+            if (removeBtn) {
+                const itemId = parseInt(removeBtn.dataset.itemId);
+                const item = cart.find(i => i.id === itemId);
+                if (item) {
+                    ymTrack('cart_item_removed', {
+                        product_id: item.productId,
+                        product_name: item.name
+                    });
+                }
+            }
         });
         
         // ✅ Инициализация ограничений даты и времени
         initDateRestrictions();
         
-        document.getElementById('cancelBtn')?.addEventListener('click', () => window.location.href = 'boxes.html');
-        
-        // ===== ОТПРАВКА ЗАКАЗА (с защитой от ошибок) =====
+        // ===== ОТПРАВКА ЗАКАЗА =====
         const checkoutForm = document.getElementById('checkoutForm');
         console.log('✅ Форма найдена:', !!checkoutForm);
         
@@ -1509,13 +1613,12 @@
                 console.log('📝 Имя:', name, '| Телефон:', phone);
                 console.log('🛒 Корзина:', cart.length, 'товаров');
                 
-                // Проверка имени и телефона
                 if (!name || !phone) { 
                     alert(translations[currentLang].validationError); 
                     return; 
                 }
                 
-                // ✅ ПРОВЕРКА ЧЕКБОКСА СОГЛАСИЯ (для всех языков)
+                // ✅ ПРОВЕРКА ЧЕКБОКСА СОГЛАСИЯ
                 const consentCheckbox = document.getElementById('consentCheckbox');
                 if (consentCheckbox && !consentCheckbox.checked) {
                     alert(translations[currentLang].consentError);
@@ -1527,7 +1630,6 @@
                     return;
                 }
                 
-                // Проверка корзины
                 if (cart.length === 0) {
                     alert(currentLang === 'ru' ? 
                         'Корзина пуста! Добавьте товары перед оформлением заказа.' : 
@@ -1535,7 +1637,6 @@
                     return;
                 }
                 
-                // Проверка даты и времени
                 const date = document.getElementById('date').value;
                 const time = document.getElementById('time').value;
                 if (!date || !time) {
@@ -1589,7 +1690,20 @@
                 console.log('📦 Полный заказ:', orderData);
                 
                 try {
-                    // 🎯 ЯНДЕКС.МЕТРИКА: цель "начало оформления"
+                    // 📊 GA4: начало оформления (если не было отправлено ранее)
+                    trackGA4Event('begin_checkout', {
+                        currency: orderData.currency,
+                        value: orderData.total,
+                        items: orderData.items.map(item => ({
+                            item_id: item.productId,
+                            item_name: item.name,
+                            price: item.price,
+                            quantity: item.quantity,
+                            item_category: 'gastronomic_box'
+                        }))
+                    });
+                    
+                    // 🎯 Метрика: начало оформления
                     ymTrack('checkout_start');
                     
                     // 1. Отправляем уведомления владельцу
@@ -1601,20 +1715,36 @@
                     sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
                     console.log('💾 Заказ сохранён в sessionStorage');
                     
-                    // 3. Очищаем корзину
-                    cart = []; 
-                    saveCart(); 
-                    updateCartCount(); 
-                    renderOrderSummary();
-                    console.log('🗑️ Корзина очищена');
+                    // 📊 GA4: успешная покупка (E-commerce)
+                    trackGA4Event('purchase', {
+                        transaction_id: orderData.orderNumber,
+                        currency: orderData.currency,
+                        value: orderData.total,
+                        shipping: orderData.delivery === 'courier' ? 800 : 0,
+                        items: orderData.items.map(item => ({
+                            item_id: item.productId,
+                            item_name: item.name,
+                            price: item.price,
+                            quantity: item.quantity,
+                            item_category: 'gastronomic_box',
+                            item_variant: `${item.options?.persons || 2} persons`
+                        }))
+                    });
                     
-                    // 🎯 ЯНДЕКС.МЕТРИКА: цель "успешный заказ" + e-commerce
+                    // 🎯 Метрика: успешный заказ + e-commerce
                     ymTrack('order_success', {
                         order_number: orderData.orderNumber,
                         total: orderData.total,
                         currency: orderData.currency
                     });
                     ymEcommercePurchase(orderData);
+                    
+                    // 3. Очищаем корзину
+                    cart = []; 
+                    saveCart(); 
+                    updateCartCount(); 
+                    renderOrderSummary();
+                    console.log('🗑️ Корзина очищена');
                     
                     // 4. Переходим на страницу благодарности
                     console.log('🚀 Переход на thank-you.html...');
@@ -1623,6 +1753,13 @@
                 } catch (error) {
                     console.error('❌ Ошибка при оформлении заказа:', error);
                     alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.\n\n' + error.message);
+                    
+                    // 📊 GA4: ошибка оформления
+                    trackGA4Event('checkout_error', {
+                        error_message: error.message,
+                        page_location: window.location.href
+                    });
+                    
                     submitBtn.disabled = false;
                     if (btnText) btnText.style.display = 'inline';
                     if (btnLoading) btnLoading.style.display = 'none';
@@ -1632,19 +1769,11 @@
             console.error('❌ Форма checkout не найдена!');
         }
         
-        // ✅ Отслеживание кликов по соцсетям в футере
-        document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const platform = this.getAttribute('aria-label') || 'social';
-                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
-                ymTrack(goalId);
-            });
-        });
-        
         initAddressAutocomplete();
-        console.log('✅ checkout.html ready! Language: ' + currentLang.toUpperCase());
+        console.log('✅ checkout.html ready! GA4: G-L8704SB9ZW, Language: ' + currentLang.toUpperCase());
     });
     
+    // ✅ Слушаем изменения localStorage
     window.addEventListener('storage', function(e) {
         if (e.key === 'hedonism_cart') {
             cart = JSON.parse(e.newValue) || [];
