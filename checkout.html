@@ -19,7 +19,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Оформление заказа - Вестник Гедонизма</title>
     
-    <!-- 🔹 GOOGLE ANALYTICS 4 -->
+    <!-- ✅ PRELOAD КРИТИЧНЫХ РЕСУРСОВ -->
+    <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" crossorigin>
+    
+    <!-- ✅ КЭШИРОВАНИЕ -->
+    <meta http-equiv="Cache-Control" content="public, max-age=3600">
+    <meta http-equiv="Expires" content="3600">
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 (оптимизировано) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -28,7 +35,8 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: window.location.pathname
+        page_path: window.location.pathname,
+        send_page_view: false
       });
     </script>
     
@@ -95,7 +103,7 @@
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
         /* ШАПКА */
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
         .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
@@ -243,7 +251,7 @@
         .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .payment-option input:checked + .payment-label { font-weight: 600; }
         
-        /* ✅ ЧЕКБОКС СОГЛАСИЯ НА ОБРАБОТКУ ДАННЫХ */
+        /* ✅ ЧЕКБОКС СОГЛАСИЯ */
         .consent-group {
             margin: 25px 0 30px;
             padding: 15px;
@@ -324,55 +332,19 @@
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
         
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) */
-        .legal-links-ru {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        .legal-links-ru a {
-            font-size: 12px;
-            color: #666;
-            transition: color 0.3s;
-        }
-        .legal-links-ru a:hover {
-            color: #070395;
-        }
-        .legal-divider {
-            color: #ccc;
-        }
+        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ */
+        .legal-links-ru { display: flex; gap: 15px; align-items: center; }
+        .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-ru a:hover { color: #070395; }
+        .legal-divider { color: #ccc; }
+        html[lang="en"] .legal-links-ru { display: none !important; }
+        .legal-links-en { display: none; gap: 15px; align-items: center; }
+        .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-en a:hover { color: #070395; }
+        html[lang="en"] .legal-links-en { display: flex !important; }
+        html[lang="ru"] .legal-links-en { display: none !important; }
         
-        /* ✅ СКРЫВАЕМ легальные ссылки для EN версии */
-        html[lang="en"] .legal-links-ru {
-            display: none !important;
-        }
-        
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ для EN версии */
-        .legal-links-en {
-            display: none;
-            gap: 15px;
-            align-items: center;
-        }
-        .legal-links-en a {
-            font-size: 12px;
-            color: #666;
-            transition: color 0.3s;
-        }
-        .legal-links-en a:hover {
-            color: #070395;
-        }
-        
-        /* ✅ ПОКАЗЫВАЕМ легальные ссылки для EN версии */
-        html[lang="en"] .legal-links-en {
-            display: flex !important;
-        }
-        
-        /* ✅ СКРЫВАЕМ легальные ссылки для RU версии */
-        html[lang="ru"] .legal-links-en {
-            display: none !important;
-        }
-        
-        /* ✅ КОРЗИНА СКРЫТА (код оставлен для совместимости) */
+        /* ✅ КОРЗИНА СКРЫТА */
         .cart-modal { display: none; }
         .cart-overlay { display: none; }
         
@@ -394,20 +366,17 @@
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .footer-logo { width: 42px; height: 42px; font-size: 20px; }
-            
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            
             .checkout-title { font-size: 28px; }
             .checkout-form { padding: 20px; }
             .form-title { font-size: 18px; }
             .delivery-options { flex-direction: column; }
             .checkout-actions { flex-direction: column; }
             .header-right { gap: 10px; }
-            
             .order-item { flex-direction: row; gap: 12px; }
             .order-item-thumb { width: 60px; height: 60px; }
             .order-item-info { min-width: 0; }
@@ -421,14 +390,12 @@
             .checkout-page { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .footer-logo { width: 40px; height: 40px; font-size: 18px; }
-            
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            
             .checkout-title { font-size: 24px; }
             .checkout-form { padding: 18px; }
             .form-title { font-size: 16px; }
@@ -442,79 +409,20 @@
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; }
-            
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (RU) */
-            .legal-links-ru {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px 10px;
-                align-items: center;
-                justify-content: center;
-                margin-top: 8px;
-                width: 100%;
-            }
-            .legal-links-ru a {
-                font-size: 11px;
-                color: #666;
-                white-space: nowrap;
-            }
-            .legal-links-ru a:hover {
-                color: #070395;
-            }
-            .legal-divider {
-                color: #ccc;
-                font-size: 11px;
-            }
-            
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (EN) */
-            .legal-links-en {
-                display: none;
-                flex-wrap: wrap;
-                gap: 5px 10px;
-                align-items: center;
-                justify-content: center;
-                margin-top: 8px;
-                width: 100%;
-            }
-            html[lang="en"] .legal-links-en {
-                display: flex !important;
-            }
-            .legal-links-en a {
-                font-size: 11px;
-                color: #666;
-                white-space: nowrap;
-            }
-            .legal-links-en a:hover {
-                color: #070395;
-            }
-            
-            /* ✅ АДАПТАЦИЯ ЧЕКБОКСА СОГЛАСИЯ ДЛЯ МОБИЛЬНЫХ */
-            .consent-group {
-                padding: 12px;
-                margin: 20px 0 25px;
-            }
-            .consent-text {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            
-            .datetime-grid {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 20px;
-                align-items: flex-start;
-            }
-            .datetime-grid .form-group {
-                flex: 0 0 auto;
-                margin-bottom: 0;
-            }
-            .datetime-grid .form-label {
-                font-size: 12px;
-                margin-bottom: 4px;
-            }
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-links-ru a:hover { color: #070395; }
+            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            html[lang="en"] .legal-links-en { display: flex !important; }
+            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-links-en a:hover { color: #070395; }
+            .consent-group { padding: 12px; margin: 20px 0 25px; }
+            .consent-text { font-size: 12px; line-height: 1.4; }
+            .datetime-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; align-items: flex-start; }
+            .datetime-grid .form-group { flex: 0 0 auto; margin-bottom: 0; }
+            .datetime-grid .form-label { font-size: 12px; margin-bottom: 4px; }
             .datetime-grid input[type="date"],
             .datetime-grid input[type="time"] {
                 width: auto !important;
@@ -532,7 +440,6 @@
                 line-height: 32px;
                 box-sizing: border-box;
             }
-            
             .order-item { flex-direction: column; }
             .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
             .order-item-name { font-size: 16px; }
@@ -550,7 +457,6 @@
             .order-item-thumb { height: 100px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
-            
             .datetime-grid input[type="date"],
             .datetime-grid input[type="time"] {
                 padding: 5px 8px !important;
@@ -558,9 +464,7 @@
                 height: 28px !important;
                 line-height: 28px;
             }
-            .datetime-grid .form-label {
-                font-size: 11px;
-            }
+            .datetime-grid .form-label { font-size: 11px; }
         }
     </style>
     
@@ -571,14 +475,7 @@
        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-       ym(110092456, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true,
-            ecommerce:"dataLayer"
-       });
+       ym(110092456, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
@@ -778,8 +675,7 @@
                     </div>
                 </div>
                 
-                <!-- ✅ ЧЕКБОКС СОГЛАСИЯ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ (для всех языков) -->
-                <!-- ✅ ДОБАВЛЕН АТРИБУТ checked -->
+                <!-- ✅ ЧЕКБОКС СОГЛАСИЯ -->
                 <div class="consent-group">
                     <label class="consent-checkbox">
                         <input type="checkbox" id="consentCheckbox" name="consent" required checked>
@@ -792,7 +688,6 @@
                 <!-- КНОПКИ -->
                 <div class="checkout-actions">
                     <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
-                    <!-- ✅ FIX: data-i18n moved to span to prevent destroying the loading icon -->
                     <button type="submit" class="btn-submit" id="submitBtn">
                         <span class="btn-text" data-i18n="btnSubmit">ПОДТВЕРДИТЬ ЗАКАЗ</span>
                         <span class="btn-loading" style="display:none">⏳</span>
@@ -809,24 +704,22 @@
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.png" alt="Telegram">
+                    <img src="images/tg_logo.png" alt="Telegram" loading="lazy">
                 </a>
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.png" alt="MAX">
+                    <img src="images/max_logo.png" alt="MAX" loading="lazy">
                 </a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.png" alt="Instagram">
+                    <img src="images/ins_logo.png" alt="Instagram" loading="lazy">
                 </a>
             </div>
             
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) -->
+            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ -->
             <div class="legal-links-ru">
                 <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
                 <a href="offer.html" target="_blank">Публичная оферта</a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для EN) -->
             <div class="legal-links-en">
                 <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
@@ -842,10 +735,8 @@
             pageTitle: "Оформление заказа - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
-            checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА",
-            checkoutSubtitle: "Заполните данные для доставки вашего бокса",
-            orderSummaryTitle: "Ваш заказ",
-            orderTotal: "Итого:",
+            checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА", checkoutSubtitle: "Заполните данные для доставки вашего бокса",
+            orderSummaryTitle: "Ваш заказ", orderTotal: "Итого:",
             sectionContactsText: "Контактные данные",
             labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
@@ -877,10 +768,8 @@
             pageTitle: "Checkout - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
-            checkoutTitle: "CHECKOUT",
-            checkoutSubtitle: "Fill in your details for box delivery",
-            orderSummaryTitle: "Your Order",
-            orderTotal: "Total:",
+            checkoutTitle: "CHECKOUT", checkoutSubtitle: "Fill in your details for box delivery",
+            orderSummaryTitle: "Your Order", orderTotal: "Total:",
             sectionContactsText: "Contact Details",
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
@@ -912,12 +801,12 @@
 
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+    const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER =====
+    // ===== GA4 HELPER (оптимизировано) =====
     function trackGA4Event(eventName, params) {
-        if (typeof gtag === 'function') {
+        if (isProduction && typeof gtag === 'function') {
             gtag('event', eventName, params);
-            console.log('📊 GA4 event:', eventName, params);
         }
     }
 
@@ -925,7 +814,6 @@
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
             ym(110092456, 'reachGoal', goalId, params);
-            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
         }
     }
     
@@ -948,8 +836,17 @@
                     }
                 }
             });
-            console.log('🛒 Метрика: e-commerce purchase отправлен');
         }
+    }
+
+    // ===== DEBOUNCE (для оптимизации) =====
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => { clearTimeout(timeout); func(...args); };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 
     // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА =====
@@ -988,17 +885,11 @@
             el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
         });
         
-        // ✅ Обновляем флаг и код языка
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            if (lang === 'ru') {
-                langFlag.textContent = '🇷🇺';
-                langCurrent.textContent = 'RU';
-            } else {
-                langFlag.textContent = '🇦🇪';
-                langCurrent.textContent = 'EN';
-            }
+            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
+            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
         }
         
         document.documentElement.lang = lang;
@@ -1007,26 +898,14 @@
         if (dateInput) {
             const currentValue = dateInput.value;
             dateInput.setAttribute('lang', lang);
-            if (currentValue) {
-                dateInput.value = '';
-                setTimeout(() => { dateInput.value = currentValue; }, 10);
-            }
+            if (currentValue) { dateInput.value = ''; setTimeout(() => { dateInput.value = currentValue; }, 10); }
         }
         
         localStorage.setItem('hedonism_lang', lang);
         renderOrderSummary();
         
-        // 📊 GA4: смена языка
-        trackGA4Event('language_change', {
-            from_language: prevLang,
-            to_language: lang,
-            page_location: window.location.href
-        });
-        
-        // 🎯 Метрика: смена языка
+        trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
-        
-        console.log(`🌐 Language switched: ${prevLang} → ${lang.toUpperCase()}`);
     }
 
     function renderOrderSummary() {
@@ -1057,12 +936,9 @@
             if (item.options?.allergens?.length > 0) {
                 const allergensTranslated = item.options.allergens.map(allergen => {
                     const allergenMap = {
-                        'Грибы': translations[lang].allergen1,
-                        'Горчица': translations[lang].allergen2,
-                        'Лактоза': translations[lang].allergen3,
-                        'Яйца': translations[lang].allergen4,
-                        'Глютен': translations[lang].allergen5,
-                        'Красная рыба': translations[lang].allergen6,
+                        'Грибы': translations[lang].allergen1, 'Горчица': translations[lang].allergen2,
+                        'Лактоза': translations[lang].allergen3, 'Яйца': translations[lang].allergen4,
+                        'Глютен': translations[lang].allergen5, 'Красная рыба': translations[lang].allergen6,
                         'Орехи': translations[lang].allergen7
                     };
                     return allergenMap[allergen] || allergen;
@@ -1152,14 +1028,9 @@
 
     // ===== ОТПРАВКА УВЕДОМЛЕНИЙ =====
     async function notifyOwner(orderData) {
-        console.log('📤 Отправка уведомлений владельцу:', orderData);
-        
         const t = translations[currentLang];
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
-        const paymentMap = {
-            'sber': t.payment1, 'tbank': t.payment2,
-            'alfa': t.payment3, 'cash': t.payment4
-        };
+        const paymentMap = { 'sber': t.payment1, 'tbank': t.payment2, 'alfa': t.payment3, 'cash': t.payment4 };
         const paymentText = paymentMap[orderData.payment] || orderData.payment;
         
         const itemsList = orderData.items.map(item => {
@@ -1183,48 +1054,28 @@
             
             try {
                 const response = await fetch(`https://api.telegram.org/bot${OWNER_CONFIG.telegramBotToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: OWNER_CONFIG.telegramChatId,
-                        text: tgMessage,
-                        parse_mode: 'Markdown'
-                    })
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: OWNER_CONFIG.telegramChatId, text: tgMessage, parse_mode: 'Markdown' })
                 });
-                if (response.ok) {
-                    console.log('✅ Telegram уведомление отправлено владельцу');
-                } else {
-                    console.error('❌ Telegram API error:', await response.text());
-                }
-            } catch (e) {
-                console.error('❌ Telegram error:', e);
-            }
-        } else {
-            console.warn('ℹ️ Telegram бот не настроен.');
+                if (!response.ok) console.error('❌ Telegram API error:', await response.text());
+            } catch (e) { console.error('❌ Telegram error:', e); }
         }
         
         const emailSubject = `🛒 Новый заказ #${orderData.orderNumber} от ${orderData.name}`;
         const emailBody = `НОВЫЙ ЗАКАЗ #${orderData.orderNumber}\n\n` +
-            `Имя: ${orderData.name}\n` +
-            `Телефон: ${orderData.phone}\n` +
-            `Мессенджер: ${orderData.messenger}\n\n` +
+            `Имя: ${orderData.name}\nТелефон: ${orderData.phone}\nМессенджер: ${orderData.messenger}\n\n` +
             `Доставка: ${deliveryText}${orderData.delivery === 'courier' ? '\nАдрес: ' + orderData.address : ''}\n` +
-            `Дата/время: ${orderData.date} ${orderData.time}\n` +
-            `Оплата: ${paymentText}\n` +
-            `Комментарий: ${orderData.comment || '-'}\n\n` +
-            `Состав:\n${itemsList}\n\n` +
+            `Дата/время: ${orderData.date} ${orderData.time}\nОплата: ${paymentText}\n` +
+            `Комментарий: ${orderData.comment || '-'}\n\nСостав:\n${itemsList}\n\n` +
             `ИТОГО: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`;
         
         orderData.emailLink = `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        console.log('📧 Email для владельца:', orderData.emailLink);
         
         const maxMessage = `Заказ #${orderData.orderNumber}!\n${orderData.name}\n${orderData.phone}\n${deliveryText}\n${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
         orderData.maxLink = `https://max.ru/share/text?text=${encodeURIComponent(maxMessage)}`;
-        console.log('📱 MAX для владельца:', orderData.maxLink);
         
         const waMessage = ` Новый заказ #${orderData.orderNumber}!\n\nИмя: ${orderData.name}\nТелефон: ${orderData.phone}\nДоставка: ${deliveryText}\nДата: ${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
         orderData.whatsappLink = `https://wa.me/${OWNER_CONFIG.ownerPhone}?text=${encodeURIComponent(waMessage)}`;
-        console.log('💬 WhatsApp для владельца:', orderData.whatsappLink);
     }
 
     // ===== DADATA / OSM AUTOCOMPLETE =====
@@ -1248,38 +1099,63 @@
         if (!isAllowedDomain()) {
             addressInput.disabled = true;
             addressInput.placeholder = 'Автодополнение доступно только на byshura.ru';
-            console.warn('⚠️ Адрес: доступ с недопустимого домена');
             return;
         }
 
+        const fetchSuggestions = debounce(async function(query) {
+            if (query.length < 2) { suggestionsList.classList.remove('show'); suggestionsList.innerHTML = ''; return; }
+            loadingIndicator.classList.add('show');
+            try {
+                if (currentLang === 'ru') {
+                    const response = await fetch(DADATA_URL, {
+                        method: 'POST', mode: 'cors',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${DADATA_API_KEY}` },
+                        body: JSON.stringify({ query: query, count: 5, locations: [{ city: addressInput.dataset.ddCity || 'Москва' }] })
+                    });
+                    if (!response.ok) throw new Error('API error');
+                    const data = await response.json();
+                    suggestionsList.innerHTML = data.suggestions.map(s => `
+                        <div class="suggestion-item" data-value="${escapeHtml(s.value)}" data-full="${escapeHtml(JSON.stringify(s.data))}">
+                            <div class="suggestion-main">${highlightMatch(s.value, query)}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    const bbox = '54.8,24.7,55.6,25.3';
+                    const url = `${PHOTON_URL}q=${encodeURIComponent(query)}&limit=5&lang=en&countrycode=ae&bbox=${bbox}`;
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Network error');
+                    const data = await response.json();
+                    suggestionsList.innerHTML = data.features.map(f => {
+                        const p = f.properties;
+                        const text = [p.name, p.street, p.city, p.state].filter(Boolean).join(', ');
+                        return `<div class="suggestion-item" data-value="${text}" data-full="${escapeHtml(JSON.stringify(p))}">
+                            <div class="suggestion-main">${highlightMatch(text, query)}</div>
+                            <div class="suggestion-details">${p.city || p.state || 'Dubai'}</div>
+                        </div>`;
+                    }).join('');
+                }
+                suggestionsList.classList.add('show');
+            } catch (e) {
+                console.error('Address API error', e);
+                suggestionsList.innerHTML = `<div class="suggestion-item" style="color:#e74c3c">Ошибка загрузки</div>`;
+                suggestionsList.classList.add('show');
+            } finally {
+                loadingIndicator.classList.remove('show');
+            }
+        }, DEBOUNCE_DELAY);
+
         addressInput.addEventListener('input', function(e) {
             const query = e.target.value.trim();
-            if (query.length < 2) {
-                suggestionsList.classList.remove('show');
-                suggestionsList.innerHTML = '';
-                return;
-            }
-            clearTimeout(addressDebounceTimer);
-            addressDebounceTimer = setTimeout(() => {
-                if (currentLang === 'ru') {
-                    fetchDaDataSuggestions(query, addressInput.dataset.ddCity || 'Москва');
-                } else {
-                    fetchOSMSuggestions(query, addressInput.dataset.osmCity || 'Dubai');
-                }
-            }, DEBOUNCE_DELAY);
+            fetchSuggestions(query);
         });
 
         addressInput.addEventListener('focus', function() {
             const query = this.value.trim();
-            if (query.length >= 2 && suggestionsList.innerHTML) {
-                suggestionsList.classList.add('show');
-            }
+            if (query.length >= 2 && suggestionsList.innerHTML) suggestionsList.classList.add('show');
         });
 
         document.addEventListener('click', function(e) {
-            if (!addressInput.contains(e.target) && !suggestionsList.contains(e.target)) {
-                suggestionsList.classList.remove('show');
-            }
+            if (!addressInput.contains(e.target) && !suggestionsList.contains(e.target)) suggestionsList.classList.remove('show');
         });
 
         addressInput.addEventListener('keydown', function(e) {
@@ -1311,66 +1187,15 @@
                 const addressField = document.getElementById('addressField');
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
+                    trackGA4Event('add_shipping_info', { shipping_tier: 'courier', currency: currentLang === 'en' ? 'AED' : 'RUB', value: 800 });
+                    ymTrack('delivery_courier_selected');
                 } else {
                     addressField.style.display = 'none';
+                    trackGA4Event('add_shipping_info', { shipping_tier: 'pickup', currency: currentLang === 'en' ? 'AED' : 'RUB', value: 0 });
+                    ymTrack('delivery_pickup_selected');
                 }
             });
         });
-    }
-
-    async function fetchDaDataSuggestions(query, city) {
-        const suggestionsList = document.getElementById('addressSuggestions');
-        const loadingIndicator = document.getElementById('addressLoading');
-        loadingIndicator.classList.add('show');
-        try {
-            const response = await fetch(DADATA_URL, {
-                method: 'POST', mode: 'cors',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${DADATA_API_KEY}` },
-                body: JSON.stringify({ query: query, count: 5, locations: [{ city: city }] })
-            });
-            if (!response.ok) throw new Error('API error');
-            const data = await response.json();
-            suggestionsList.innerHTML = data.suggestions.map(s => `
-                <div class="suggestion-item" data-value="${escapeHtml(s.value)}" data-full="${escapeHtml(JSON.stringify(s.data))}">
-                    <div class="suggestion-main">${highlightMatch(s.value, query)}</div>
-                </div>
-            `).join('');
-            suggestionsList.classList.add('show');
-        } catch (e) {
-            console.error('DaData error', e);
-            suggestionsList.innerHTML = `<div class="suggestion-item" style="color:#e74c3c">Ошибка загрузки</div>`;
-            suggestionsList.classList.add('show');
-        } finally {
-            loadingIndicator.classList.remove('show');
-        }
-    }
-
-    async function fetchOSMSuggestions(query, city) {
-        const suggestionsList = document.getElementById('addressSuggestions');
-        const loadingIndicator = document.getElementById('addressLoading');
-        loadingIndicator.classList.add('show');
-        try {
-            const bbox = '54.8,24.7,55.6,25.3';
-            const url = `${PHOTON_URL}q=${encodeURIComponent(query)}&limit=5&lang=en&countrycode=ae&bbox=${bbox}`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Network error');
-            const data = await response.json();
-            suggestionsList.innerHTML = data.features.map(f => {
-                const p = f.properties;
-                const text = [p.name, p.street, p.city, p.state].filter(Boolean).join(', ');
-                return `<div class="suggestion-item" data-value="${text}" data-full="${escapeHtml(JSON.stringify(p))}">
-                    <div class="suggestion-main">${highlightMatch(text, query)}</div>
-                    <div class="suggestion-details">${p.city || p.state || 'Dubai'}</div>
-                </div>`;
-            }).join('');
-            suggestionsList.classList.add('show');
-        } catch (e) {
-            console.error('OSM error', e);
-            suggestionsList.innerHTML = `<div class="suggestion-item" style="color:#e74c3c">Error loading suggestions</div>`;
-            suggestionsList.classList.add('show');
-        } finally {
-            loadingIndicator.classList.remove('show');
-        }
     }
 
     function selectAddressSuggestion(value, fullJson) {
@@ -1408,7 +1233,6 @@
     function initDateRestrictions() {
         const dateInput = document.getElementById('date');
         const timeInput = document.getElementById('time');
-        
         if (!dateInput || !timeInput) return;
         
         const availableDays = [5, 6, 0]; // Пятница, Суббота, Воскресенье
@@ -1429,12 +1253,10 @@
         dateInput.addEventListener('change', function() {
             const selectedDate = new Date(this.value);
             const dayOfWeek = selectedDate.getDay();
-            
             if (!availableDays.includes(dayOfWeek)) {
                 alert(currentLang === 'ru' 
                     ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' 
                     : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
-                
                 let newDate = new Date(selectedDate);
                 while (!availableDays.includes(newDate.getDay())) {
                     newDate.setDate(newDate.getDate() + 1);
@@ -1446,9 +1268,7 @@
         timeInput.addEventListener('change', function() {
             const time = this.value;
             if (time < '17:00' || time > '23:00') {
-                alert(currentLang === 'ru'
-                    ? 'Доступное время: 17:00 - 23:00'
-                    : 'Available time: 17:00 - 23:00');
+                alert(currentLang === 'ru' ? 'Доступное время: 17:00 - 23:00' : 'Available time: 17:00 - 23:00');
                 this.value = '18:00';
             }
         });
@@ -1456,20 +1276,26 @@
 
     // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🔍 DOM загружен, начинаем инициализацию...');
-        
+        // 1. Инициализация языка
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
+        // 2. 📊 GA4: просмотр страницы оформления (отложенный)
         setTimeout(() => {
-            document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
-                const key = savedLang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
-                if (el.dataset[key]) { el.placeholder = el.dataset[key]; }
+            trackGA4Event('page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                page_path: '/checkout.html',
+                language: currentLang,
+                cart_items: cart.length,
+                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
             });
-            const dateInput = document.getElementById('date');
-            if (dateInput) { dateInput.setAttribute('lang', savedLang); }
-        }, 100);
+        }, 1000);
         
+        // 🎯 Метрика: страница оформления загружена
+        ymTrack('checkout_viewed', { lang: currentLang, cart_items: cart.length });
+        
+        // 3. Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -1487,138 +1313,79 @@
             });
         }
         
+        // 4. Рендер сводки заказа
         renderOrderSummary();
         updateCartCount();
         
-        // 📊 GA4: просмотр страницы оформления
-        trackGA4Event('page_view', {
-            page_title: document.title,
-            page_location: window.location.href,
-            page_path: '/checkout.html',
-            language: currentLang,
-            cart_items: cart.length,
-            cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-        });
-        
-        // 🎯 Метрика: страница оформления загружена
-        ymTrack('checkout_viewed', { lang: currentLang, cart_items: cart.length });
-        
-        const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
-        const addressField = document.getElementById('addressField');
-        deliveryRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'courier') {
-                    addressField.style.display = 'block';
-                    
-                    // 📊 GA4: выбран курьер
-                    trackGA4Event('add_shipping_info', {
-                        shipping_tier: 'courier',
-                        currency: currentLang === 'en' ? 'AED' : 'RUB',
-                        value: 800
-                    });
-                    
-                    // 🎯 Метрика: выбран курьер
-                    ymTrack('delivery_courier_selected');
-                } else {
-                    addressField.style.display = 'none';
-                    
-                    // 📊 GA4: выбран самовывоз
-                    trackGA4Event('add_shipping_info', {
-                        shipping_tier: 'pickup',
-                        currency: currentLang === 'en' ? 'AED' : 'RUB',
-                        value: 0
-                    });
-                    
-                    // 🎯 Метрика: выбран самовывоз
-                    ymTrack('delivery_pickup_selected');
-                }
+        // 5. Навигация
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href?.includes('contacts')) { ymTrack('nav_contacts_click'); trackGA4Event('click', { link_text: 'contacts', page: 'checkout' }); }
+                else if (href?.includes('boxes.html')) { ymTrack('nav_order_click'); trackGA4Event('click', { link_text: 'order_box', page: 'checkout' }); }
+                else if (href?.includes('index.html') && !href.includes('#')) { ymTrack('nav_home_click'); trackGA4Event('click', { link_text: 'home', page: 'checkout' }); }
             });
         });
         
-        // 📊 GA4: отслеживание выбора оплаты
-        document.querySelectorAll('input[name="payment"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                // 📊 GA4: добавление информации об оплате
-                trackGA4Event('add_payment_info', {
-                    payment_type: this.value,
-                    currency: currentLang === 'en' ? 'AED' : 'RUB'
-                });
-                
-                // 🎯 Метрика: выбран способ оплаты
-                ymTrack('payment_selected', { method: this.value });
-            });
-        });
-        
-        // 🎯 Метрика: клик по кнопке "Отмена"
-        document.getElementById('cancelBtn')?.addEventListener('click', function() {
-            ymTrack('checkout_cancelled', { cart_items: cart.length });
-            window.location.href = 'boxes.html';
-        });
-        
-        // 🎯 Метрика: клик по соцсетям
+        // 6. Соцсети
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
                 const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
                 ymTrack(goalId);
+                trackGA4Event('social_click', { platform: platform, page: 'checkout' });
             });
         });
         
-        // 🎯 Метрика: изменение количества товара в сводке
+        // 7. Изменение количества товара
         document.getElementById('orderItemsContainer')?.addEventListener('click', function(e) {
             const btn = e.target.closest('.quantity-btn');
             const removeBtn = e.target.closest('.order-item-remove');
-            
             if (btn) {
                 const itemId = parseInt(btn.dataset.itemId);
                 const action = btn.dataset.action;
                 const item = cart.find(i => i.id === itemId);
-                if (item) {
-                    ymTrack('cart_quantity_changed', {
-                        product_id: item.productId,
-                        action: action,
-                        new_quantity: action === 'increase' ? item.quantity + 1 : item.quantity - 1
-                    });
-                }
+                if (item) ymTrack('cart_quantity_changed', { product_id: item.productId, action: action, new_quantity: action === 'increase' ? item.quantity + 1 : item.quantity - 1 });
             }
-            
             if (removeBtn) {
                 const itemId = parseInt(removeBtn.dataset.itemId);
                 const item = cart.find(i => i.id === itemId);
-                if (item) {
-                    ymTrack('cart_item_removed', {
-                        product_id: item.productId,
-                        product_name: item.name
-                    });
-                }
+                if (item) ymTrack('cart_item_removed', { product_id: item.productId, product_name: item.name });
             }
         });
         
-        // ✅ Инициализация ограничений даты и времени
+        // 8. Выбор оплаты
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                trackGA4Event('add_payment_info', { payment_type: this.value, currency: currentLang === 'en' ? 'AED' : 'RUB' });
+                ymTrack('payment_selected', { method: this.value });
+            });
+        });
+        
+        // 9. Кнопка "Отмена"
+        document.getElementById('cancelBtn')?.addEventListener('click', function() {
+            ymTrack('checkout_cancelled', { cart_items: cart.length });
+            window.location.href = 'boxes.html';
+        });
+        
+        // 10. Инициализация ограничений даты и времени
         initDateRestrictions();
         
-        // ===== ОТПРАВКА ЗАКАЗА =====
-        const checkoutForm = document.getElementById('checkoutForm');
-        console.log('✅ Форма найдена:', !!checkoutForm);
+        // 11. Инициализация автодополнения адреса
+        initAddressAutocomplete();
         
+        // 12. Обработка формы
+        const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
             checkoutForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                console.log('✅ Форма отправлена, начинаем обработку...');
                 
                 const submitBtn = document.getElementById('submitBtn');
                 const name = document.getElementById('name').value.trim();
                 const phone = document.getElementById('phone').value.trim();
                 
-                console.log('📝 Имя:', name, '| Телефон:', phone);
-                console.log('🛒 Корзина:', cart.length, 'товаров');
+                if (!name || !phone) { alert(translations[currentLang].validationError); return; }
                 
-                if (!name || !phone) { 
-                    alert(translations[currentLang].validationError); 
-                    return; 
-                }
-                
-                // ✅ ПРОВЕРКА ЧЕКБОКСА СОГЛАСИЯ
                 const consentCheckbox = document.getElementById('consentCheckbox');
                 if (consentCheckbox && !consentCheckbox.checked) {
                     alert(translations[currentLang].consentError);
@@ -1631,18 +1398,14 @@
                 }
                 
                 if (cart.length === 0) {
-                    alert(currentLang === 'ru' ? 
-                        'Корзина пуста! Добавьте товары перед оформлением заказа.' : 
-                        'Cart is empty! Please add items before checkout.');
+                    alert(currentLang === 'ru' ? 'Корзина пуста! Добавьте товары перед оформлением заказа.' : 'Cart is empty! Please add items before checkout.');
                     return;
                 }
                 
                 const date = document.getElementById('date').value;
                 const time = document.getElementById('time').value;
                 if (!date || !time) {
-                    alert(currentLang === 'ru' ?
-                        'Пожалуйста, выберите дату и время доставки.' :
-                        'Please select delivery date and time.');
+                    alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время доставки.' : 'Please select delivery date and time.');
                     submitBtn.disabled = false;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1655,26 +1418,20 @@
                 submitBtn.disabled = true;
                 const btnText = submitBtn.querySelector('.btn-text');
                 const btnLoading = submitBtn.querySelector('.btn-loading');
-                
                 if (btnText) btnText.style.display = 'none';
                 if (btnLoading) btnLoading.style.display = 'inline';
                 
-                // Генерируем уникальный номер заказа
                 const orderNumber = generateOrderNumber();
-                console.log('🔢 Номер заказа:', orderNumber);
                 
                 const orderData = {
                     orderNumber: orderNumber,
                     createdAt: new Date().toISOString(),
-                    name, 
-                    phone, 
+                    name, phone, 
                     messenger: document.getElementById('messenger').value,
                     delivery: document.querySelector('input[name="delivery"]:checked')?.value,
                     address: document.getElementById('address').value,
-                    addressStructured: document.getElementById('address')?.dataset.structured ? 
-                        JSON.parse(document.getElementById('address').dataset.structured) : null,
-                    date: date, 
-                    time: time,
+                    addressStructured: document.getElementById('address')?.dataset.structured ? JSON.parse(document.getElementById('address').dataset.structured) : null,
+                    date: date, time: time,
                     payment: document.querySelector('input[name="payment"]:checked')?.value,
                     comment: document.getElementById('comment').value,
                     items: cart.map(item => ({
@@ -1687,90 +1444,61 @@
                     lang: currentLang
                 };
                 
-                console.log('📦 Полный заказ:', orderData);
-                
                 try {
-                    // 📊 GA4: начало оформления (если не было отправлено ранее)
+                    // 📊 GA4: начало оформления
                     trackGA4Event('begin_checkout', {
                         currency: orderData.currency,
                         value: orderData.total,
                         items: orderData.items.map(item => ({
-                            item_id: item.productId,
-                            item_name: item.name,
-                            price: item.price,
-                            quantity: item.quantity,
+                            item_id: item.productId, item_name: item.name,
+                            price: item.price, quantity: item.quantity,
                             item_category: 'gastronomic_box'
                         }))
                     });
-                    
-                    // 🎯 Метрика: начало оформления
                     ymTrack('checkout_start');
                     
-                    // 1. Отправляем уведомления владельцу
-                    console.log('📤 Отправка уведомлений...');
+                    // Отправка уведомлений
                     await notifyOwner(orderData);
-                    console.log('✅ Уведомления отправлены');
                     
-                    // 2. Сохраняем заказ в sessionStorage
+                    // Сохранение заказа
                     sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
-                    console.log('💾 Заказ сохранён в sessionStorage');
                     
-                    // 📊 GA4: успешная покупка (E-commerce)
+                    // 📊 GA4: успешная покупка
                     trackGA4Event('purchase', {
                         transaction_id: orderData.orderNumber,
                         currency: orderData.currency,
                         value: orderData.total,
                         shipping: orderData.delivery === 'courier' ? 800 : 0,
                         items: orderData.items.map(item => ({
-                            item_id: item.productId,
-                            item_name: item.name,
-                            price: item.price,
-                            quantity: item.quantity,
+                            item_id: item.productId, item_name: item.name,
+                            price: item.price, quantity: item.quantity,
                             item_category: 'gastronomic_box',
                             item_variant: `${item.options?.persons || 2} persons`
                         }))
                     });
                     
                     // 🎯 Метрика: успешный заказ + e-commerce
-                    ymTrack('order_success', {
-                        order_number: orderData.orderNumber,
-                        total: orderData.total,
-                        currency: orderData.currency
-                    });
+                    ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
                     ymEcommercePurchase(orderData);
                     
-                    // 3. Очищаем корзину
-                    cart = []; 
-                    saveCart(); 
-                    updateCartCount(); 
-                    renderOrderSummary();
-                    console.log('🗑️ Корзина очищена');
+                    // Очистка корзины
+                    cart = []; saveCart(); updateCartCount(); renderOrderSummary();
                     
-                    // 4. Переходим на страницу благодарности
-                    console.log('🚀 Переход на thank-you.html...');
+                    // Переход на thank-you
                     window.location.href = 'thank-you.html';
                     
                 } catch (error) {
                     console.error('❌ Ошибка при оформлении заказа:', error);
                     alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.\n\n' + error.message);
-                    
-                    // 📊 GA4: ошибка оформления
-                    trackGA4Event('checkout_error', {
-                        error_message: error.message,
-                        page_location: window.location.href
-                    });
-                    
+                    trackGA4Event('checkout_error', { error_message: error.message, page_location: window.location.href });
                     submitBtn.disabled = false;
                     if (btnText) btnText.style.display = 'inline';
                     if (btnLoading) btnLoading.style.display = 'none';
                 }
             });
-        } else {
-            console.error('❌ Форма checkout не найдена!');
         }
         
-        initAddressAutocomplete();
-        console.log('✅ checkout.html ready! GA4: G-L8704SB9ZW, Language: ' + currentLang.toUpperCase());
+        console.log(`✅ checkout.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
     });
     
     // ✅ Слушаем изменения localStorage
