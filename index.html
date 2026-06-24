@@ -34,7 +34,7 @@
     <meta name="ICBM" content="55.7887, 37.5314">
     <meta name="distribution" content="global">
     
-    <!-- ===== OPEN GRAPH (VK, Telegram, Facebook) ===== -->
+    <!-- ===== OPEN GRAPH ===== -->
     <meta property="og:type" content="restaurant">
     <meta property="og:site_name" content="Вестник Гедонизма">
     <meta property="og:title" content="Вестник Гедонизма — Доставка гастрономических боксов в Москве">
@@ -59,7 +59,7 @@
     <meta name="twitter:image" content="https://byshura.ru/favicon-512.png">
     <meta name="twitter:image:alt" content="Вестник Гедонизма">
     
-    <!-- ===== ТЕЛЕГРАМ СПЕЦИФИЧНЫЕ ===== -->
+    <!-- ===== ТЕЛЕГРАМ ===== -->
     <meta name="telegram:channel" content="@sash_shura">
     
     <!-- ===== ТЕМА И МОБИЛЬНЫЕ ПРИЛОЖЕНИЯ ===== -->
@@ -83,12 +83,16 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
     <link rel="manifest" href="/site.webmanifest">
     
-    <!-- ===== ШРИФТЫ ===== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- ===== PRELOAD КРИТИЧНЫХ РЕСУРСОВ ===== -->
+    <link rel="preload" as="image" href="images/main-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="images/main-1.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" crossorigin>
     
-    <!-- ===== GOOGLE ANALYTICS 4 ===== -->
+    <!-- ===== КЭШИРОВАНИЕ ===== -->
+    <meta http-equiv="Cache-Control" content="public, max-age=3600">
+    <meta http-equiv="Expires" content="3600">
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 (оптимизировано) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -97,7 +101,8 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: window.location.pathname
+        page_path: window.location.pathname,
+        send_page_view: false
       });
     </script>
     
@@ -114,9 +119,7 @@
                 "description": "Домашний ресторан авторской кухни. Гастрономические боксы с историей и философией наслаждения.",
                 "url": "https://byshura.ru",
                 "logo": "https://byshura.ru/favicon-512.png",
-                "image": [
-                    "https://byshura.ru/favicon-512.png"
-                ],
+                "image": ["https://byshura.ru/favicon-512.png"],
                 "telephone": "+79636221265",
                 "email": "saschhen@gmail.com",
                 "priceRange": "₽₽",
@@ -132,76 +135,25 @@
                     "postalCode": "125040",
                     "addressCountry": "RU"
                 },
-                "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": 55.7887,
-                    "longitude": 37.5314
-                },
-                "openingHoursSpecification": [
-                    {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Friday", "Saturday", "Sunday"],
-                        "opens": "17:00",
-                        "closes": "23:00"
-                    }
-                ],
+                "geo": { "@type": "GeoCoordinates", "latitude": 55.7887, "longitude": 37.5314 },
+                "openingHoursSpecification": [{
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Friday", "Saturday", "Sunday"],
+                    "opens": "17:00", "closes": "23:00"
+                }],
                 "hasMenu": "https://byshura.ru/boxes.html",
-                "sameAs": [
-                    "https://t.me/sash_shura",
-                    "https://instagram.com/sash_shura"
-                ],
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "5.0",
-                    "reviewCount": "10",
-                    "bestRating": "5",
-                    "worstRating": "1"
-                }
+                "sameAs": ["https://t.me/sash_shura", "https://instagram.com/sash_shura"],
+                "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "10", "bestRating": "5", "worstRating": "1" }
             },
             {
-                "@type": "Organization",
-                "@id": "https://byshura.ru/#organization",
-                "name": "Вестник Гедонизма",
-                "url": "https://byshura.ru",
+                "@type": "Organization", "@id": "https://byshura.ru/#organization",
+                "name": "Вестник Гедонизма", "url": "https://byshura.ru",
                 "logo": "https://byshura.ru/favicon-512.png",
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "telephone": "+79636221265",
-                    "contactType": "customer service",
-                    "areaServed": "RU",
-                    "availableLanguage": ["Russian", "English", "Arabic"]
-                }
+                "contactPoint": { "@type": "ContactPoint", "telephone": "+79636221265", "contactType": "customer service", "areaServed": "RU", "availableLanguage": ["Russian", "English", "Arabic"] }
             },
-            {
-                "@type": "WebSite",
-                "@id": "https://byshura.ru/#website",
-                "url": "https://byshura.ru",
-                "name": "Вестник Гедонизма",
-                "publisher": {"@id": "https://byshura.ru/#organization"},
-                "inLanguage": ["ru-RU", "en-US"]
-            },
-            {
-                "@type": "WebPage",
-                "@id": "https://byshura.ru/index.html",
-                "url": "https://byshura.ru/index.html",
-                "name": "Главная — Вестник Гедонизма",
-                "isPartOf": {"@id": "https://byshura.ru/#website"},
-                "about": {"@id": "https://byshura.ru/#restaurant"},
-                "description": "Домашний ресторан авторской кухни с доставкой гастрономических боксов в Москве",
-                "primaryImageOfPage": "https://byshura.ru/favicon-512.png",
-                "inLanguage": "ru-RU"
-            },
-            {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "name": "Главная",
-                        "item": "https://byshura.ru/index.html"
-                    }
-                ]
-            }
+            { "@type": "WebSite", "@id": "https://byshura.ru/#website", "url": "https://byshura.ru", "name": "Вестник Гедонизма", "publisher": {"@id": "https://byshura.ru/#organization"}, "inLanguage": ["ru-RU", "en-US"] },
+            { "@type": "WebPage", "@id": "https://byshura.ru/index.html", "url": "https://byshura.ru/index.html", "name": "Главная — Вестник Гедонизма", "isPartOf": {"@id": "https://byshura.ru/#website"}, "about": {"@id": "https://byshura.ru/#restaurant"}, "description": "Домашний ресторан авторской кухни с доставкой гастрономических боксов в Москве", "primaryImageOfPage": "https://byshura.ru/favicon-512.png", "inLanguage": "ru-RU" },
+            { "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://byshura.ru/index.html" }] }
         ]
     }
     </script>
@@ -254,13 +206,7 @@
         .hero-slider { height: 100%; width: 100%; }
         .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .hero-slide.active { opacity: 1; }
-        .hero-image { 
-            width: 100%; 
-            height: 100%; 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
-        }
+        .hero-image { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; will-change: transform; }
         .hero-content { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; }
         
         /* ✅ УВЕЛИЧЕННАЯ И ЯРКАЯ КНОПКА ORDER BOX */
@@ -284,44 +230,26 @@
             position: relative;
             overflow: hidden;
             animation: pulse-glow 3s ease-in-out infinite;
+            will-change: transform, box-shadow;
         }
         
         @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 8px 25px rgba(255,217,61,0.5), 0 4px 10px rgba(0,0,0,0.2);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 12px 35px rgba(255,217,61,0.8), 0 6px 15px rgba(0,0,0,0.3);
-                transform: scale(1.02);
-            }
+            0%, 100% { box-shadow: 0 8px 25px rgba(255,217,61,0.5), 0 4px 10px rgba(0,0,0,0.2); transform: scale(1); }
+            50% { box-shadow: 0 12px 35px rgba(255,217,61,0.8), 0 6px 15px rgba(0,0,0,0.3); transform: scale(1.02); }
         }
         
         .btn-order::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: left 0.5s ease;
         }
-        
-        .btn-order:hover::before {
-            left: 100%;
-        }
-        
+        .btn-order:hover::before { left: 100%; }
         .btn-order:hover {
             background: linear-gradient(135deg, #ffc94d 0%, #ffd93d 100%);
             transform: translateY(-4px) scale(1.03);
             box-shadow: 0 15px 40px rgba(255,217,61,0.7), 0 8px 20px rgba(0,0,0,0.25);
         }
-        
-        .btn-order:active {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 6px 20px rgba(255,217,61,0.6), 0 3px 8px rgba(0,0,0,0.2);
-        }
+        .btn-order:active { transform: translateY(-2px) scale(1.01); box-shadow: 0 6px 20px rgba(255,217,61,0.6), 0 3px 8px rgba(0,0,0,0.2); }
         
         .slider-dots { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
         .dot { width: 20px; height: 20px; border-radius: 50%; background: transparent; border: 3px solid white; cursor: pointer; transition: all 0.3s; min-width: 20px; min-height: 20px; }
@@ -330,31 +258,14 @@
         /* ABOUT */
         .about { padding: 60px 0; background: white; }
         .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .about-card { display: flex; gap: 20px; align-items: flex-start; padding: 20px; border-radius: 12px; transition: transform 0.3s, box-shadow 0.3s; }
-        .about-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(7,3,149,0.1); }
-        .about-image { 
-            width: 100px; 
-            height: 100px; 
-            background-size: cover; 
-            background-position: center; 
-            border-radius: 8px; 
-            flex-shrink: 0;
-            background-color: #f0f0f0;
-        }
+        .about-card { display: flex; gap: 20px; align-items: flex-start; padding: 20px; border-radius: 12px; transition: box-shadow 0.3s; }
+        .about-card:hover { box-shadow: 0 10px 30px rgba(7,3,149,0.1); }
+        .about-image { width: 100px; height: 100px; background-size: cover; background-position: center; border-radius: 8px; flex-shrink: 0; background-color: #f0f0f0; }
         .about-content h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
         .about-content p { font-size: 14px; color: #555; margin-bottom: 0; }
         
         /* PICKUP */
-        .pickup { 
-            position: relative; 
-            height: 100vh; 
-            min-height: 400px; 
-            background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)) center/cover; 
-            display: flex; 
-            align-items: center; 
-            color: white; 
-            transition: background-image 0.3s ease;
-        }
+        .pickup { position: relative; height: 100vh; min-height: 400px; background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)) center/cover; display: flex; align-items: center; color: white; transition: background-image 0.3s ease; }
         .pickup-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
         .pickup-title { font-size: 37px; font-weight: 500; margin-bottom: 20px; }
         .pickup-descr { font-size: 17px; opacity: 0.9; line-height: 1.8; }
@@ -373,53 +284,17 @@
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
         
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) */
-        .legal-links-ru {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        .legal-links-ru a {
-            font-size: 12px;
-            color: #666;
-            transition: color 0.3s;
-        }
-        .legal-links-ru a:hover {
-            color: #070395;
-        }
-        .legal-divider {
-            color: #ccc;
-        }
-        
-        /* ✅ СКРЫВАЕМ легальные ссылки для EN версии */
-        html[lang="en"] .legal-links-ru {
-            display: none !important;
-        }
-        
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ для EN версии */
-        .legal-links-en {
-            display: none;
-            gap: 15px;
-            align-items: center;
-        }
-        .legal-links-en a {
-            font-size: 12px;
-            color: #666;
-            transition: color 0.3s;
-        }
-        .legal-links-en a:hover {
-            color: #070395;
-        }
-        
-        /* ✅ ПОКАЗЫВАЕМ легальные ссылки для EN версии */
-        html[lang="en"] .legal-links-en {
-            display: flex !important;
-        }
-        
-        /* ✅ СКРЫВАЕМ легальные ссылки для RU версии */
-        html[lang="ru"] .legal-links-en {
-            display: none !important;
-        }
+        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ */
+        .legal-links-ru { display: flex; gap: 15px; align-items: center; }
+        .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-ru a:hover { color: #070395; }
+        .legal-divider { color: #ccc; }
+        html[lang="en"] .legal-links-ru { display: none !important; }
+        .legal-links-en { display: none; gap: 15px; align-items: center; }
+        .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-en a:hover { color: #070395; }
+        html[lang="en"] .legal-links-en { display: flex !important; }
+        html[lang="ru"] .legal-links-en { display: none !important; }
         
         /* КОРЗИНА */
         .cart-modal { display: none; }
@@ -445,28 +320,19 @@
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .footer-logo { width: 42px; height: 42px; font-size: 20px; }
-            
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-shop { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            
-            /* ✅ УВЕЛИЧЕННАЯ КНОПКА НА ПЛАНШЕТАХ */
-            .btn-order {
-                padding: 22px 55px;
-                font-size: 15px;
-                min-height: 60px;
-                min-width: 260px;
-            }
-            
+            .btn-order { padding: 22px 55px; font-size: 15px; min-height: 60px; min-width: 260px; animation: none !important; }
             .slider-dots { bottom: 35px; }
             .dot { width: 16px; height: 16px; min-width: 16px; min-height: 16px; }
-            
             .pickup-title { font-size: 28px; }
             .pickup-descr { font-size: 16px; }
             .pickup-icon { width: 38px; height: 38px; font-size: 18px; }
             .pickup-text { font-size: 16px; }
             .about-card { flex-direction: column; text-align: center; gap: 18px; padding: 20px; }
+            .about-card:hover { transform: none !important; }
             .about-image { width: 90px; height: 90px; }
             .about-content h3 { font-size: 19px; }
             .about-content p { font-size: 14px; }
@@ -479,33 +345,16 @@
             .hero { margin-top: 42px; min-height: 600px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .footer-logo { width: 40px; height: 40px; font-size: 18px; }
-            
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-shop { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            
-            /* ✅ КНОПКА ПОДНЯТА ВЫШЕ ДЛЯ ЛУЧШЕЙ ВИДИМОСТИ */
             .hero-content { bottom: 150px !important; }
-            
-            .btn-order {
-                padding: 20px 45px !important;
-                font-size: 15px !important;
-                font-weight: 700 !important;
-                border-radius: 32px !important;
-                min-height: 60px !important;
-                min-width: 240px !important;
-                letter-spacing: 1px !important;
-                box-shadow: 0 6px 20px rgba(255,217,61,0.6), 0 3px 8px rgba(0,0,0,0.2) !important;
-            }
-            .btn-order:hover {
-                transform: translateY(-3px) scale(1.02) !important;
-            }
-            
+            .btn-order { padding: 20px 45px !important; font-size: 15px !important; font-weight: 700 !important; border-radius: 32px !important; min-height: 60px !important; min-width: 240px !important; letter-spacing: 1px !important; box-shadow: 0 6px 20px rgba(255,217,61,0.6), 0 3px 8px rgba(0,0,0,0.2) !important; }
+            .btn-order:hover { transform: translateY(-3px) scale(1.02) !important; }
             .slider-dots { bottom: 25px; gap: 10px; }
             .dot { width: 14px; height: 14px; border-width: 2.5px; min-width: 14px; min-height: 14px; }
-            
             .pickup-title { font-size: 24px; margin-bottom: 18px; }
             .pickup-descr { font-size: 15px; line-height: 1.7; }
             .pickup-icon { width: 36px; height: 36px; font-size: 16px; }
@@ -523,79 +372,27 @@
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; }
-            
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (RU) */
-            .legal-links-ru {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px 10px;
-                align-items: center;
-                justify-content: center;
-                margin-top: 8px;
-                width: 100%;
-            }
-            .legal-links-ru a {
-                font-size: 11px;
-                color: #666;
-                white-space: nowrap;
-            }
-            .legal-links-ru a:hover {
-                color: #070395;
-            }
-            .legal-divider {
-                color: #ccc;
-                font-size: 11px;
-            }
-            
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (EN) */
-            .legal-links-en {
-                display: none;
-                flex-wrap: wrap;
-                gap: 5px 10px;
-                align-items: center;
-                justify-content: center;
-                margin-top: 8px;
-                width: 100%;
-            }
-            html[lang="en"] .legal-links-en {
-                display: flex !important;
-            }
-            .legal-links-en a {
-                font-size: 11px;
-                color: #666;
-                white-space: nowrap;
-            }
-            .legal-links-en a:hover {
-                color: #070395;
-            }
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-links-ru a:hover { color: #070395; }
+            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            html[lang="en"] .legal-links-en { display: flex !important; }
+            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-links-en a:hover { color: #070395; }
         }
         
-        /* ✅ ДЛЯ ОЧЕНЬ ВЫСОКИХ ЭКРАНОВ (iPhone Pro Max, Plus) — КНОПКА ЕЩЁ ВЫШЕ */
         @media (max-width: 480px) and (min-height: 850px) {
             .hero-content { bottom: 200px !important; }
-            .btn-order {
-                padding: 22px 50px !important;
-                min-height: 64px !important;
-                min-width: 260px !important;
-                font-size: 16px !important;
-            }
+            .btn-order { padding: 22px 50px !important; min-height: 64px !important; min-width: 260px !important; font-size: 16px !important; }
             .slider-dots { bottom: 40px; }
         }
         
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-shop { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            
-            /* ✅ КНОПКА ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
-            .btn-order {
-                padding: 18px 35px !important;
-                font-size: 14px !important;
-                min-width: 220px !important;
-                min-height: 56px !important;
-            }
-            
+            .btn-order { padding: 18px 35px !important; font-size: 14px !important; min-width: 220px !important; min-height: 56px !important; }
             .about-image { width: 70px; height: 70px; }
             .about-content h3 { font-size: 16px; }
             .about-content p { font-size: 12px; }
@@ -615,14 +412,7 @@
        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-       ym(110092456, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true,
-            ecommerce:"dataLayer"
-       });
+       ym(110092456, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
@@ -651,14 +441,8 @@
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
-                            <span class="lang-descr">Русский (Москва)</span>
-                        </a>
-                        <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
-                            <span class="lang-descr">English (Dubai)</span>
-                        </a>
+                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
                     </div>
                 </div>
             </div>
@@ -675,23 +459,23 @@
         <div class="hero-slider">
             <div class="hero-slide active">
                 <div class="hero-image" 
-                     style="background-image: url('images/main-1-mobile.jpg');"
-                     data-desktop="images/main-1.jpg"
-                     data-mobile="images/main-1-mobile.jpg">
+                     data-bg-desktop="images/main-1.webp"
+                     data-bg-mobile="images/main-1-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
             </div>
             <div class="hero-slide">
                 <div class="hero-image" 
-                     style="background-image: url('images/main-2-mobile.jpg');"
-                     data-desktop="images/main-2.jpg"
-                     data-mobile="images/main-2-mobile.jpg">
+                     data-bg-desktop="images/main-2.webp"
+                     data-bg-mobile="images/main-2-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
             </div>
             <div class="hero-slide">
                 <div class="hero-image" 
-                     style="background-image: url('images/main-3-mobile.jpg');"
-                     data-desktop="images/main-3.jpg"
-                     data-mobile="images/main-3-mobile.jpg">
+                     data-bg-desktop="images/main-3.webp"
+                     data-bg-mobile="images/main-3-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
             </div>
         </div>
@@ -711,9 +495,9 @@
             <div class="about-grid">
                 <div class="about-card fade-in">
                     <div class="about-image" 
-                         style="background-image: url('images/team-mobile.jpg');"
-                         data-desktop="images/team.jpg"
-                         data-mobile="images/team-mobile.jpg">
+                         data-bg-desktop="images/team.webp"
+                         data-bg-mobile="images/team-mobile.webp"
+                         data-bg-loaded="false">
                     </div>
                     <div class="about-content">
                         <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
@@ -722,9 +506,9 @@
                 </div>
                 <div class="about-card fade-in">
                     <div class="about-image" 
-                         style="background-image: url('images/experience-mobile.jpg');"
-                         data-desktop="images/experience.jpg"
-                         data-mobile="images/experience-mobile.jpg">
+                         data-bg-desktop="images/experience.webp"
+                         data-bg-mobile="images/experience-mobile.webp"
+                         data-bg-loaded="false">
                     </div>
                     <div class="about-content">
                         <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
@@ -733,9 +517,9 @@
                 </div>
                 <div class="about-card fade-in">
                     <div class="about-image" 
-                         style="background-image: url('images/music-mobile.jpg');"
-                         data-desktop="images/music.jpg"
-                         data-mobile="images/music-mobile.jpg">
+                         data-bg-desktop="images/music.webp"
+                         data-bg-mobile="images/music-mobile.webp"
+                         data-bg-loaded="false">
                     </div>
                     <div class="about-content">
                         <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
@@ -747,12 +531,11 @@
     </section>
 
     <!-- PICKUP -->
-    <section class="pickup" 
-             id="contacts"
-             data-desktop-ru="images/address_ru.png"
-             data-mobile-ru="images/address_ru_mobile.png"
-             data-desktop-en="images/address_en.png"
-             data-mobile-en="images/address_en_mobile.png">
+    <section class="pickup" id="contacts"
+             data-desktop-ru="images/address_ru.webp"
+             data-mobile-ru="images/address_ru_mobile.webp"
+             data-desktop-en="images/address_en.webp"
+             data-mobile-en="images/address_en_mobile.webp">
         <div class="container pickup-container">
             <div>
                 <h2 class="pickup-title" data-i18n="pickupTitle">САМОВЫВОЗ</h2>
@@ -773,24 +556,20 @@
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.png" alt="Telegram">
+                    <img src="images/tg_logo.png" alt="Telegram" loading="lazy">
                 </a>
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.png" alt="MAX">
+                    <img src="images/max_logo.png" alt="MAX" loading="lazy">
                 </a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.png" alt="Instagram">
+                    <img src="images/ins_logo.png" alt="Instagram" loading="lazy">
                 </a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) -->
             <div class="legal-links-ru">
                 <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
                 <a href="offer.html" target="_blank">Публичная оферта</a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для EN) -->
             <div class="legal-links-en">
                 <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
@@ -806,8 +585,7 @@
             pageTitle: "Вестник Гедонизма — Доставка гастрономических боксов в Москве | Пт-Вс 17:00-23:00",
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
-            heroBtn: "ЗАКАЗАТЬ БОКС",
-            btnOrder: "СДЕЛАТЬ ЗАКАЗ",
+            heroBtn: "ЗАКАЗАТЬ БОКС", btnOrder: "СДЕЛАТЬ ЗАКАЗ",
             card1Title: "НАША КОМАНДА", card1Descr: "Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше",
             card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей",
             card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
@@ -820,8 +598,7 @@
             pageTitle: "Hedonism Dispatch — Gastro Box Delivery in Moscow | Fri-Sun 17:00-23:00",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
-            heroBtn: "ORDER BOX",
-            btnOrder: "PLACE ORDER",
+            heroBtn: "ORDER BOX", btnOrder: "PLACE ORDER",
             card1Title: "OUR TEAM", card1Descr: "Our family consists of two people. But we're sure there will be more of us soon",
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
             card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
@@ -834,12 +611,12 @@
 
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+    const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER =====
+    // ===== GA4 HELPER (оптимизировано) =====
     function trackGA4Event(eventName, params) {
-        if (typeof gtag === 'function') {
+        if (isProduction && typeof gtag === 'function') {
             gtag('event', eventName, params);
-            console.log('📊 GA4 event:', eventName, params);
         }
     }
 
@@ -847,59 +624,78 @@
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
             ym(110092456, 'reachGoal', goalId, params);
-            console.log('🎯 Метрика: цель "' + goalId + '" отправлена');
         }
     }
 
-    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ ФОНОВОГО ИЗОБРАЖЕНИЯ PICKUP
+    // ===== DEBOUNCE (для оптимизации) =====
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => { clearTimeout(timeout); func(...args); };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ СЧЁТЧИКА КОРЗИНЫ
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            cartCount.textContent = totalQty > 0 ? totalQty : '0';
+        }
+    }
+
+    // ✅ LAZY LOAD ДЛЯ BACKGROUND-ИЗОБРАЖЕНИЙ
+    function lazyLoadBackgrounds() {
+        const images = document.querySelectorAll('.hero-image[data-bg-desktop], .about-image[data-bg-desktop]');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    if (el.dataset.bgLoaded === 'false') {
+                        const isMobile = window.innerWidth <= 768;
+                        const src = isMobile ? el.dataset.bgMobile : el.dataset.bgDesktop;
+                        if (src) {
+                            el.style.backgroundImage = `url('${src}')`;
+                            el.dataset.bgLoaded = 'true';
+                        }
+                        observer.unobserve(el);
+                    }
+                }
+            });
+        }, { rootMargin: '100px' });
+        images.forEach(img => observer.observe(img));
+    }
+
+    // ✅ ОБНОВЛЕНИЕ ФОНОВОГО ИЗОБРАЖЕНИЯ PICKUP
     function updatePickupBackground() {
         const pickupSection = document.querySelector('.pickup');
         if (pickupSection) {
             const isMobile = window.innerWidth <= 768;
-            
             let bgImage;
             if (currentLang === 'ru') {
-                bgImage = isMobile 
-                    ? pickupSection.getAttribute('data-mobile-ru') 
-                    : pickupSection.getAttribute('data-desktop-ru');
+                bgImage = isMobile ? pickupSection.getAttribute('data-mobile-ru') : pickupSection.getAttribute('data-desktop-ru');
             } else {
-                bgImage = isMobile 
-                    ? pickupSection.getAttribute('data-mobile-en') 
-                    : pickupSection.getAttribute('data-desktop-en');
+                bgImage = isMobile ? pickupSection.getAttribute('data-mobile-en') : pickupSection.getAttribute('data-desktop-en');
             }
-            
             if (bgImage) {
                 pickupSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('${bgImage}')`;
             }
         }
     }
 
-    // ✅ ФУНКЦИЯ АДАПТАЦИИ ИЗОБРАЖЕНИЙ ПОД УСТРОЙСТВО
+    // ✅ АДАПТАЦИЯ ИЗОБРАЖЕНИЙ ПОД УСТРОЙСТВО
     function adaptImagesForDevice() {
         const isMobile = window.innerWidth <= 768;
-        
-        document.querySelectorAll('.hero-image').forEach(img => {
-            const mobileSrc = img.getAttribute('data-mobile');
-            const desktopSrc = img.getAttribute('data-desktop');
-            
-            if (isMobile && mobileSrc) {
-                img.style.backgroundImage = `url('${mobileSrc}')`;
-            } else if (!isMobile && desktopSrc) {
-                img.style.backgroundImage = `url('${desktopSrc}')`;
+        document.querySelectorAll('.hero-image[data-bg-desktop], .about-image[data-bg-desktop]').forEach(img => {
+            if (img.dataset.bgLoaded === 'true') {
+                const src = isMobile ? img.dataset.bgMobile : img.dataset.bgDesktop;
+                if (src && !img.style.backgroundImage.includes(src)) {
+                    img.style.backgroundImage = `url('${src}')`;
+                }
             }
         });
-        
-        document.querySelectorAll('.about-image').forEach(img => {
-            const mobileSrc = img.getAttribute('data-mobile');
-            const desktopSrc = img.getAttribute('data-desktop');
-            
-            if (isMobile && mobileSrc) {
-                img.style.backgroundImage = `url('${mobileSrc}')`;
-            } else if (!isMobile && desktopSrc) {
-                img.style.backgroundImage = `url('${desktopSrc}')`;
-            }
-        });
-        
         updatePickupBackground();
     }
 
@@ -915,91 +711,64 @@
             }
         });
         
-        // ✅ Обновляем флаг и код языка
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            if (lang === 'ru') {
-                langFlag.textContent = '🇷🇺';
-                langCurrent.textContent = 'RU';
-            } else {
-                langFlag.textContent = '🇦🇪';
-                langCurrent.textContent = 'EN';
-            }
+            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
+            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
         }
         
         updatePickupBackground();
         document.documentElement.lang = lang;
-        
-        // 📊 GA4: смена языка
-        trackGA4Event('language_change', {
-            from_language: prevLang,
-            to_language: lang,
-            page_location: window.location.href
-        });
-        
-        // 🎯 Метрика: смена языка
-        ymTrack('lang_switch', { from: prevLang, to: lang });
-        
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
         
-        console.log(`🌐 Language switched: ${prevLang} → ${lang.toUpperCase()}`);
+        trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
+        ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    function updateCartCount() {
-        const cartCount = document.getElementById('cartCount');
-        if (cartCount) {
-            const totalQty = Array.isArray(cart) ? 
-                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
-            cartCount.textContent = totalQty > 0 ? totalQty : '0';
-        }
-    }
-
+    // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
+        // ✅ 1. Загружаем язык
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
         applyLanguage(langToUse);
         
-        adaptImagesForDevice();
+        // ✅ 2. Lazy load изображений
+        lazyLoadBackgrounds();
         
-        // 📊 GA4: просмотр главной страницы
-        trackGA4Event('page_view', {
-            page_title: document.title,
-            page_location: window.location.href,
-            page_path: '/index.html',
-            language: currentLang
-        });
+        // ✅ 3. Обновляем счётчик корзины
+        updateCartCount();
+        
+        // 📊 GA4: просмотр главной страницы (отложенный)
+        setTimeout(() => {
+            trackGA4Event('page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                page_path: '/index.html',
+                language: currentLang
+            });
+        }, 1000);
         
         // 🎯 Метрика: главная загружена
         ymTrack('index_viewed', { lang: currentLang });
         
+        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
-        
         if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                langDropdown.classList.toggle('show');
-            });
-            
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
             langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+                link.addEventListener('click', e => {
+                    e.preventDefault(); e.stopPropagation();
                     const selectedLink = e.target.closest('a');
-                    if (selectedLink) {
-                        applyLanguage(selectedLink.dataset.lang);
-                    }
+                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
                     setTimeout(() => langDropdown.classList.remove('show'), 100);
                 });
             });
-            
-            document.addEventListener('click', function(e) {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-                    langDropdown.classList.remove('show');
-                }
+            document.addEventListener('click', e => {
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
             });
         }
         
@@ -1014,15 +783,7 @@
             slides[index].classList.add('active');
             dots[index].classList.add('active');
             currentSlide = index;
-            
-            // 📊 GA4: смена слайда в hero
-            trackGA4Event('hero_slide_change', {
-                slide_index: index,
-                slide_number: index + 1,
-                total_slides: slides.length
-            });
-            
-            // 🎯 Метрика: смена слайда
+            trackGA4Event('hero_slide_change', { slide_index: index, slide_number: index + 1, total_slides: slides.length });
             ymTrack('hero_slide_changed', { slide: index + 1 });
         }
         
@@ -1033,182 +794,104 @@
             });
         });
         
-        setInterval(() => {
-            goToSlide((currentSlide + 1) % slides.length);
-        }, 5000);
+        setInterval(() => { goToSlide((currentSlide + 1) % slides.length); }, 5000);
         
         // ===== КНОПКИ ЗАКАЗА =====
-        
-        // 🎯 Метрика + GA4: клик по кнопке корзины
         document.getElementById('cartBtn')?.addEventListener('click', function() {
-            trackGA4Event('cart_click', {
-                page: 'index',
-                cart_items: cart.length,
-                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-            });
-            
+            trackGA4Event('cart_click', { page: 'index', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
             ymTrack('cart_click_index', { cart_items: cart.length });
-            
             if (cart.length === 0) {
                 const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
-                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) {
-                    window.location.href = 'boxes.html';
-                    return;
-                }
+                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = 'boxes.html'; return; }
             }
             window.location.href = 'checkout.html';
         });
         
-        // 🎯 Метрика + GA4: клик по кнопке "ЗАКАЗАТЬ БОКС" в HERO
         document.getElementById('orderBtn')?.addEventListener('click', function() {
-            trackGA4Event('cta_click', {
-                cta_name: 'order_box',
-                cta_location: 'hero',
-                page: 'index'
-            });
-            
+            trackGA4Event('cta_click', { cta_name: 'order_box', cta_location: 'hero', page: 'index' });
             ymTrack('index_order_click', { source: 'hero' });
             window.location.href = 'boxes.html';
         });
         
-        // 🎯 Метрика + GA4: клик по кнопке "СДЕЛАТЬ ЗАКАЗ" в шапке
         document.getElementById('shopBtn')?.addEventListener('click', function() {
-            trackGA4Event('cta_click', {
-                cta_name: 'order_box',
-                cta_location: 'header',
-                page: 'index'
-            });
-            
+            trackGA4Event('cta_click', { cta_name: 'order_box', cta_location: 'header', page: 'index' });
             ymTrack('index_order_click', { source: 'header' });
             window.location.href = 'boxes.html';
         });
         
-        // 🎯 Метрика + GA4: навигация
+        // Навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
                 let linkName = 'unknown';
-                
-                if (href === 'boxes.html') {
-                    linkName = 'boxes';
-                    ymTrack('nav_boxes_click');
-                } else if (href === '#contacts' || href.startsWith('#contacts')) {
-                    linkName = 'contacts';
-                    ymTrack('nav_contacts_click');
-                } else if (href === 'history.html') {
-                    linkName = 'history';
-                    ymTrack('nav_history_click');
-                }
-                
-                trackGA4Event('nav_click', {
-                    link_name: linkName,
-                    link_href: href,
-                    page: 'index'
-                });
+                if (href === 'boxes.html') { linkName = 'boxes'; ymTrack('nav_boxes_click'); }
+                else if (href === '#contacts' || href.startsWith('#contacts')) { linkName = 'contacts'; ymTrack('nav_contacts_click'); }
+                else if (href === 'history.html') { linkName = 'history'; ymTrack('nav_history_click'); }
+                trackGA4Event('nav_click', { link_name: linkName, link_href: href, page: 'index' });
             });
         });
         
-        // 🎯 Метрика + GA4: соцсети в футере
+        // Соцсети
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
                 const platformId = platform.toLowerCase().replace(/\s+/g, '_');
-                
-                trackGA4Event('social_click', {
-                    platform: platformId,
-                    page: 'index'
-                });
-                
+                trackGA4Event('social_click', { platform: platformId, page: 'index' });
                 ymTrack('click_' + platformId);
             });
         });
         
-        // 🎯 Метрика + GA4: скролл до секций
-        const trackedSections = {
-            'catalog': { goal: 'scroll_about', ga_event: 'section_view', section: 'about' },
-            'contacts': { goal: 'scroll_pickup', ga_event: 'section_view', section: 'pickup' }
-        };
-        
+        // Скролл до секций (debounced)
+        const trackedSections = { 'catalog': { goal: 'scroll_about', ga_event: 'section_view', section: 'about' }, 'contacts': { goal: 'scroll_pickup', ga_event: 'section_view', section: 'pickup' } };
         const sectionTracked = {};
-        
-        function checkSectionScroll() {
+        const checkSectionScroll = debounce(function() {
             Object.entries(trackedSections).forEach(([id, tracking]) => {
                 const section = document.getElementById(id);
                 if (section && !sectionTracked[tracking.ga_event + '_' + tracking.section]) {
                     const rect = section.getBoundingClientRect();
                     if (rect.top < window.innerHeight * 0.7) {
-                        // 📊 GA4: просмотр секции
-                        trackGA4Event(tracking.ga_event, {
-                            section_name: tracking.section,
-                            page: 'index'
-                        });
-                        
-                        // 🎯 Метрика: просмотр секции
+                        trackGA4Event(tracking.ga_event, { section_name: tracking.section, page: 'index' });
                         ymTrack(tracking.goal);
                         sectionTracked[tracking.ga_event + '_' + tracking.section] = true;
                     }
                 }
             });
-        }
-        
+        }, 200);
         window.addEventListener('scroll', checkSectionScroll);
         setTimeout(checkSectionScroll, 1000);
         
-        // 📊 GA4: глубина скролла (25%, 50%, 75%, 100%)
+        // Глубина скролла
         let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
-        
         window.addEventListener('scroll', function() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = Math.round((scrollTop / docHeight) * 100);
-            
             [25, 50, 75, 100].forEach(percent => {
                 if (scrollPercent >= percent && !scrollDepthTracked[percent]) {
-                    trackGA4Event('scroll_depth', {
-                        percent: percent,
-                        page: 'index'
-                    });
+                    trackGA4Event('scroll_depth', { percent: percent, page: 'index' });
                     scrollDepthTracked[percent] = true;
                 }
             });
         });
         
-        // 📊 GA4: время на странице (30 сек, 60 сек)
-        setTimeout(() => {
-            trackGA4Event('engagement', {
-                page: 'index',
-                time_on_page: 30
-            });
-        }, 30000);
+        // Время на странице
+        setTimeout(() => { trackGA4Event('engagement', { page: 'index', time_on_page: 30 }); }, 30000);
+        setTimeout(() => { trackGA4Event('engagement', { page: 'index', time_on_page: 60 }); }, 60000);
         
-        setTimeout(() => {
-            trackGA4Event('engagement', {
-                page: 'index',
-                time_on_page: 60
-            });
-        }, 60000);
-        
-        // ===== АНИМАЦИИ =====
+        // Анимации появления
         const fadeElements = document.querySelectorAll('.fade-in');
-        fadeElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        });
-        
-        function checkFade() {
+        fadeElements.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; });
+        const checkFade = debounce(function() {
             fadeElements.forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
+                    el.style.opacity = '1'; el.style.transform = 'translateY(0)';
                 }
             });
-        }
-        
+        }, 100);
         window.addEventListener('scroll', checkFade);
         checkFade();
         
-        // ===== HEADER EFFECT =====
+        // Header effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
             if (header) {
@@ -1217,10 +900,8 @@
             }
         });
         
-        // ===== RESIZE HANDLER =====
-        window.addEventListener('resize', adaptImagesForDevice);
-        
-        updateCartCount();
+        // Resize handler (debounced)
+        window.addEventListener('resize', debounce(adaptImagesForDevice, 250));
         
         console.log(`✅ index.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
     });
