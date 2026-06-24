@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Политика конфиденциальности — Вестник Гедонизма</title>
-        <!-- Google tag (gtag.js) -->
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
-      gtag('config', 'G-L8704SB9ZW');
+      gtag('config', 'G-L8704SB9ZW', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
     </script>
+    
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://byshura.ru/privacy-policy.html">
     
@@ -40,10 +45,12 @@
             backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; }
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; font-size: 24px;
         }
+        .header-right { display: flex; align-items: center; }
         .btn-back { 
             border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; 
             font-weight: 600; font-size: 13px; transition: all 0.3s;
@@ -96,6 +103,21 @@
             color: #666;
             font-size: 13px;
         }
+        .footer-links {
+            margin-top: 10px;
+        }
+        .footer-links a {
+            color: #070395;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .footer-links a:hover {
+            color: #FFD93D;
+        }
+        .footer-divider {
+            color: #ccc;
+            margin: 0 5px;
+        }
         
         /* MOBILE */
         @media (max-width: 768px) {
@@ -110,8 +132,7 @@
         }
     </style>
     
-    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
-    <!-- Yandex.Metrika counter -->
+    <!-- 🔹 YANDEX METRIKA -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -128,15 +149,18 @@
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
     <!-- HEADER -->
     <header class="header">
         <div class="container header-container">
-            <a href="index.html" class="logo" aria-label="Главная">🍋</a>
-            <a href="index.html" class="btn-back" id="btnBack">← НАЗАД</a>
+            <div class="header-left">
+                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+            </div>
+            <div class="header-right">
+                <a href="index.html" class="btn-back" id="btnBack">← НАЗАД</a>
+            </div>
         </div>
     </header>
 
@@ -146,14 +170,14 @@
             <h1 class="policy-title">Политика конфиденциальности</h1>
             <div class="policy-meta">
                 Последнее обновление: 20 июня 2026 г.<br>
-                Действует на территории Российской Федерации
+                Действует для пользователей в Российской Федерации
             </div>
             
             <section class="policy-section">
                 <h3>1. Общие положения</h3>
-                <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных пользователей сайта <strong>byshura.ru</strong> (далее — «Сайт»), осуществляемого оператором персональных данных — <strong>Нольфина Александра Александровна</strong>, зарегистрированная в качестве плательщика налога на профессиональный доход (самозанятая), ИНН 501006570884 (далее — «Оператор»).</p>
-                <p>Политика разработана в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных», Федеральным законом от 27.11.2018 № 422-ФЗ «О проведении эксперимента по установлению специального налогового режима "Налог на профессиональный доход"» и иными нормативными актами РФ.</p>
-                <p>Используя Сайт и оставляя свои данные, вы выражаете полное и безоговорочное согласие с настоящей Политикой.</p>
+                <p>Настоящая Политика конфиденциальности (далее — «Политика») регулирует порядок обработки и защиты персональных данных пользователей сайта <strong>byshura.ru</strong> (далее — «Сайт»), оператором которого является <strong>Нольфина Александра Александровна</strong>, зарегистрированная в качестве плательщика налога на профессиональный доход (самозанятая), ИНН 501006570884 (далее — «Оператор»).</p>
+                <p>Политика разработана в соответствии с Федеральным законом РФ от 27.07.2006 № 152-ФЗ «О персональных данных» и иными нормативными актами Российской Федерации.</p>
+                <p>Используя Сайт и предоставляя свои персональные данные, Вы выражаете полное и безоговорочное согласие с настоящей Политикой.</p>
             </section>
             
             <section class="policy-section">
@@ -164,7 +188,7 @@
                     <li>Номер телефона;</li>
                     <li>Адрес электронной почты;</li>
                     <li>Адрес доставки (город, улица, дом, квартира);</li>
-                    <li>Данные о предпочтениях в еде (аллергены, исключения);</li>
+                    <li>Данные о пищевых предпочтениях (аллергены, исключения);</li>
                     <li>Технические данные: IP-адрес, данные cookies, информация о браузере.</li>
                 </ul>
                 <p>Сайт не собирает и не хранит данные банковских карт — все платежи обрабатываются через защищённые сторонние сервисы.</p>
@@ -172,32 +196,32 @@
             
             <section class="policy-section">
                 <h3>3. Цели обработки данных</h3>
-                <p>Персональные данные обрабатываются для:</p>
+                <p>Персональные данные обрабатываются для следующих целей:</p>
                 <ul>
-                    <li>Оформления и доставки заказов;</li>
-                    <li>Связи с клиентом для подтверждения заказа;</li>
-                    <li>Информирования о статусе заказа и акциях (только с согласия);</li>
-                    <li>Улучшения качества сервиса и аналитики;</li>
-                    <li>Выполнения требований законодательства РФ, в том числе налогового учёта в рамках специального налогового режима «Налог на профессиональный доход».</li>
+                    <li>Обработка и доставка заказов;</li>
+                    <li>Связь с заказчиком для подтверждения заказа;</li>
+                    <li>Информирование о статусе заказа и акциях (только с согласия);</li>
+                    <li>Улучшение качества обслуживания и аналитика;</li>
+                    <li>Соблюдение требований законодательства РФ.</li>
                 </ul>
             </section>
             
             <section class="policy-section">
-                <h3>4. Правовые основания</h3>
+                <h3>4. Правовые основания обработки</h3>
                 <p>Обработка персональных данных осуществляется на основании:</p>
                 <ul>
                     <li>Согласия субъекта персональных данных (при оформлении заказа);</li>
                     <li>Исполнения договора с пользователем;</li>
-                    <li>Выполнения требований законодательства (в т.ч. Федерального закона № 422-ФЗ о НПД, налогового учёта).</li>
+                    <li>Выполнения требований законодательства (в т.ч. налогового учёта в рамках НПД).</li>
                 </ul>
             </section>
             
             <section class="policy-section">
-                <h3>5. Условия обработки и хранения</h3>
-                <p>Персональные данные хранятся на серверах, расположенных на территории РФ, с соблюдением требований безопасности.</p>
-                <p>Срок хранения данных:</p>
+                <h3>5. Хранение и защита данных</h3>
+                <p>Персональные данные хранятся на серверах, расположенных на территории Российской Федерации, с соблюдением требований безопасности.</p>
+                <p>Сроки хранения данных:</p>
                 <ul>
-                    <li>Данные заказа — 5 лет (требование законодательства о бухгалтерском и налоговом учёте);</li>
+                    <li>Данные заказов — 5 лет (требование налогового и бухгалтерского учёта);</li>
                     <li>Контактные данные для рассылок — до отзыва согласия;</li>
                     <li>Технические логи — до 90 дней.</li>
                 </ul>
@@ -210,32 +234,32 @@
                 <ul>
                     <li>Доставки заказа (курьерские службы);</li>
                     <li>Обработки платежей (платёжные агрегаторы);</li>
-                    <li>Выполнения требований законодательства (по запросу уполномоченных органов, в т.ч. ФНС России в рамках администрирования налога на профессиональный доход).</li>
+                    <li>Выполнения требований законодательства (по запросу уполномоченных органов, включая ФНС России в рамках администрирования налога на профессиональный доход).</li>
                 </ul>
-                <p>Все партнёры обязуются соблюдать конфиденциальность и требования 152-ФЗ.</p>
+                <p>Все партнёры обязаны соблюдать конфиденциальность и требования законодательства РФ о защите персональных данных.</p>
             </section>
             
             <section class="policy-section">
-                <h3>7. Права пользователя</h3>
+                <h3>7. Ваши права</h3>
                 <p>Вы имеете право:</p>
                 <ul>
-                    <li>Отзывать согласие на обработку персональных данных;</li>
-                    <li>Требовать уточнения, блокирования или уничтожения своих данных;</li>
-                    <li>Запрашивать информацию об обработке ваших данных;</li>
+                    <li>Отозвать согласие на обработку персональных данных;</li>
+                    <li>Запросить уточнение, блокирование или удаление своих данных;</li>
+                    <li>Запросить информацию об обработке ваших данных;</li>
                     <li>Обжаловать действия Оператора в Роскомнадзор или суд.</li>
                 </ul>
-                <p>Для реализации прав направьте запрос на email: <a href="mailto:saschhen@gmail.com" id="emailLink">saschhen@gmail.com</a></p>
+                <p>Для реализации ваших прав направьте запрос на email: <a href="mailto:saschhen@gmail.com" id="emailLink">saschhen@gmail.com</a></p>
             </section>
             
             <section class="policy-section">
                 <h3>8. Cookies и аналитика</h3>
-                <p>Сайт использует файлы cookies для:</p>
+                <p>Сайт использует cookies для:</p>
                 <ul>
                     <li>Сохранения языка и настроек;</li>
-                    <li>Аналитики посещаемости (Яндекс.Метрика, Google Analytics);</li>
-                    <li>Корректной работы корзины.</li>
+                    <li>Аналитики посещаемости сайта (Яндекс.Метрика, Google Analytics);</li>
+                    <li>Корректной работы корзины заказов.</li>
                 </ul>
-                <p>Вы можете отключить cookies в настройках браузера, но это может ограничить функционал Сайта.</p>
+                <p>Вы можете отключить cookies в настройках браузера, но это может ограничить функциональность Сайта.</p>
             </section>
             
             <section class="policy-section">
@@ -262,14 +286,26 @@
     <footer class="footer">
         <div class="container">
             © ВЕСТНИК ГЕДОНИЗМА, 2025<br>
-            <a href="index.html" class="footer-link">Главная</a> | 
-            <a href="privacy-policy.html" class="footer-link">Политика конфиденциальности</a> | 
-            <a href="offer.html" class="footer-link">Публичная оферта</a>
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">Главная</a>
+                <span class="footer-divider">|</span>
+                <a href="privacy-policy.html" class="footer-link">Политика конфиденциальности</a>
+                <span class="footer-divider">|</span>
+                <a href="offer.html" class="footer-link">Публичная оферта</a>
+            </div>
         </div>
     </footer>
 
     <!-- JAVASCRIPT -->
     <script>
+    // ===== GA4 HELPER =====
+    function trackGA4Event(eventName, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+            console.log('📊 GA4 event:', eventName, params);
+        }
+    }
+
     // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
@@ -279,50 +315,123 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // 🎯 Метрика: страница загружена
-        ymTrack('privacy_viewed', { page: 'privacy_policy' });
+        // 📊 GA4: просмотр страницы политики конфиденциальности
+        trackGA4Event('page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: '/privacy-policy.html',
+            language: 'ru',
+            page_type: 'legal_document'
+        });
         
-        // 🎯 Метрика: клик по кнопке "НАЗАД"
+        // 🎯 Метрика: страница политики (RU) загружена
+        ymTrack('privacy_viewed', { page: 'privacy_policy', lang: 'ru' });
+        
+        // 🎯 Метрика + GA4: клик по кнопке "НАЗАД"
         document.getElementById('btnBack')?.addEventListener('click', function() {
+            trackGA4Event('click', {
+                element: 'back_button',
+                page: 'privacy-ru',
+                destination: 'index.html'
+            });
+            
             ymTrack('privacy_back_click');
         });
         
-        // 🎯 Метрика: клик по email-ссылкам
+        // 🎯 Метрика + GA4: клики по email-ссылкам
         document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
             link.addEventListener('click', function() {
-                ymTrack('privacy_email_click', { email: this.href.replace('mailto:', '') });
+                const email = this.href.replace('mailto:', '');
+                
+                trackGA4Event('email_click', {
+                    email: email,
+                    page: 'privacy-ru',
+                    link_context: 'privacy_contact'
+                });
+                
+                ymTrack('privacy_email_click', { email: email });
             });
         });
         
-        // 🎯 Метрика: клик по ссылкам в футере
+        // 🎯 Метрика + GA4: клики по ссылкам в футере
         document.querySelectorAll('.footer-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
+                let linkName = 'unknown';
+                
                 if (href === 'index.html') {
+                    linkName = 'home';
                     ymTrack('privacy_footer_home_click');
                 } else if (href === 'privacy-policy.html') {
+                    linkName = 'privacy_policy';
                     ymTrack('privacy_footer_privacy_click');
                 } else if (href === 'offer.html') {
+                    linkName = 'public_offer';
                     ymTrack('privacy_footer_offer_click');
                 }
+                
+                trackGA4Event('footer_link_click', {
+                    link_name: linkName,
+                    link_href: href,
+                    page: 'privacy-ru'
+                });
             });
         });
         
-        // 🎯 Метрика: скролл до конца документа (прочитал политику)
+        // 🎯 Метрика + GA4: скролл до конца политики (пользователь прочитал)
         let privacyRead = false;
         window.addEventListener('scroll', function() {
             const card = document.querySelector('.policy-card');
             if (card && !privacyRead) {
                 const rect = card.getBoundingClientRect();
-                // Если пользователь доскроллил до конца карточки (80%+)
+                // Если пользователь проскроллил 80%+ карточки
                 if (rect.bottom < window.innerHeight * 0.2) {
+                    trackGA4Event('policy_read', {
+                        page: 'privacy-ru',
+                        read_percent: 100
+                    });
+                    
                     ymTrack('privacy_fully_read');
                     privacyRead = true;
                 }
             }
         });
         
-        console.log('✅ privacy-policy.html ready with Yandex.Metrika tracking');
+        // 📊 GA4: глубина скролла (25%, 50%, 75%, 100%)
+        let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+            
+            [25, 50, 75, 100].forEach(percent => {
+                if (scrollPercent >= percent && !scrollDepthTracked[percent]) {
+                    trackGA4Event('scroll_depth', {
+                        percent: percent,
+                        page: 'privacy-ru'
+                    });
+                    scrollDepthTracked[percent] = true;
+                }
+            });
+        });
+        
+        // 📊 GA4: время на странице (30 сек, 60 сек)
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'privacy-ru',
+                time_on_page: 30
+            });
+        }, 30000);
+        
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'privacy-ru',
+                time_on_page: 60
+            });
+        }, 60000);
+        
+        console.log('✅ privacy-policy.html ready! GA4: G-L8704SB9ZW, Language: RU');
     });
     </script>
 </body>
