@@ -159,8 +159,28 @@
     </script>
     
     <style>
+        /* ✅ ЕДИНЫЙ ШРИФТ ДЛЯ ВСЕГО САЙТА (как на boxes.html) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; }
+        body { 
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: #070395; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* ✅ ЕДИНЫЙ СТИЛЬ ДЛЯ ВСЕХ ТЕКСТОВЫХ ЭЛЕМЕНТОВ */
+        h1, h2, h3, h4, h5, h6, p, span, a, button, input, select, textarea, label {
+            font-family: inherit;
+            font-weight: 400;
+        }
+        
+        /* ✅ ЖИРНЫЙ ШРИФТ ДЛЯ ЗАГОЛОВКОВ И КНОПОК */
+        h1, h2, h3, .nav-link, .btn-shop, .btn-order, .btn-back, .footer-copyright, .box-title, .timeline-year, .timeline-title, .philosophy-card h3 {
+            font-weight: 600;
+        }
+        
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
         a:hover { color: #FFD93D; }
         button { cursor: pointer; border: none; background: none; font: inherit; }
@@ -274,11 +294,11 @@
         .pickup-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .pickup-text { font-size: 17px; line-height: 1.5; text-align: left; }
         
-        /* FOOTER */
+        /* FOOTER - ✅ БЕЗ КНОПКИ С ЛИМОНОМ */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        /* ✅ УБРАЛИ .footer-logo (кнопку с лимоном) */
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -319,7 +339,6 @@
             .hero { margin-top: 42px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            .footer-logo { width: 42px; height: 42px; font-size: 20px; }
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
@@ -337,6 +356,7 @@
             .about-content h3 { font-size: 19px; }
             .about-content p { font-size: 14px; }
             .header-right { gap: 10px; }
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) { 
@@ -344,7 +364,6 @@
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .hero { margin-top: 42px; min-height: 600px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            .footer-logo { width: 40px; height: 40px; font-size: 18px; }
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
@@ -549,10 +568,10 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER - ✅ БЕЗ КНОПКИ С ЛИМОНОМ -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
+            <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
