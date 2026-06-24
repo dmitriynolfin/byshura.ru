@@ -21,15 +21,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
-    <!-- Google tag (gtag.js) -->
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
-      gtag('config', 'G-L8704SB9ZW');
+      gtag('config', 'G-L8704SB9ZW', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
     </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -359,7 +364,6 @@
     </style>
     
     <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -376,7 +380,6 @@
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -404,7 +407,6 @@
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
-                    <!-- ✅ ДОБАВЛЕН ФЛАГ -->
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
@@ -700,12 +702,20 @@
         }
     };
 
-    // ✅ ГЛОБАЛЬНАЯ ИНИЦИАЛИЗАЦИЯ КОРЗИНЫ ИЗ LOCALSTORAGE
+    // ✅ ГЛОБАЛЬНАЯ ИНИЦИАЛИЗАЦИЯ
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     let currentLang = 'ru';
     let currentProduct = null;
     let currentGalleryImages = [];
     let currentGalleryIndex = 0;
+
+    // ===== GA4 HELPER =====
+    function trackGA4Event(eventName, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+            console.log('📊 GA4 event:', eventName, params);
+        }
+    }
 
     // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
@@ -725,13 +735,14 @@
         }
     }
 
-    // ✅ ФУНКЦИЯ СОХРАНЕНИЯ КОРЗИНЫ В LOCALSTORAGE
+    // ✅ ФУНКЦИЯ СОХРАНЕНИЯ КОРЗИНЫ
     function saveCart() {
         localStorage.setItem('hedonism_cart', JSON.stringify(cart));
     }
 
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
+        const prevLang = currentLang;
         currentLang = lang;
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -745,7 +756,7 @@
         const currency = lang === 'en' ? 'AED' : '₽';
         currencyEl.forEach(el => el.textContent = currency);
         
-        // ✅ ИСПРАВЛЕНО: Обновляем флаг и код языка
+        // ✅ Обновляем флаг и код языка
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
@@ -758,17 +769,21 @@
             }
         }
         
-        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
+        localStorage.setItem('hedonism_lang', lang);
+        updateCartCount();
+        
+        // 📊 GA4: смена языка
+        trackGA4Event('language_change', {
+            from_language: prevLang,
+            to_language: lang,
+            page_location: window.location.href
+        });
         
         // 🎯 Метрика: смена языка
-        ymTrack('lang_switch', { from: currentLang === 'ru' ? 'en' : 'ru', to: lang });
+        ymTrack('lang_switch', { from: prevLang, to: lang });
         
-        localStorage.setItem('hedonism_lang', lang);
-        
-        // ✅ Обновляем счётчик корзины при смене языка
-        updateCartCount();
-        console.log(`🌐 Language switched to: ${lang.toUpperCase()}`);
+        console.log(`🌐 Language switched: ${prevLang} → ${lang.toUpperCase()}`);
     }
 
     function initGallery(images) {
@@ -818,7 +833,18 @@
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
         
-        // 🎯 Метрика: открыта модальная настройка товара
+        // 📊 GA4: просмотр товара
+        trackGA4Event('view_item', {
+            items: [{
+                item_id: productData.id,
+                item_name: productData.name,
+                price: productData.price,
+                currency: currentLang === 'en' ? 'AED' : 'RUB',
+                item_category: 'gastronomic_box'
+            }]
+        });
+        
+        // 🎯 Метрика: открыта модальная настройка
         ymTrack('box_modal_opened', { product_id: productData.id, product_name: productData.name });
     }
     
@@ -834,11 +860,11 @@
         return { persons, allergens };
     }
     
-    // ✅ ДОБАВЛЕНИЕ В КОРЗИНУ С ПЕРЕВОДОМ АЛЛЕРГЕНОВ И СОХРАНЕНИЕМ
+    // ✅ ДОБАВЛЕНИЕ В КОРЗИНУ С GA4 + МЕТРИКА
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
         
-        // ✅ Перевод аллергенов на выбранный язык
+        // ✅ Перевод аллергенов
         const allergensTranslated = options.allergens.map(allergen => {
             const allergenMap = {
                 'Грибы': translations[currentLang].allergen1,
@@ -867,6 +893,20 @@
         closeProductModal();
         showCartPrompt();
         
+        // 📊 GA4: добавление в корзину (E-commerce)
+        trackGA4Event('add_to_cart', {
+            currency: currentLang === 'en' ? 'AED' : 'RUB',
+            value: currentProduct.price,
+            items: [{
+                item_id: currentProduct.id,
+                item_name: currentProduct.name,
+                price: currentProduct.price,
+                quantity: 1,
+                item_category: 'gastronomic_box',
+                item_variant: `${options.persons} persons`
+            }]
+        });
+        
         // 🎯 Метрика: товар добавлен в корзину
         ymTrack('box_added_to_cart', {
             product_id: currentProduct.id,
@@ -876,23 +916,6 @@
             persons: options.persons,
             allergens_count: options.allergens.length
         });
-        
-        // 🛒 E-commerce: добавление в корзину
-        if (typeof dataLayer !== 'undefined') {
-            dataLayer.push({
-                'ecommerce': {
-                    'add_to_cart': {
-                        'items': [{
-                            'id': currentProduct.id,
-                            'name': currentProduct.name,
-                            'price': currentProduct.price,
-                            'quantity': 1,
-                            'category': 'gastronomic_box'
-                        }]
-                    }
-                }
-            });
-        }
     }
     
     function showCartPrompt() {
@@ -907,14 +930,28 @@
     
     function goToCheckout() {
         closeCartPrompt();
+        
+        // 📊 GA4: начало оформления
+        trackGA4Event('begin_checkout', {
+            currency: currentLang === 'en' ? 'AED' : 'RUB',
+            value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+            items: cart.map(item => ({
+                item_id: item.productId,
+                item_name: item.name,
+                price: item.price,
+                quantity: item.quantity
+            }))
+        });
+        
         // 🎯 Метрика: переход в корзину
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
+        
         window.location.href = 'checkout.html';
     }
 
     // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
-        // ✅ 1. Сначала загружаем язык
+        // ✅ 1. Загружаем язык
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
@@ -922,6 +959,14 @@
         
         // ✅ 2. Обновляем счётчик корзины
         updateCartCount();
+        
+        // 📊 GA4: просмотр страницы каталога
+        trackGA4Event('page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: '/boxes.html',
+            language: currentLang
+        });
         
         // 🎯 Метрика: страница загружена
         ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 6 });
@@ -954,7 +999,17 @@
                 };
                 const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
                 
-                // 🎯 Метрика: клик по кнопке "Выбрать" для конкретного бокса
+                // 📊 GA4: клик по товару
+                trackGA4Event('select_item', {
+                    items: [{
+                        item_id: productData.id,
+                        item_name: productData.name,
+                        price: productData.price,
+                        item_category: 'gastronomic_box'
+                    }]
+                });
+                
+                // 🎯 Метрика: клик по кнопке "Выбрать"
                 ymTrack('box_select_click', { 
                     product_id: productData.id, 
                     product_name: productData.name,
@@ -973,28 +1028,35 @@
         });
         document.getElementById('modalAddToCart')?.addEventListener('click', () => addToCartWithOptions(getModalOptions()));
         
-        // ✅ ИКОНКА КОРЗИНЫ → СРАЗУ НА CHECKOUT
+        // ✅ ИКОНКА КОРЗИНЫ → CHECKOUT
         document.getElementById('cartBtn')?.addEventListener('click', function() {
-            // 🎯 Метрика: клик по корзине на странице боксов
+            // 📊 GA4: клик по корзине
+            trackGA4Event('cart_click', {
+                cart_items: cart.length,
+                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+            });
+            
+            // 🎯 Метрика: клик по корзине
             ymTrack('cart_click_boxes', { cart_items: cart.length });
+            
             window.location.href = 'checkout.html';
         });
         
-        // 🎯 Метрика: клик по навигационным ссылкам
+        // 🎯 Метрика: навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
-                if (href === 'index.html#contacts' || href.startsWith('#contacts')) {
+                if (href?.includes('contacts')) {
                     ymTrack('nav_contacts_click');
-                } else if (href === 'history.html') {
+                } else if (href?.includes('history')) {
                     ymTrack('nav_history_click');
-                } else if (href === 'index.html') {
+                } else if (href?.includes('index.html') && !href.includes('#')) {
                     ymTrack('nav_home_click');
                 }
             });
         });
         
-        // 🎯 Метрика: клик по соцсетям в футере
+        // 🎯 Метрика: соцсети
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
@@ -1011,7 +1073,7 @@
             if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); 
         });
         
-        // 🎯 Метрика: скролл до футера (просмотр всей страницы)
+        // 🎯 Метрика: скролл до футера
         let footerViewed = false;
         window.addEventListener('scroll', function() {
             const footer = document.querySelector('.footer');
@@ -1024,10 +1086,10 @@
             }
         });
         
-        console.log(`✅ boxes.html ready! Language: ${currentLang.toUpperCase()}, Cart items: ${cart.length}`);
+        console.log(`✅ boxes.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}, Cart: ${cart.length}`);
     });
     
-    // ✅ Слушаем изменения localStorage из других вкладок/страниц
+    // ✅ Слушаем изменения localStorage
     window.addEventListener('storage', function(e) {
         if (e.key === 'hedonism_cart') {
             cart = JSON.parse(e.newValue) || [];
