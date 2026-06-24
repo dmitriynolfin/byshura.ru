@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Публичная оферта — Вестник Гедонизма</title>
-        <!-- Google tag (gtag.js) -->
+    
+    <!-- 🔹 GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
-      gtag('config', 'G-L8704SB9ZW');
+      gtag('config', 'G-L8704SB9ZW', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
     </script>
+    
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://byshura.ru/offer.html">
     
@@ -117,8 +122,7 @@
         }
     </style>
     
-    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
-    <!-- Yandex.Metrika counter -->
+    <!-- 🔹 YANDEX METRIKA -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -135,7 +139,6 @@
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -287,6 +290,14 @@
 
     <!-- JAVASCRIPT -->
     <script>
+    // ===== GA4 HELPER =====
+    function trackGA4Event(eventName, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+            console.log('📊 GA4 event:', eventName, params);
+        }
+    }
+
     // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
@@ -296,50 +307,123 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // 🎯 Метрика: страница загружена
-        ymTrack('offer_viewed', { page: 'public_offer' });
+        // 📊 GA4: просмотр страницы оферты
+        trackGA4Event('page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: '/offer.html',
+            language: 'ru',
+            page_type: 'legal_document'
+        });
         
-        // 🎯 Метрика: клик по кнопке "НАЗАД"
+        // 🎯 Метрика: страница оферты (RU) загружена
+        ymTrack('offer_viewed', { page: 'public_offer', lang: 'ru' });
+        
+        // 🎯 Метрика + GA4: клик по кнопке "НАЗАД"
         document.getElementById('btnBack')?.addEventListener('click', function() {
+            trackGA4Event('click', {
+                element: 'back_button',
+                page: 'offer-ru',
+                destination: 'index.html'
+            });
+            
             ymTrack('offer_back_click');
         });
         
-        // 🎯 Метрика: клик по email-ссылкам
+        // 🎯 Метрика + GA4: клики по email-ссылкам
         document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
             link.addEventListener('click', function() {
-                ymTrack('offer_email_click', { email: this.href.replace('mailto:', '') });
+                const email = this.href.replace('mailto:', '');
+                
+                trackGA4Event('email_click', {
+                    email: email,
+                    page: 'offer-ru',
+                    link_context: 'seller_contact'
+                });
+                
+                ymTrack('offer_email_click', { email: email });
             });
         });
         
-        // 🎯 Метрика: клик по ссылкам в футере
+        // 🎯 Метрика + GA4: клики по ссылкам в футере
         document.querySelectorAll('.footer-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
+                let linkName = 'unknown';
+                
                 if (href === 'index.html') {
+                    linkName = 'home';
                     ymTrack('offer_footer_home_click');
                 } else if (href === 'privacy-policy.html') {
+                    linkName = 'privacy_policy';
                     ymTrack('offer_footer_privacy_click');
                 } else if (href === 'offer.html') {
+                    linkName = 'public_offer';
                     ymTrack('offer_footer_offer_click');
                 }
+                
+                trackGA4Event('footer_link_click', {
+                    link_name: linkName,
+                    link_href: href,
+                    page: 'offer-ru'
+                });
             });
         });
         
-        // 🎯 Метрика: скролл до конца документа (прочитал оферту)
+        // 🎯 Метрика + GA4: скролл до конца оферты (пользователь прочитал)
         let offerRead = false;
         window.addEventListener('scroll', function() {
             const card = document.querySelector('.policy-card');
             if (card && !offerRead) {
                 const rect = card.getBoundingClientRect();
-                // Если пользователь доскроллил до конца карточки (80%+)
+                // Если пользователь проскроллил 80%+ карточки
                 if (rect.bottom < window.innerHeight * 0.2) {
+                    trackGA4Event('offer_read', {
+                        page: 'offer-ru',
+                        read_percent: 100
+                    });
+                    
                     ymTrack('offer_fully_read');
                     offerRead = true;
                 }
             }
         });
         
-        console.log('✅ offer.html ready with Yandex.Metrika tracking');
+        // 📊 GA4: глубина скролла (25%, 50%, 75%, 100%)
+        let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+            
+            [25, 50, 75, 100].forEach(percent => {
+                if (scrollPercent >= percent && !scrollDepthTracked[percent]) {
+                    trackGA4Event('scroll_depth', {
+                        percent: percent,
+                        page: 'offer-ru'
+                    });
+                    scrollDepthTracked[percent] = true;
+                }
+            });
+        });
+        
+        // 📊 GA4: время на странице (30 сек, 60 сек)
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'offer-ru',
+                time_on_page: 30
+            });
+        }, 30000);
+        
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'offer-ru',
+                time_on_page: 60
+            });
+        }, 60000);
+        
+        console.log('✅ offer.html ready! GA4: G-L8704SB9ZW, Language: RU');
     });
     </script>
 </body>
