@@ -133,23 +133,23 @@
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
         
-        /* ✅ КАРТОЧКИ ПЕРСОН С ЦЕНОЙ */
+        /* ✅ КАРТОЧКИ ПЕРСОН С ЦЕНОЙ - ТОЛЬКО ЭМОДЗИ */
         .persons-select { display: flex; gap: 12px; flex-wrap: wrap; }
-        .person-option { flex: 1; min-width: 90px; }
+        .person-option { flex: 1; min-width: 70px; }
         .person-radio { display: none; }
         .person-label { 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             padding: 12px 8px; border: 2px solid #e0e0e0; border-radius: 12px; 
             cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa;
-            min-height: 80px;
+            min-height: 70px;
         }
         .person-label:hover { border-color: #FFD93D; background: #fff9e6; }
         .person-radio:checked + .person-label { 
             background: #070395; color: white; border-color: #070395; 
             box-shadow: 0 4px 12px rgba(7,3,149,0.2); 
         }
-        .person-icon { font-size: 22px; margin-bottom: 4px; }
-        .person-count { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+        .person-icon { font-size: 22px; margin-bottom: 4px; line-height: 1; }
+        .person-count { display: none; } /* ✅ СКРЫВАЕМ ТЕКСТ "2 персоны" и т.д. */
         .person-price { 
             font-size: 14px; font-weight: 600; color: #FFD93D; 
             background: #070395; padding: 4px 10px; border-radius: 12px;
@@ -186,60 +186,29 @@
         .btn-prompt-cart { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
         .btn-prompt-cart:hover { background: #FFD93D; color: #070395; }
         
-        /* FOOTER */
+        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        /* ✅ УБРАЛИ footer-logo (кнопку с лимоном) */
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
         
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) */
-        .legal-links-ru {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        .legal-links-ru a {
-            font-size: 12px;
-            color: #666;
-            transition: color 0.3s;
-        }
-        .legal-links-ru a:hover {
-            color: #070395;
-        }
-        .legal-divider {
-            color: #ccc;
-        }
+        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ */
+        .legal-links-ru { display: flex; gap: 15px; align-items: center; }
+        .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-ru a:hover { color: #070395; }
+        .legal-divider { color: #ccc; }
+        html[lang="en"] .legal-links-ru { display: none !important; }
+        .legal-links-en { display: none; gap: 15px; align-items: center; }
+        .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-en a:hover { color: #070395; }
+        html[lang="en"] .legal-links-en { display: flex !important; }
+        html[lang="ru"] .legal-links-en { display: none !important; }
         
-        /* ✅ СКРЫВАЕМ легальные ссылки для EN версии */
-        html[lang="en"] .legal-links-ru {
-            display: none !important;
-        }
-        
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ для EN версии */
-        .legal-links-en {
-            display: none;
-            gap: 15px;
-            align-items: center;
-        }
-        .legal-links-en a {
-            font-size: 12px;
-            color: #666;
-            transition: color 0.3s;
-        }
-        .legal-links-en a:hover {
-            color: #070395;
-        }
-        
-        /* ✅ ПОКАЗЫВАЕМ легальные ссылки для EN версии */
-        html[lang="en"] .legal-links-en {
-            display: flex !important;
-        }
-        
-        /* ✅ КОРЗИНА СКРЫТА (код оставлен для совместимости) */
+        /* ✅ КОРЗИНА СКРЫТА */
         .cart-modal { display: none; }
         .cart-overlay { display: none; }
         
@@ -261,7 +230,6 @@
             .catalog { padding-top: 112px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            .footer-logo { width: 42px; height: 42px; font-size: 20px; }
             
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
@@ -279,7 +247,6 @@
             .box-feature { font-size: 12px; gap: 8px; margin-bottom: 6px; }
             .box-feature::before { font-size: 14px; }
             .box-price { font-size: 16px; }
-            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             .header-right { gap: 10px; }
             
             .product-modal { width: 95%; max-width: none; max-height: 95vh; }
@@ -293,6 +260,9 @@
             /* ✅ ОТКЛЮЧАЕМ АНИМАЦИИ НА МОБИЛЬНЫХ */
             .btn-order { animation: none !important; }
             .box-card:hover { transform: none !important; }
+            
+            /* ✅ FOOTER КАК НА index.html */
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) { 
@@ -300,7 +270,6 @@
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .catalog { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            .footer-logo { width: 40px; height: 40px; font-size: 18px; }
             
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
@@ -319,67 +288,66 @@
             .box-feature { font-size: 11px; }
             .box-price { font-size: 16px; }
             .box-price .currency { font-size: 13px; }
+            .header-right { gap: 8px; }
+            
+            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            
+            .gallery-slider { height: 180px; }
+            .gallery-nav { width: 32px; height: 32px; font-size: 16px; }
+            .allergen-option { padding: 8px 10px; }
+            .allergen-label { font-size: 13px; }
+            
+            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ */
+            .persons-select { gap: 8px; }
+            .person-option { flex: 1; min-width: 60px; }
+            .person-label { 
+                padding: 10px 4px; 
+                min-height: 60px;
+            }
+            .person-icon { 
+                font-size: 18px; 
+                margin-bottom: 2px;
+            }
+            .person-price { 
+                font-size: 12px; 
+                padding: 3px 8px;
+                margin-top: 2px;
+            }
+            
+            /* ✅ ДЛЯ БОКСА НИКОЛАЯ II: УМЕНЬШАЕМ БЛОКИ С 2 И 4 ЭМОДЗИ */
+            .person-option:nth-child(1) .person-label,
+            .person-option:nth-child(2) .person-label {
+                padding: 8px 2px;
+                min-height: 55px;
+            }
+            .person-option:nth-child(1) .person-icon,
+            .person-option:nth-child(2) .person-icon {
+                font-size: 16px;
+            }
+            /* ✅ БЛОК С 6 ЭМОДЗИ ОСТАЁТСЯ БОЛЬШЕ, ЧТОБЫ ВМЕСТИТЬСЯ В ОДНУ СТРОКУ */
+            .person-option:nth-child(3) .person-label {
+                padding: 10px 4px;
+                min-height: 60px;
+            }
+            .person-option:nth-child(3) .person-icon {
+                font-size: 17px;
+            }
+            
+            /* ✅ FOOTER КАК НА index.html */
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
-            .header-right { gap: 8px; }
             
-            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (RU) */
-            .legal-links-ru {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px 10px;
-                align-items: center;
-                justify-content: center;
-                margin-top: 8px;
-                width: 100%;
-            }
-            .legal-links-ru a {
-                font-size: 11px;
-                color: #666;
-                white-space: nowrap;
-            }
-            .legal-links-ru a:hover {
-                color: #070395;
-            }
-            .legal-divider {
-                color: #ccc;
-                font-size: 11px;
-            }
-            
-            /* ✅ БОЛЕЕ КОМПАКТНЫЕ ЛЕГАЛЬНЫЕ ССЫЛКИ ДЛЯ МОБИЛЬНЫХ (EN) */
-            .legal-links-en {
-                display: none;
-                flex-wrap: wrap;
-                gap: 5px 10px;
-                align-items: center;
-                justify-content: center;
-                margin-top: 8px;
-                width: 100%;
-            }
-            html[lang="en"] .legal-links-en {
-                display: flex !important;
-            }
-            .legal-links-en a {
-                font-size: 11px;
-                color: #666;
-                white-space: nowrap;
-            }
-            .legal-links-en a:hover {
-                color: #070395;
-            }
-            
-            .gallery-slider { height: 180px; }
-            .gallery-nav { width: 32px; height: 32px; font-size: 16px; }
-            .person-label { padding: 10px 6px; font-size: 13px; }
-            .person-icon { font-size: 20px; }
-            .person-count { font-size: 16px; }
-            .allergen-option { padding: 8px 10px; }
-            .allergen-label { font-size: 13px; }
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-links-ru a:hover { color: #070395; }
+            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            html[lang="en"] .legal-links-en { display: flex !important; }
+            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-links-en a:hover { color: #070395; }
         }
         
         @media (max-width: 360px) {
@@ -390,6 +358,15 @@
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
             .gallery-slider { height: 160px; }
+            
+            /* ✅ ЕЩЁ БОЛЕЕ КОМПАКТНЫЕ ЭМОДЗИ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+            .person-option { min-width: 55px; }
+            .person-label { padding: 8px 2px; min-height: 55px; }
+            .person-icon { font-size: 16px; }
+            .person-option:nth-child(1) .person-icon,
+            .person-option:nth-child(2) .person-icon { font-size: 14px; }
+            .person-option:nth-child(3) .person-icon { font-size: 15px; }
+            .person-price { font-size: 11px; padding: 2px 6px; }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -625,10 +602,10 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
+            <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
@@ -675,7 +652,7 @@
                 <div class="modal-section">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
                     <div class="persons-select" id="personsSelect">
-                        <!-- ✅ Карточки персон с ценой (заполняются через JS) -->
+                        <!-- ✅ Карточки персон ТОЛЬКО С ЭМОДЗИ (заполняются через JS) -->
                     </div>
                 </div>
                 <div class="modal-section">
@@ -852,13 +829,14 @@
         return `${amount.toLocaleString('ru-RU')} ₽`;
     }
 
-    // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ПЕРСОН С ЦЕНАМИ
+    // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ
     function renderPersonOptions(productId) {
         const container = document.getElementById('personsSelect');
         const isNicholas = productId === 'box1';
         
         let html = '';
         const persons = [2, 4, 6];
+        // ✅ ТОЛЬКО ЭМОДЗИ, БЕЗ ТЕКСТА
         const icons = ['🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️'];
         
         persons.forEach((count, index) => {
@@ -870,7 +848,6 @@
                     <input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}>
                     <span class="person-label">
                         <span class="person-icon">${icons[index]}</span>
-                        <span class="person-count">${count} ${currentLang === 'ru' ? (count === 6 ? 'персон' : 'персоны') : 'people'}</span>
                         <span class="person-price ${priceClass}">${price}</span>
                     </span>
                 </label>
@@ -999,7 +976,7 @@
         currentProduct = productData;
         document.getElementById('modalProductTitle').textContent = productData.name;
         
-        // ✅ Генерируем карточки персон с ценами
+        // ✅ Генерируем карточки персон ТОЛЬКО С ЭМОДЗИ
         renderPersonOptions(productData.id);
         
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
