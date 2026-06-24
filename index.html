@@ -486,7 +486,9 @@
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-shop { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             
-            /* ✅ МАКСИМАЛЬНО УДОБНАЯ КНОПКА ДЛЯ МОБИЛЬНЫХ */
+            /* ✅ КНОПКА ПОДНЯТА ВЫШЕ ДЛЯ ЛУЧШЕЙ ВИДИМОСТИ */
+            .hero-content { bottom: 140px !important; }
+            
             .btn-order {
                 padding: 20px 45px !important;
                 font-size: 15px !important;
@@ -568,6 +570,18 @@
             .legal-links-en a:hover {
                 color: #070395;
             }
+        }
+        
+        /* ✅ ДЛЯ ОЧЕНЬ ВЫСОКИХ ЭКРАНОВ (iPhone Pro Max, Plus) — КНОПКА ЕЩЁ ВЫШЕ */
+        @media (max-width: 480px) and (min-height: 850px) {
+            .hero-content { bottom: 200px !important; }
+            .btn-order {
+                padding: 22px 50px !important;
+                min-height: 64px !important;
+                min-width: 260px !important;
+                font-size: 16px !important;
+            }
+            .slider-dots { bottom: 40px; }
         }
         
         @media (max-width: 360px) {
