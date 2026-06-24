@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-L8704SB9ZW');
-    </script>
     <!-- ===== БАЗОВЫЕ ТЕГИ ===== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -96,6 +87,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ===== GOOGLE ANALYTICS 4 ===== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L8704SB9ZW', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname
+      });
+    </script>
     
     <!-- ===== SCHEMA.ORG — МИКРОРАЗМЕТКА (JSON-LD) ===== -->
     <script type="application/ld+json">
@@ -591,7 +595,6 @@
     </style>
     
     <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -608,8 +611,6 @@
        });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
 </head>
 <body>
 
@@ -820,6 +821,14 @@
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
+    // ===== GA4 HELPER =====
+    function trackGA4Event(eventName, params) {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params);
+            console.log('📊 GA4 event:', eventName, params);
+        }
+    }
+
     // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
@@ -834,7 +843,6 @@
         if (pickupSection) {
             const isMobile = window.innerWidth <= 768;
             
-            // Определяем какое изображение использовать
             let bgImage;
             if (currentLang === 'ru') {
                 bgImage = isMobile 
@@ -856,7 +864,6 @@
     function adaptImagesForDevice() {
         const isMobile = window.innerWidth <= 768;
         
-        // Адаптация HERO слайдов
         document.querySelectorAll('.hero-image').forEach(img => {
             const mobileSrc = img.getAttribute('data-mobile');
             const desktopSrc = img.getAttribute('data-desktop');
@@ -868,7 +875,6 @@
             }
         });
         
-        // Адаптация ABOUT карточек
         document.querySelectorAll('.about-image').forEach(img => {
             const mobileSrc = img.getAttribute('data-mobile');
             const desktopSrc = img.getAttribute('data-desktop');
@@ -880,12 +886,12 @@
             }
         });
         
-        // ✅ Адаптация PICKUP секции
         updatePickupBackground();
     }
 
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
+        const prevLang = currentLang;
         currentLang = lang;
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -908,17 +914,23 @@
             }
         }
         
-        // ✅ Обновляем фоновое изображение
         updatePickupBackground();
-        
-        // ✅ Обновляем атрибут lang у html для CSS-переключения легальных ссылок
         document.documentElement.lang = lang;
         
+        // 📊 GA4: смена языка
+        trackGA4Event('language_change', {
+            from_language: prevLang,
+            to_language: lang,
+            page_location: window.location.href
+        });
+        
         // 🎯 Метрика: смена языка
-        ymTrack('lang_switch', { from: currentLang === 'ru' ? 'en' : 'ru', to: lang });
+        ymTrack('lang_switch', { from: prevLang, to: lang });
         
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
+        
+        console.log(`🌐 Language switched: ${prevLang} → ${lang.toUpperCase()}`);
     }
 
     function updateCartCount() {
@@ -936,8 +948,18 @@
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
         applyLanguage(langToUse);
         
-        // ✅ Адаптируем изображения под устройство при загрузке
         adaptImagesForDevice();
+        
+        // 📊 GA4: просмотр главной страницы
+        trackGA4Event('page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: '/index.html',
+            language: currentLang
+        });
+        
+        // 🎯 Метрика: главная загружена
+        ymTrack('index_viewed', { lang: currentLang });
         
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
@@ -967,6 +989,7 @@
             });
         }
         
+        // ===== HERO SLIDER =====
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
@@ -977,18 +1000,39 @@
             slides[index].classList.add('active');
             dots[index].classList.add('active');
             currentSlide = index;
+            
+            // 📊 GA4: смена слайда в hero
+            trackGA4Event('hero_slide_change', {
+                slide_index: index,
+                slide_number: index + 1,
+                total_slides: slides.length
+            });
+            
+            // 🎯 Метрика: смена слайда
+            ymTrack('hero_slide_changed', { slide: index + 1 });
         }
         
         dots.forEach(dot => {
-            dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
+            dot.addEventListener('click', () => {
+                const slideIndex = parseInt(dot.dataset.slide);
+                goToSlide(slideIndex);
+            });
         });
         
         setInterval(() => {
             goToSlide((currentSlide + 1) % slides.length);
         }, 5000);
         
-        // 🎯 Метрика: клик по кнопке корзины
+        // ===== КНОПКИ ЗАКАЗА =====
+        
+        // 🎯 Метрика + GA4: клик по кнопке корзины
         document.getElementById('cartBtn')?.addEventListener('click', function() {
+            trackGA4Event('cart_click', {
+                page: 'index',
+                cart_items: cart.length,
+                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+            });
+            
             ymTrack('cart_click_index', { cart_items: cart.length });
             
             if (cart.length === 0) {
@@ -1001,67 +1045,136 @@
             window.location.href = 'checkout.html';
         });
         
-        // 🎯 Метрика: клик по кнопке "ЗАКАЗАТЬ БОКС" в HERO
+        // 🎯 Метрика + GA4: клик по кнопке "ЗАКАЗАТЬ БОКС" в HERO
         document.getElementById('orderBtn')?.addEventListener('click', function() {
+            trackGA4Event('cta_click', {
+                cta_name: 'order_box',
+                cta_location: 'hero',
+                page: 'index'
+            });
+            
             ymTrack('index_order_click', { source: 'hero' });
             window.location.href = 'boxes.html';
         });
         
-        // 🎯 Метрика: клик по кнопке "СДЕЛАТЬ ЗАКАЗ" в шапке
+        // 🎯 Метрика + GA4: клик по кнопке "СДЕЛАТЬ ЗАКАЗ" в шапке
         document.getElementById('shopBtn')?.addEventListener('click', function() {
+            trackGA4Event('cta_click', {
+                cta_name: 'order_box',
+                cta_location: 'header',
+                page: 'index'
+            });
+            
             ymTrack('index_order_click', { source: 'header' });
             window.location.href = 'boxes.html';
         });
         
-        // 🎯 Метрика: клик по навигационным ссылкам
+        // 🎯 Метрика + GA4: навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
+                let linkName = 'unknown';
+                
                 if (href === 'boxes.html') {
+                    linkName = 'boxes';
                     ymTrack('nav_boxes_click');
                 } else if (href === '#contacts' || href.startsWith('#contacts')) {
+                    linkName = 'contacts';
                     ymTrack('nav_contacts_click');
                 } else if (href === 'history.html') {
+                    linkName = 'history';
                     ymTrack('nav_history_click');
                 }
+                
+                trackGA4Event('nav_click', {
+                    link_name: linkName,
+                    link_href: href,
+                    page: 'index'
+                });
             });
         });
         
-        // 🎯 Метрика: клик по соцсетям в футере
+        // 🎯 Метрика + GA4: соцсети в футере
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
-                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
-                ymTrack(goalId);
+                const platformId = platform.toLowerCase().replace(/\s+/g, '_');
+                
+                trackGA4Event('social_click', {
+                    platform: platformId,
+                    page: 'index'
+                });
+                
+                ymTrack('click_' + platformId);
             });
         });
         
-        // 🎯 Метрика: скролл до секций
+        // 🎯 Метрика + GA4: скролл до секций
         const trackedSections = {
-            'catalog': 'scroll_about',
-            'contacts': 'scroll_pickup'
+            'catalog': { goal: 'scroll_about', ga_event: 'section_view', section: 'about' },
+            'contacts': { goal: 'scroll_pickup', ga_event: 'section_view', section: 'pickup' }
         };
         
         const sectionTracked = {};
         
         function checkSectionScroll() {
-            Object.entries(trackedSections).forEach(([id, goal]) => {
+            Object.entries(trackedSections).forEach(([id, tracking]) => {
                 const section = document.getElementById(id);
-                if (section && !sectionTracked[goal]) {
+                if (section && !sectionTracked[tracking.ga_event + '_' + tracking.section]) {
                     const rect = section.getBoundingClientRect();
                     if (rect.top < window.innerHeight * 0.7) {
-                        ymTrack(goal);
-                        sectionTracked[goal] = true;
+                        // 📊 GA4: просмотр секции
+                        trackGA4Event(tracking.ga_event, {
+                            section_name: tracking.section,
+                            page: 'index'
+                        });
+                        
+                        // 🎯 Метрика: просмотр секции
+                        ymTrack(tracking.goal);
+                        sectionTracked[tracking.ga_event + '_' + tracking.section] = true;
                     }
                 }
             });
         }
         
         window.addEventListener('scroll', checkSectionScroll);
-        // Проверить сразу после загрузки
         setTimeout(checkSectionScroll, 1000);
         
-        // Анимация появления элементов
+        // 📊 GA4: глубина скролла (25%, 50%, 75%, 100%)
+        let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+            
+            [25, 50, 75, 100].forEach(percent => {
+                if (scrollPercent >= percent && !scrollDepthTracked[percent]) {
+                    trackGA4Event('scroll_depth', {
+                        percent: percent,
+                        page: 'index'
+                    });
+                    scrollDepthTracked[percent] = true;
+                }
+            });
+        });
+        
+        // 📊 GA4: время на странице (30 сек, 60 сек)
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'index',
+                time_on_page: 30
+            });
+        }, 30000);
+        
+        setTimeout(() => {
+            trackGA4Event('engagement', {
+                page: 'index',
+                time_on_page: 60
+            });
+        }, 60000);
+        
+        // ===== АНИМАЦИИ =====
         const fadeElements = document.querySelectorAll('.fade-in');
         fadeElements.forEach(el => {
             el.style.opacity = '0';
@@ -1081,6 +1194,7 @@
         window.addEventListener('scroll', checkFade);
         checkFade();
         
+        // ===== HEADER EFFECT =====
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
             if (header) {
@@ -1089,16 +1203,15 @@
             }
         });
         
-        // ✅ Адаптируем изображения при изменении размера окна
+        // ===== RESIZE HANDLER =====
         window.addEventListener('resize', adaptImagesForDevice);
         
         updateCartCount();
         
-        // 🎯 Метрика: страница загружена
-        ymTrack('index_viewed', { lang: currentLang });
+        console.log(`✅ index.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
     });
     
-    // ✅ Слушаем изменения localStorage из других вкладок/страниц
+    // ✅ Слушаем изменения localStorage
     window.addEventListener('storage', function(e) {
         if (e.key === 'hedonism_cart') {
             cart = JSON.parse(e.newValue) || [];
