@@ -19,7 +19,6 @@
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
     <link rel="canonical" href="https://byshura.ru/boxes.html">
     
-    <!-- ✅ PRELOAD КРИТИЧНЫХ ИЗОБРАЖЕНИЙ -->
     <link rel="preload" as="image" href="images/boxes-nicholas-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-nicholas.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-tchaikovsky-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
@@ -36,11 +35,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
-    
-    <!-- ✅ КЭШИРОВАНИЕ -->
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
     
-    <!-- 🔹 GOOGLE ANALYTICS 4 (оптимизировано) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -64,12 +60,10 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* БЕГУЩАЯ СТРОКА */
         .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
-        /* ШАПКА */
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
@@ -90,25 +84,15 @@
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
         .btn-back:hover { background: #070395; color: white; }
         
-        /* ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА */
-        .lang-selector { 
-            display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; 
-            cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; 
-            padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); transition: background 0.3s;
-        }
+        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); transition: background 0.3s; }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        .lang-dropdown { 
-            position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; 
-            border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; 
-            display: none; z-index: 100; margin-top: 5px; 
-        }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
         .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; color: #070395; transition: background 0.2s; }
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        /* КАТАЛОГ */
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
@@ -129,12 +113,15 @@
         .box-price { font-size: 16px; font-weight: 600; color: #070395; display: flex; align-items: baseline; gap: 4px; }
         .box-price .price-value { font-weight: 600; }
         .box-price .currency { font-size: 14px; color: #999; font-weight: 400; }
-        /* ✅ ИСПРАВЛЕНИЕ 1: В EN валюта (AED) ставится перед числом через order, а не row-reverse */
-        html[lang="en"] .box-price .currency { order: -1; }
+        
+        /* ✅ ИСПРАВЛЕНИЕ: в EN порядок "from AED 400" */
+        html[lang="en"] .box-price .price-from { order: 1; }
+        html[lang="en"] .box-price .currency { order: 2; }
+        html[lang="en"] .box-price .price-value { order: 3; }
+        
         .btn-select { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
         .btn-select:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
         
-        /* ГАЛЕРЕЯ И МОДАЛКИ */
         .gallery-slider { position: relative; width: 100%; height: 250px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: #f8f9fa; }
         .gallery-track { display: flex; transition: transform 0.3s ease; height: 100%; }
         .gallery-slide { min-width: 100%; height: 100%; background-size: cover; background-position: center; }
@@ -208,7 +195,6 @@
         
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        /* ✅ ИСПРАВЛЕНИЕ 3: font-weight 600 — как на index.html */
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
@@ -366,7 +352,6 @@
         .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
     
-    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -434,7 +419,7 @@
                             <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price" data-nicholas-base-price-ru="8 000" data-nicholas-base-price-en="400">
+                            <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
@@ -457,7 +442,7 @@
                             <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price" data-nicholas-base-price-ru="8 000" data-nicholas-base-price-en="400">
+                            <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
@@ -482,7 +467,6 @@
                     </div>
                 </div>
                 
-                <!-- ✅ ИСПРАВЛЕНИЕ 2: Добавлен price-from для печенья с лимонным курдом -->
                 <div class="box-card" data-product-type="lemon-cookies">
                     <div class="box-image" data-bg-desktop="images/boxes-lemoncookies.webp" data-bg-mobile="images/boxes-lemoncookies-mobile.webp" data-gallery='["images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
@@ -499,7 +483,6 @@
                     </div>
                 </div>
                 
-                <!-- ✅ ИСПРАВЛЕНИЕ 2: Добавлен price-from для овсяного печенья -->
                 <div class="box-card" data-product-type="oat-cookies">
                     <div class="box-image" data-bg-desktop="images/boxes-oatcookies.webp" data-bg-mobile="images/boxes-oatcookies-mobile.webp" data-gallery='["images/boxes-oatcookies.webp","images/boxes-oatcookies.webp","images/boxes-oatcookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
@@ -519,7 +502,6 @@
             
             <h2 class="section-title" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
             <div class="boxes-grid">
-                <!-- ✅ ИСПРАВЛЕНИЕ 2: Добавлен price-from для расстегаев -->
                 <div class="box-card" data-product-type="rasstegai">
                     <div class="box-image" data-bg-desktop="images/boxes-rasstegai.webp" data-bg-mobile="images/boxes-rasstegai-mobile.webp" data-gallery='["images/boxes-rasstegai.webp","images/boxes-rasstegai.webp","images/boxes-rasstegai.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
@@ -802,6 +784,7 @@
         });
     }
 
+    // ✅ ИСПРАВЛЕНИЕ: функция теперь корректно формирует цену в EN
     function updateBoxPrices() {
         const nicholasBoxes = document.querySelectorAll('.box-card[data-product-type="nicholas"], .box-card[data-product-type="tchaikovsky"]');
         nicholasBoxes.forEach(box => {
