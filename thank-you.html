@@ -69,7 +69,6 @@
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        /* СТРАНИЦА БЛАГОДАРНОСТИ */
         .thankyou-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .thankyou-container { max-width: 900px; margin: 0 auto; }
         
@@ -117,7 +116,6 @@
             content: ''; width: 4px; height: 20px; background: #FFD93D; border-radius: 2px;
         }
         
-        /* Товары в заказе */
         .order-item { 
             display: flex; gap: 15px; padding: 15px 0; 
             border-bottom: 1px solid #f5f5f5; align-items: flex-start;
@@ -141,7 +139,6 @@
         }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         
-        /* Информация о доставке */
         .info-row {
             display: flex; justify-content: space-between; align-items: flex-start;
             padding: 10px 0; gap: 15px;
@@ -149,8 +146,13 @@
         .info-row:not(:last-child) { border-bottom: 1px dashed #eee; }
         .info-label { color: #999; font-size: 14px; flex-shrink: 0; }
         .info-value { color: #070395; font-weight: 500; font-size: 14px; text-align: right; }
+        /* ✅ Для строки с ценой доставки — flex с обратным порядком в EN */
+        .info-value-price {
+            display: flex; align-items: baseline; gap: 4px;
+            justify-content: flex-end;
+        }
+        html[lang="en"] .info-value-price { flex-direction: row-reverse; }
         
-        /* Итого */
         .order-total-row {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 0 0; margin-top: 10px;
@@ -162,7 +164,6 @@
         }
         html[lang="en"] .order-total-value { flex-direction: row-reverse; }
         
-        /* Кнопка возврата */
         .thankyou-actions { text-align: center; margin-top: 30px; }
         .btn-home {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -172,7 +173,6 @@
         }
         .btn-home:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7,3,149,0.2); }
         
-        /* Сообщение об отсутствии заказа */
         .no-order {
             background: white; border-radius: 24px; padding: 60px 40px;
             box-shadow: 0 5px 20px rgba(7,3,149,0.1); text-align: center;
@@ -181,7 +181,6 @@
         .no-order-title { font-size: 24px; font-weight: 700; color: #070395; margin-bottom: 15px; }
         .no-order-text { color: #666; margin-bottom: 30px; }
         
-        /* ✅ ФУТЕР КАК НА index.html */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -260,6 +259,7 @@
             
             .info-row { flex-direction: column; gap: 4px; }
             .info-value { text-align: left; }
+            .info-value-price { justify-content: flex-start; }
             .order-total-row { font-size: 18px; }
             
             .footer { padding: 18px 0; }
@@ -335,12 +335,9 @@
     </div>
 
     <section class="thankyou-page">
-        <div class="container thankyou-container" id="thankyouContainer">
-            <!-- Контент рендерится через JS -->
-        </div>
+        <div class="container thankyou-container" id="thankyouContainer"></div>
     </section>
 
-    <!-- ✅ ФУТЕР КАК НА index.html: без footer-logo, font-weight 600 -->
     <footer class="footer">
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
@@ -376,6 +373,7 @@
             sectionContacts: "Контактные данные",
             sectionPayment: "Оплата",
             labelDelivery: "Способ доставки:",
+            labelDeliveryCost: "Стоимость доставки:",
             labelAddress: "Адрес:",
             labelDate: "Дата:",
             labelTime: "Время:",
@@ -415,6 +413,7 @@
             sectionContacts: "Contact details",
             sectionPayment: "Payment",
             labelDelivery: "Delivery method:",
+            labelDeliveryCost: "Delivery cost:",
             labelAddress: "Address:",
             labelDate: "Date:",
             labelTime: "Time:",
@@ -492,7 +491,6 @@
         return translations.ru.personsWord5;
     }
 
-    // ✅ Пересчёт цены товара на основе productId, options и языка
     function recalculateItemPrice(item, lang) {
         const productId = item.productId;
         const options = item.options || {};
@@ -508,6 +506,23 @@
             return table[lang][qty] || table[lang][4];
         }
         return item.price;
+    }
+
+    // ✅ Функция пересчёта итоговой суммы заказа с учётом текущего языка
+    function recalculateOrderTotal(lang) {
+        if (!orderData) return 0;
+        
+        // Сумма товаров в текущей валюте
+        let itemsTotal = 0;
+        orderData.items.forEach(item => {
+            const itemPrice = recalculateItemPrice(item, lang);
+            itemsTotal += itemPrice * item.quantity;
+        });
+        
+        // Стоимость доставки в текущей валюте
+        const deliveryCost = orderData.delivery === 'courier' ? (lang === 'en' ? 40 : 800) : 0;
+        
+        return itemsTotal + deliveryCost;
     }
 
     function getItemName(item, lang) {
@@ -577,7 +592,7 @@
             return;
         }
         
-        // Рендерим товары
+        // ✅ Рендерим товары + считаем сумму товаров
         let itemsHtml = '';
         let itemsTotal = 0;
         
@@ -632,19 +647,12 @@
             `;
         });
         
-        // Доставка
+        // ✅ Доставка
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
         const deliveryCost = orderData.delivery === 'courier' ? (currentLang === 'en' ? 40 : 800) : 0;
-        const deliveryCostText = deliveryCost === 0 
-            ? t.deliveryFree 
-            : `${formatPrice(deliveryCost, currentLang)} ${currency}`;
         
-        // Оплата
-        const paymentMap = { 'sber': t.paymentSber, 'tbank': t.paymentTbank, 'alfa': t.paymentAlfa, 'cash': t.paymentCash };
-        const paymentText = paymentMap[orderData.payment] || orderData.payment;
-        
-        // Итого
-        const totalValue = formatPrice(orderData.total, currentLang);
+        // ✅ Итого: сумма товаров + доставка (пересчитано в текущей валюте)
+        const totalValue = itemsTotal + deliveryCost;
         
         container.innerHTML = `
             <div class="thankyou-hero">
@@ -682,6 +690,15 @@
                         <span class="info-label">${t.labelTime}</span>
                         <span class="info-value">${orderData.time || '—'}</span>
                     </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelDeliveryCost}</span>
+                        <span class="info-value">
+                            <span class="info-value-price">
+                                <span>${deliveryCost === 0 ? t.deliveryFree : formatPrice(deliveryCost, currentLang)}</span>
+                                ${deliveryCost > 0 ? `<span>${currency}</span>` : ''}
+                            </span>
+                        </span>
+                    </div>
                 </div>
                 
                 <div class="details-section">
@@ -704,7 +721,7 @@
                     <h3 class="details-section-title">${t.sectionPayment}</h3>
                     <div class="info-row">
                         <span class="info-label">${t.labelPayment}</span>
-                        <span class="info-value">${paymentText}</span>
+                        <span class="info-value">${{ 'sber': t.paymentSber, 'tbank': t.paymentTbank, 'alfa': t.paymentAlfa, 'cash': t.paymentCash }[orderData.payment] || orderData.payment}</span>
                     </div>
                     ${orderData.comment ? `
                     <div class="info-row">
@@ -717,7 +734,7 @@
                 <div class="order-total-row">
                     <span>${t.labelTotal}</span>
                     <div class="order-total-value">
-                        <span>${totalValue}</span>
+                        <span>${formatPrice(totalValue, currentLang)}</span>
                         <span>${currency}</span>
                     </div>
                 </div>
@@ -730,7 +747,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Загружаем данные заказа из sessionStorage
         try {
             const savedOrder = sessionStorage.getItem('hedonism_last_order');
             if (savedOrder) {
@@ -766,7 +782,6 @@
             });
         }
         
-        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -784,7 +799,6 @@
             });
         }
         
-        // Навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
