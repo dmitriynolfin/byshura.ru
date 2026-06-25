@@ -24,7 +24,7 @@
     <link rel="preload" as="image" href="images/boxes-nicholas.webp" media="(min-width: 769px)" fetchpriority="high">
     
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
     
     <!-- ✅ КЭШИРОВАНИЕ -->
@@ -162,12 +162,32 @@
         
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
-        .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 550px; max-height: 90vh; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
-        .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .product-modal { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 90%; 
+            max-width: 550px; 
+            max-height: 90vh; 
+            background: white; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
+            z-index: 2501; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+        }
+        .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
         .modal-close { background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .modal-close:hover { background: #f5f5f5; color: #070395; }
-        .modal-body { padding: 20px; overflow-y: auto; }
+        .modal-body { 
+            padding: 20px; 
+            overflow-y: auto; 
+            flex: 1;
+            -webkit-overflow-scrolling: touch;
+        }
         .modal-section { margin-bottom: 25px; }
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
@@ -206,7 +226,14 @@
         .allergen-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .allergen-option input:checked + .allergen-label { font-weight: 600; color: #070395; }
         .allergen-icon { font-size: 18px; margin-right: 5px; }
-        .modal-actions { padding: 15px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .modal-actions { 
+            padding: 15px 20px; 
+            border-top: 1px solid #eee; 
+            display: flex; 
+            gap: 10px; 
+            flex-shrink: 0;
+            background: white;
+        }
         .btn-modal-cancel { flex: 1; background: transparent; color: #070395; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: 1.5px solid #070395; cursor: pointer; transition: all 0.3s; }
         .btn-modal-cancel:hover { background: #070395; color: white; }
         .btn-modal-add { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
@@ -334,32 +361,51 @@
             .allergen-option { padding: 8px 10px; }
             .allergen-label { font-size: 13px; }
             
-            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ, ОДИНАКОВЫЙ РАЗМЕР ЦЕН */
+            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ЭМОДЗИ В ОДНУ СТРОКУ */
             .persons-select { 
-                gap: 6px; 
+                gap: 4px; 
                 justify-content: center;
             }
             .person-option { 
-                flex: 1 1 30%; 
+                flex: 1 1 29%; 
                 min-width: 0;
-                max-width: 32%;
+                max-width: 31%;
             }
             .person-label { 
-                padding: 8px 2px; 
-                min-height: 55px;
-                border-radius: 10px;
+                padding: 6px 2px; 
+                min-height: 50px;
+                border-radius: 8px;
             }
             .person-icon { 
-                font-size: 16px; 
+                font-size: 14px; 
                 margin-bottom: 2px;
                 line-height: 1;
+                white-space: nowrap;
             }
             /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН В МОДАЛКЕ */
             .person-price { 
-                font-size: 11px !important; /* ✅ !important для переопределения */
-                padding: 2px 6px;
+                font-size: 10px !important; /* ✅ !important для переопределения */
+                padding: 2px 5px;
                 margin-top: 2px;
-                border-radius: 10px;
+                border-radius: 8px;
+            }
+            
+            /* ✅ МОДАЛЬНОЕ ОКНО - КНОПКИ ВСЕГДА ВИДНЫ */
+            .modal-body {
+                max-height: calc(90vh - 150px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .modal-actions {
+                position: sticky;
+                bottom: 0;
+                background: white;
+                padding: 12px 15px;
+                border-top: 1px solid #eee;
+            }
+            .btn-modal-cancel, .btn-modal-add {
+                padding: 10px;
+                font-size: 13px;
             }
             
             /* ✅ FOOTER КАК НА index.html */
@@ -379,19 +425,27 @@
             .legal-links-en a:hover { color: #070395; }
         }
         
-        /* ✅ iPhone XR / 414px - ОДИНАКОВЫЙ РАЗМЕР ЦЕН */
+        /* ✅ iPhone XR / 414px - ОДИНАКОВЫЙ РАЗМЕР ЦЕН И ЭМОДЗИ В ОДНУ СТРОКУ */
         @media (max-width: 414px) {
-            .persons-select { gap: 4px; }
-            .person-option { flex: 1 1 29%; max-width: 31%; }
-            .person-label { padding: 7px 1px; min-height: 52px; }
-            .person-icon { font-size: 15px; }
+            .persons-select { gap: 3px; }
+            .person-option { flex: 1 1 28%; max-width: 30%; }
+            .person-label { padding: 5px 1px; min-height: 48px; }
+            .person-icon { font-size: 13px; }
             .person-option:nth-child(1) .person-icon,
-            .person-option:nth-child(2) .person-icon { font-size: 13px; }
-            .person-option:nth-child(3) .person-icon { font-size: 14px; }
+            .person-option:nth-child(2) .person-icon { font-size: 12px; }
+            .person-option:nth-child(3) .person-icon { font-size: 13px; }
             /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН */
             .person-price { 
-                font-size: 10px !important; /* ✅ !important для переопределения */
+                font-size: 9px !important; /* ✅ !important для переопределения */
                 padding: 2px 4px; 
+            }
+            
+            /* ✅ МОДАЛЬНОЕ ОКНО - КНОПКИ ВСЕГДА ВИДНЫ */
+            .modal-body {
+                max-height: calc(90vh - 140px);
+            }
+            .modal-actions {
+                padding: 10px 12px;
             }
         }
         
@@ -404,16 +458,21 @@
             .box-description { font-size: 11px; }
             .gallery-slider { height: 160px; }
             
-            .person-option { flex: 1 1 28%; max-width: 30%; }
-            .person-label { padding: 6px 1px; min-height: 50px; }
-            .person-icon { font-size: 14px; }
+            .person-option { flex: 1 1 27%; max-width: 29%; }
+            .person-label { padding: 4px 1px; min-height: 46px; }
+            .person-icon { font-size: 12px; }
             .person-option:nth-child(1) .person-icon,
-            .person-option:nth-child(2) .person-icon { font-size: 12px; }
-            .person-option:nth-child(3) .person-icon { font-size: 13px; }
+            .person-option:nth-child(2) .person-icon { font-size: 11px; }
+            .person-option:nth-child(3) .person-icon { font-size: 12px; }
             /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН */
             .person-price { 
-                font-size: 9px !important; /* ✅ !important для переопределения */
-                padding: 1px 4px; 
+                font-size: 8px !important; /* ✅ !important для переопределения */
+                padding: 1px 3px; 
+            }
+            
+            /* ✅ МОДАЛЬНОЕ ОКНО - КНОПКИ ВСЕГДА ВИДНЫ */
+            .modal-body {
+                max-height: calc(90vh - 130px);
             }
         }
         
@@ -466,7 +525,7 @@
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <!-- ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА - КАК НА index.html/history.html -->
                 <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷🇺</span>
+                    <span id="langFlag">🇷</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
@@ -865,7 +924,7 @@
         const isNicholas = productId === 'box1';
         let html = '';
         const persons = [2, 4, 6];
-        const icons = ['🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🙎🏻‍♂️'];
+        const icons = ['🙍🏼‍♀️🙎🏻‍♂️', '🙍🏼‍♀️🙎🏻‍♂️🙍🏼‍♀️🏻‍♂️', '🙍🏼‍♀️🏻‍️🙍🏼‍♀️🙎🏻‍♂️🙍‍♀️🙎🏻‍♂️'];
         
         persons.forEach((count, index) => {
             const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
