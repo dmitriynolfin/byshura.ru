@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -19,25 +18,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Оформление заказа - Вестник Гедонизма</title>
     
-    <!-- ✅ PRELOAD КРИТИЧНЫХ РЕСУРСОВ -->
     <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" crossorigin>
-    
-    <!-- ✅ КЭШИРОВАНИЕ -->
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
     <meta http-equiv="Expires" content="3600">
     
-    <!-- 🔹 GOOGLE ANALYTICS 4 (оптимизировано) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-L8704SB9ZW', {
-        page_title: document.title,
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        send_page_view: false
-      });
+      gtag('config', 'G-L8704SB9ZW', { page_title: document.title, page_location: window.location.href, page_path: window.location.pathname, send_page_view: false });
     </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,57 +42,28 @@
         img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
-        /* ===== DADATA / OSM AUTOCOMPLETE ===== */
         .address-input-wrapper { position: relative; }
-        .suggestions-list {
-            position: absolute; top: 100%; left: 0; right: 0;
-            background: white; border: 1px solid #eee; border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000;
-            max-height: 300px; overflow-y: auto; display: none; margin-top: 5px;
-        }
+        .suggestions-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #eee; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000; max-height: 300px; overflow-y: auto; display: none; margin-top: 5px; }
         .suggestions-list.show { display: block; }
-        .suggestion-item {
-            padding: 12px 15px; cursor: pointer; transition: background 0.2s;
-            border-bottom: 1px solid #f5f5f5;
-        }
+        .suggestion-item { padding: 12px 15px; cursor: pointer; transition: background 0.2s; border-bottom: 1px solid #f5f5f5; }
         .suggestion-item:last-child { border-bottom: none; }
         .suggestion-item:hover, .suggestion-item.active { background: #f0f0ff; }
         .suggestion-main { font-size: 14px; color: #070395; font-weight: 500; margin-bottom: 4px; }
         .suggestion-details { font-size: 12px; color: #666; }
-        .suggestion-type {
-            display: inline-block; padding: 2px 8px; background: #FFD93D;
-            color: #070395; border-radius: 4px; font-size: 10px; font-weight: 600;
-            margin-right: 8px; text-transform: uppercase;
-        }
-        .address-loading {
-            position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: none;
-        }
+        .address-loading { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: none; }
         .address-loading.show { display: block; }
         .address-loading svg { animation: spin 1s linear infinite; color: #070395; }
-        @keyframes spin {
-            0% { transform: translateY(-50%) rotate(0deg); }
-            100% { transform: translateY(-50%) rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: translateY(-50%) rotate(0deg); } 100% { transform: translateY(-50%) rotate(360deg); } }
         @media (max-width: 480px) {
-            .suggestions-list { 
-                position: absolute !important; 
-                left: 0 !important; 
-                right: 0 !important; 
-                top: 100% !important;
-                max-height: 50vh; 
-                z-index: 9999;
-                margin-top: 5px;
-            }
+            .suggestions-list { position: absolute !important; left: 0 !important; right: 0 !important; top: 100% !important; max-height: 50vh; z-index: 9999; margin-top: 5px; }
             .suggestion-main { font-size: 13px; }
             .suggestion-details { font-size: 11px; }
         }
         
-        /* БЕГУЩАЯ СТРОКА */
         .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
-        /* ШАПКА */
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
@@ -127,202 +88,79 @@
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        /* ОФОРМЛЕНИЕ ЗАКАЗА */
         .checkout-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .checkout-container { max-width: 900px; margin: 0 auto; }
         .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
         .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
         
-        /* СВОДКА ЗАКАЗА */
-        .order-summary { 
-            background: white; border-radius: 20px; padding: 25px; 
-            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; 
-        }
-        .order-summary-title { 
-            font-size: 20px; font-weight: 600; color: #070395; 
-            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;
-        }
-        .order-item { 
-            display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 15px 0; border-bottom: 1px solid #f5f5f5; gap: 15px;
-        }
+        .order-summary { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; }
+        .order-summary-title { font-size: 20px; font-weight: 600; color: #070395; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .order-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; }
         .order-item:last-child { border-bottom: none; }
         .order-item-info { flex: 1; min-width: 0; }
-        .order-item-thumb {
-            width: 70px; height: 70px; border-radius: 12px;
-            background-size: cover; background-position: center;
-            flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+        .order-item-thumb { width: 70px; height: 70px; border-radius: 12px; background-size: cover; background-position: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f0f0f0; }
         .order-item-name { font-weight: 600; color: #070395; margin-bottom: 5px; }
-        .order-item-options { 
-            font-size: 13px; color: #666; margin-bottom: 8px; 
-        }
-        .order-item-option { display: flex; gap: 5px; }
+        .order-item-options { font-size: 13px; color: #666; margin-bottom: 8px; }
+        .order-item-option { display: flex; gap: 5px; margin-bottom: 3px; }
         .order-item-option-label { color: #999; }
         .order-item-option-value { color: #070395; font-weight: 500; }
-        .order-item-controls { 
-            display: flex; align-items: center; gap: 10px; margin-left: 15px; 
-        }
-        .quantity-control { 
-            display: flex; align-items: center; gap: 5px; 
-            background: #f8f9fa; padding: 4px; border-radius: 15px;
-        }
-        .quantity-btn {
-            width: 24px; height: 24px; border: none;
-            background: white; border-radius: 50%;
-            color: #070395; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 14px;
-        }
+        .order-item-controls { display: flex; align-items: center; gap: 10px; margin-left: 15px; }
+        .quantity-control { display: flex; align-items: center; gap: 5px; background: #f8f9fa; padding: 4px; border-radius: 15px; }
+        .quantity-btn { width: 24px; height: 24px; border: none; background: white; border-radius: 50%; color: #070395; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .quantity-btn:hover { background: #070395; color: white; }
         .quantity-value { font-weight: 600; min-width: 18px; text-align: center; font-size: 13px; }
-        .order-item-remove { 
-            color: #999; cursor: pointer; font-size: 18px; padding: 5px;
-        }
+        .order-item-remove { color: #999; cursor: pointer; font-size: 18px; padding: 5px; }
         .order-item-remove:hover { color: #e74c3c; }
-        .order-item-price { 
-            font-weight: 600; color: #070395; font-size: 16px; 
-            min-width: 70px; text-align: right; white-space: nowrap;
-            display: flex; align-items: baseline; gap: 4px;
-        }
+        .order-item-price { font-weight: 600; color: #070395; font-size: 16px; min-width: 70px; text-align: right; white-space: nowrap; display: flex; align-items: baseline; gap: 4px; }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
-        .order-total { 
-            display: flex; justify-content: space-between; 
-            padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee;
-            font-size: 18px; font-weight: 600; color: #070395;
-        }
+        .order-total { display: flex; justify-content: space-between; padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee; font-size: 18px; font-weight: 600; color: #070395; }
         
-        /* ФОРМА */
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
         .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
-        .form-input, .form-select, .form-textarea { 
-            width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; 
-            font-size: 14px; color: #070395; background: white; transition: all 0.3s;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { 
-            outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); 
-        }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; color: #070395; background: white; transition: all 0.3s; max-width: 100%; box-sizing: border-box; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); }
         .form-input::placeholder { color: #999; }
         .form-textarea { min-height: 100px; resize: vertical; }
-        
         .contact-input-wrapper { position: relative; }
-        .contact-input-wrapper .icon {
-            position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-            color: #999; font-size: 18px; pointer-events: none;
-        }
+        .contact-input-wrapper .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #999; font-size: 18px; pointer-events: none; }
         .contact-input-wrapper .form-input { padding-left: 48px; }
-        .form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23070395' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-            padding-right: 40px;
-        }
-        
+        .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23070395' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 40px; }
         .delivery-options { display: flex; gap: 15px; flex-wrap: wrap; }
         .delivery-option { flex: 1; min-width: 150px; }
         .delivery-radio { display: none; }
-        .delivery-label { 
-            display: flex; align-items: center; gap: 10px; padding: 14px 18px; 
-            border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; 
-            color: #070395; cursor: pointer; transition: all 0.3s; background: #fafafa;
-        }
-        .delivery-radio:checked + .delivery-label { 
-            background: #070395; color: white; border-color: #070395;
-            box-shadow: 0 4px 12px rgba(7,3,149,0.2);
-        }
+        .delivery-label { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; color: #070395; cursor: pointer; transition: all 0.3s; background: #fafafa; }
+        .delivery-radio:checked + .delivery-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
         .delivery-label:hover { border-color: #FFD93D; background: #fff9e6; }
         .delivery-label svg { width: 20px; height: 20px; flex-shrink: 0; }
-        
         .payment-options { display: flex; flex-direction: column; gap: 10px; }
-        .payment-option { 
-            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
-            border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer;
-            transition: all 0.3s; background: #fafafa;
-        }
+        .payment-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; background: #fafafa; }
         .payment-option:hover { border-color: #FFD93D; background: #fff9e6; }
         .payment-radio { width: 20px; height: 20px; accent-color: #070395; }
         .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .payment-option input:checked + .payment-label { font-weight: 600; }
         
-        /* ✅ ЧЕКБОКС СОГЛАСИЯ */
-        .consent-group {
-            margin: 25px 0 30px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border-left: 4px solid #FFD93D;
-        }
-        .consent-checkbox {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            cursor: pointer;
-        }
-        .consent-checkbox input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-            accent-color: #070395;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .consent-text {
-            font-size: 13px;
-            color: #555;
-            line-height: 1.5;
-        }
-        .consent-text a {
-            color: #070395;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .consent-text a:hover {
-            color: #FFD93D;
-            text-decoration: underline;
-        }
+        .consent-group { margin: 25px 0 30px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
+        .consent-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+        .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: #070395; cursor: pointer; flex-shrink: 0; }
+        .consent-text { font-size: 13px; color: #555; line-height: 1.5; }
+        .consent-text a { color: #070395; font-weight: 600; text-decoration: none; }
+        .consent-text a:hover { color: #FFD93D; text-decoration: underline; }
         
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
-        .btn-submit { 
-            flex: 1; background: #070395; color: white; padding: 16px 30px; 
-            border-radius: 30px; font-weight: 600; font-size: 14px; 
-            text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
+        .btn-submit { flex: 1; background: #070395; color: white; padding: 16px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-submit:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .btn-cancel { 
-            flex: 1; background: transparent; color: #070395; padding: 16px 30px; 
-            border-radius: 30px; font-weight: 600; font-size: 14px; 
-            text-transform: uppercase; transition: all 0.3s; border: 2px solid #070395; cursor: pointer;
-        }
+        .btn-cancel { flex: 1; background: transparent; color: #070395; padding: 16px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: 2px solid #070395; cursor: pointer; }
         .btn-cancel:hover { background: #070395; color: white; }
         
-        /* ✅ СТИЛИ ДЛЯ ПОЛЕЙ ДАТЫ И ВРЕМЕНИ */
-        .datetime-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
+        .datetime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .date-hint { font-size: 12px; color: #666; margin-top: 5px; display: block; }
+        .date-hint strong { color: #070395; }
         
-        .date-hint {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            display: block;
-        }
-        .date-hint strong {
-            color: #070395;
-        }
-        
-        /* FOOTER */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
@@ -332,7 +170,6 @@
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
         
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ */
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
@@ -344,20 +181,14 @@
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
         
-        /* ✅ КОРЗИНА СКРЫТА */
         .cart-modal { display: none; }
         .cart-overlay { display: none; }
         
-        /* СКРЫТИЕ СКРОЛЛБАРА */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { 
-            .container { padding: 0 20px; } 
-            .nav-menu { display: none; } 
-        }
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
@@ -423,23 +254,7 @@
             .datetime-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; align-items: flex-start; }
             .datetime-grid .form-group { flex: 0 0 auto; margin-bottom: 0; }
             .datetime-grid .form-label { font-size: 12px; margin-bottom: 4px; }
-            .datetime-grid input[type="date"],
-            .datetime-grid input[type="time"] {
-                width: auto !important;
-                min-width: fit-content;
-                padding: 6px 10px !important;
-                font-size: 13px !important;
-                min-height: auto !important;
-                height: 32px !important;
-                border-radius: 8px !important;
-                border-width: 1.5px !important;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                line-height: 32px;
-                box-sizing: border-box;
-            }
+            .datetime-grid input[type="date"], .datetime-grid input[type="time"] { width: auto !important; min-width: fit-content; padding: 6px 10px !important; font-size: 13px !important; min-height: auto !important; height: 32px !important; border-radius: 8px !important; border-width: 1.5px !important; display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 32px; box-sizing: border-box; }
             .order-item { flex-direction: column; }
             .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
             .order-item-name { font-size: 16px; }
@@ -457,18 +272,11 @@
             .order-item-thumb { height: 100px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
-            .datetime-grid input[type="date"],
-            .datetime-grid input[type="time"] {
-                padding: 5px 8px !important;
-                font-size: 12px !important;
-                height: 28px !important;
-                line-height: 28px;
-            }
+            .datetime-grid input[type="date"], .datetime-grid input[type="time"] { padding: 5px 8px !important; font-size: 12px !important; height: 28px !important; line-height: 28px; }
             .datetime-grid .form-label { font-size: 11px; }
         }
     </style>
     
-    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -481,7 +289,6 @@
 </head>
 <body>
 
-    <!-- ШАПКА -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -508,35 +315,23 @@
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
-                            <span class="lang-descr">Русский (Москва)</span>
-                        </a>
-                        <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
-                            <span class="lang-descr">English (Dubai)</span>
-                        </a>
+                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
-        <div class="marquee-content" data-i18n="marquee">
-            🚚 Доставка в день заказа •  Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 
-            🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • 
-        </div>
+        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • Подарочная упаковка • </div>
     </div>
 
-    <!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
     <section class="checkout-page">
         <div class="container checkout-container">
             <h1 class="checkout-title" data-i18n="checkoutTitle">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
             <p class="checkout-subtitle" data-i18n="checkoutSubtitle">Заполните данные для доставки вашего бокса</p>
             
-            <!-- СВОДКА ЗАКАЗА -->
             <div class="order-summary">
                 <h2 class="order-summary-title" data-i18n="orderSummaryTitle">Ваш заказ</h2>
                 <div id="orderItemsContainer"></div>
@@ -546,31 +341,21 @@
                 </div>
             </div>
             
-            <!-- ✅ ДОБАВЛЕН novalidate -->
             <form class="checkout-form" id="checkoutForm" novalidate>
-                <!-- КОНТАКТЫ -->
                 <div class="form-section">
-                    <h2 class="form-title">
-                        <span data-i18n="sectionContactsText">Контактные данные</span>
-                    </h2>
+                    <h2 class="form-title"><span data-i18n="sectionContactsText">Контактные данные</span></h2>
                     <div class="form-group">
                         <label class="form-label" for="name" data-i18n="labelName">Имя *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">👤</span>
-                            <input type="text" id="name" name="name" class="form-input" 
-                                   data-placeholder-ru="Ваше имя" 
-                                   data-placeholder-en="Your name"
-                                   placeholder="Ваше имя">
+                            <input type="text" id="name" name="name" class="form-input" data-placeholder-ru="Ваше имя" data-placeholder-en="Your name" placeholder="Ваше имя">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
                         <div class="contact-input-wrapper">
                             <span class="icon">📞</span>
-                            <input type="tel" id="phone" name="phone" class="form-input" 
-                                   data-placeholder-ru="Ваш номер телефона" 
-                                   data-placeholder-en="Your phone number"
-                                   placeholder="Ваш номер телефона">
+                            <input type="tel" id="phone" name="phone" class="form-input" data-placeholder-ru="Ваш номер телефона" data-placeholder-en="Your phone number" placeholder="Ваш номер телефона">
                         </div>
                     </div>
                     <div class="form-group">
@@ -584,11 +369,8 @@
                     </div>
                 </div>
                 
-                <!-- ДОСТАВКА -->
                 <div class="form-section">
-                    <h2 class="form-title">
-                        <span data-i18n="sectionDeliveryText">Доставка</span>
-                    </h2>
+                    <h2 class="form-title"><span data-i18n="sectionDeliveryText">Доставка</span></h2>
                     <div class="delivery-options">
                         <label class="delivery-option">
                             <input type="radio" name="delivery" value="pickup" class="delivery-radio" checked>
@@ -609,21 +391,13 @@
                     <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
                         <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
                         <div class="address-input-wrapper">
-                            <input type="text" id="address" name="address" class="form-input" 
-                                   data-placeholder-ru="Начните вводить адрес (Москва)..." 
-                                   data-placeholder-en="Enter address (Dubai)..."
-                                   placeholder="Начните вводить адрес..." autocomplete="off"
-                                   data-dd-city="Москва" data-osm-city="Dubai">
+                            <input type="text" id="address" name="address" class="form-input" data-placeholder-ru="Начните вводить адрес (Москва)..." data-placeholder-en="Enter address (Dubai)..." placeholder="Начните вводить адрес..." autocomplete="off" data-dd-city="Москва" data-osm-city="Dubai">
                             <div class="address-loading" id="addressLoading">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 12a9 9 0 11-6.219-8.56" stroke-linecap="round"/>
-                                </svg>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56" stroke-linecap="round"/></svg>
                             </div>
                             <div class="suggestions-list" id="addressSuggestions"></div>
                         </div>
-                        <small style="color: #999; display: block; margin-top: 5px;" data-i18n="addressHint">
-                            Введите улицу, дом или метро — подсказки появятся автоматически
-                        </small>
+                        <small style="color: #999; display: block; margin-top: 5px;" data-i18n="addressHint">Введите улицу, дом или метро — подсказки появятся автоматически</small>
                     </div>
                     
                     <div class="datetime-grid">
@@ -639,53 +413,30 @@
                     </div>
                 </div>
                 
-                <!-- ОПЛАТА -->
                 <div class="form-section">
-                    <h2 class="form-title">
-                        <span data-i18n="sectionPaymentText">Оплата</span>
-                    </h2>
+                    <h2 class="form-title"><span data-i18n="sectionPaymentText">Оплата</span></h2>
                     <div class="payment-options">
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="sber" class="payment-radio" checked>
-                            <span class="payment-label" data-i18n="payment1">Перевод на Сбер</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="tbank" class="payment-radio">
-                            <span class="payment-label" data-i18n="payment2">Перевод на Т-Банк</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="alfa" class="payment-radio">
-                            <span class="payment-label" data-i18n="payment3">Перевод на Альфа</span>
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" value="cash" class="payment-radio">
-                            <span class="payment-label" data-i18n="payment4">Наличные</span>
-                        </label>
+                        <label class="payment-option"><input type="radio" name="payment" value="sber" class="payment-radio" checked><span class="payment-label" data-i18n="payment1">Перевод на Сбер</span></label>
+                        <label class="payment-option"><input type="radio" name="payment" value="tbank" class="payment-radio"><span class="payment-label" data-i18n="payment2">Перевод на Т-Банк</span></label>
+                        <label class="payment-option"><input type="radio" name="payment" value="alfa" class="payment-radio"><span class="payment-label" data-i18n="payment3">Перевод на Альфа</span></label>
+                        <label class="payment-option"><input type="radio" name="payment" value="cash" class="payment-radio"><span class="payment-label" data-i18n="payment4">Наличные</span></label>
                     </div>
                 </div>
                 
-                <!-- КОММЕНТАРИЙ -->
                 <div class="form-section">
                     <div class="form-group">
                         <label class="form-label" for="comment" data-i18n="labelComment">Комментарий к заказу</label>
-                        <textarea id="comment" name="comment" class="form-textarea" 
-                                  data-placeholder-ru="Пожелания по доставке, сервировке и т.д."
-                                  data-placeholder-en="Requests for delivery, serving, etc."
-                                  placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
+                        <textarea id="comment" name="comment" class="form-textarea" data-placeholder-ru="Пожелания по доставке, сервировке и т.д." data-placeholder-en="Requests for delivery, serving, etc." placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
                     </div>
                 </div>
                 
-                <!-- ✅ ЧЕКБОКС СОГЛАСИЯ -->
                 <div class="consent-group">
                     <label class="consent-checkbox">
                         <input type="checkbox" id="consentCheckbox" name="consent" required checked>
-                        <span class="consent-text" data-i18n="consentText">
-                            Я даю согласие на обработку <a href="privacy-policy.html" target="_blank">персональных данных</a> и принимаю условия <a href="offer.html" target="_blank">публичной оферты</a>
-                        </span>
+                        <span class="consent-text" data-i18n="consentText">Я даю согласие на обработку <a href="privacy-policy.html" target="_blank">персональных данных</a> и принимаю условия <a href="offer.html" target="_blank">публичной оферты</a></span>
                     </label>
                 </div>
                 
-                <!-- КНОПКИ -->
                 <div class="checkout-actions">
                     <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
                     <button type="submit" class="btn-submit" id="submitBtn">
@@ -697,24 +448,15 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
             <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.png" alt="Telegram" loading="lazy">
-                </a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.png" alt="MAX" loading="lazy">
-                </a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.png" alt="Instagram" loading="lazy">
-                </a>
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.png" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.png" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.png" alt="Instagram" loading="lazy"></a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ -->
             <div class="legal-links-ru">
                 <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
@@ -728,7 +470,6 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
     const translations = {
         ru: {
@@ -754,15 +495,17 @@
             consentError: "Необходимо дать согласие на обработку персональных данных",
             consentText: "Я даю согласие на обработку <a href='privacy-policy.html' target='_blank'>персональных данных</a> и принимаю условия <a href='offer.html' target='_blank'>публичной оферты</a>",
             emptyCart: "Корзина пуста. <a href='boxes.html'>Добавьте товары</a>",
-            itemPersons: "Персон:", itemAllergens: "Аллергены:", itemQuantity: "Кол-во:",
+            itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:",
+            itemWeight: "Вес:",
             btnRemove: "Удалить",
             courierPrice: "(+800 ₽)",
-            box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
-            box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»",
             allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", 
             allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
             dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.",
-            dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)"
+            dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)",
+            personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон",
+            qtyWord4: "штуки", qtyWord8: "штук",
+            weightLabel: "Вес ~1 кг"
         },
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
@@ -787,15 +530,17 @@
             consentError: "Consent to data processing is required",
             consentText: "I consent to the processing of <a href='privacy-policy-en.html' target='_blank'>personal data</a> and accept the terms of the <a href='offer-en.html' target='_blank'>public offer</a>",
             emptyCart: "Cart is empty. <a href='boxes.html'>Add items</a>",
-            itemPersons: "Persons:", itemAllergens: "Allergens:", itemQuantity: "Qty:",
+            itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:",
+            itemWeight: "Weight:",
             btnRemove: "Remove",
             courierPrice: "(+800 AED)",
-            box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
-            box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box",
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
             allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
             dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.",
-            dateDisabled: "Select an available date (Fri, Sat or Sun)"
+            dateDisabled: "Select an available date (Fri, Sat or Sun)",
+            personsWord1: "person", personsWord2: "people", personsWord5: "people",
+            qtyWord4: "pieces", qtyWord8: "pieces",
+            weightLabel: "Weight ~1 kg"
         }
     };
 
@@ -803,53 +548,10 @@
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER (оптимизировано) =====
-    function trackGA4Event(eventName, params) {
-        if (isProduction && typeof gtag === 'function') {
-            gtag('event', eventName, params);
-        }
-    }
+    function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
+    function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
+    function debounce(func, wait) { let timeout; return function(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
 
-    // ===== YANDEX METRIKA HELPER =====
-    function ymTrack(goalId, params) {
-        if (typeof ym === 'function') {
-            ym(110092456, 'reachGoal', goalId, params);
-        }
-    }
-    
-    function ymEcommercePurchase(orderData) {
-        if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
-            dataLayer.push({
-                'ecommerce': {
-                    'purchase': {
-                        'actionField': {
-                            'id': orderData.orderNumber,
-                            'revenue': orderData.total,
-                            'currency': orderData.currency === 'AED' ? 'AED' : 'RUB'
-                        },
-                        'products': (orderData.items || []).map(item => ({
-                            'id': item.productId,
-                            'name': item.name || item.productId,
-                            'price': item.price,
-                            'quantity': item.quantity
-                        }))
-                    }
-                }
-            });
-        }
-    }
-
-    // ===== DEBOUNCE (для оптимизации) =====
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => { clearTimeout(timeout); func(...args); };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // ===== ГЕНЕРАЦИЯ НОМЕРА ЗАКАЗА =====
     function generateOrderNumber() {
         const STORAGE_KEY = 'hedonism_last_order_id';
         let currentId = parseInt(localStorage.getItem(STORAGE_KEY)) || 1000;
@@ -858,25 +560,37 @@
         return String(nextId);
     }
 
+    // ✅ ОПРЕДЕЛЕНИЕ ТИПА ТОВАРА (для обратной совместимости)
+    function getProductTypeById(productId) {
+        if (productId === 'box1' || productId === 'box2') return 'box';
+        if (productId === 'cake1') return 'cake';
+        if (productId === 'lemon-cookies' || productId === 'oat-cookies' || productId === 'rasstegai') return 'quantity-item';
+        return 'other';
+    }
+
+    // ✅ СКЛОНЕНИЕ "персона/персоны/персон"
+    function getPersonsWordRu(count) {
+        if (count === 1) return translations.ru.personsWord1;
+        if (count >= 2 && count <= 4) return translations.ru.personsWord2;
+        return translations.ru.personsWord5;
+    }
+
     function applyLanguage(lang) {
-        if (!translations[lang]) { lang = 'ru'; }
+        if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
         currentLang = lang;
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'consentText' || key === 'infoNote' || key === 'dateHint') {
-                    el.innerHTML = translations[lang][key];
-                } else {
-                    el.textContent = translations[lang][key];
-                }
+                if (key === 'consentText' || key === 'dateHint') el.innerHTML = translations[lang][key];
+                else el.textContent = translations[lang][key];
             }
         });
         
         document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
             const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
-            if (el.dataset[key]) { el.placeholder = el.dataset[key]; }
+            if (el.dataset[key]) el.placeholder = el.dataset[key];
         });
         
         const currency = lang === 'en' ? 'AED' : '₽';
@@ -893,7 +607,6 @@
         }
         
         document.documentElement.lang = lang;
-        
         const dateInput = document.getElementById('date');
         if (dateInput) {
             const currentValue = dateInput.value;
@@ -908,14 +621,16 @@
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
+    // ✅ РЕНДЕРИНГ СВОДКИ ЗАКАЗА С УЧЁТОМ ВСЕХ ТИПОВ ТОВАРОВ
     function renderOrderSummary() {
         const container = document.getElementById('orderItemsContainer');
         const totalEl = document.getElementById('orderTotal');
         const lang = currentLang;
+        const t = translations[lang];
         const currency = lang === 'en' ? 'AED' : '₽';
         
         if (cart.length === 0) {
-            container.innerHTML = `<p style="text-align:center;color:#666;padding:20px;">${translations[lang].emptyCart}</p>`;
+            container.innerHTML = `<p style="text-align:center;color:#666;padding:20px;">${t.emptyCart}</p>`;
             if (totalEl) totalEl.innerHTML = `<span class="price-value">0</span> <span class="currency">${currency}</span>`;
             return;
         }
@@ -925,25 +640,46 @@
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
-            const thumbUrl = item.productId ? 
-                `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}` : 
-                'https://placehold.co/100x100/FFD93D/070395?text=🍋';
-            const boxNameKey = `${item.productId}Name`;
-            const itemName = translations[lang][boxNameKey] || item.name;
             
+            // ✅ Картинка: из cartItem.image или заглушка
+            const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
+            
+            // ✅ Название: из cartItem.name (приходит из boxes.html)
+            const itemName = item.name || item.productId;
+            
+            // ✅ Тип товара: из cartItem.productType или определяем по ID
+            const productType = item.productType || getProductTypeById(item.productId);
+            
+            // ✅ Формируем опции в зависимости от типа товара
             let optionsHtml = '';
-            optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemPersons}</span><span class="order-item-option-value">${item.options?.persons || 2}</span></div>`;
-            if (item.options?.allergens?.length > 0) {
-                const allergensTranslated = item.options.allergens.map(allergen => {
-                    const allergenMap = {
-                        'Грибы': translations[lang].allergen1, 'Горчица': translations[lang].allergen2,
-                        'Лактоза': translations[lang].allergen3, 'Яйца': translations[lang].allergen4,
-                        'Глютен': translations[lang].allergen5, 'Красная рыба': translations[lang].allergen6,
-                        'Орехи': translations[lang].allergen7
-                    };
-                    return allergenMap[allergen] || allergen;
-                });
-                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${translations[lang].itemAllergens}</span><span class="order-item-option-value">${allergensTranslated.join(', ')}</span></div>`;
+            
+            if (productType === 'box') {
+                // БОКСЫ: количество персон + аллергены
+                const persons = item.options?.persons || 2;
+                let personsLabel;
+                if (lang === 'ru') {
+                    personsLabel = `${persons} ${getPersonsWordRu(persons)}`;
+                } else {
+                    personsLabel = persons === 1 ? '1 person' : `${persons} people`;
+                }
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
+                
+                if (item.options?.allergens?.length > 0) {
+                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
+                }
+            } else if (productType === 'cake') {
+                // КЕКС: вес
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
+            } else if (productType === 'quantity-item') {
+                // ПЕЧЕНЬЕ / РАССТЕГАИ: количество штук
+                const qty = item.options?.quantity || 4;
+                let qtyLabel;
+                if (lang === 'ru') {
+                    qtyLabel = `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}`;
+                } else {
+                    qtyLabel = `${qty} pieces`;
+                }
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemQuantity}</span><span class="order-item-option-value">${qtyLabel}</span></div>`;
             }
             
             html += `
@@ -959,7 +695,7 @@
                             <span class="quantity-value">${item.quantity}</span>
                             <button class="quantity-btn" data-action="increase" data-item-id="${item.id}">+</button>
                         </div>
-                        <span class="order-item-remove" data-action="remove" data-item-id="${item.id}" title="${translations[lang].btnRemove}">&times;</span>
+                        <span class="order-item-remove" data-action="remove" data-item-id="${item.id}" title="${t.btnRemove}">&times;</span>
                     </div>
                     <div class="order-item-price"><span class="price-value">${itemTotal.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span></div>
                 </div>
@@ -976,14 +712,14 @@
         }
         
         container.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function() {
                 const itemId = parseInt(this.dataset.itemId);
                 const action = this.dataset.action;
                 updateCartItemQuantity(itemId, action);
             });
         });
         container.querySelectorAll('.order-item-remove').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function() {
                 const itemId = parseInt(this.dataset.itemId);
                 removeFromCart(itemId);
             });
@@ -1012,13 +748,11 @@
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
-            const totalQty = Array.isArray(cart) ? 
-                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
             cartCount.textContent = totalQty > 0 ? totalQty : '0';
         }
     }
 
-    // ===== КОНФИГУРАЦИЯ УВЕДОМЛЕНИЙ =====
     const OWNER_CONFIG = {
         telegramBotToken: '',
         telegramChatId: '',
@@ -1026,7 +760,7 @@
         ownerPhone: '79636221265'
     };
 
-    // ===== ОТПРАВКА УВЕДОМЛЕНИЙ =====
+    // ✅ УВЕДОМЛЕНИЯ ВЛАДЕЛЬЦУ С ПОЛНОЙ ИНФОРМАЦИЕЙ О ТОВАРАХ
     async function notifyOwner(orderData) {
         const t = translations[currentLang];
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
@@ -1034,9 +768,21 @@
         const paymentText = paymentMap[orderData.payment] || orderData.payment;
         
         const itemsList = orderData.items.map(item => {
-            const boxNameKey = `${item.productId}Name`;
-            const itemName = t[boxNameKey] || item.name || 'Box';
-            return `• ${itemName} × ${item.quantity} (${item.options?.persons || 2} pers.)`;
+            const itemName = item.name || item.productId;
+            const productType = item.productType || getProductTypeById(item.productId);
+            let optionsText = '';
+            
+            if (productType === 'box') {
+                const persons = item.options?.persons || 2;
+                optionsText = ` (${persons} ${currentLang === 'ru' ? getPersonsWordRu(persons) : (persons === 1 ? 'pers.' : 'pers.')})`;
+            } else if (productType === 'cake') {
+                optionsText = ' (~1 кг)';
+            } else if (productType === 'quantity-item') {
+                const qty = item.options?.quantity || 4;
+                optionsText = ` (${qty} шт)`;
+            }
+            
+            return `• ${itemName}${optionsText} × ${item.quantity}`;
         }).join('\n');
         
         if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
@@ -1078,7 +824,6 @@
         orderData.whatsappLink = `https://wa.me/${OWNER_CONFIG.ownerPhone}?text=${encodeURIComponent(waMessage)}`;
     }
 
-    // ===== DADATA / OSM AUTOCOMPLETE =====
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
     const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
     const PHOTON_URL = 'https://photon.komoot.io/api/?';
@@ -1144,20 +889,14 @@
             }
         }, DEBOUNCE_DELAY);
 
-        addressInput.addEventListener('input', function(e) {
-            const query = e.target.value.trim();
-            fetchSuggestions(query);
-        });
-
+        addressInput.addEventListener('input', function(e) { fetchSuggestions(e.target.value.trim()); });
         addressInput.addEventListener('focus', function() {
             const query = this.value.trim();
             if (query.length >= 2 && suggestionsList.innerHTML) suggestionsList.classList.add('show');
         });
-
         document.addEventListener('click', function(e) {
             if (!addressInput.contains(e.target) && !suggestionsList.contains(e.target)) suggestionsList.classList.remove('show');
         });
-
         addressInput.addEventListener('keydown', function(e) {
             const items = suggestionsList.querySelectorAll('.suggestion-item');
             const active = suggestionsList.querySelector('.suggestion-item.active');
@@ -1176,7 +915,6 @@
                 suggestionsList.classList.remove('show');
             }
         });
-        
         suggestionsList.addEventListener('click', function(e) {
             const item = e.target.closest('.suggestion-item');
             if (item) selectAddressSuggestion(item.dataset.value, item.dataset.full);
@@ -1206,15 +944,9 @@
             try {
                 const data = JSON.parse(fullJson);
                 if (currentLang === 'ru') {
-                    addressInput.dataset.structured = JSON.stringify({
-                        source: 'dadata', street: data.street_with_type, house: data.house, 
-                        city: data.city, region: data.region_with_type, postal_code: data.postal_code
-                    });
+                    addressInput.dataset.structured = JSON.stringify({ source: 'dadata', street: data.street_with_type, house: data.house, city: data.city, region: data.region_with_type, postal_code: data.postal_code });
                 } else {
-                    addressInput.dataset.structured = JSON.stringify({
-                        source: 'osm', name: data.name, street: data.street, 
-                        city: data.city || 'Dubai', state: data.state, country: data.country, postcode: data.postcode
-                    });
+                    addressInput.dataset.structured = JSON.stringify({ source: 'osm', name: data.name, street: data.street, city: data.city || 'Dubai', state: data.state, country: data.country, postcode: data.postcode });
                 }
             } catch(e) { console.warn('Failed to parse structured address'); }
         }
@@ -1229,13 +961,12 @@
     function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
     function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-    // ===== ЛОГИКА ОГРАНИЧЕНИЯ ДАТ И ВРЕМЕНИ =====
     function initDateRestrictions() {
         const dateInput = document.getElementById('date');
         const timeInput = document.getElementById('time');
         if (!dateInput || !timeInput) return;
         
-        const availableDays = [5, 6, 0]; // Пятница, Суббота, Воскресенье
+        const availableDays = [5, 6, 0];
         const today = new Date();
         const minDate = today.toISOString().split('T')[0];
         dateInput.min = minDate;
@@ -1254,13 +985,9 @@
             const selectedDate = new Date(this.value);
             const dayOfWeek = selectedDate.getDay();
             if (!availableDays.includes(dayOfWeek)) {
-                alert(currentLang === 'ru' 
-                    ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' 
-                    : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
+                alert(currentLang === 'ru' ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
                 let newDate = new Date(selectedDate);
-                while (!availableDays.includes(newDate.getDay())) {
-                    newDate.setDate(newDate.getDate() + 1);
-                }
+                while (!availableDays.includes(newDate.getDay())) { newDate.setDate(newDate.getDate() + 1); }
                 this.value = newDate.toISOString().split('T')[0];
             }
         });
@@ -1274,28 +1001,21 @@
         });
     }
 
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
-        // 1. Инициализация языка
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         
-        // 2. 📊 GA4: просмотр страницы оформления (отложенный)
         setTimeout(() => {
             trackGA4Event('page_view', {
-                page_title: document.title,
-                page_location: window.location.href,
-                page_path: '/checkout.html',
-                language: currentLang,
+                page_title: document.title, page_location: window.location.href,
+                page_path: '/checkout.html', language: currentLang,
                 cart_items: cart.length,
                 cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
             });
         }, 1000);
         
-        // 🎯 Метрика: страница оформления загружена
         ymTrack('checkout_viewed', { lang: currentLang, cart_items: cart.length });
         
-        // 3. Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -1313,11 +1033,9 @@
             });
         }
         
-        // 4. Рендер сводки заказа
         renderOrderSummary();
         updateCartCount();
         
-        // 5. Навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
@@ -1327,7 +1045,6 @@
             });
         });
         
-        // 6. Соцсети
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
@@ -1337,7 +1054,6 @@
             });
         });
         
-        // 7. Изменение количества товара
         document.getElementById('orderItemsContainer')?.addEventListener('click', function(e) {
             const btn = e.target.closest('.quantity-btn');
             const removeBtn = e.target.closest('.order-item-remove');
@@ -1354,7 +1070,6 @@
             }
         });
         
-        // 8. Выбор оплаты
         document.querySelectorAll('input[name="payment"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 trackGA4Event('add_payment_info', { payment_type: this.value, currency: currentLang === 'en' ? 'AED' : 'RUB' });
@@ -1362,19 +1077,14 @@
             });
         });
         
-        // 9. Кнопка "Отмена"
         document.getElementById('cancelBtn')?.addEventListener('click', function() {
             ymTrack('checkout_cancelled', { cart_items: cart.length });
             window.location.href = 'boxes.html';
         });
         
-        // 10. Инициализация ограничений даты и времени
         initDateRestrictions();
-        
-        // 11. Инициализация автодополнения адреса
         initAddressAutocomplete();
         
-        // 12. Обработка формы
         const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
             checkoutForm.addEventListener('submit', async function(e) {
@@ -1414,7 +1124,6 @@
                     return;
                 }
                 
-                // Блокируем кнопку
                 submitBtn.disabled = true;
                 const btnText = submitBtn.querySelector('.btn-text');
                 const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1436,6 +1145,7 @@
                     comment: document.getElementById('comment').value,
                     items: cart.map(item => ({
                         id: item.id, productId: item.productId, name: item.name,
+                        image: item.image, productType: item.productType,
                         basePrice: item.basePrice, price: item.price, quantity: item.quantity,
                         options: item.options
                     })),
@@ -1445,46 +1155,43 @@
                 };
                 
                 try {
-                    // 📊 GA4: начало оформления
                     trackGA4Event('begin_checkout', {
-                        currency: orderData.currency,
-                        value: orderData.total,
+                        currency: orderData.currency, value: orderData.total,
                         items: orderData.items.map(item => ({
                             item_id: item.productId, item_name: item.name,
-                            price: item.price, quantity: item.quantity,
-                            item_category: 'gastronomic_box'
+                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
                         }))
                     });
                     ymTrack('checkout_start');
                     
-                    // Отправка уведомлений
                     await notifyOwner(orderData);
-                    
-                    // Сохранение заказа
                     sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
                     
-                    // 📊 GA4: успешная покупка
                     trackGA4Event('purchase', {
-                        transaction_id: orderData.orderNumber,
-                        currency: orderData.currency,
-                        value: orderData.total,
-                        shipping: orderData.delivery === 'courier' ? 800 : 0,
+                        transaction_id: orderData.orderNumber, currency: orderData.currency,
+                        value: orderData.total, shipping: orderData.delivery === 'courier' ? 800 : 0,
                         items: orderData.items.map(item => ({
                             item_id: item.productId, item_name: item.name,
-                            price: item.price, quantity: item.quantity,
-                            item_category: 'gastronomic_box',
-                            item_variant: `${item.options?.persons || 2} persons`
+                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
+                            item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
+                                         item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
                         }))
                     });
                     
-                    // 🎯 Метрика: успешный заказ + e-commerce
                     ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
-                    ymEcommercePurchase(orderData);
                     
-                    // Очистка корзины
+                    if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
+                        dataLayer.push({
+                            'ecommerce': {
+                                'purchase': {
+                                    'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
+                                    'products': orderData.items.map(item => ({ 'id': item.productId, 'name': item.name, 'price': item.price, 'quantity': item.quantity }))
+                                }
+                            }
+                        });
+                    }
+                    
                     cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                    
-                    // Переход на thank-you
                     window.location.href = 'thank-you.html';
                     
                 } catch (error) {
@@ -1501,11 +1208,11 @@
         console.log(`✅ checkout.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
     });
     
-    // ✅ Слушаем изменения localStorage
     window.addEventListener('storage', function(e) {
         if (e.key === 'hedonism_cart') {
             cart = JSON.parse(e.newValue) || [];
             updateCartCount();
+            renderOrderSummary();
         }
     });
     </script>
