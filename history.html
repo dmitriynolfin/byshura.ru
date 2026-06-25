@@ -53,32 +53,33 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* БЕГУЩАЯ СТРОКА */
+        /* БЕГУЩАЯ СТРОКА - ✅ КАК НА index.html */
         .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
-        /* ШАПКА */
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
+        /* ШАПКА - ✅ КАК НА index.html */
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); }
+        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
-        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding: 5px 0; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #FFD93D; transition: width 0.3s; }
+        .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: #FFD93D; }
-        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
-        .header-right { display: flex; align-items: center; gap: 20px; }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
+        .nav-link-cta::after { display: none !important; }
+        .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; cursor: pointer; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
         .btn-back:hover { background: #070395; color: white; }
-        
-        /* ✅ ОБНОВЛЕННЫЕ СТИЛИ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКА */
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        
         .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
         .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
@@ -106,11 +107,11 @@
         .philosophy-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #070395; }
         .philosophy-card p { font-size: 14px; color: #666; line-height: 1.6; }
         
-        /* FOOTER */
+        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        /* ✅ УБРАЛИ footer-logo (кнопку с лимоном) */
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -138,7 +139,10 @@
         body { -ms-overflow-style: none; }
         
         /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
+        @media (max-width: 1024px) { 
+            .container { padding: 0 20px; } 
+            .nav-menu { display: none; } 
+        }
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
@@ -146,11 +150,12 @@
             .history-page { padding-top: 130px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            .footer-logo { width: 42px; height: 42px; font-size: 20px; }
+            
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            
             .timeline-item { padding: 20px 0 20px 35px; margin-bottom: 25px; }
             .timeline-item::before { left: -8px; width: 18px; height: 18px; top: 25px; }
             .timeline-year { font-size: 20px; margin-bottom: 8px; }
@@ -163,6 +168,9 @@
             .philosophy-card h3 { font-size: 18px; margin-bottom: 10px; }
             .philosophy-card p { font-size: 13px; }
             .header-right { gap: 10px; }
+            
+            /* ✅ FOOTER КАК НА index.html */
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) { 
@@ -170,12 +178,13 @@
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .history-page { padding-top: 125px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            .footer-logo { width: 40px; height: 40px; font-size: 18px; }
+            
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            
             .timeline { padding-left: 15px; }
             .timeline-item { padding: 15px 0 15px 30px; margin-bottom: 20px; }
             .timeline-item::before { left: -7px; width: 16px; height: 16px; top: 20px; border-width: 2px; }
@@ -187,13 +196,16 @@
             .philosophy-icon { font-size: 32px; margin-bottom: 12px; }
             .philosophy-card h3 { font-size: 16px; }
             .philosophy-card p { font-size: 12px; }
+            
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; }
+            
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-links-ru a:hover { color: #070395; }
@@ -216,6 +228,9 @@
             .philosophy-card h3 { font-size: 15px; }
             .philosophy-card p { font-size: 11px; }
         }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
     
     <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
@@ -231,7 +246,7 @@
 </head>
 <body>
 
-    <!-- ШАПКА -->
+    <!-- ШАПКА - ✅ КАК НА index.html -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -272,8 +287,10 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
-    <div class="marquee-bar"><div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • </div></div>
+    <!-- БЕГУЩАЯ СТРОКА - ✅ КАК НА index.html -->
+    <div class="marquee-bar">
+        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • </div>
+    </div>
 
     <!-- ИСТОРИЯ -->
     <section class="history-page">
@@ -328,10 +345,10 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
+            <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
@@ -398,21 +415,18 @@
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER (оптимизировано) =====
     function trackGA4Event(eventName, params) {
         if (isProduction && typeof gtag === 'function') {
             gtag('event', eventName, params);
         }
     }
 
-    // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
             ym(110092456, 'reachGoal', goalId, params);
         }
     }
 
-    // ===== DEBOUNCE (для оптимизации) =====
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -422,7 +436,6 @@
         };
     }
 
-    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ СЧЁТЧИКА КОРЗИНЫ
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
@@ -432,142 +445,6 @@
         }
     }
 
-    // ===== MAIN INIT =====
-    document.addEventListener('DOMContentLoaded', function() {
-        // 1. Инициализация языка
-        const savedLang = localStorage.getItem('hedonism_lang');
-        const validLangs = ['ru', 'en'];
-        const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
-        applyLanguage(langToUse);
-        
-        // 2. 📊 GA4: просмотр страницы истории (отложенный)
-        setTimeout(() => {
-            trackGA4Event('page_view', {
-                page_title: document.title,
-                page_location: window.location.href,
-                page_path: '/history.html',
-                language: currentLang
-            });
-        }, 1000);
-        
-        // 🎯 Метрика: страница истории загружена
-        ymTrack('history_viewed', { lang: currentLang });
-        
-        // 3. Переключатель языка
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        
-        if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
-            langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault(); e.stopPropagation();
-                    const selectedLink = e.target.closest('a');
-                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
-                    setTimeout(() => langDropdown.classList.remove('show'), 100);
-                });
-            });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
-            });
-        }
-        
-        // 4. ✅ ИКОНКА КОРЗИНЫ → CHECKOUT
-        document.getElementById('cartBtn')?.addEventListener('click', function() {
-            trackGA4Event('cart_click', {
-                page: 'history',
-                cart_items: cart.length,
-                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-            });
-            ymTrack('cart_click_history', { cart_items: cart.length });
-            
-            if (cart.length === 0) {
-                const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
-                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) {
-                    window.location.href = 'boxes.html';
-                    return;
-                }
-            }
-            window.location.href = 'checkout.html';
-        });
-        
-        // 5. 🎯 Метрика: навигация
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const href = this.getAttribute('href');
-                if (href?.includes('contacts')) {
-                    ymTrack('nav_contacts_click');
-                    trackGA4Event('click', { link_text: 'contacts', page: 'history' });
-                } else if (href?.includes('boxes.html')) {
-                    ymTrack('nav_order_click');
-                    trackGA4Event('click', { link_text: 'order_box', page: 'history' });
-                } else if (href?.includes('index.html') && !href.includes('#')) {
-                    ymTrack('nav_home_click');
-                    trackGA4Event('click', { link_text: 'home', page: 'history' });
-                }
-            });
-        });
-        
-        // 6. 🎯 Метрика: соцсети в футере
-        document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const platform = this.getAttribute('aria-label') || 'social';
-                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
-                ymTrack(goalId);
-                trackGA4Event('social_click', { platform: platform, page: 'history' });
-            });
-        });
-        
-        // 7. 📊 GA4: клик по элементам таймлайна
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const year = this.dataset.timelineYear;
-                const title = this.dataset.timelineTitle;
-                trackGA4Event('timeline_item_click', { timeline_year: year, timeline_title: title, page: 'history' });
-                ymTrack('timeline_click', { year: year, title: title });
-            });
-        });
-        
-        // 8. 📊 GA4: клик по карточкам философии
-        document.querySelectorAll('.philosophy-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const philosophy = this.dataset.philosophy;
-                trackGA4Event('philosophy_card_click', { philosophy_type: philosophy, page: 'history' });
-                ymTrack('philosophy_click', { type: philosophy });
-            });
-        });
-        
-        // 9. 📊 GA4: скролл до конца страницы (debounced)
-        let footerViewed = false;
-        const checkFooterScroll = debounce(function() {
-            const footer = document.querySelector('.footer');
-            if (footer && !footerViewed) {
-                const rect = footer.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
-                    trackGA4Event('scroll_depth', { percent: 100, page: 'history' });
-                    ymTrack('history_footer_viewed');
-                    footerViewed = true;
-                }
-            }
-        }, 200);
-        window.addEventListener('scroll', checkFooterScroll);
-        
-        // 10. 📊 GA4: время на странице (через 30 секунд)
-        setTimeout(() => { trackGA4Event('engagement', { page: 'history', time_on_page: 30 }); }, 30000);
-        
-        // Инициализация
-        updateCartCount();
-    });
-    
-    // ✅ Слушаем изменения localStorage
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'hedonism_cart') {
-            cart = JSON.parse(e.newValue) || [];
-            updateCartCount();
-        }
-    });
-    
-    // ===== ЯЗЫКОВЫЕ ФУНКЦИИ =====
     function applyLanguage(lang) {
         if (!translations[lang]) { lang = 'ru'; }
         const prevLang = currentLang;
@@ -576,7 +453,8 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
+                if (key === 'infoNote') { el.innerHTML = translations[lang][key]; }
+                else { el.textContent = translations[lang][key]; }
             }
         });
         
@@ -594,6 +472,112 @@
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedLang = localStorage.getItem('hedonism_lang');
+        const validLangs = ['ru', 'en'];
+        const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
+        applyLanguage(langToUse);
+        
+        setTimeout(() => {
+            trackGA4Event('page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                page_path: '/history.html',
+                language: currentLang
+            });
+        }, 1000);
+        
+        ymTrack('history_viewed', { lang: currentLang });
+        
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
+            langDropdown.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault(); e.stopPropagation();
+                    const selectedLink = e.target.closest('a');
+                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
+                    setTimeout(() => langDropdown.classList.remove('show'), 100);
+                });
+            });
+            document.addEventListener('click', e => {
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
+            });
+        }
+        
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            trackGA4Event('cart_click', { page: 'history', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
+            ymTrack('cart_click_history', { cart_items: cart.length });
+            if (cart.length === 0) {
+                const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
+                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = 'boxes.html'; return; }
+            }
+            window.location.href = 'checkout.html';
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href?.includes('contacts')) { ymTrack('nav_contacts_click'); trackGA4Event('click', { link_text: 'contacts', page: 'history' }); }
+                else if (href?.includes('boxes.html')) { ymTrack('nav_order_click'); trackGA4Event('click', { link_text: 'order_box', page: 'history' }); }
+                else if (href?.includes('index.html') && !href.includes('#')) { ymTrack('nav_home_click'); trackGA4Event('click', { link_text: 'home', page: 'history' }); }
+            });
+        });
+        
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
+                trackGA4Event('social_click', { platform: platform, page: 'history' });
+            });
+        });
+        
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const year = this.dataset.timelineYear;
+                const title = this.dataset.timelineTitle;
+                trackGA4Event('timeline_item_click', { timeline_year: year, timeline_title: title, page: 'history' });
+                ymTrack('timeline_click', { year: year, title: title });
+            });
+        });
+        
+        document.querySelectorAll('.philosophy-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const philosophy = this.dataset.philosophy;
+                trackGA4Event('philosophy_card_click', { philosophy_type: philosophy, page: 'history' });
+                ymTrack('philosophy_click', { type: philosophy });
+            });
+        });
+        
+        let footerViewed = false;
+        const checkFooterScroll = debounce(function() {
+            const footer = document.querySelector('.footer');
+            if (footer && !footerViewed) {
+                const rect = footer.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    trackGA4Event('scroll_depth', { percent: 100, page: 'history' });
+                    ymTrack('history_footer_viewed');
+                    footerViewed = true;
+                }
+            }
+        }, 200);
+        window.addEventListener('scroll', checkFooterScroll);
+        
+        setTimeout(() => { trackGA4Event('engagement', { page: 'history', time_on_page: 30 }); }, 30000);
+        
+        updateCartCount();
+        console.log(`✅ history.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
+    });
+    
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            cart = JSON.parse(e.newValue) || [];
+            updateCartCount();
+        }
+    });
     </script>
 </body>
 </html>
