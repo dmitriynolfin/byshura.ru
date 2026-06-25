@@ -130,7 +130,8 @@
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
-        .section-title { text-align: center; font-size: 28px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; }
+        /* ✅ ИСПРАВЛЕНИЕ 1: section-title теперь такого же размера как page-title */
+        .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
         .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
@@ -281,11 +282,11 @@
         .btn-prompt-cart { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
         .btn-prompt-cart:hover { background: #FFD93D; color: #070395; }
         
-        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА, ШРИФТ 600) */
+        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        /* ✅ УБРАЛИ footer-logo (кнопку с лимоном) */
-        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
+        /* ✅ ИСПРАВЛЕНИЕ 4: font-weight 400 вместо 600 */
+        .footer-copyright { font-size: 14px; font-weight: 400; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -333,7 +334,8 @@
             .btn-select { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
             .page-title { font-size: 32px; }
-            .section-title { font-size: 22px; margin: 40px 0 30px; }
+            /* ✅ ИСПРАВЛЕНИЕ 1: section-title тоже 32px */
+            .section-title { font-size: 32px; margin: 40px 0 30px; }
             .boxes-grid { grid-template-columns: 1fr; }
             .box-image { height: 240px; }
             .box-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 11px; }
@@ -377,7 +379,8 @@
             
             .page-title { font-size: 28px; }
             .page-subtitle { font-size: 14px; }
-            .section-title { font-size: 18px; letter-spacing: 1px; }
+            /* ✅ ИСПРАВЛЕНИЕ 1: section-title тоже 28px */
+            .section-title { font-size: 28px; letter-spacing: 1px; }
             .box-image { height: 200px; }
             .box-badge { padding: 5px 10px; font-size: 10px; }
             .box-content { padding: 16px; }
@@ -498,7 +501,8 @@
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .page-title { font-size: 24px; }
-            .section-title { font-size: 16px; }
+            /* ✅ ИСПРАВЛЕНИЕ 1: section-title тоже 24px */
+            .section-title { font-size: 24px; }
             .box-image { height: 180px; }
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
@@ -1048,6 +1052,7 @@
     }
 
     // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ВЫБОРА КОЛИЧЕСТВА (4/8 ШТ)
+    // ✅ ИСПРАВЛЕНИЕ 2: Правильное склонение "штуки/штук"
     function renderQuantityOptions(productId) {
         const container = document.getElementById('quantitySelect');
         const prices = getQuantityPrices(productId, currentLang);
@@ -1059,7 +1064,13 @@
         let html = '';
         [4, 8].forEach((count, index) => {
             const price = formatPrice(prices[count], currentLang);
-            const label = currentLang === 'ru' ? `${count} штуки` : `${count} pieces`;
+            let label;
+            if (currentLang === 'ru') {
+                // ✅ 4 штуки, 8 штук
+                label = count === 4 ? '4 штуки' : '8 штук';
+            } else {
+                label = `${count} pieces`;
+            }
             html += `<label class="quantity-option">
                 <input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" data-price="${prices[count]}" ${index === 0 ? 'checked' : ''}>
                 <span class="quantity-label">
@@ -1457,6 +1468,20 @@
         document.getElementById('promptContinue')?.addEventListener('click', closeCartPrompt);
         document.getElementById('promptCart')?.addEventListener('click', goToCheckout);
         cartPromptOverlay?.addEventListener('click', e => { if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); });
+        
+        // ✅ ИСПРАВЛЕНИЕ 3: Закрытие карточек по нажатию ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.code === 'Escape') {
+                const productModal = document.getElementById('productModalOverlay');
+                const cartPrompt = document.getElementById('cartPromptOverlay');
+                if (productModal && productModal.classList.contains('open')) {
+                    closeProductModal();
+                } else if (cartPrompt && cartPrompt.classList.contains('open')) {
+                    closeCartPrompt();
+                }
+            }
+        });
+        
         let footerViewed = false;
         const checkFooterScroll = debounce(function() {
             const footer = document.querySelector('.footer');
