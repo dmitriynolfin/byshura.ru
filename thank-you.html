@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -13,301 +12,184 @@
     <meta property="og:image" content="https://byshura.ru/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
-    
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://byshura.ru/thank-you.html">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Спасибо за заказ — Вестник Гедонизма</title>
+    <title data-i18n="pageTitle">Спасибо за заказ - Вестник Гедонизма</title>
     
-    <!-- ✅ PRELOAD КРИТИЧНЫХ РЕСУРСОВ -->
     <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" crossorigin>
-    
-    <!-- ✅ КЭШИРОВАНИЕ -->
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
-    <meta http-equiv="Expires" content="3600">
     
-    <!-- 🔹 GOOGLE ANALYTICS 4 (оптимизировано) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-L8704SB9ZW', {
-        page_title: document.title,
-        page_location: window.location.href,
-        page_path: window.location.pathname,
-        send_page_view: false
-      });
+      gtag('config', 'G-L8704SB9ZW', { page_title: document.title, page_location: window.location.href, page_path: window.location.pathname, send_page_view: false });
     </script>
-    
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://byshura.ru/thank-you.html">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; 
-            color: #070395; line-height: 1.6; overflow-x: hidden; 
-            background: linear-gradient(135deg, #f8f9fa 0%, #fff9e6 100%);
-            min-height: 100vh;
-        }
-        a { text-decoration: none; color: inherit; transition: color 0.3s; }
-        a:hover { color: #FFD93D; }
+        body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
         button { cursor: pointer; border: none; background: none; font: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
-        /* ===== ШАПКА (упрощённая) ===== */
-        .header { 
-            position: fixed; top: 0; left: 0; width: 100%; 
-            background: rgba(255,255,255,0.98); padding: 15px 0; 
-            z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); 
-            backdrop-filter: blur(10px); transition: all 0.3s;
-        }
+        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
-        .header-left { display: flex; align-items: center; }
-        .logo { 
-            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0;
-        }
-        .header-right { display: flex; align-items: center; }
-        .btn-home { 
-            border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; 
-            font-weight: 600; font-size: 13px; transition: all 0.3s; 
-            min-height: 44px; display: flex; align-items: center;
-        }
-        .btn-home:hover { background: #070395; color: white; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-link.active { color: #FFD93D; }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+        .header-icons { display: flex; gap: 12px; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
+        .btn-back:hover { background: #070395; color: white; }
+        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
+        .lang-selector:hover { background: rgba(7,3,149,0.1); }
+        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
+        .lang-dropdown.show { display: block; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
+        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
+        .lang-code { font-weight: 600; margin-right: 5px; }
+        .lang-descr { color: #666; font-size: 12px; }
         
-        /* ОСНОВНОЙ БЛОК */
-        .thank-you-page { 
-            padding: 145px 0 60px; 
-            min-height: calc(100vh - 75px);
-            display: flex;
-            align-items: center;
-        }
+        /* СТРАНИЦА БЛАГОДАРНОСТИ */
+        .thankyou-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
+        .thankyou-container { max-width: 900px; margin: 0 auto; }
         
-        .success-card {
-            background: white;
-            border-radius: 24px;
-            padding: 50px 40px;
-            box-shadow: 0 20px 60px rgba(7,3,149,0.15);
+        .thankyou-hero { 
+            background: white; border-radius: 24px; padding: 50px 40px; 
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; 
             text-align: center;
-            animation: fadeInUp 0.6s ease;
-            max-width: 600px;
-            margin: 0 auto;
-            will-change: opacity, transform;
+        }
+        .thankyou-icon {
+            width: 100px; height: 100px; margin: 0 auto 25px;
+            background: linear-gradient(135deg, #FFD93D 0%, #FFB800 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 56px; box-shadow: 0 10px 30px rgba(255,217,61,0.3);
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .thankyou-title { 
+            font-size: 36px; font-weight: 700; margin-bottom: 15px; color: #070395;
+        }
+        .thankyou-subtitle { 
+            font-size: 16px; color: #666; margin-bottom: 25px; line-height: 1.6;
+        }
+        .order-number-badge {
+            display: inline-block; background: #070395; color: white;
+            padding: 12px 28px; border-radius: 30px; font-weight: 600; font-size: 15px;
+            letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(7,3,149,0.2);
+        }
+        .order-number-badge span { color: #FFD93D; margin-left: 6px; }
+        
+        .thankyou-details {
+            background: white; border-radius: 24px; padding: 35px;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px;
+        }
+        .details-section { margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #eee; }
+        .details-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .details-section-title {
+            font-size: 18px; font-weight: 600; color: #070395;
+            margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+        }
+        .details-section-title::before {
+            content: ''; width: 4px; height: 20px; background: #FFD93D; border-radius: 2px;
         }
         
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Товары в заказе */
+        .order-item { 
+            display: flex; gap: 15px; padding: 15px 0; 
+            border-bottom: 1px solid #f5f5f5; align-items: flex-start;
         }
-        
-        .success-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #FFD93D 0%, #ffb800 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            margin: 0 auto 25px;
-            box-shadow: 0 10px 30px rgba(255,217,61,0.4);
-            animation: pulse 2s ease-in-out infinite;
-            will-change: transform;
+        .order-item:last-child { border-bottom: none; }
+        .order-item-thumb { 
+            width: 70px; height: 70px; border-radius: 12px; 
+            background-size: cover; background-position: center; 
+            flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f0f0f0; 
         }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .success-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #070395;
-            margin-bottom: 15px;
-        }
-        
-        .success-subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        
-        /* НОМЕР ЗАКАЗА */
-        .order-number-box {
-            background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 16px;
-            margin: 25px 0;
-            box-shadow: 0 10px 30px rgba(7,3,149,0.3);
-        }
-        
-        .order-number-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.8;
-            margin-bottom: 8px;
-        }
-        
-        .order-number-value {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #FFD93D;
-            font-family: 'Courier New', monospace;
-        }
-        
-        /* ДЕТАЛИ ЗАКАЗА */
-        .order-details {
-            background: #f8f9fa;
-            border-radius: 16px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-        }
-        
-        .order-details h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #070395;
-            border-bottom: 2px solid #FFD93D;
-            padding-bottom: 10px;
-        }
-        
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-            gap: 15px;
-        }
-        
-        .detail-row:last-child { border-bottom: none; }
-        
-        .detail-label {
-            color: #666;
-            font-weight: 500;
+        .order-item-info { flex: 1; min-width: 0; }
+        .order-item-name { font-weight: 600; color: #070395; margin-bottom: 5px; font-size: 15px; }
+        .order-item-options { font-size: 13px; color: #666; margin-bottom: 6px; }
+        .order-item-option { display: flex; gap: 5px; margin-bottom: 3px; }
+        .order-item-option-label { color: #999; }
+        .order-item-option-value { color: #070395; font-weight: 500; }
+        .order-item-price { 
+            font-weight: 600; color: #070395; font-size: 16px; 
+            white-space: nowrap; display: flex; align-items: baseline; gap: 4px;
             flex-shrink: 0;
         }
+        html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         
-        .detail-value {
-            color: #070395;
-            font-weight: 600;
-            text-align: right;
-            word-break: break-word;
+        /* Информация о доставке */
+        .info-row {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            padding: 10px 0; gap: 15px;
         }
+        .info-row:not(:last-child) { border-bottom: 1px dashed #eee; }
+        .info-label { color: #999; font-size: 14px; flex-shrink: 0; }
+        .info-value { color: #070395; font-weight: 500; font-size: 14px; text-align: right; }
         
-        /* Строка доставки */
-        .delivery-fee-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 15px;
-            border-bottom: 1px dashed #ddd;
-            font-size: 14px;
-            background: #fff9e6;
-            border-radius: 8px;
-            margin: 10px 0;
-        }
-        
-        .delivery-fee-label { font-weight: 500; color: #070395; }
-        .delivery-fee-value { font-weight: 600; color: #070395; }
-        
-        .items-list { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; }
-        
-        .item-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            font-size: 14px;
-            gap: 10px;
-        }
-        
-        .item-name { color: #070395; font-weight: 500; }
-        .item-qty { color: #666; }
-        
-        /* Стили для аллергенов */
-        .item-allergens {
-            font-size: 12px;
-            color: #666;
-            margin-top: -2px;
-            margin-bottom: 10px;
-            padding-left: 4px;
-            line-height: 1.4;
-        }
-        .item-allergens .allergen-label {
-            color: #070395;
-            font-weight: 600;
-            margin-right: 4px;
-        }
-        
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0 0;
-            margin-top: 10px;
+        /* Итого */
+        .order-total-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0 0; margin-top: 10px;
             border-top: 2px solid #070395;
-            font-size: 18px;
-            font-weight: 700;
-            color: #070395;
+            font-size: 20px; font-weight: 700; color: #070395;
         }
-        
-        /* Для английского языка: валюта перед суммой */
-        html[lang="en"] .total-row .price-value { order: 2; }
-        html[lang="en"] .total-row .currency { order: 1; margin-right: 4px; }
-        html[lang="en"] .item-qty .price-value { order: 2; }
-        html[lang="en"] .item-qty .currency { order: 1; margin-right: 4px; }
-        html[lang="en"] .delivery-fee-value { flex-direction: row-reverse; }
-        
-        /* ГЛАВНЫЕ КНОПКИ */
-        .main-buttons { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
-        
-        .btn-primary {
-            flex: 1; min-width: 200px; background: #070395; color: white; padding: 16px 30px; 
-            border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; 
-            transition: all 0.3s; border: none; cursor: pointer; text-align: center; 
-            text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+        .order-total-value {
+            display: flex; align-items: baseline; gap: 6px;
         }
-        .btn-primary:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
+        html[lang="en"] .order-total-value { flex-direction: row-reverse; }
         
-        .btn-secondary {
-            flex: 1; min-width: 200px; background: transparent; color: #070395; padding: 16px 30px; 
-            border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; 
-            transition: all 0.3s; border: 2px solid #070395; cursor: pointer; text-align: center; 
-            text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+        /* Кнопка возврата */
+        .thankyou-actions { text-align: center; margin-top: 30px; }
+        .btn-home {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: #070395; color: white; padding: 16px 40px;
+            border-radius: 30px; font-weight: 600; font-size: 14px;
+            text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer;
         }
-        .btn-secondary:hover { background: #070395; color: white; }
+        .btn-home:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7,3,149,0.2); }
         
-        /* ИНФО-БЛОК */
-        .info-note {
-            background: #fff9e6; border-left: 4px solid #FFD93D; padding: 15px 20px; 
-            border-radius: 8px; margin-top: 25px; text-align: left; font-size: 13px; color: #555; line-height: 1.6;
+        /* Сообщение об отсутствии заказа */
+        .no-order {
+            background: white; border-radius: 24px; padding: 60px 40px;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); text-align: center;
         }
-        .info-note strong { color: #070395; }
-        .info-note a { color: #070395; font-weight: 600; text-decoration: underline; }
-        .info-note a:hover { color: #FFD93D; }
+        .no-order-icon { font-size: 64px; margin-bottom: 20px; }
+        .no-order-title { font-size: 24px; font-weight: 700; color: #070395; margin-bottom: 15px; }
+        .no-order-text { color: #666; margin-bottom: 30px; }
         
-        /* FOOTER */
+        /* ✅ ФУТЕР КАК НА index.html */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
         
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ */
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
@@ -319,51 +201,67 @@
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
         
-        /* ✅ КОРЗИНА СКРЫТА */
-        .cart-modal { display: none; }
-        .cart-overlay { display: none; }
-        
-        /* СКРЫТИЕ СКРОЛЛБАРА */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { .container { padding: 0 20px; } }
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .thank-you-page { padding-top: 112px; }
+            .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
+            .thankyou-page { padding-top: 112px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            .footer-logo { width: 42px; height: 42px; font-size: 20px; }
-            .btn-home { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .btn-primary, .btn-secondary { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .success-card { padding: 35px 25px; }
-            .success-title { font-size: 26px; }
-            .success-subtitle { font-size: 14px; }
-            .order-number-value { font-size: 22px; }
-            .detail-row { flex-direction: column; gap: 4px; }
-            .detail-value { text-align: left; }
-            .main-buttons { flex-direction: column; }
-            .btn-primary, .btn-secondary { width: 100%; }
-            .delivery-fee-row { flex-direction: column; gap: 5px; text-align: left; }
-            .success-icon { animation: none !important; }
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .header-right { gap: 10px; }
+            
+            .thankyou-hero { padding: 40px 25px; }
+            .thankyou-icon { width: 80px; height: 80px; font-size: 44px; }
+            .thankyou-title { font-size: 28px; }
+            .thankyou-subtitle { font-size: 15px; }
+            .thankyou-details { padding: 25px; }
+            
+            .order-item { flex-direction: row; }
+            .order-item-thumb { width: 60px; height: 60px; }
+            
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            .thank-you-page { padding-top: 112px; }
+            .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
+            .thankyou-page { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            .footer-logo { width: 40px; height: 40px; font-size: 18px; }
-            .btn-home { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .btn-primary, .btn-secondary { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .success-card { padding: 30px 20px; }
-            .success-icon { width: 80px; height: 80px; font-size: 40px; }
-            .success-title { font-size: 22px; }
-            .order-number-box { padding: 20px 15px; }
-            .order-number-value { font-size: 20px; letter-spacing: 1px; }
-            .order-details { padding: 20px 15px; }
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .header-right { gap: 8px; }
+            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            
+            .thankyou-hero { padding: 35px 20px; }
+            .thankyou-icon { width: 70px; height: 70px; font-size: 38px; margin-bottom: 20px; }
+            .thankyou-title { font-size: 24px; }
+            .thankyou-subtitle { font-size: 14px; }
+            .order-number-badge { padding: 10px 22px; font-size: 14px; }
+            .thankyou-details { padding: 20px; }
+            .details-section-title { font-size: 16px; }
+            
+            .order-item { flex-direction: column; }
+            .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
+            .order-item-name { font-size: 15px; }
+            .order-item-options { font-size: 12px; }
+            .order-item-price { font-size: 16px; }
+            
+            .info-row { flex-direction: column; gap: 4px; }
+            .info-value { text-align: left; }
+            .order-total-row { font-size: 18px; }
+            
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
@@ -371,31 +269,21 @@
             .footer-copyright { font-size: 12px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-links-ru a:hover { color: #070395; }
             .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             html[lang="en"] .legal-links-en { display: flex !important; }
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-links-en a:hover { color: #070395; }
         }
         
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
-            .btn-home { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            .success-title { font-size: 20px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .thankyou-title { font-size: 22px; }
+            .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
+            .icon-btn svg { width: 22px; height: 22px; }
         }
-        
-        /* Статус отправки уведомлений */
-        .notification-status {
-            margin-top: 15px; padding: 12px 18px; border-radius: 10px; font-size: 13px; display: none; align-items: center; gap: 10px; justify-content: center;
-        }
-        .notification-status.show { display: flex; }
-        .notification-status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .notification-status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .notification-status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
     </style>
     
-    <!-- 🔹 ЯНДЕКС.МЕТРИКА -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -408,193 +296,243 @@
 </head>
 <body>
 
-    <!-- ШАПКА (упрощённая) -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
                 <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+                <nav class="nav-menu">
+                    <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ БОКС</a>
+                    <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                </nav>
             </div>
             <div class="header-right">
-                <a href="index.html" class="btn-home" id="btnHome" data-i18n="btnHome">НА ГЛАВНУЮ</a>
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
+                <div class="lang-selector" id="langBtn">
+                    <span id="langFlag">🇷🇺</span>
+                    <span id="langCurrent">RU</span>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- ОСНОВНОЙ БЛОК -->
-    <section class="thank-you-page">
-        <div class="container">
-            <div class="success-card">
-                <div class="success-icon">✓</div>
-                <h1 class="success-title" data-i18n="thankYouTitle">Спасибо за заказ!</h1>
-                <p class="success-subtitle" data-i18n="thankYouSubtitle">
-                    Мы получили ваш заказ и свяжемся с вами в течение часа для подтверждения.
-                </p>
-                
-                <!-- НОМЕР ЗАКАЗА -->
-                <div class="order-number-box">
-                    <div class="order-number-label" data-i18n="orderNumberLabel">Номер вашего заказа</div>
-                    <div class="order-number-value" id="orderNumberDisplay">—</div>
-                </div>
-                
-                <!-- ДЕТАЛИ ЗАКАЗА -->
-                <div class="order-details">
-                    <h3 data-i18n="orderDetailsTitle">Детали заказа</h3>
-                    <div id="orderDetailsContainer"></div>
-                </div>
-                
-                <!-- СТАТУС ОТПРАВКИ УВЕДОМЛЕНИЙ -->
-                <div class="notification-status" id="notificationStatus">
-                    <span id="notificationStatusText"></span>
-                </div>
-                
-                <!-- ИНФО -->
-                <div class="info-note" data-i18n="infoNote">
-                    <strong>📞 Что дальше?</strong><br>
-                    Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. 
-                    Если у вас есть вопросы — пишите нам в <a href="https://t.me/sash_shura" target="_blank" class="social-link-footer">Telegram</a> или <a href="https://max.ru/89636221265" target="_blank" class="social-link-footer">MAX</a>.
-                </div>
-                
-                <!-- ГЛАВНЫЕ КНОПКИ -->
-                <div class="main-buttons">
-                    <a href="index.html" class="btn-primary" id="btnHomeMain" data-i18n="btnHomeMain">НА ГЛАВНУЮ</a>
-                    <a href="boxes.html" class="btn-secondary" id="btnMoreOrders" data-i18n="btnMoreOrders">ЗАКАЗАТЬ ЕЩЁ</a>
-                </div>
-            </div>
+    <div class="marquee-bar">
+        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • Подарочная упаковка • </div>
+    </div>
+
+    <section class="thankyou-page">
+        <div class="container thankyou-container" id="thankyouContainer">
+            <!-- Контент рендерится через JS -->
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ✅ ФУТЕР КАК НА index.html: без footer-logo, font-weight 600 -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.png" alt="Telegram" loading="lazy">
-                </a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.png" alt="MAX" loading="lazy">
-                </a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.png" alt="Instagram" loading="lazy">
-                </a>
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.png" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.png" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.png" alt="Instagram" loading="lazy"></a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ -->
             <div class="legal-links-ru">
-                <a href="privacy-policy.html" target="_blank" class="footer-link">Политика конфиденциальности</a>
+                <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="offer.html" target="_blank" class="footer-link">Публичная оферта</a>
+                <a href="offer.html" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="privacy-policy-en.html" target="_blank" class="footer-link">Privacy Policy</a>
+                <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="offer-en.html" target="_blank" class="footer-link">Public Offer</a>
+                <a href="offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
-    // ===== ПЕРЕВОДЫ =====
     const translations = {
         ru: {
-            pageTitle: "Спасибо за заказ — Вестник Гедонизма",
+            pageTitle: "Спасибо за заказ - Вестник Гедонизма",
+            navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
+            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
+            thankyouTitle: "СПАСИБО ЗА ЗАКАЗ!",
+            thankyouSubtitle: "Ваш заказ успешно принят. Мы уже начали его готовить. Скоро свяжемся с вами для подтверждения деталей.",
+            orderNumberLabel: "Номер заказа",
+            sectionItems: "Состав заказа",
+            sectionDelivery: "Доставка",
+            sectionContacts: "Контактные данные",
+            sectionPayment: "Оплата",
+            labelDelivery: "Способ доставки:",
+            labelAddress: "Адрес:",
+            labelDate: "Дата:",
+            labelTime: "Время:",
+            labelName: "Имя:",
+            labelPhone: "Телефон:",
+            labelMessenger: "Мессенджер:",
+            labelPayment: "Способ оплаты:",
+            labelComment: "Комментарий:",
+            labelTotal: "Итого:",
+            deliveryPickup: "Самовывоз в Prime Park",
+            deliveryCourier: "Курьер",
+            paymentSber: "Перевод на Сбер",
+            paymentTbank: "Перевод на Т-Банк",
+            paymentAlfa: "Перевод на Альфа",
+            paymentCash: "Наличные",
             btnHome: "НА ГЛАВНУЮ",
-            thankYouTitle: "Спасибо за заказ!",
-            thankYouSubtitle: "Мы получили ваш заказ и свяжемся с вами в течение часа для подтверждения.",
-            orderNumberLabel: "Номер вашего заказа",
-            orderDetailsTitle: "Детали заказа",
-            infoNote: "<strong>📞 Что дальше?</strong><br>Мы свяжемся с вами в течение часа для подтверждения заказа и обсуждения деталей оплаты. Если у вас есть вопросы — пишите нам в <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> или <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
-            btnHomeMain: "НА ГЛАВНУЮ",
-            btnMoreOrders: "ЗАКАЗАТЬ ЕЩЁ",
+            noOrderTitle: "Заказ не найден",
+            noOrderText: "Похоже, вы перешли сюда напрямую. Оформите заказ, чтобы увидеть эту страницу.",
+            noOrderBtn: "ОФОРМИТЬ ЗАКАЗ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            detailName: "Имя:", detailPhone: "Телефон:", detailMessenger: "Связь:",
-            detailDelivery: "Доставка:", detailAddress: "Адрес:", detailDate: "Дата:",
-            detailTime: "Время:", detailPayment: "Оплата:", detailComment: "Комментарий:",
-            detailItems: "Состав заказа:", detailTotal: "Итого:", detailAllergens: "Исключено:",
-            deliveryFee: "Доставка курьером:", deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер",
-            paymentSber: "Перевод на Сбер", paymentTbank: "Перевод на Т-Банк", paymentAlfa: "Перевод на Альфа", paymentCash: "Наличные",
-            noOrder: "Заказ не найден", noOrderText: "Похоже, вы перешли на эту страницу напрямую. Пожалуйста, оформите заказ.",
-            btnGoToBoxes: "ПЕРЕЙТИ К БОКСАМ",
-            notificationSending: "⏳ Отправка заказа...",
-            notificationSuccess: "✅ Заказ успешно отправлен",
-            notificationError: "⚠️ Ошибка отправки",
-            box1Name: "Бокс «Лимонный»", box2Name: "Бокс «Гедонист»", box3Name: "Бокс «Семейный»",
-            box4Name: "Бокс «Вечеринка»", box5Name: "Бокс «Завтрак»", box6Name: "Бокс «Десертный»"
+            itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:",
+            itemWeight: "Вес:",
+            personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон",
+            qtyWord4: "штуки", qtyWord8: "штук",
+            weightLabel: "Вес ~1 кг",
+            deliveryFree: "Бесплатно"
         },
         en: {
-            pageTitle: "Thank you for your order — Hedonism Dispatch",
-            btnHome: "HOME",
-            thankYouTitle: "Thank you for your order!",
-            thankYouSubtitle: "We received your order and will contact you within an hour to confirm.",
-            orderNumberLabel: "Your order number",
-            orderDetailsTitle: "Order details",
-            infoNote: "<strong>📞 What's next?</strong><br>We'll contact you within an hour to confirm your order and discuss payment details. If you have questions — message us on <a href='https://t.me/sash_shura' target='_blank'>Telegram</a> or <a href='https://max.ru/89636221265' target='_blank'>MAX</a>.",
-            btnHomeMain: "HOME",
-            btnMoreOrders: "ORDER MORE",
+            pageTitle: "Thank you for your order - Hedonism Dispatch",
+            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
+            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            thankyouTitle: "THANK YOU FOR YOUR ORDER!",
+            thankyouSubtitle: "Your order has been successfully received. We're already preparing it. We'll contact you soon to confirm the details.",
+            orderNumberLabel: "Order number",
+            sectionItems: "Order details",
+            sectionDelivery: "Delivery",
+            sectionContacts: "Contact details",
+            sectionPayment: "Payment",
+            labelDelivery: "Delivery method:",
+            labelAddress: "Address:",
+            labelDate: "Date:",
+            labelTime: "Time:",
+            labelName: "Name:",
+            labelPhone: "Phone:",
+            labelMessenger: "Messenger:",
+            labelPayment: "Payment method:",
+            labelComment: "Comment:",
+            labelTotal: "Total:",
+            deliveryPickup: "Pickup in Prime Park",
+            deliveryCourier: "Courier",
+            paymentSber: "Transfer to Sber",
+            paymentTbank: "Transfer to T-Bank",
+            paymentAlfa: "Transfer to Alfa",
+            paymentCash: "Cash",
+            btnHome: "GO TO HOME",
+            noOrderTitle: "Order not found",
+            noOrderText: "It looks like you came here directly. Place an order to see this page.",
+            noOrderBtn: "PLACE AN ORDER",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            detailName: "Name:", detailPhone: "Phone:", detailMessenger: "Contact:",
-            detailDelivery: "Delivery:", detailAddress: "Address:", detailDate: "Date:",
-            detailTime: "Time:", detailPayment: "Payment:", detailComment: "Comment:",
-            detailItems: "Order items:", detailTotal: "Total:", detailAllergens: "Excluded:",
-            deliveryFee: "Courier delivery:", deliveryPickup: "Pickup in Prime Park", deliveryCourier: "Courier",
-            paymentSber: "Transfer to Sber", paymentTbank: "Transfer to T-Bank", paymentAlfa: "Transfer to Alfa", paymentCash: "Cash",
-            noOrder: "Order not found", noOrderText: "It seems you came to this page directly. Please place an order first.",
-            btnGoToBoxes: "GO TO BOXES",
-            notificationSending: "⏳ Sending order...",
-            notificationSuccess: "✅ Order sent successfully",
-            notificationError: "⚠️ Sending failed",
-            box1Name: "Lemon Box", box2Name: "Hedonist Box", box3Name: "Family Box",
-            box4Name: "Party Box", box5Name: "Breakfast Box", box6Name: "Dessert Box"
+            itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:",
+            itemWeight: "Weight:",
+            personsWord1: "person", personsWord2: "people", personsWord5: "people",
+            qtyWord4: "pieces", qtyWord8: "pieces",
+            weightLabel: "Weight ~1 kg",
+            deliveryFree: "Free"
         }
     };
-    
-    let currentLang = localStorage.getItem('hedonism_lang') || 'ru';
+
+    const productNames = {
+        ru: {
+            'box1': 'Бокс «Ужин Николая II»',
+            'box2': 'Бокс «Ужин Чайковского»',
+            'cake1': 'Сливочный лимонный кекс',
+            'lemon-cookies': 'Нежное печенье с лимонным курдом',
+            'oat-cookies': 'Овсяное печенье с орехами и изюмом',
+            'rasstegai': 'Расстегаи с красной рыбой и рисом'
+        },
+        en: {
+            'box1': 'Nicholas II Dinner Box',
+            'box2': 'Tchaikovsky Dinner Box',
+            'cake1': 'Creamy Lemon Cake',
+            'lemon-cookies': 'Tender Cookies with Lemon Curd',
+            'oat-cookies': 'Oat Cookies with Nuts and Raisins',
+            'rasstegai': 'Rasstegai with Red Fish and Rice'
+        }
+    };
+
+    const priceTable = {
+        'box1': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
+        'box2': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
+        'cake1': { ru: 3000, en: 150 },
+        'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
+        'oat-cookies': { ru: { 4: 800, 8: 1400 }, en: { 4: 40, 8: 70 } },
+        'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
+    };
+
+    let currentLang = 'ru';
     let orderData = null;
     const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER (оптимизировано) =====
-    function trackGA4Event(eventName, params) {
-        if (isProduction && typeof gtag === 'function') {
-            gtag('event', eventName, params);
+    function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
+    function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
+
+    function getProductTypeById(productId) {
+        if (productId === 'box1' || productId === 'box2') return 'box';
+        if (productId === 'cake1') return 'cake';
+        if (productId === 'lemon-cookies' || productId === 'oat-cookies' || productId === 'rasstegai') return 'quantity-item';
+        return 'other';
+    }
+
+    function getPersonsWordRu(count) {
+        if (count === 1) return translations.ru.personsWord1;
+        if (count >= 2 && count <= 4) return translations.ru.personsWord2;
+        return translations.ru.personsWord5;
+    }
+
+    // ✅ Пересчёт цены товара на основе productId, options и языка
+    function recalculateItemPrice(item, lang) {
+        const productId = item.productId;
+        const options = item.options || {};
+        const table = priceTable[productId];
+        if (!table) return item.price;
+        if (productId === 'box1' || productId === 'box2') {
+            const persons = parseInt(options.persons) || 2;
+            return table[lang]?.[persons] || table[lang]?.[2];
+        }
+        if (productId === 'cake1') return table[lang];
+        if (table[lang] && typeof table[lang] === 'object') {
+            const qty = parseInt(options.quantity) || 4;
+            return table[lang][qty] || table[lang][4];
+        }
+        return item.price;
+    }
+
+    function getItemName(item, lang) {
+        return productNames[lang]?.[item.productId] || item.name || item.productId;
+    }
+
+    function formatPrice(amount, lang) {
+        if (lang === 'en') return amount;
+        return amount.toLocaleString('ru-RU');
+    }
+
+    function formatDate(dateStr, lang) {
+        if (!dateStr) return '—';
+        const d = new Date(dateStr);
+        const months_ru = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+        const months_en = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const weekdays_ru = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+        const weekdays_en = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        if (lang === 'ru') {
+            return `${d.getDate()} ${months_ru[d.getMonth()]} ${d.getFullYear()}, ${weekdays_ru[d.getDay()]}`;
+        } else {
+            return `${weekdays_en[d.getDay()]}, ${months_en[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
         }
     }
 
-    // ===== YANDEX METRIKA HELPER =====
-    function ymTrack(goalId, params) {
-        if (typeof ym === 'function') {
-            ym(110092456, 'reachGoal', goalId, params);
-        }
-    }
-
-    // ===== DEBOUNCE (для оптимизации) =====
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => { clearTimeout(timeout); func(...args); };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // ===== КОНФИГУРАЦИЯ GOOGLE APPS SCRIPT =====
-    const GAS_CONFIG = {
-        WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbx6Rki5O1S6Qgsu_ytb_Y8MNIamn4RImKLQ2ROD8JceZhxOCIRP1QEpJYP62_EBQFz1/exec'
-    };
-
-    // ===== ФОРМАТИРОВАНИЕ ДАТЫ =====
-    function formatDate(dateStr) {
-        if (!dateStr) return '-';
-        const parts = dateStr.split('-');
-        if (parts.length === 3) {
-            if (currentLang === 'en') return `${parts[2]}.${parts[1]}.${parts[0]}`;
-            return dateStr;
-        }
-        return dateStr;
-    }
-
-    // ===== ПРИМЕНЕНИЕ ЯЗЫКА =====
     function applyLanguage(lang) {
         if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
@@ -603,293 +541,268 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'infoNote') { el.innerHTML = translations[lang][key]; }
-                else { el.textContent = translations[lang][key]; }
+                el.textContent = translations[lang][key];
             }
         });
+        
+        const langFlag = document.getElementById('langFlag');
+        const langCurrent = document.getElementById('langCurrent');
+        if (langFlag && langCurrent) {
+            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
+            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
+        }
         
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+        renderThankYou();
         
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
-        ymTrack('lang_switch', { from: prevLang, to: lang, page: 'thank-you' });
+        ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    // ===== ПОЛУЧЕНИЕ ДАННЫХ ЗАКАЗА =====
-    function loadOrderData() {
-        const sessionData = sessionStorage.getItem('hedonism_last_order');
-        if (sessionData) {
-            try { orderData = JSON.parse(sessionData); return true; }
-            catch (e) { console.error('Ошибка чтения заказа:', e); }
-        }
-        return false;
-    }
-
-    // ===== ОТОБРАЖЕНИЕ ДЕТАЛЕЙ ЗАКАЗА =====
-    function renderOrderDetails() {
-        if (!orderData) return;
-        
+    function renderThankYou() {
+        const container = document.getElementById('thankyouContainer');
         const t = translations[currentLang];
-        const container = document.getElementById('orderDetailsContainer');
+        const currency = currentLang === 'en' ? 'AED' : '₽';
         
-        document.getElementById('orderNumberDisplay').textContent = orderData.orderNumber || '—';
-        
-        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
-        const paymentMap = { 'sber': t.paymentSber, 'tbank': t.paymentTbank, 'alfa': t.paymentAlfa, 'cash': t.paymentCash };
-        const paymentText = paymentMap[orderData.payment] || orderData.payment;
-        
-        const formatPrice = (amount, currency) => {
-            const formatted = amount.toLocaleString('ru-RU');
-            if (currentLang === 'en') {
-                return `<span class="currency">${currency}</span> <span class="price-value">${formatted}</span>`;
-            }
-            return `<span class="price-value">${formatted}</span> <span class="currency">${currency}</span>`;
-        };
-        
-        let html = '';
-        html += `<div class="detail-row"><span class="detail-label">${t.detailName}</span><span class="detail-value">${escapeHtml(orderData.name)}</span></div>`;
-        html += `<div class="detail-row"><span class="detail-label">${t.detailPhone}</span><span class="detail-value">${escapeHtml(orderData.phone)}</span></div>`;
-        html += `<div class="detail-row"><span class="detail-label">${t.detailMessenger}</span><span class="detail-value">${escapeHtml(orderData.messenger)}</span></div>`;
-        html += `<div class="detail-row"><span class="detail-label">${t.detailDelivery}</span><span class="detail-value">${escapeHtml(deliveryText)}</span></div>`;
-        
-        if (orderData.delivery === 'courier' && orderData.address) {
-            html += `<div class="detail-row"><span class="detail-label">${t.detailAddress}</span><span class="detail-value">${escapeHtml(orderData.address)}</span></div>`;
-        }
-        
-        html += `<div class="detail-row"><span class="detail-label">${t.detailDate}</span><span class="detail-value">${escapeHtml(formatDate(orderData.date))}</span></div>`;
-        html += `<div class="detail-row"><span class="detail-label">${t.detailTime}</span><span class="detail-value">${escapeHtml(orderData.time)}</span></div>`;
-        html += `<div class="detail-row"><span class="detail-label">${t.detailPayment}</span><span class="detail-value">${escapeHtml(paymentText)}</span></div>`;
-        
-        if (orderData.comment) {
-            html += `<div class="detail-row"><span class="detail-label">${t.detailComment}</span><span class="detail-value">${escapeHtml(orderData.comment)}</span></div>`;
-        }
-        
-        html += `<div class="items-list"><div style="font-weight:600;margin-bottom:10px;color:#070395;">${t.detailItems}</div>`;
-        
-        orderData.items.forEach(item => {
-            const boxNameKey = `${item.productId}Name`;
-            const itemName = t[boxNameKey] || item.name || 'Box';
-            const itemTotal = item.price * item.quantity;
-            
-            html += `<div class="item-row">
-                <span class="item-name">${escapeHtml(itemName)} × ${item.quantity}</span>
-                <span class="item-qty">${formatPrice(itemTotal, orderData.currency)}</span>
-            </div>`;
-            
-            if (item.options?.allergens?.length > 0) {
-                html += `<div class="item-allergens">
-                    <span class="allergen-label">${t.detailAllergens}</span> ${item.options.allergens.join(', ')}
-                </div>`;
-            }
-        });
-        
-        html += `</div>`;
-        
-        if (orderData.delivery === 'courier') {
-            const courierPrice = 800;
-            html += `<div class="delivery-fee-row">
-                <span class="delivery-fee-label">${t.deliveryFee}</span>
-                <span class="delivery-fee-value">${formatPrice(courierPrice, orderData.currency)}</span>
-            </div>`;
-        }
-        
-        const courierPrice = orderData.delivery === 'courier' ? 800 : 0;
-        const totalWithDelivery = (orderData.total || 0) + courierPrice;
-        
-        html += `<div class="total-row">
-            <span>${t.detailTotal}</span>
-            <span>${formatPrice(totalWithDelivery, orderData.currency)}</span>
-        </div>`;
-        
-        container.innerHTML = html;
-    }
-
-    // ===== ОТПРАВКА ЗАКАЗА В GOOGLE TABLE =====
-    async function sendGasNotification() {
-        if (!orderData) return;
-        
-        const statusEl = document.getElementById('notificationStatus');
-        const statusText = document.getElementById('notificationStatusText');
-        const t = translations[currentLang];
-        
-        statusEl.className = 'notification-status show info';
-        statusText.textContent = t.notificationSending;
-        
-        try {
-            const orderDataWithConsent = { ...orderData, consentGiven: true, consentTimestamp: new Date().toISOString() };
-            
-            const response = await fetch(GAS_CONFIG.WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain' },
-                body: JSON.stringify(orderDataWithConsent)
-            });
-            
-            setTimeout(() => {
-                statusEl.className = 'notification-status show success';
-                statusText.textContent = t.notificationSuccess;
-            }, 1000);
-            
-        } catch (error) {
-            console.error('❌ Ошибка:', error);
-            statusEl.className = 'notification-status show error';
-            statusText.textContent = t.notificationError;
-        }
-    }
-
-    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
-    document.addEventListener('DOMContentLoaded', function() {
-        // 1. Загружаем язык
-        applyLanguage(currentLang);
-        
-        // 2. Проверяем заказ
-        if (!loadOrderData()) {
-            const card = document.querySelector('.success-card');
-            const t = translations[currentLang];
-            card.innerHTML = `
-                <div class="success-icon"></div>
-                <h1 class="success-title">${t.noOrder}</h1>
-                <p class="success-subtitle">${t.noOrderText}</p>
-                <div class="main-buttons">
-                    <a href="boxes.html" class="btn-primary">${t.btnGoToBoxes}</a>
+        if (!orderData) {
+            container.innerHTML = `
+                <div class="no-order">
+                    <div class="no-order-icon">📭</div>
+                    <h2 class="no-order-title">${t.noOrderTitle}</h2>
+                    <p class="no-order-text">${t.noOrderText}</p>
+                    <a href="boxes.html" class="btn-home">${t.noOrderBtn}</a>
                 </div>
             `;
             return;
         }
         
-        // 3. Рендерим детали и отправляем уведомление
-        renderOrderDetails();
-        sendGasNotification();
+        // Рендерим товары
+        let itemsHtml = '';
+        let itemsTotal = 0;
         
-        // 4. 📊 GA4: просмотр страницы (отложенный)
+        orderData.items.forEach(item => {
+            const itemPrice = recalculateItemPrice(item, currentLang);
+            const itemTotal = itemPrice * item.quantity;
+            itemsTotal += itemTotal;
+            
+            const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
+            const itemName = getItemName(item, currentLang);
+            const productType = item.productType || getProductTypeById(item.productId);
+            
+            let optionsHtml = '';
+            
+            if (productType === 'box') {
+                const persons = item.options?.persons || 2;
+                let personsLabel;
+                if (currentLang === 'ru') {
+                    personsLabel = `${persons} ${getPersonsWordRu(persons)}`;
+                } else {
+                    personsLabel = persons === 1 ? '1 person' : `${persons} people`;
+                }
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
+                if (item.options?.allergens?.length > 0) {
+                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
+                }
+            } else if (productType === 'cake') {
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
+            } else if (productType === 'quantity-item') {
+                const qty = item.options?.quantity || 4;
+                let qtyLabel;
+                if (currentLang === 'ru') {
+                    qtyLabel = `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}`;
+                } else {
+                    qtyLabel = `${qty} pieces`;
+                }
+                optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemQuantity}</span><span class="order-item-option-value">${qtyLabel}</span></div>`;
+            }
+            
+            itemsHtml += `
+                <div class="order-item">
+                    <div class="order-item-thumb" style="background-image: url('${thumbUrl}')"></div>
+                    <div class="order-item-info">
+                        <div class="order-item-name">${itemName}${item.quantity > 1 ? ` × ${item.quantity}` : ''}</div>
+                        <div class="order-item-options">${optionsHtml}</div>
+                    </div>
+                    <div class="order-item-price">
+                        <span>${formatPrice(itemTotal, currentLang)}</span>
+                        <span>${currency}</span>
+                    </div>
+                </div>
+            `;
+        });
+        
+        // Доставка
+        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
+        const deliveryCost = orderData.delivery === 'courier' ? (currentLang === 'en' ? 40 : 800) : 0;
+        const deliveryCostText = deliveryCost === 0 
+            ? t.deliveryFree 
+            : `${formatPrice(deliveryCost, currentLang)} ${currency}`;
+        
+        // Оплата
+        const paymentMap = { 'sber': t.paymentSber, 'tbank': t.paymentTbank, 'alfa': t.paymentAlfa, 'cash': t.paymentCash };
+        const paymentText = paymentMap[orderData.payment] || orderData.payment;
+        
+        // Итого
+        const totalValue = formatPrice(orderData.total, currentLang);
+        
+        container.innerHTML = `
+            <div class="thankyou-hero">
+                <div class="thankyou-icon">✓</div>
+                <h1 class="thankyou-title">${t.thankyouTitle}</h1>
+                <p class="thankyou-subtitle">${t.thankyouSubtitle}</p>
+                <div class="order-number-badge">
+                    ${t.orderNumberLabel}<span>#${orderData.orderNumber}</span>
+                </div>
+            </div>
+            
+            <div class="thankyou-details">
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionItems}</h3>
+                    ${itemsHtml}
+                </div>
+                
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionDelivery}</h3>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelDelivery}</span>
+                        <span class="info-value">${deliveryText}</span>
+                    </div>
+                    ${orderData.delivery === 'courier' && orderData.address ? `
+                    <div class="info-row">
+                        <span class="info-label">${t.labelAddress}</span>
+                        <span class="info-value">${orderData.address}</span>
+                    </div>
+                    ` : ''}
+                    <div class="info-row">
+                        <span class="info-label">${t.labelDate}</span>
+                        <span class="info-value">${formatDate(orderData.date, currentLang)}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelTime}</span>
+                        <span class="info-value">${orderData.time || '—'}</span>
+                    </div>
+                </div>
+                
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionContacts}</h3>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelName}</span>
+                        <span class="info-value">${orderData.name || '—'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelPhone}</span>
+                        <span class="info-value">${orderData.phone || '—'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelMessenger}</span>
+                        <span class="info-value">${orderData.messenger || '—'}</span>
+                    </div>
+                </div>
+                
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionPayment}</h3>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelPayment}</span>
+                        <span class="info-value">${paymentText}</span>
+                    </div>
+                    ${orderData.comment ? `
+                    <div class="info-row">
+                        <span class="info-label">${t.labelComment}</span>
+                        <span class="info-value">${orderData.comment}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="order-total-row">
+                    <span>${t.labelTotal}</span>
+                    <div class="order-total-value">
+                        <span>${totalValue}</span>
+                        <span>${currency}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="thankyou-actions">
+                <a href="index.html" class="btn-home">🍋 ${t.btnHome}</a>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Загружаем данные заказа из sessionStorage
+        try {
+            const savedOrder = sessionStorage.getItem('hedonism_last_order');
+            if (savedOrder) {
+                orderData = JSON.parse(savedOrder);
+            }
+        } catch (e) {
+            console.warn('Не удалось загрузить данные заказа:', e);
+        }
+        
+        const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
+        applyLanguage(savedLang);
+        
         setTimeout(() => {
             trackGA4Event('page_view', {
-                page_title: document.title,
-                page_location: window.location.href,
-                page_path: '/thank-you.html',
-                language: currentLang,
-                page_type: 'thank_you_page',
-                order_number: orderData.orderNumber
+                page_title: document.title, page_location: window.location.href,
+                page_path: '/thank-you.html', language: currentLang,
+                has_order: !!orderData,
+                order_number: orderData?.orderNumber || null
             });
         }, 1000);
         
-        // 🎯 Метрика: thank-you загружена с заказом
-        ymTrack('thank_you_viewed', {
-            order_number: orderData.orderNumber,
-            total: orderData.total,
-            currency: orderData.currency,
-            lang: currentLang,
-            items_count: orderData.items?.length || 0
+        ymTrack('thankyou_viewed', { 
+            lang: currentLang, 
+            has_order: !!orderData,
+            order_number: orderData?.orderNumber || null 
         });
         
-        // 📊 GA4: успешная покупка
-        trackGA4Event('purchase', {
-            transaction_id: orderData.orderNumber,
-            currency: orderData.currency,
-            value: orderData.total + (orderData.delivery === 'courier' ? 800 : 0),
-            shipping: orderData.delivery === 'courier' ? 800 : 0,
-            items: orderData.items.map(item => ({
-                item_id: item.productId,
-                item_name: item.name,
-                price: item.price,
-                quantity: item.quantity,
-                item_category: 'gastronomic_box',
-                item_variant: `${item.options?.persons || 2} persons`
-            }))
-        });
-        
-        // 🛒 E-commerce: Яндекс.Метрика
-        if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
-            dataLayer.push({
-                'ecommerce': {
-                    'purchase': {
-                        'actionField': {
-                            'id': orderData.orderNumber,
-                            'revenue': orderData.total + (orderData.delivery === 'courier' ? 800 : 0),
-                            'currency': orderData.currency === 'AED' ? 'AED' : 'RUB'
-                        },
-                        'products': (orderData.items || []).map(item => ({
-                            'id': item.productId,
-                            'name': item.name || item.productId,
-                            'price': item.price,
-                            'quantity': item.quantity
-                        }))
-                    }
-                }
+        if (orderData) {
+            ymTrack('thankyou_with_order', { 
+                order_number: orderData.orderNumber, 
+                total: orderData.total, 
+                currency: orderData.currency 
             });
         }
         
-        // 5. Обработчики кнопок
-        const trackClick = (elementId, elementName, destination) => {
-            document.getElementById(elementId)?.addEventListener('click', function() {
-                trackGA4Event('click', { element: elementName, page: 'thank-you', destination: destination, order_number: orderData.orderNumber });
-                ymTrack(`thank_you_${elementName}_click`, { order_number: orderData.orderNumber });
+        // Переключатель языка
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        if (langBtn && langDropdown) {
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
+            langDropdown.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault(); e.stopPropagation();
+                    const selectedLink = e.target.closest('a');
+                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
+                    setTimeout(() => langDropdown.classList.remove('show'), 100);
+                });
             });
-        };
-        
-        trackClick('btnHome', 'home_button_header', 'index.html');
-        trackClick('btnHomeMain', 'home_button_main', 'index.html');
-        
-        document.getElementById('btnMoreOrders')?.addEventListener('click', function() {
-            trackGA4Event('cta_click', { cta_name: 'order_more', cta_location: 'thank-you', page: 'thank-you', order_number: orderData.orderNumber });
-            ymTrack('thank_you_order_more_click', { order_number: orderData.orderNumber });
-        });
-        
-        // 6. Соцсети
-        document.querySelectorAll('.social-link, .social-link-footer').forEach(link => {
-            link.addEventListener('click', function() {
-                const platform = this.getAttribute('aria-label') || this.textContent.trim().toLowerCase();
-                const platformId = platform.toLowerCase().replace(/\s+/g, '_');
-                const page = this.classList.contains('social-link-footer') ? 'thank-you-info' : 'thank-you';
-                trackGA4Event('social_click', { platform: platformId, page: page, order_number: orderData.orderNumber });
-                ymTrack('click_' + platformId, { page: page });
+            document.addEventListener('click', e => {
+                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
             });
-        });
+        }
         
-        // 7. Ссылки в футере
-        document.querySelectorAll('.footer-link').forEach(link => {
+        // Навигация
+        document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
-                let linkName = 'unknown';
-                if (href?.includes('privacy')) { linkName = 'privacy_policy'; ymTrack('thank_you_footer_privacy_click'); }
-                else if (href?.includes('offer')) { linkName = 'public_offer'; ymTrack('thank_you_footer_offer_click'); }
-                trackGA4Event('footer_link_click', { link_name: linkName, link_href: href, page: 'thank-you', order_number: orderData.orderNumber });
+                if (href?.includes('contacts')) ymTrack('nav_contacts_click');
+                else if (href?.includes('history')) ymTrack('nav_history_click');
+                else if (href?.includes('index.html') && !href.includes('#')) ymTrack('nav_home_click');
             });
         });
         
-        // 8. 📊 GA4: глубина скролла (debounced)
-        let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
-        const checkScrollDepth = debounce(function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
-            
-            [25, 50, 75, 100].forEach(percent => {
-                if (scrollPercent >= percent && !scrollDepthTracked[percent]) {
-                    trackGA4Event('scroll_depth', { percent: percent, page: 'thank-you', order_number: orderData.orderNumber });
-                    scrollDepthTracked[percent] = true;
-                }
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
             });
-        }, 200);
-        window.addEventListener('scroll', checkScrollDepth);
+        });
         
-        // 9. 📊 GA4: время на странице
-        setTimeout(() => { trackGA4Event('engagement', { page: 'thank-you', time_on_page: 30, order_number: orderData.orderNumber }); }, 30000);
-        setTimeout(() => { trackGA4Event('engagement', { page: 'thank-you', time_on_page: 60, order_number: orderData.orderNumber }); }, 60000);
-    });
-    
-    // ✅ Слушаем изменения localStorage
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'hedonism_lang') {
-            currentLang = e.newValue || 'ru';
-        }
+        console.log(`✅ thank-you.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}, Order: ${orderData?.orderNumber || 'none'}`);
     });
     </script>
 </body>
