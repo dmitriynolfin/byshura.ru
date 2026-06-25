@@ -141,18 +141,21 @@
         /* ✅ ИСПРАВЛЕНИЕ 1: section-title теперь такого же размера как page-title */
         .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; }
+        /* ✅ ИСПРАВЛЕНИЕ: box-card теперь flex-контейнер для выравнивания футера */
+        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
         .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; cursor: pointer; }
         .box-image:hover { opacity: 0.95; }
         .box-badge { position: absolute; top: 15px; left: 15px; background: #FFD93D; color: #070395; padding: 8px 15px; border-radius: 20px; font-weight: 600; font-size: 12px; text-transform: uppercase; }
-        .box-content { padding: 25px; }
+        /* ✅ ИСПРАВЛЕНИЕ: box-content теперь flex-контейнер, растягивается на оставшееся пространство */
+        .box-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
         .box-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #070395; }
         .box-description { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.6; }
         .box-features { margin-bottom: 20px; }
         .box-feature { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
         .box-feature::before { content: "✓"; color: #FFD93D; font-weight: bold; font-size: 16px; }
-        .box-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; }
+        /* ✅ ИСПРАВЛЕНИЕ: box-footer всегда прижат к низу карточки */
+        .box-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; margin-top: auto; }
         .box-price { font-size: 16px; font-weight: 600; color: #070395; display: flex; align-items: baseline; gap: 4px; }
         .box-price .price-value { font-weight: 600; }
         .box-price .currency { font-size: 14px; color: #999; font-weight: 400; }
@@ -584,7 +587,7 @@
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <!-- ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА - С ФЛАГАМИ -->
                 <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷</span>
+                    <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
@@ -1049,7 +1052,7 @@
         const isNicholas = productId === 'box1' || productId === 'box2';
         let html = '';
         const persons = [2, 4, 6];
-        const icons = ['👥', '👥👥', '👥👥'];
+        const icons = ['👥', '👥👥', '👥👥👥'];
         
         persons.forEach((count, index) => {
             const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
@@ -1060,7 +1063,6 @@
     }
 
     // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ВЫБОРА КОЛИЧЕСТВА (4/8 ШТ)
-    // ✅ ИСПРАВЛЕНИЕ 2: Правильное склонение "штуки/штук"
     function renderQuantityOptions(productId) {
         const container = document.getElementById('quantitySelect');
         const prices = getQuantityPrices(productId, currentLang);
@@ -1074,7 +1076,6 @@
             const price = formatPrice(prices[count], currentLang);
             let label;
             if (currentLang === 'ru') {
-                // ✅ 4 штуки, 8 штук
                 label = count === 4 ? '4 штуки' : '8 штук';
             } else {
                 label = `${count} pieces`;
@@ -1153,7 +1154,6 @@
 
     // ✅ ОБНОВЛЕНИЕ ЦЕН НА КАРТОЧКАХ ПРИ СМЕНЕ ЯЗЫКА
     function updateBoxPrices() {
-        // Боксы Николай II и Чайковский
         const nicholasBoxes = document.querySelectorAll('.box-card[data-product-type="nicholas"], .box-card[data-product-type="tchaikovsky"]');
         nicholasBoxes.forEach(box => {
             const boxPrice = box.querySelector('.box-price');
@@ -1172,25 +1172,21 @@
             }
         });
         
-        // Кекс
         document.querySelectorAll('.cake-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '150' : '3 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
         
-        // Лимонное печенье
         document.querySelectorAll('.lemon-cookies-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '50' : '1 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
         
-        // Овсяное печенье
         document.querySelectorAll('.oat-cookies-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '40' : '800';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
         
-        // Расстегаи
         document.querySelectorAll('.rasstegai-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '50' : '1 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
@@ -1214,7 +1210,7 @@
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
             if (lang === 'ru') { 
-                langFlag.textContent = '🇷'; 
+                langFlag.textContent = '🇷🇺'; 
                 langCurrent.textContent = 'RU'; 
             } else { 
                 langFlag.textContent = '🇦🇪'; 
@@ -1241,7 +1237,6 @@
         const modalDescription = document.getElementById('modalDescription');
         
         if (productType === 'box') {
-            // Боксы: персоны + аллергены
             personsSection.style.display = 'block';
             quantitySection.style.display = 'none';
             allergensSection.style.display = 'block';
@@ -1249,14 +1244,12 @@
             renderPersonOptions(productId);
             renderAllergens(productId);
         } else if (productType === 'cake') {
-            // Кекс: только описание
             personsSection.style.display = 'none';
             quantitySection.style.display = 'none';
             allergensSection.style.display = 'none';
             modalDescription.style.display = 'block';
             modalDescription.innerHTML = translations[currentLang].cakeFullDescr.replace(/\n/g, '<br>');
         } else if (productType === 'quantity-item') {
-            // Печенье и расстегаи: описание + выбор количества
             personsSection.style.display = 'none';
             quantitySection.style.display = 'block';
             allergensSection.style.display = 'none';
@@ -1477,7 +1470,7 @@
         document.getElementById('promptCart')?.addEventListener('click', goToCheckout);
         cartPromptOverlay?.addEventListener('click', e => { if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); });
         
-        // ✅ ИСПРАВЛЕНИЕ 3: Закрытие карточек по нажатию ESC
+        // ✅ Закрытие карточек по нажатию ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' || e.code === 'Escape') {
                 const productModal = document.getElementById('productModalOverlay');
