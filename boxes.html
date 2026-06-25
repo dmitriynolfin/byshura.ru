@@ -14,9 +14,9 @@
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <title>Меню боксов — Вестник Гедонизма | Заказать доставку в Москве</title>
-    <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского, Семейный, Вечеринка. Авторские рецепты, уникальная подача, доставка по Москве.">
+    <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача, доставка по Москве.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
-    <meta property="og:description" content="6 уникальных боксов с историей. Выберите свой гастрономический опыт.">
+    <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
     <link rel="canonical" href="https://byshura.ru/boxes.html">
     
     <!-- ✅ PRELOAD КРИТИЧНЫХ ИЗОБРАЖЕНИЙ -->
@@ -130,6 +130,7 @@
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
+        .section-title { text-align: center; font-size: 28px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
         .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
@@ -221,6 +222,33 @@
         }
         .person-price.hidden { display: none; }
         
+        /* ✅ КАРТОЧКИ ВЫБОРА КОЛИЧЕСТВА (4/8 шт) */
+        .quantity-select { display: flex; gap: 12px; flex-wrap: wrap; }
+        .quantity-option { flex: 1; min-width: 120px; }
+        .quantity-radio { display: none; }
+        .quantity-label { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            padding: 16px 12px; border: 2px solid #e0e0e0; border-radius: 12px; 
+            cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa;
+        }
+        .quantity-label:hover { border-color: #FFD93D; background: #fff9e6; }
+        .quantity-radio:checked + .quantity-label { 
+            background: #070395; color: white; border-color: #070395; 
+            box-shadow: 0 4px 12px rgba(7,3,149,0.2); 
+        }
+        .quantity-count { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .quantity-price { 
+            font-size: 14px; font-weight: 600; color: #FFD93D; 
+            background: #070395; padding: 4px 10px; border-radius: 12px;
+            white-space: nowrap;
+        }
+        .quantity-radio:checked + .quantity-label .quantity-price {
+            background: #FFD93D; color: #070395;
+        }
+        
+        /* ✅ ОПИСАНИЕ ТОВАРА В МОДАЛКЕ */
+        .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
+        
         .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .allergen-option { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fafafa; }
         .allergen-option:hover { border-color: #FFD93D; background: #fff9e6; }
@@ -305,6 +333,7 @@
             .btn-select { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
             .page-title { font-size: 32px; }
+            .section-title { font-size: 22px; margin: 40px 0 30px; }
             .boxes-grid { grid-template-columns: 1fr; }
             .box-image { height: 240px; }
             .box-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 11px; }
@@ -321,6 +350,8 @@
             .allergens-grid { grid-template-columns: 1fr; }
             .persons-select { flex-direction: row; flex-wrap: wrap; }
             .person-label { padding: 12px 8px; }
+            .quantity-select { flex-direction: row; }
+            .quantity-option { min-width: 100px; }
             .cart-prompt { width: 95%; max-width: none; padding: 20px; }
             .cart-prompt-actions { flex-direction: column; }
             
@@ -346,6 +377,7 @@
             
             .page-title { font-size: 28px; }
             .page-subtitle { font-size: 14px; }
+            .section-title { font-size: 18px; letter-spacing: 1px; }
             .box-image { height: 200px; }
             .box-badge { padding: 5px 10px; font-size: 10px; }
             .box-content { padding: 16px; }
@@ -384,9 +416,19 @@
                 line-height: 1;
                 white-space: nowrap;
             }
+            
+            /* ✅ СТИЛИ ДЛЯ КАРТОЧЕК КОЛИЧЕСТВА */
+            .quantity-select { gap: 8px; }
+            .quantity-option { flex: 1; min-width: 0; }
+            .quantity-label { padding: 12px 8px; }
+            .quantity-count { font-size: 16px; }
+            
+            /* ✅ ОПИСАНИЕ В МОДАЛКЕ */
+            .modal-description { font-size: 13px; padding: 12px; }
+            
             /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН В МОДАЛКЕ */
             .person-price { 
-                font-size: 10px !important; /* ✅ !important для переопределения */
+                font-size: 10px !important;
                 padding: 2px 5px;
                 margin-top: 2px;
                 border-radius: 8px;
@@ -427,7 +469,7 @@
             .legal-links-en a:hover { color: #070395; }
         }
         
-        /* ✅ iPhone XR / 414px - ОДИНАКОВЫЙ РАЗМЕР ЦЕН И ЭМОДЗИ В ОДНУ СТРОКУ */
+        /* ✅ iPhone XR / 414px */
         @media (max-width: 414px) {
             .persons-select { gap: 3px; }
             .person-option { flex: 1 1 28%; max-width: 30%; }
@@ -436,13 +478,14 @@
             .person-option:nth-child(1) .person-icon,
             .person-option:nth-child(2) .person-icon { font-size: 12px; }
             .person-option:nth-child(3) .person-icon { font-size: 13px; }
-            /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН */
             .person-price { 
-                font-size: 9px !important; /* ✅ !important для переопределения */
+                font-size: 9px !important;
                 padding: 2px 4px; 
             }
             
-            /* ✅ МОДАЛЬНОЕ ОКНО - КНОПКИ ВСЕГДА ВИДНЫ */
+            .quantity-count { font-size: 15px; }
+            .quantity-price { font-size: 12px !important; padding: 3px 8px; }
+            
             .modal-body {
                 max-height: calc(90vh - 140px);
             }
@@ -455,6 +498,7 @@
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .page-title { font-size: 24px; }
+            .section-title { font-size: 16px; }
             .box-image { height: 180px; }
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
@@ -466,13 +510,14 @@
             .person-option:nth-child(1) .person-icon,
             .person-option:nth-child(2) .person-icon { font-size: 11px; }
             .person-option:nth-child(3) .person-icon { font-size: 12px; }
-            /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН */
             .person-price { 
-                font-size: 8px !important; /* ✅ !important для переопределения */
+                font-size: 8px !important;
                 padding: 1px 3px; 
             }
             
-            /* ✅ МОДАЛЬНОЕ ОКНО - КНОПКИ ВСЕГДА ВИДНЫ */
+            .quantity-count { font-size: 14px; }
+            .quantity-price { font-size: 11px !important; padding: 2px 6px; }
+            
             .modal-body {
                 max-height: calc(90vh - 130px);
             }
@@ -573,7 +618,6 @@
                             <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
                         </div>
                         <div class="box-footer">
-                            <!-- ✅ Цена с "от" для бокса Николая II -->
                             <div class="box-price" data-nicholas-base-price-ru="8 000" data-nicholas-base-price-en="400">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value">8 000</span> 
@@ -594,7 +638,7 @@
                     </div>
                 </div>
                 
-                <!-- БОКС 2: УЖИН ЧАЙКОВСКОГО (НОВЫЙ) -->
+                <!-- БОКС 2: УЖИН ЧАЙКОВСКОГО -->
                 <div class="box-card" data-product-type="tchaikovsky">
                     <div class="box-image" 
                          data-bg-desktop="images/boxes-tchaikovsky.webp"
@@ -612,7 +656,6 @@
                             <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
                         </div>
                         <div class="box-footer">
-                            <!-- ✅ Цена с "от" для бокса Чайковского -->
                             <div class="box-price" data-nicholas-base-price-ru="8 000" data-nicholas-base-price-en="400">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value">8 000</span> 
@@ -632,97 +675,115 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- РАЗДЕЛ: ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ -->
+            <h2 class="section-title" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
+            <div class="boxes-grid">
+                <!-- СЛИВОЧНЫЙ ЛИМОННЫЙ КЕКС -->
+                <div class="box-card" data-product-type="cake">
+                    <div class="box-image" 
+                         data-bg-desktop="https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cake"
+                         data-bg-mobile="https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cake"
+                         data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cake+1","https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cake+2","https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cake+3"]'
+                         data-bg-loaded="false">
+                    </div>
+                    <div class="box-content">
+                        <h3 class="box-title" data-i18n="cakeTitle">Сливочный лимонный кекс</h3>
+                        <p class="box-description" data-i18n="cakeDescr">Невероятно нежный лимонный кекс на основе сливочного масла и сливок.</p>
+                        <div class="box-footer">
+                            <div class="box-price">
+                                <span class="price-value cake-price-ru">3 000</span> 
+                                <span class="currency">₽</span>
+                            </div>
+                            <button class="btn-select" 
+                                    data-product-id="cake1" 
+                                    data-product-name="Сливочный лимонный кекс" 
+                                    data-product-price="3000"
+                                    data-product-price-en="150"
+                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                        </div>
+                    </div>
+                </div>
                 
-                <!-- БОКС 3 -->
-                <div class="box-card">
+                <!-- НЕЖНОЕ ПЕЧЕНЬЕ С ЛИМОННЫМ КУРДОМ -->
+                <div class="box-card" data-product-type="lemon-cookies">
                     <div class="box-image" 
-                         data-bg-desktop="https://placehold.co/600x400/FFD93D/070395?text=Family+Box+1"
-                         data-bg-mobile="https://placehold.co/600x400/FFD93D/070395?text=Family+Box+1"
-                         data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Family+1","https://placehold.co/600x400/FFD93D/070395?text=Family+2","https://placehold.co/600x400/FFD93D/070395?text=Family+3"]'
+                         data-bg-desktop="https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cookies"
+                         data-bg-mobile="https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cookies"
+                         data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cookies+1","https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cookies+2","https://placehold.co/600x400/FFD93D/070395?text=Lemon+Cookies+3"]'
                          data-bg-loaded="false">
                     </div>
                     <div class="box-content">
-                        <h3 class="box-title" data-i18n="box3Title">Бокс «Семейный»</h3>
-                        <p class="box-description" data-i18n="box3Descr">Для теплых семейных ужинов. Сытно, вкусно и по-домашнему.</p>
-                        <div class="box-features">
-                            <div class="box-feature" data-i18n="feat8">6 порционных блюд</div>
-                            <div class="box-feature" data-i18n="feat9">Детское меню</div>
-                            <div class="box-feature" data-i18n="feat10">Десерты</div>
-                            <div class="box-feature" data-i18n="feat11">На 4 персоны</div>
-                        </div>
+                        <h3 class="box-title" data-i18n="lemonCookiesTitle">Нежное печенье с лимонным курдом</h3>
+                        <p class="box-description" data-i18n="lemonCookiesDescr">Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.</p>
                         <div class="box-footer">
-                            <div class="box-price"><span class="price-value">5 500</span> <span class="currency">₽</span></div>
-                            <button class="btn-select" data-product-id="box3" data-product-name="Бокс «Семейный»" data-product-price="5500" data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price">
+                                <span class="price-value lemon-cookies-price-ru">1 000</span> 
+                                <span class="currency">₽</span>
+                            </div>
+                            <button class="btn-select" 
+                                    data-product-id="lemon-cookies" 
+                                    data-product-name="Нежное печенье с лимонным курдом" 
+                                    data-product-price="1000"
+                                    data-product-price-en="50"
+                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
-                <!-- БОКС 4 -->
-                <div class="box-card">
+                
+                <!-- ОВСЯНОЕ ПЕЧЕНЬЕ С ОРЕХАМИ И ИЗЮМОМ -->
+                <div class="box-card" data-product-type="oat-cookies">
                     <div class="box-image" 
-                         data-bg-desktop="https://placehold.co/600x400/070395/white?text=Party+Box+1"
-                         data-bg-mobile="https://placehold.co/600x400/070395/white?text=Party+Box+1"
-                         data-gallery='["https://placehold.co/600x400/070395/white?text=Party+1","https://placehold.co/600x400/070395/white?text=Party+2","https://placehold.co/600x400/070395/white?text=Party+3"]'
+                         data-bg-desktop="https://placehold.co/600x400/070395/white?text=Oat+Cookies"
+                         data-bg-mobile="https://placehold.co/600x400/070395/white?text=Oat+Cookies"
+                         data-gallery='["https://placehold.co/600x400/070395/white?text=Oat+Cookies+1","https://placehold.co/600x400/070395/white?text=Oat+Cookies+2","https://placehold.co/600x400/070395/white?text=Oat+Cookies+3"]'
                          data-bg-loaded="false">
                     </div>
                     <div class="box-content">
-                        <h3 class="box-title" data-i18n="box4Title">Бокс «Вечеринка»</h3>
-                        <p class="box-description" data-i18n="box4Descr">Идеально для встречи с друзьями. Закуски, которые исчезают первыми.</p>
-                        <div class="box-features">
-                            <div class="box-feature" data-i18n="feat12">8 видов закусок</div>
-                            <div class="box-feature" data-i18n="feat13">Коктейльный сет</div>
-                            <div class="box-feature" data-i18n="feat14">Фингер-фуд</div>
-                            <div class="box-feature" data-i18n="feat15">На 6-8 персон</div>
-                        </div>
+                        <h3 class="box-title" data-i18n="oatCookiesTitle">Овсяное печенье с орехами и изюмом</h3>
+                        <p class="box-description" data-i18n="oatCookiesDescr">Овсяные хлопья, изюм, фундук и ничего лишнего.</p>
                         <div class="box-footer">
-                            <div class="box-price"><span class="price-value">8 500</span> <span class="currency">₽</span></div>
-                            <button class="btn-select" data-product-id="box4" data-product-name="Бокс «Вечеринка»" data-product-price="8500" data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price">
+                                <span class="price-value oat-cookies-price-ru">800</span> 
+                                <span class="currency">₽</span>
+                            </div>
+                            <button class="btn-select" 
+                                    data-product-id="oat-cookies" 
+                                    data-product-name="Овсяное печенье с орехами и изюмом" 
+                                    data-product-price="800"
+                                    data-product-price-en="40"
+                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
-                <!-- БОКС 5 -->
-                <div class="box-card">
+            </div>
+            
+            <!-- РАЗДЕЛ: ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ -->
+            <h2 class="section-title" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
+            <div class="boxes-grid">
+                <!-- РАССТЕГАИ С КРАСНОЙ РЫБОЙ И РИСОМ -->
+                <div class="box-card" data-product-type="rasstegai">
                     <div class="box-image" 
-                         data-bg-desktop="https://placehold.co/600x400/FFD93D/070395?text=Breakfast+Box+1"
-                         data-bg-mobile="https://placehold.co/600x400/FFD93D/070395?text=Breakfast+Box+1"
-                         data-gallery='["https://placehold.co/600x400/FFD93D/070395?text=Breakfast+1","https://placehold.co/600x400/FFD93D/070395?text=Breakfast+2","https://placehold.co/600x400/FFD93D/070395?text=Breakfast+3"]'
-                         data-bg-loaded="false">
-                        <span class="box-badge" data-i18n="badgeNew">NEW</span>
-                    </div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="box5Title">Бокс «Завтрак»</h3>
-                        <p class="box-description" data-i18n="box5Descr">Начните день правильно! Свежая выпечка, фрукты и бодрящий кофе.</p>
-                        <div class="box-features">
-                            <div class="box-feature" data-i18n="feat16">Свежая выпечка</div>
-                            <div class="box-feature" data-i18n="feat17">Сезонные фрукты</div>
-                            <div class="box-feature" data-i18n="feat18">Кофе/чай</div>
-                            <div class="box-feature" data-i18n="feat4">На 2 персоны</div>
-                        </div>
-                        <div class="box-footer">
-                            <div class="box-price"><span class="price-value">2 500</span> <span class="currency">₽</span></div>
-                            <button class="btn-select" data-product-id="box5" data-product-name="Бокс «Завтрак»" data-product-price="2500" data-i18n="btnSelect">ВЫБРАТЬ</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- БОКС 6 -->
-                <div class="box-card">
-                    <div class="box-image" 
-                         data-bg-desktop="https://placehold.co/600x400/070395/white?text=Dessert+Box+1"
-                         data-bg-mobile="https://placehold.co/600x400/070395/white?text=Dessert+Box+1"
-                         data-gallery='["https://placehold.co/600x400/070395/white?text=Dessert+1","https://placehold.co/600x400/070395/white?text=Dessert+2","https://placehold.co/600x400/070395/white?text=Dessert+3"]'
+                         data-bg-desktop="https://placehold.co/600x400/070395/white?text=Rasstegai"
+                         data-bg-mobile="https://placehold.co/600x400/070395/white?text=Rasstegai"
+                         data-gallery='["https://placehold.co/600x400/070395/white?text=Rasstegai+1","https://placehold.co/600x400/070395/white?text=Rasstegai+2","https://placehold.co/600x400/070395/white?text=Rasstegai+3"]'
                          data-bg-loaded="false">
                     </div>
                     <div class="box-content">
-                        <h3 class="box-title" data-i18n="box6Title">Бокс «Десертный»</h3>
-                        <p class="box-description" data-i18n="box6Descr">Сладкое завершение идеального вечера. Авторские десерты от нашего кондитера.</p>
-                        <div class="box-features">
-                            <div class="box-feature" data-i18n="feat19">5 авторских десертов</div>
-                            <div class="box-feature" data-i18n="feat20">Шампанское</div>
-                            <div class="box-feature" data-i18n="feat21">Ягодный соус</div>
-                            <div class="box-feature" data-i18n="feat4">На 2 персоны</div>
-                        </div>
+                        <h3 class="box-title" data-i18n="rasstegaiTitle">Расстегаи с красной рыбой и рисом</h3>
+                        <p class="box-description" data-i18n="rasstegaiDescr">Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.</p>
                         <div class="box-footer">
-                            <div class="box-price"><span class="price-value">3 000</span> <span class="currency">₽</span></div>
-                            <button class="btn-select" data-product-id="box6" data-product-name="Бокс «Десертный»" data-product-price="3000" data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price">
+                                <span class="price-value rasstegai-price-ru">1 000</span> 
+                                <span class="currency">₽</span>
+                            </div>
+                            <button class="btn-select" 
+                                    data-product-id="rasstegai" 
+                                    data-product-name="Расстегаи с красной рыбой и рисом" 
+                                    data-product-price="1000"
+                                    data-product-price-en="50"
+                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
@@ -733,7 +794,6 @@
     <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
     <footer class="footer">
         <div class="container footer-container">
-            <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
@@ -777,16 +837,24 @@
                     <button class="gallery-nav next" id="galleryNext">❯</button>
                     <div class="gallery-dots" id="galleryDots"></div>
                 </div>
-                <div class="modal-section">
+                <!-- Описание товара (для кекса, печенья, расстегаев) -->
+                <div class="modal-description" id="modalDescription" style="display: none;"></div>
+                <!-- Количество персон (для боксов) -->
+                <div class="modal-section" id="personsSection">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
                     <div class="persons-select" id="personsSelect">
-                        <!-- ✅ Карточки персон ТОЛЬКО С ЭМОДЗИ (заполняются через JS) -->
                     </div>
                 </div>
-                <div class="modal-section">
+                <!-- Выбор количества (для печенья и расстегаев) -->
+                <div class="modal-section" id="quantitySection" style="display: none;">
+                    <div class="modal-section-title" data-i18n="modalQuantity">Количество</div>
+                    <div class="quantity-select" id="quantitySelect">
+                    </div>
+                </div>
+                <!-- Аллергены (только для боксов) -->
+                <div class="modal-section" id="allergensSection">
                     <div class="modal-section-title" data-i18n="modalAllergens">Исключить аллергены</div>
                     <div class="allergens-grid" id="allergensGrid">
-                        <!-- ✅ Аллергены заполняются через JS -->
                     </div>
                 </div>
             </div>
@@ -818,27 +886,28 @@
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
+            sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ",
+            sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
             badgeHit: "ХИТ", badgePremium: "PREMIUM", badgeNew: "NEW",
             box1Title: "Бокс «Ужин Николая II»", 
             box1Descr: "Так питался Великий Император. Погружение в эпоху царской России через изысканные блюда.",
             box2Title: "Бокс «Ужин Чайковского»",
-            box2Descr: "Так питался Великий Император. Погружение в эпоху царской России через изысканные блюда.",
-            box3Title: "Бокс «Семейный»", box3Descr: "Для теплых семейных ужинов. Сытно, вкусно и по-домашнему.",
-            box4Title: "Бокс «Вечеринка»", box4Descr: "Идеально для встречи с друзьями. Закуски, которые исчезают первыми.",
-            box5Title: "Бокс «Завтрак»", box5Descr: "Начните день правильно! Свежая выпечка, фрукты и бодрящий кофе.",
-            box6Title: "Бокс «Десертный»", box6Descr: "Сладкое завершение идеального вечера. Авторские десерты от нашего кондитера.",
-            feat1: "4 блюда от шефа", feat2: "Авторские коктейли", feat3: "Музыкальный плейлист", feat4: "На 2 персоны",
-            feat5: "7 блюд от шефа", feat6: "Винная пара", feat7: "История каждого блюда",
-            feat8: "6 порционных блюд", feat9: "Детское меню", feat10: "Десерты", feat11: "На 4 персоны",
-            feat12: "8 видов закусок", feat13: "Коктейльный сет", feat14: "Фингер-фуд", feat15: "На 6-8 персон",
-            feat16: "Свежая выпечка", feat17: "Сезонные фрукты", feat18: "Кофе/чай",
-            feat19: "5 авторских десертов", feat20: "Шампанское", feat21: "Ягодный соус",
+            box2Descr: "Так питался Великий композитор. Погружение в эпоху царской России через изысканные блюда.",
+            cakeTitle: "Сливочный лимонный кекс",
+            cakeDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.",
+            lemonCookiesTitle: "Нежное печенье с лимонным курдом",
+            lemonCookiesDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.",
+            oatCookiesTitle: "Овсяное печенье с орехами и изюмом",
+            oatCookiesDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
+            rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
+            rasstegaiDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
             featNicholas1: "5 блюд от шефа",
             featNicholas2: "На 2-4-6 персон",
             featNicholas3: "Музыкальное сопровождение того времени",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены",
+            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество",
             persons2Short: "персоны", persons4Short: "персоны", persons6Short: "персон",
+            qty4Short: "4 штуки", qty8Short: "8 штук",
             allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
             cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжить выбирать?",
@@ -846,34 +915,39 @@
             priceFrom: "от ",
             nicholasPrice2: "8 000 ₽",
             nicholasPrice4: "15 000 ₽",
-            nicholasPrice6: "20 000 ₽"
+            nicholasPrice6: "20 000 ₽",
+            cakeFullDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.\nИдеальный вариант для тех, кто предпочитает не слишком сладкие цитрусовые десерты с богатым сливочным вкусом.\nВес ~ 1 кг",
+            lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
+            oatCookiesFullDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
+            rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам."
         },
         en: {
             pageTitle: "Boxes - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery •  Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
+            sectionSweets: "CHOOSE YOUR SWEET",
+            sectionSavory: "CHOOSE YOUR SAVORY",
             badgeHit: "HIT", badgePremium: "PREMIUM", badgeNew: "NEW",
             box1Title: "Nicholas II Dinner Box", 
             box1Descr: "As the Great Emperor dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
             box2Title: "Tchaikovsky Dinner Box",
-            box2Descr: "As the Great Emperor dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
-            box3Title: "Family Box", box3Descr: "For cozy family dinners. Hearty, delicious, and homestyle.",
-            box4Title: "Party Box", box4Descr: "Perfect for gatherings with friends. Appetizers that disappear first.",
-            box5Title: "Breakfast Box", box5Descr: "Start your day right! Fresh pastries, fruits, and invigorating coffee.",
-            box6Title: "Dessert Box", box6Descr: "Sweet ending to a perfect evening. Signature desserts from our pastry chef.",
-            feat1: "4 chef's dishes", feat2: "Signature cocktails", feat3: "Curated playlist", feat4: "For 2 people",
-            feat5: "7 chef's dishes", feat6: "Wine pairing", feat7: "Story behind each dish",
-            feat8: "6 portioned dishes", feat9: "Kids menu", feat10: "Desserts", feat11: "For 4 people",
-            feat12: "8 types of appetizers", feat13: "Cocktail set", feat14: "Finger food", feat15: "For 6-8 people",
-            feat16: "Fresh pastries", feat17: "Seasonal fruits", feat18: "Coffee/tea",
-            feat19: "5 signature desserts", feat20: "Champagne", feat21: "Berry sauce",
+            box2Descr: "As the Great Composer dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
+            cakeTitle: "Creamy Lemon Cake",
+            cakeDescr: "Incredibly tender lemon cake based on butter and cream.",
+            lemonCookiesTitle: "Tender Cookies with Lemon Curd",
+            lemonCookiesDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center.",
+            oatCookiesTitle: "Oat Cookies with Nuts and Raisins",
+            oatCookiesDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
+            rasstegaiTitle: "Rasstegai with Red Fish and Rice",
+            rasstegaiDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
             featNicholas1: "5 chef's dishes",
             featNicholas2: "For 2-4-6 people",
             featNicholas3: "Period music accompaniment",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            modalPersons: "Number of persons", modalAllergens: "Exclude allergens",
+            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity",
             persons2Short: "people", persons4Short: "people", persons6Short: "people",
+            qty4Short: "4 pieces", qty8Short: "8 pieces",
             allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
@@ -881,7 +955,11 @@
             priceFrom: "from ",
             nicholasPrice2: "AED 400",
             nicholasPrice4: "AED 700",
-            nicholasPrice6: "AED 1 000"
+            nicholasPrice6: "AED 1 000",
+            cakeFullDescr: "Incredibly tender lemon cake based on butter and cream.\nPerfect for those who prefer not too sweet citrus desserts with a rich creamy taste.\nWeight ~ 1 kg",
+            lemonCookiesFullDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center. Perfect with warm drinks for those tired of classic cakes.",
+            oatCookiesFullDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
+            rasstegaiFullDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks."
         }
     };
 
@@ -935,6 +1013,24 @@
         return lang === 'en' ? `AED ${amount}` : `${amount.toLocaleString('ru-RU')} ₽`;
     }
 
+    // ✅ ТИПЫ ТОВАРОВ
+    function getProductType(productId) {
+        if (productId === 'box1' || productId === 'box2') return 'box';
+        if (productId === 'cake1') return 'cake';
+        if (productId === 'lemon-cookies' || productId === 'oat-cookies' || productId === 'rasstegai') return 'quantity-item';
+        return 'other';
+    }
+
+    // ✅ ЦЕНЫ ДЛЯ ТОВАРОВ С ВЫБОРОМ КОЛИЧЕСТВА
+    function getQuantityPrices(productId, lang) {
+        const prices = {
+            'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
+            'oat-cookies': { ru: { 4: 800, 8: 1400 }, en: { 4: 40, 8: 70 } },
+            'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
+        };
+        return prices[productId]?.[lang] || { 4: 0, 8: 0 };
+    }
+
     // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ
     function renderPersonOptions(productId) {
         const container = document.getElementById('personsSelect');
@@ -951,7 +1047,31 @@
         container.innerHTML = html;
     }
 
-    // ✅ ГЕНЕРАЦИЯ АЛЛЕРГЕНОВ ДЛЯ БОКСА ЧАЙКОВСКОГО
+    // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ВЫБОРА КОЛИЧЕСТВА (4/8 ШТ)
+    function renderQuantityOptions(productId) {
+        const container = document.getElementById('quantitySelect');
+        const prices = getQuantityPrices(productId, currentLang);
+        const isRasstegai = productId === 'rasstegai';
+        const itemWord = isRasstegai 
+            ? (currentLang === 'ru' ? 'расстегаев' : 'rasstegai') 
+            : (currentLang === 'ru' ? 'печенья' : 'cookies');
+        
+        let html = '';
+        [4, 8].forEach((count, index) => {
+            const price = formatPrice(prices[count], currentLang);
+            const label = currentLang === 'ru' ? `${count} штуки` : `${count} pieces`;
+            html += `<label class="quantity-option">
+                <input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" data-price="${prices[count]}" ${index === 0 ? 'checked' : ''}>
+                <span class="quantity-label">
+                    <span class="quantity-count">${label}</span>
+                    <span class="quantity-price">${price}</span>
+                </span>
+            </label>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // ✅ ГЕНЕРАЦИЯ АЛЛЕРГЕНОВ
     function renderAllergens(productId) {
         const container = document.getElementById('allergensGrid');
         const isTchaikovsky = productId === 'box2';
@@ -1012,8 +1132,9 @@
         });
     }
 
-    // ✅ ОБНОВЛЕНИЕ ЦЕНЫ ДЛЯ БОКСОВ НИКОЛАЯ II И ЧАЙКОВСКОГО ПРИ СМЕНЕ ЯЗЫКА
-    function updateNicholasBoxPrice() {
+    // ✅ ОБНОВЛЕНИЕ ЦЕН НА КАРТОЧКАХ ПРИ СМЕНЕ ЯЗЫКА
+    function updateBoxPrices() {
+        // Боксы Николай II и Чайковский
         const nicholasBoxes = document.querySelectorAll('.box-card[data-product-type="nicholas"], .box-card[data-product-type="tchaikovsky"]');
         nicholasBoxes.forEach(box => {
             const boxPrice = box.querySelector('.box-price');
@@ -1031,6 +1152,30 @@
                 }
             }
         });
+        
+        // Кекс
+        document.querySelectorAll('.cake-price-ru').forEach(el => {
+            el.textContent = currentLang === 'en' ? '150' : '3 000';
+            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
+        });
+        
+        // Лимонное печенье
+        document.querySelectorAll('.lemon-cookies-price-ru').forEach(el => {
+            el.textContent = currentLang === 'en' ? '50' : '1 000';
+            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
+        });
+        
+        // Овсяное печенье
+        document.querySelectorAll('.oat-cookies-price-ru').forEach(el => {
+            el.textContent = currentLang === 'en' ? '40' : '800';
+            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
+        });
+        
+        // Расстегаи
+        document.querySelectorAll('.rasstegai-price-ru').forEach(el => {
+            el.textContent = currentLang === 'en' ? '50' : '1 000';
+            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
+        });
     }
 
     function applyLanguage(lang) {
@@ -1040,13 +1185,12 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'infoNote') { el.innerHTML = translations[lang][key]; }
+                if (key === 'infoNote' || key === 'cakeFullDescr' || key === 'lemonCookiesFullDescr' || key === 'oatCookiesFullDescr' || key === 'rasstegaiFullDescr') { 
+                    el.innerHTML = translations[lang][key].replace(/\n/g, '<br>'); 
+                }
                 else { el.textContent = translations[lang][key]; }
             }
         });
-        const currencyEl = document.querySelectorAll('.currency');
-        const currency = lang === 'en' ? 'AED' : '₽';
-        currencyEl.forEach(el => el.textContent = currency);
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
@@ -1062,13 +1206,48 @@
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
         if (currentProduct) {
-            renderPersonOptions(currentProduct.id);
-            renderAllergens(currentProduct.id);
+            renderModalContent(currentProduct.id);
         }
-        // ✅ Обновляем цену для боксов при смене языка
-        updateNicholasBoxPrice();
+        updateBoxPrices();
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
+    }
+
+    // ✅ РЕНДЕРИНГ СОДЕРЖИМОГО МОДАЛКИ В ЗАВИСИМОСТИ ОТ ТИПА ТОВАРА
+    function renderModalContent(productId) {
+        const productType = getProductType(productId);
+        const personsSection = document.getElementById('personsSection');
+        const quantitySection = document.getElementById('quantitySection');
+        const allergensSection = document.getElementById('allergensSection');
+        const modalDescription = document.getElementById('modalDescription');
+        
+        if (productType === 'box') {
+            // Боксы: персоны + аллергены
+            personsSection.style.display = 'block';
+            quantitySection.style.display = 'none';
+            allergensSection.style.display = 'block';
+            modalDescription.style.display = 'none';
+            renderPersonOptions(productId);
+            renderAllergens(productId);
+        } else if (productType === 'cake') {
+            // Кекс: только описание
+            personsSection.style.display = 'none';
+            quantitySection.style.display = 'none';
+            allergensSection.style.display = 'none';
+            modalDescription.style.display = 'block';
+            modalDescription.innerHTML = translations[currentLang].cakeFullDescr.replace(/\n/g, '<br>');
+        } else if (productType === 'quantity-item') {
+            // Печенье и расстегаи: описание + выбор количества
+            personsSection.style.display = 'none';
+            quantitySection.style.display = 'block';
+            allergensSection.style.display = 'none';
+            modalDescription.style.display = 'block';
+            
+            const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : 
+                            productId === 'oat-cookies' ? 'oatCookiesFullDescr' : 'rasstegaiFullDescr';
+            modalDescription.innerHTML = translations[currentLang][descrKey].replace(/\n/g, '<br>');
+            renderQuantityOptions(productId);
+        }
     }
 
     function initGallery(images) {
@@ -1100,8 +1279,7 @@
     function openProductModal(productData, galleryImages) {
         currentProduct = productData;
         document.getElementById('modalProductTitle').textContent = productData.name;
-        renderPersonOptions(productData.id);
-        renderAllergens(productData.id);
+        renderModalContent(productData.id);
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
         if (galleryImages && galleryImages.length > 0) { initGallery(galleryImages); document.getElementById('gallerySlider').style.display = 'block'; }
         else { document.getElementById('gallerySlider').style.display = 'none'; }
@@ -1118,13 +1296,24 @@
     }
     
     function getModalOptions() {
-        const persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
-        const allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
-        return { persons, allergens };
+        const productType = getProductType(currentProduct.id);
+        let options = { persons: null, quantity: null, allergens: [] };
+        
+        if (productType === 'box') {
+            options.persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
+            options.allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
+        } else if (productType === 'quantity-item') {
+            const checkedQty = document.querySelector('input[name="modalQuantity"]:checked');
+            options.quantity = checkedQty ? parseInt(checkedQty.value) : 4;
+        }
+        
+        return options;
     }
     
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
+        const productType = getProductType(currentProduct.id);
+        
         const allergensTranslated = options.allergens.map(allergen => {
             const allergenMap = { 
                 'Грибы': translations[currentLang].allergen1, 
@@ -1138,12 +1327,61 @@
             };
             return allergenMap[allergen] || allergen;
         });
+        
         let finalPrice = currentProduct.price;
-        if (currentProduct.id === 'box1' || currentProduct.id === 'box2') finalPrice = getNicholasPrice(options.persons, currentLang);
-        const cartItem = { id: Date.now(), productId: currentProduct.id, name: currentProduct.name, basePrice: currentProduct.price, price: finalPrice, quantity: 1, options: { persons: options.persons, allergens: allergensTranslated } };
-        cart.push(cartItem); saveCart(); updateCartCount(); closeProductModal(); showCartPrompt();
-        trackGA4Event('add_to_cart', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: finalPrice, items: [{ item_id: currentProduct.id, item_name: currentProduct.name, price: finalPrice, quantity: 1, item_category: 'gastronomic_box', item_variant: `${options.persons} persons` }] });
-        ymTrack('box_added_to_cart', { product_id: currentProduct.id, product_name: currentProduct.name, price: finalPrice, currency: currentLang === 'en' ? 'AED' : 'RUB', persons: options.persons, allergens_count: options.allergens.length });
+        let variantLabel = '';
+        
+        if (productType === 'box') {
+            finalPrice = getNicholasPrice(options.persons, currentLang);
+            variantLabel = `${options.persons} persons`;
+        } else if (productType === 'cake') {
+            finalPrice = currentLang === 'en' ? 150 : 3000;
+            variantLabel = '1 кг';
+        } else if (productType === 'quantity-item') {
+            const prices = getQuantityPrices(currentProduct.id, currentLang);
+            finalPrice = prices[options.quantity] || prices[4];
+            variantLabel = `${options.quantity} шт`;
+        }
+        
+        const cartItem = { 
+            id: Date.now(), 
+            productId: currentProduct.id, 
+            name: currentProduct.name, 
+            basePrice: currentProduct.price, 
+            price: finalPrice, 
+            quantity: 1, 
+            options: { 
+                persons: options.persons, 
+                quantity: options.quantity,
+                allergens: allergensTranslated 
+            } 
+        };
+        cart.push(cartItem); 
+        saveCart(); 
+        updateCartCount(); 
+        closeProductModal(); 
+        showCartPrompt();
+        
+        trackGA4Event('add_to_cart', { 
+            currency: currentLang === 'en' ? 'AED' : 'RUB', 
+            value: finalPrice, 
+            items: [{ 
+                item_id: currentProduct.id, 
+                item_name: currentProduct.name, 
+                price: finalPrice, 
+                quantity: 1, 
+                item_category: 'gastronomic_box', 
+                item_variant: variantLabel 
+            }] 
+        });
+        ymTrack('box_added_to_cart', { 
+            product_id: currentProduct.id, 
+            product_name: currentProduct.name, 
+            price: finalPrice, 
+            currency: currentLang === 'en' ? 'AED' : 'RUB', 
+            variant: variantLabel,
+            allergens_count: options.allergens.length 
+        });
     }
     
     function showCartPrompt() { document.getElementById('cartPromptOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -1180,7 +1418,11 @@
         }
         document.querySelectorAll('.btn-select').forEach(btn => {
             btn.addEventListener('click', function() {
-                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
+                const productData = { 
+                    id: this.dataset.productId, 
+                    name: this.dataset.productName, 
+                    price: parseInt(this.dataset.productPrice) 
+                };
                 const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
                 trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
                 ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
