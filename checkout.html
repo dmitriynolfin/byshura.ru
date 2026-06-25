@@ -161,7 +161,7 @@
         .date-hint { font-size: 12px; color: #666; margin-top: 5px; display: block; }
         .date-hint strong { color: #070395; }
         
-        /* ✅ ИСПРАВЛЕНИЕ 2: Футер как на boxes.html — без footer-logo, font-weight 600 */
+        /* ✅ ИСПРАВЛЕНИЕ 1: Футер как на index.html — без footer-logo, font-weight 600 */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -447,7 +447,7 @@
         </div>
     </section>
 
-    <!-- ✅ ИСПРАВЛЕНИЕ 2: Футер как на boxes.html — без footer-logo -->
+    <!-- ✅ ИСПРАВЛЕНИЕ 1: Футер как на index.html — без footer-logo -->
     <footer class="footer">
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
@@ -543,7 +543,6 @@
         }
     };
 
-    // ✅ ИСПРАВЛЕНИЕ 1: Переводы названий товаров для отображения в сводке заказа
     const productNames = {
         ru: {
             'box1': 'Бокс «Ужин Николая II»',
@@ -561,6 +560,16 @@
             'oat-cookies': 'Oat Cookies with Nuts and Raisins',
             'rasstegai': 'Rasstegai with Red Fish and Rice'
         }
+    };
+
+    // ✅ ИСПРАВЛЕНИЕ 2: Таблица цен для всех товаров в обеих валютах
+    const priceTable = {
+        'box1': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
+        'box2': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
+        'cake1': { ru: 3000, en: 150 },
+        'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
+        'oat-cookies': { ru: { 4: 800, 8: 1400 }, en: { 4: 40, 8: 70 } },
+        'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
     };
 
     let currentLang = 'ru';
@@ -592,9 +601,36 @@
         return translations.ru.personsWord5;
     }
 
-    // ✅ ИСПРАВЛЕНИЕ 3: Стоимость доставки курьером
     function getCourierPrice(lang) {
         return lang === 'en' ? 40 : 800;
+    }
+
+    // ✅ ИСПРАВЛЕНИЕ 2: Пересчёт цены товара на основе productId, options и языка
+    function recalculateItemPrice(item, lang) {
+        const productId = item.productId;
+        const options = item.options || {};
+        const table = priceTable[productId];
+        
+        if (!table) return item.price; // fallback
+        
+        // Боксы: цена зависит от количества персон
+        if (productId === 'box1' || productId === 'box2') {
+            const persons = parseInt(options.persons) || 2;
+            return table[lang]?.[persons] || table[lang]?.[2];
+        }
+        
+        // Кекс: фиксированная цена
+        if (productId === 'cake1') {
+            return table[lang];
+        }
+        
+        // Печенье и расстегаи: цена зависит от количества штук
+        if (table[lang] && typeof table[lang] === 'object') {
+            const qty = parseInt(options.quantity) || 4;
+            return table[lang][qty] || table[lang][4];
+        }
+        
+        return item.price;
     }
 
     function applyLanguage(lang) {
@@ -618,7 +654,6 @@
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
         
-        // ✅ ИСПРАВЛЕНИЕ 3: Обновляем стоимость доставки
         document.querySelectorAll('.courier-price').forEach(el => {
             el.textContent = lang === 'en' ? '+ AED 40' : '(+800 ₽)';
         });
@@ -645,7 +680,6 @@
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    // ✅ ИСПРАВЛЕНИЕ 1: Используем productNames для отображения названия на нужном языке
     function getItemName(item, lang) {
         return productNames[lang]?.[item.productId] || item.name || item.productId;
     }
@@ -666,14 +700,13 @@
         let html = '', total = 0;
         
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
+            // ✅ ИСПРАВЛЕНИЕ 2: Пересчитываем цену при каждом рендере
+            const itemPrice = recalculateItemPrice(item, lang);
+            const itemTotal = itemPrice * item.quantity;
             total += itemTotal;
             
             const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
-            
-            // ✅ ИСПРАВЛЕНИЕ 1: Берём название из productNames для текущего языка
             const itemName = getItemName(item, lang);
-            
             const productType = item.productType || getProductTypeById(item.productId);
             
             let optionsHtml = '';
@@ -789,7 +822,6 @@
         const paymentText = paymentMap[orderData.payment] || orderData.payment;
         
         const itemsList = orderData.items.map(item => {
-            // ✅ ИСПРАВЛЕНИЕ 1: Название на языке заказа
             const itemName = getItemName(item, orderData.lang);
             const productType = item.productType || getProductTypeById(item.productId);
             let optionsText = '';
@@ -946,7 +978,6 @@
                 const addressField = document.getElementById('addressField');
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
-                    // ✅ ИСПРАВЛЕНИЕ 3: value доставки зависит от языка
                     trackGA4Event('add_shipping_info', { shipping_tier: 'courier', currency: currentLang === 'en' ? 'AED' : 'RUB', value: getCourierPrice(currentLang) });
                     ymTrack('delivery_courier_selected');
                 } else {
@@ -1032,7 +1063,7 @@
                 page_title: document.title, page_location: window.location.href,
                 page_path: '/checkout.html', language: currentLang,
                 cart_items: cart.length,
-                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+                cart_value: cart.reduce((sum, item) => sum + recalculateItemPrice(item, currentLang) * item.quantity, 0)
             });
         }, 1000);
         
@@ -1153,28 +1184,32 @@
                 if (btnLoading) btnLoading.style.display = 'inline';
                 
                 const orderNumber = generateOrderNumber();
-                
-                // ✅ ИСПРАВЛЕНИЕ 3: shipping зависит от валюты
                 const courierCost = currentLang === 'en' ? 40 : 800;
+                const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
+                
+                // ✅ ИСПРАВЛЕНИЕ 2: Пересчитываем цены для всех товаров в orderData
+                const orderItems = cart.map(item => ({
+                    id: item.id, productId: item.productId, name: item.name,
+                    image: item.image, productType: item.productType,
+                    basePrice: item.basePrice, 
+                    price: recalculateItemPrice(item, currentLang),
+                    quantity: item.quantity,
+                    options: item.options
+                }));
                 
                 const orderData = {
                     orderNumber: orderNumber,
                     createdAt: new Date().toISOString(),
                     name, phone, 
                     messenger: document.getElementById('messenger').value,
-                    delivery: document.querySelector('input[name="delivery"]:checked')?.value,
+                    delivery: delivery,
                     address: document.getElementById('address').value,
                     addressStructured: document.getElementById('address')?.dataset.structured ? JSON.parse(document.getElementById('address').dataset.structured) : null,
                     date: date, time: time,
                     payment: document.querySelector('input[name="payment"]:checked')?.value,
                     comment: document.getElementById('comment').value,
-                    items: cart.map(item => ({
-                        id: item.id, productId: item.productId, name: item.name,
-                        image: item.image, productType: item.productType,
-                        basePrice: item.basePrice, price: item.price, quantity: item.quantity,
-                        options: item.options
-                    })),
-                    total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + (document.querySelector('input[name="delivery"]:checked')?.value === 'courier' ? courierCost : 0),
+                    items: orderItems,
+                    total: orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0) + (delivery === 'courier' ? courierCost : 0),
                     currency: currentLang === 'en' ? 'AED' : '₽',
                     lang: currentLang
                 };
@@ -1195,7 +1230,7 @@
                     trackGA4Event('purchase', {
                         transaction_id: orderData.orderNumber, currency: orderData.currency,
                         value: orderData.total,
-                        shipping: orderData.delivery === 'courier' ? courierCost : 0,
+                        shipping: delivery === 'courier' ? courierCost : 0,
                         items: orderData.items.map(item => ({
                             item_id: item.productId, item_name: getItemName(item, currentLang),
                             price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
