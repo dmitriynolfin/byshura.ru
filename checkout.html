@@ -466,8 +466,8 @@
     </footer>
 
     <script>
-    // ✅ ВАЖНО: ВСТАВЬТЕ СЮДА URL ВАШЕГО APPS SCRIPT WEB APP
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxZntP9lh-yG1dVugsPSKbuz8dohkv7AcN-0BKXYAQVXP5eYkKTqkibq6jk-GxE_zsb/exec';
+    // ✅ ВАЖНО: URL ВАШЕГО APPS SCRIPT WEB APP
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJGn5RAB4nJnGu1f8ibfF5rSuTViiegHaCANS6DPygqolK1WoYESXEGH-9x5eSix51/exec';
 
     const translations = {
         ru: {
@@ -794,27 +794,41 @@
         }
     }
 
- // ✅ ОТПРАВКА ДАННЫХ ЗАКАЗА В APPS SCRIPT
-async function sendToAppsScript(orderData) {
-    try {
-        console.log('📤 Отправка в Apps Script...');
-        // ❌ УДАЛИТЬ ЭТУ СТРОКУ: Logger.log('📤 Отправка в Apps Script...');
-        
-        const response = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            // ❌ УБРАТЬ mode: 'no-cors' — он мешает получить ответ
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(orderData),
-            redirect: 'follow'  // ✅ важно для Apps Script
-        });
-        
-        console.log('✅ Данные отправлены в Apps Script, статус:', response.status);
-        return true;
-    } catch (error) {
-        console.error('❌ Ошибка отправки в Apps Script:', error);
-        return false;
+    // ✅ ОТПРАВКА ДАННЫХ ЗАКАЗА В APPS SCRIPT (исправлено)
+    async function sendToAppsScript(orderData) {
+        try {
+            console.log('📤 Отправка заказа #' + orderData.orderNumber + ' в Apps Script...');
+            
+            // Способ 1: обычный fetch с redirect: 'follow'
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(orderData),
+                redirect: 'follow'
+            });
+            
+            console.log('✅ Fetch ответ, статус:', response.status);
+            
+            // Способ 2 (резервный): sendBeacon — работает даже при закрытии страницы
+            if (navigator.sendBeacon) {
+                const blob = new Blob([JSON.stringify(orderData)], { type: 'application/json' });
+                const beaconSent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                console.log('📡 sendBeacon:', beaconSent ? 'успешно' : 'не удалось');
+            }
+            
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка отправки в Apps Script:', error);
+            // Резервный способ: сохраняем в localStorage, чтобы thank-you.html мог повторить отправку
+            try {
+                localStorage.setItem('hedonism_pending_order', JSON.stringify(orderData));
+                console.log('💾 Заказ сохранён в localStorage для повторной отправки');
+            } catch (e) {
+                console.error('Не удалось сохранить в localStorage:', e);
+            }
+            return false;
+        }
     }
-}
 
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
     const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
@@ -1151,7 +1165,6 @@ async function sendToAppsScript(orderData) {
                     total: orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0) + (delivery === 'courier' ? courierCost : 0),
                     currency: currentLang === 'en' ? 'AED' : '₽',
                     lang: currentLang,
-                    // ✅ Данные согласия на обработку персональных данных
                     consentGiven: consentCheckbox.checked,
                     consentTimestamp: new Date().toISOString()
                 };
@@ -1166,10 +1179,10 @@ async function sendToAppsScript(orderData) {
                     });
                     ymTrack('checkout_start');
                     
-                    // ✅ ОТПРАВКА В APPS SCRIPT (email + таблица Google)
+                    // ✅ ОТПРАВКА В APPS SCRIPT
                     console.log('📤 Отправка заказа #' + orderNumber + ' в Apps Script...');
-                    await sendToAppsScript(orderData);
-                    console.log('✅ Заказ отправлен в Apps Script');
+                    const sent = await sendToAppsScript(orderData);
+                    console.log(sent ? '✅ Заказ отправлен' : '⚠️ Возникли проблемы с отправкой, но заказ сохранён');
                     
                     // Сохраняем заказ в sessionStorage для страницы thank-you
                     sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
@@ -1200,6 +1213,8 @@ async function sendToAppsScript(orderData) {
                     }
                     
                     cart = []; saveCart(); updateCartCount(); renderOrderSummary();
+                    
+                    // ✅ Переходим на thank-you даже если Apps Script не ответил
                     window.location.href = 'thank-you.html';
                     
                 } catch (error) {
