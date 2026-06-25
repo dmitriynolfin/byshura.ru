@@ -161,10 +161,10 @@
         .date-hint { font-size: 12px; color: #666; margin-top: 5px; display: block; }
         .date-hint strong { color: #070395; }
         
+        /* ✅ ИСПРАВЛЕНИЕ 2: Футер как на boxes.html — без footer-logo, font-weight 600 */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; }
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -196,7 +196,6 @@
             .checkout-page { padding-top: 112px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            .footer-logo { width: 42px; height: 42px; font-size: 20px; }
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
@@ -213,6 +212,7 @@
             .order-item-info { min-width: 0; }
             .order-item-controls { margin-left: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
             .order-item-price { text-align: left; }
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) { 
@@ -220,7 +220,6 @@
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .checkout-page { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            .footer-logo { width: 40px; height: 40px; font-size: 18px; }
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
@@ -448,9 +447,9 @@
         </div>
     </section>
 
+    <!-- ✅ ИСПРАВЛЕНИЕ 2: Футер как на boxes.html — без footer-logo -->
     <footer class="footer">
         <div class="container footer-container">
-            <a href="index.html" class="footer-logo" aria-label="Главная">🍋</a>
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.png" alt="Telegram" loading="lazy"></a>
@@ -533,7 +532,7 @@
             itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:",
             itemWeight: "Weight:",
             btnRemove: "Remove",
-            courierPrice: "(+800 AED)",
+            courierPrice: "+ AED 40",
             allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
             allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
             dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.",
@@ -541,6 +540,26 @@
             personsWord1: "person", personsWord2: "people", personsWord5: "people",
             qtyWord4: "pieces", qtyWord8: "pieces",
             weightLabel: "Weight ~1 kg"
+        }
+    };
+
+    // ✅ ИСПРАВЛЕНИЕ 1: Переводы названий товаров для отображения в сводке заказа
+    const productNames = {
+        ru: {
+            'box1': 'Бокс «Ужин Николая II»',
+            'box2': 'Бокс «Ужин Чайковского»',
+            'cake1': 'Сливочный лимонный кекс',
+            'lemon-cookies': 'Нежное печенье с лимонным курдом',
+            'oat-cookies': 'Овсяное печенье с орехами и изюмом',
+            'rasstegai': 'Расстегаи с красной рыбой и рисом'
+        },
+        en: {
+            'box1': 'Nicholas II Dinner Box',
+            'box2': 'Tchaikovsky Dinner Box',
+            'cake1': 'Creamy Lemon Cake',
+            'lemon-cookies': 'Tender Cookies with Lemon Curd',
+            'oat-cookies': 'Oat Cookies with Nuts and Raisins',
+            'rasstegai': 'Rasstegai with Red Fish and Rice'
         }
     };
 
@@ -560,7 +579,6 @@
         return String(nextId);
     }
 
-    // ✅ ОПРЕДЕЛЕНИЕ ТИПА ТОВАРА (для обратной совместимости)
     function getProductTypeById(productId) {
         if (productId === 'box1' || productId === 'box2') return 'box';
         if (productId === 'cake1') return 'cake';
@@ -568,11 +586,15 @@
         return 'other';
     }
 
-    // ✅ СКЛОНЕНИЕ "персона/персоны/персон"
     function getPersonsWordRu(count) {
         if (count === 1) return translations.ru.personsWord1;
         if (count >= 2 && count <= 4) return translations.ru.personsWord2;
         return translations.ru.personsWord5;
+    }
+
+    // ✅ ИСПРАВЛЕНИЕ 3: Стоимость доставки курьером
+    function getCourierPrice(lang) {
+        return lang === 'en' ? 40 : 800;
     }
 
     function applyLanguage(lang) {
@@ -595,8 +617,10 @@
         
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
+        
+        // ✅ ИСПРАВЛЕНИЕ 3: Обновляем стоимость доставки
         document.querySelectorAll('.courier-price').forEach(el => {
-            el.textContent = lang === 'en' ? '(+800 AED)' : '(+800 ₽)';
+            el.textContent = lang === 'en' ? '+ AED 40' : '(+800 ₽)';
         });
         
         const langFlag = document.getElementById('langFlag');
@@ -621,7 +645,11 @@
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    // ✅ РЕНДЕРИНГ СВОДКИ ЗАКАЗА С УЧЁТОМ ВСЕХ ТИПОВ ТОВАРОВ
+    // ✅ ИСПРАВЛЕНИЕ 1: Используем productNames для отображения названия на нужном языке
+    function getItemName(item, lang) {
+        return productNames[lang]?.[item.productId] || item.name || item.productId;
+    }
+
     function renderOrderSummary() {
         const container = document.getElementById('orderItemsContainer');
         const totalEl = document.getElementById('orderTotal');
@@ -641,20 +669,16 @@
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             
-            // ✅ Картинка: из cartItem.image или заглушка
             const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
             
-            // ✅ Название: из cartItem.name (приходит из boxes.html)
-            const itemName = item.name || item.productId;
+            // ✅ ИСПРАВЛЕНИЕ 1: Берём название из productNames для текущего языка
+            const itemName = getItemName(item, lang);
             
-            // ✅ Тип товара: из cartItem.productType или определяем по ID
             const productType = item.productType || getProductTypeById(item.productId);
             
-            // ✅ Формируем опции в зависимости от типа товара
             let optionsHtml = '';
             
             if (productType === 'box') {
-                // БОКСЫ: количество персон + аллергены
                 const persons = item.options?.persons || 2;
                 let personsLabel;
                 if (lang === 'ru') {
@@ -668,10 +692,8 @@
                     optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
-                // КЕКС: вес
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
             } else if (productType === 'quantity-item') {
-                // ПЕЧЕНЬЕ / РАССТЕГАИ: количество штук
                 const qty = item.options?.quantity || 4;
                 let qtyLabel;
                 if (lang === 'ru') {
@@ -760,7 +782,6 @@
         ownerPhone: '79636221265'
     };
 
-    // ✅ УВЕДОМЛЕНИЯ ВЛАДЕЛЬЦУ С ПОЛНОЙ ИНФОРМАЦИЕЙ О ТОВАРАХ
     async function notifyOwner(orderData) {
         const t = translations[currentLang];
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
@@ -768,18 +789,19 @@
         const paymentText = paymentMap[orderData.payment] || orderData.payment;
         
         const itemsList = orderData.items.map(item => {
-            const itemName = item.name || item.productId;
+            // ✅ ИСПРАВЛЕНИЕ 1: Название на языке заказа
+            const itemName = getItemName(item, orderData.lang);
             const productType = item.productType || getProductTypeById(item.productId);
             let optionsText = '';
             
             if (productType === 'box') {
                 const persons = item.options?.persons || 2;
-                optionsText = ` (${persons} ${currentLang === 'ru' ? getPersonsWordRu(persons) : (persons === 1 ? 'pers.' : 'pers.')})`;
+                optionsText = ` (${persons} ${orderData.lang === 'ru' ? getPersonsWordRu(persons) : (persons === 1 ? 'pers.' : 'pers.')})`;
             } else if (productType === 'cake') {
-                optionsText = ' (~1 кг)';
+                optionsText = orderData.lang === 'ru' ? ' (~1 кг)' : ' (~1 kg)';
             } else if (productType === 'quantity-item') {
                 const qty = item.options?.quantity || 4;
-                optionsText = ` (${qty} шт)`;
+                optionsText = orderData.lang === 'ru' ? ` (${qty} шт)` : ` (${qty} pcs)`;
             }
             
             return `• ${itemName}${optionsText} × ${item.quantity}`;
@@ -827,7 +849,6 @@
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
     const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
     const PHOTON_URL = 'https://photon.komoot.io/api/?';
-    let addressDebounceTimer;
     const DEBOUNCE_DELAY = 300;
 
     function isAllowedDomain() {
@@ -925,7 +946,8 @@
                 const addressField = document.getElementById('addressField');
                 if (this.value === 'courier') {
                     addressField.style.display = 'block';
-                    trackGA4Event('add_shipping_info', { shipping_tier: 'courier', currency: currentLang === 'en' ? 'AED' : 'RUB', value: 800 });
+                    // ✅ ИСПРАВЛЕНИЕ 3: value доставки зависит от языка
+                    trackGA4Event('add_shipping_info', { shipping_tier: 'courier', currency: currentLang === 'en' ? 'AED' : 'RUB', value: getCourierPrice(currentLang) });
                     ymTrack('delivery_courier_selected');
                 } else {
                     addressField.style.display = 'none';
@@ -1132,6 +1154,9 @@
                 
                 const orderNumber = generateOrderNumber();
                 
+                // ✅ ИСПРАВЛЕНИЕ 3: shipping зависит от валюты
+                const courierCost = currentLang === 'en' ? 40 : 800;
+                
                 const orderData = {
                     orderNumber: orderNumber,
                     createdAt: new Date().toISOString(),
@@ -1149,7 +1174,7 @@
                         basePrice: item.basePrice, price: item.price, quantity: item.quantity,
                         options: item.options
                     })),
-                    total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+                    total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + (document.querySelector('input[name="delivery"]:checked')?.value === 'courier' ? courierCost : 0),
                     currency: currentLang === 'en' ? 'AED' : '₽',
                     lang: currentLang
                 };
@@ -1158,7 +1183,7 @@
                     trackGA4Event('begin_checkout', {
                         currency: orderData.currency, value: orderData.total,
                         items: orderData.items.map(item => ({
-                            item_id: item.productId, item_name: item.name,
+                            item_id: item.productId, item_name: getItemName(item, currentLang),
                             price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
                         }))
                     });
@@ -1169,9 +1194,10 @@
                     
                     trackGA4Event('purchase', {
                         transaction_id: orderData.orderNumber, currency: orderData.currency,
-                        value: orderData.total, shipping: orderData.delivery === 'courier' ? 800 : 0,
+                        value: orderData.total,
+                        shipping: orderData.delivery === 'courier' ? courierCost : 0,
                         items: orderData.items.map(item => ({
-                            item_id: item.productId, item_name: item.name,
+                            item_id: item.productId, item_name: getItemName(item, currentLang),
                             price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
                             item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
                                          item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
@@ -1185,7 +1211,7 @@
                             'ecommerce': {
                                 'purchase': {
                                     'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
-                                    'products': orderData.items.map(item => ({ 'id': item.productId, 'name': item.name, 'price': item.price, 'quantity': item.quantity }))
+                                    'products': orderData.items.map(item => ({ 'id': item.productId, 'name': getItemName(item, currentLang), 'price': item.price, 'quantity': item.quantity }))
                                 }
                             }
                         });
