@@ -90,46 +90,20 @@
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
         .btn-back:hover { background: #070395; color: white; }
         
-        /* ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА - КАК НА index.html/history.html */
+        /* ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА */
         .lang-selector { 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            font-weight: 600; 
-            font-size: 13px; 
-            cursor: pointer; 
-            position: relative; 
-            white-space: nowrap; 
-            min-height: 44px; 
-            padding: 5px 10px; 
-            border-radius: 20px; 
-            background: rgba(7,3,149,0.05);
-            transition: background 0.3s;
+            display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; 
+            cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; 
+            padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); transition: background 0.3s;
         }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        
         .lang-dropdown { 
-            position: absolute; 
-            top: 100%; 
-            right: 0; 
-            background: white; 
-            border: 1px solid #eee; 
-            border-radius: 4px; 
-            box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); 
-            min-width: 220px; 
-            display: none; 
-            z-index: 100; 
-            margin-top: 5px; 
+            position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; 
+            border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; 
+            display: none; z-index: 100; margin-top: 5px; 
         }
         .lang-dropdown.show { display: block; }
-        .lang-dropdown a { 
-            display: block; 
-            padding: 10px 15px; 
-            font-size: 13px; 
-            text-transform: none; 
-            color: #070395;
-            transition: background 0.2s;
-        }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; color: #070395; transition: background 0.2s; }
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
@@ -138,23 +112,19 @@
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
-        /* ✅ ИСПРАВЛЕНИЕ 1: section-title теперь такого же размера как page-title */
         .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        /* ✅ ИСПРАВЛЕНИЕ: box-card теперь flex-контейнер для выравнивания футера */
         .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
         .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; cursor: pointer; }
         .box-image:hover { opacity: 0.95; }
         .box-badge { position: absolute; top: 15px; left: 15px; background: #FFD93D; color: #070395; padding: 8px 15px; border-radius: 20px; font-weight: 600; font-size: 12px; text-transform: uppercase; }
-        /* ✅ ИСПРАВЛЕНИЕ: box-content теперь flex-контейнер, растягивается на оставшееся пространство */
         .box-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
         .box-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #070395; }
         .box-description { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.6; }
         .box-features { margin-bottom: 20px; }
         .box-feature { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
         .box-feature::before { content: "✓"; color: #FFD93D; font-weight: bold; font-size: 16px; }
-        /* ✅ ИСПРАВЛЕНИЕ: box-footer всегда прижат к низу карточки */
         .box-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; margin-top: auto; }
         .box-price { font-size: 16px; font-weight: 600; color: #070395; display: flex; align-items: baseline; gap: 4px; }
         .box-price .price-value { font-weight: 600; }
@@ -177,88 +147,37 @@
         
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
-        .product-modal { 
-            position: fixed; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 90%; 
-            max-width: 550px; 
-            max-height: 90vh; 
-            background: white; 
-            border-radius: 20px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
-            z-index: 2501; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-        }
+        .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 550px; max-height: 90vh; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
         .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
         .modal-close { background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .modal-close:hover { background: #f5f5f5; color: #070395; }
-        .modal-body { 
-            padding: 20px; 
-            overflow-y: auto; 
-            flex: 1;
-            -webkit-overflow-scrolling: touch;
-        }
+        .modal-body { padding: 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
         .modal-section { margin-bottom: 25px; }
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
         
-        /* ✅ КАРТОЧКИ ПЕРСОН С ЦЕНОЙ - ТОЛЬКО ЭМОДЗИ */
         .persons-select { display: flex; gap: 12px; flex-wrap: wrap; }
         .person-option { flex: 1; min-width: 70px; }
         .person-radio { display: none; }
-        .person-label { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            padding: 12px 8px; border: 2px solid #e0e0e0; border-radius: 12px; 
-            cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa;
-            min-height: 70px;
-        }
+        .person-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa; min-height: 70px; }
         .person-label:hover { border-color: #FFD93D; background: #fff9e6; }
-        .person-radio:checked + .person-label { 
-            background: #070395; color: white; border-color: #070395; 
-            box-shadow: 0 4px 12px rgba(7,3,149,0.2); 
-        }
+        .person-radio:checked + .person-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
         .person-icon { font-size: 22px; margin-bottom: 4px; line-height: 1; }
-        .person-count { display: none; }
-        .person-price { 
-            font-size: 14px; font-weight: 600; color: #FFD93D; 
-            background: #070395; padding: 4px 10px; border-radius: 12px;
-            margin-top: 4px; white-space: nowrap;
-        }
-        .person-radio:checked + .person-label .person-price {
-            background: #FFD93D; color: #070395;
-        }
+        .person-price { font-size: 14px; font-weight: 600; color: #FFD93D; background: #070395; padding: 4px 10px; border-radius: 12px; margin-top: 4px; white-space: nowrap; }
+        .person-radio:checked + .person-label .person-price { background: #FFD93D; color: #070395; }
         .person-price.hidden { display: none; }
         
-        /* ✅ КАРТОЧКИ ВЫБОРА КОЛИЧЕСТВА (4/8 шт) */
         .quantity-select { display: flex; gap: 12px; flex-wrap: wrap; }
         .quantity-option { flex: 1; min-width: 120px; }
         .quantity-radio { display: none; }
-        .quantity-label { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            padding: 16px 12px; border: 2px solid #e0e0e0; border-radius: 12px; 
-            cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa;
-        }
+        .quantity-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 12px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa; }
         .quantity-label:hover { border-color: #FFD93D; background: #fff9e6; }
-        .quantity-radio:checked + .quantity-label { 
-            background: #070395; color: white; border-color: #070395; 
-            box-shadow: 0 4px 12px rgba(7,3,149,0.2); 
-        }
+        .quantity-radio:checked + .quantity-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
         .quantity-count { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-        .quantity-price { 
-            font-size: 14px; font-weight: 600; color: #FFD93D; 
-            background: #070395; padding: 4px 10px; border-radius: 12px;
-            white-space: nowrap;
-        }
-        .quantity-radio:checked + .quantity-label .quantity-price {
-            background: #FFD93D; color: #070395;
-        }
+        .quantity-price { font-size: 14px; font-weight: 600; color: #FFD93D; background: #070395; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
+        .quantity-radio:checked + .quantity-label .quantity-price { background: #FFD93D; color: #070395; }
         
-        /* ✅ ОПИСАНИЕ ТОВАРА В МОДАЛКЕ */
         .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
         
         .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -268,14 +187,7 @@
         .allergen-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .allergen-option input:checked + .allergen-label { font-weight: 600; color: #070395; }
         .allergen-icon { font-size: 18px; margin-right: 5px; }
-        .modal-actions { 
-            padding: 15px 20px; 
-            border-top: 1px solid #eee; 
-            display: flex; 
-            gap: 10px; 
-            flex-shrink: 0;
-            background: white;
-        }
+        .modal-actions { padding: 15px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; flex-shrink: 0; background: white; }
         .btn-modal-cancel { flex: 1; background: transparent; color: #070395; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: 1.5px solid #070395; cursor: pointer; transition: all 0.3s; }
         .btn-modal-cancel:hover { background: #070395; color: white; }
         .btn-modal-add { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
@@ -293,17 +205,14 @@
         .btn-prompt-cart { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
         .btn-prompt-cart:hover { background: #FFD93D; color: #070395; }
         
-        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        /* ✅ ИСПРАВЛЕНИЕ 4: font-weight 400 вместо 600 */
         .footer-copyright { font-size: 14px; font-weight: 400; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
         
-        /* ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ */
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
@@ -315,21 +224,14 @@
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
         
-        /* ✅ КОРЗИНА СКРЫТА */
         .cart-modal { display: none; }
         .cart-overlay { display: none; }
         
-        /* СКРЫТИЕ СКРОЛЛБАРА */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 1024px) { 
-            .container { padding: 0 20px; } 
-            .nav-menu { display: none; } 
-            .boxes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } 
-        }
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } .boxes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
@@ -337,15 +239,12 @@
             .catalog { padding-top: 112px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             .btn-select { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            
             .page-title { font-size: 32px; }
-            /* ✅ ИСПРАВЛЕНИЕ 1: section-title тоже 32px */
             .section-title { font-size: 32px; margin: 40px 0 30px; }
             .boxes-grid { grid-template-columns: 1fr; }
             .box-image { height: 240px; }
@@ -357,7 +256,6 @@
             .box-feature::before { font-size: 14px; }
             .box-price { font-size: 16px; }
             .header-right { gap: 10px; }
-            
             .product-modal { width: 95%; max-width: none; max-height: 95vh; }
             .gallery-slider { height: 200px; }
             .allergens-grid { grid-template-columns: 1fr; }
@@ -367,11 +265,8 @@
             .quantity-option { min-width: 100px; }
             .cart-prompt { width: 95%; max-width: none; padding: 20px; }
             .cart-prompt-actions { flex-direction: column; }
-            
             .btn-order { animation: none !important; }
             .box-card:hover { transform: none !important; }
-            
-            /* ✅ FOOTER КАК НА index.html */
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
@@ -380,17 +275,14 @@
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .catalog { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             .btn-select { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            
             .page-title { font-size: 28px; }
             .page-subtitle { font-size: 14px; }
-            /* ✅ ИСПРАВЛЕНИЕ 1: section-title тоже 28px */
             .section-title { font-size: 28px; letter-spacing: 1px; }
             .box-image { height: 200px; }
             .box-badge { padding: 5px 10px; font-size: 10px; }
@@ -401,78 +293,29 @@
             .box-price { font-size: 16px; }
             .box-price .currency { font-size: 13px; }
             .header-right { gap: 8px; }
-            
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            
             .gallery-slider { height: 180px; }
             .gallery-nav { width: 32px; height: 32px; font-size: 16px; }
             .allergen-option { padding: 8px 10px; }
             .allergen-label { font-size: 13px; }
-            
-            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ЭМОДЗИ В ОДНУ СТРОКУ */
-            .persons-select { 
-                gap: 4px; 
-                justify-content: center;
-            }
-            .person-option { 
-                flex: 1 1 29%; 
-                min-width: 0;
-                max-width: 31%;
-            }
-            .person-label { 
-                padding: 6px 2px; 
-                min-height: 50px;
-                border-radius: 8px;
-            }
-            .person-icon { 
-                font-size: 14px; 
-                margin-bottom: 2px;
-                line-height: 1;
-                white-space: nowrap;
-            }
-            
-            /* ✅ СТИЛИ ДЛЯ КАРТОЧЕК КОЛИЧЕСТВА */
+            .persons-select { gap: 4px; justify-content: center; }
+            .person-option { flex: 1 1 29%; min-width: 0; max-width: 31%; }
+            .person-label { padding: 6px 2px; min-height: 50px; border-radius: 8px; }
+            .person-icon { font-size: 14px; margin-bottom: 2px; line-height: 1; white-space: nowrap; }
             .quantity-select { gap: 8px; }
             .quantity-option { flex: 1; min-width: 0; }
             .quantity-label { padding: 12px 8px; }
             .quantity-count { font-size: 16px; }
-            
-            /* ✅ ОПИСАНИЕ В МОДАЛКЕ */
             .modal-description { font-size: 13px; padding: 12px; }
-            
-            /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН В МОДАЛКЕ */
-            .person-price { 
-                font-size: 10px !important;
-                padding: 2px 5px;
-                margin-top: 2px;
-                border-radius: 8px;
-            }
-            
-            /* ✅ МОДАЛЬНОЕ ОКНО - КНОПКИ ВСЕГДА ВИДНЫ */
-            .modal-body {
-                max-height: calc(90vh - 150px);
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            .modal-actions {
-                position: sticky;
-                bottom: 0;
-                background: white;
-                padding: 12px 15px;
-                border-top: 1px solid #eee;
-            }
-            .btn-modal-cancel, .btn-modal-add {
-                padding: 10px;
-                font-size: 13px;
-            }
-            
-            /* ✅ FOOTER КАК НА index.html */
+            .person-price { font-size: 10px !important; padding: 2px 5px; margin-top: 2px; border-radius: 8px; }
+            .modal-body { max-height: calc(90vh - 150px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+            .modal-actions { position: sticky; bottom: 0; background: white; padding: 12px 15px; border-top: 1px solid #eee; }
+            .btn-modal-cancel, .btn-modal-add { padding: 10px; font-size: 13px; }
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
-            
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-links-ru a:hover { color: #070395; }
@@ -483,59 +326,38 @@
             .legal-links-en a:hover { color: #070395; }
         }
         
-        /* ✅ iPhone XR / 414px */
         @media (max-width: 414px) {
             .persons-select { gap: 3px; }
             .person-option { flex: 1 1 28%; max-width: 30%; }
             .person-label { padding: 5px 1px; min-height: 48px; }
             .person-icon { font-size: 13px; }
-            .person-option:nth-child(1) .person-icon,
-            .person-option:nth-child(2) .person-icon { font-size: 12px; }
+            .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 12px; }
             .person-option:nth-child(3) .person-icon { font-size: 13px; }
-            .person-price { 
-                font-size: 9px !important;
-                padding: 2px 4px; 
-            }
-            
+            .person-price { font-size: 9px !important; padding: 2px 4px; }
             .quantity-count { font-size: 15px; }
             .quantity-price { font-size: 12px !important; padding: 3px 8px; }
-            
-            .modal-body {
-                max-height: calc(90vh - 140px);
-            }
-            .modal-actions {
-                padding: 10px 12px;
-            }
+            .modal-body { max-height: calc(90vh - 140px); }
+            .modal-actions { padding: 10px 12px; }
         }
         
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .page-title { font-size: 24px; }
-            /* ✅ ИСПРАВЛЕНИЕ 1: section-title тоже 24px */
             .section-title { font-size: 24px; }
             .box-image { height: 180px; }
             .box-title { font-size: 17px; }
             .box-description { font-size: 11px; }
             .gallery-slider { height: 160px; }
-            
             .person-option { flex: 1 1 27%; max-width: 29%; }
             .person-label { padding: 4px 1px; min-height: 46px; }
             .person-icon { font-size: 12px; }
-            .person-option:nth-child(1) .person-icon,
-            .person-option:nth-child(2) .person-icon { font-size: 11px; }
+            .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 11px; }
             .person-option:nth-child(3) .person-icon { font-size: 12px; }
-            .person-price { 
-                font-size: 8px !important;
-                padding: 1px 3px; 
-            }
-            
+            .person-price { font-size: 8px !important; padding: 1px 3px; }
             .quantity-count { font-size: 14px; }
             .quantity-price { font-size: 11px !important; padding: 2px 6px; }
-            
-            .modal-body {
-                max-height: calc(90vh - 130px);
-            }
+            .modal-body { max-height: calc(90vh - 130px); }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -549,20 +371,11 @@
        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-       ym(110092456, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true,
-            ecommerce:"dataLayer"
-       });
+       ym(110092456, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" });
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
-
-    <!-- ШАПКА -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -585,43 +398,29 @@
                     </button>
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
-                <!-- ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА - С ФЛАГАМИ -->
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
-                            <span class="lang-descr">Русский (Москва)</span>
-                        </a>
-                        <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
-                            <span class="lang-descr">English (Dubai)</span>
-                        </a>
+                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
         <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • </div>
     </div>
 
-    <!-- КАТАЛОГ -->
     <section class="catalog">
         <div class="container">
             <h1 class="page-title" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
             <div class="boxes-grid">
-                <!-- БОКС 1: УЖИН НИКОЛАЯ II -->
                 <div class="box-card" data-product-type="nicholas">
-                    <div class="box-image" 
-                         data-bg-desktop="images/boxes-nicholas.webp"
-                         data-bg-mobile="images/boxes-nicholas-mobile.webp"
-                         data-gallery='["images/boxes-nicholas.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp"]'
-                         data-bg-loaded="false">
+                    <div class="box-image" data-bg-desktop="images/boxes-nicholas.webp" data-bg-mobile="images/boxes-nicholas-mobile.webp" data-gallery='["images/boxes-nicholas.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp"]' data-bg-loaded="false">
                         <span class="box-badge" data-i18n="badgePremium">PREMIUM</span>
                     </div>
                     <div class="box-content">
@@ -638,28 +437,13 @@
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" 
-                                    data-product-id="box1" 
-                                    data-product-name="Бокс «Ужин Николая II»" 
-                                    data-product-price="8000"
-                                    data-price-2="8000"
-                                    data-price-4="15000"
-                                    data-price-6="20000"
-                                    data-price-2-en="400"
-                                    data-price-4-en="700"
-                                    data-price-6-en="1000"
-                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <button class="btn-select" data-product-id="box1" data-product-name="Бокс «Ужин Николая II»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- БОКС 2: УЖИН ЧАЙКОВСКОГО -->
                 <div class="box-card" data-product-type="tchaikovsky">
-                    <div class="box-image" 
-                         data-bg-desktop="images/boxes-tchaikovsky.webp"
-                         data-bg-mobile="images/boxes-tchaikovsky-mobile.webp"
-                         data-gallery='["images/boxes-tchaikovsky.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp"]'
-                         data-bg-loaded="false">
+                    <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky.webp" data-bg-mobile="images/boxes-tchaikovsky-mobile.webp" data-gallery='["images/boxes-tchaikovsky.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp"]' data-bg-loaded="false">
                         <span class="box-badge" data-i18n="badgePremium">PREMIUM</span>
                     </div>
                     <div class="box-content">
@@ -676,129 +460,61 @@
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" 
-                                    data-product-id="box2" 
-                                    data-product-name="Бокс «Ужин Чайковского»" 
-                                    data-product-price="8000"
-                                    data-price-2="8000"
-                                    data-price-4="15000"
-                                    data-price-6="20000"
-                                    data-price-2-en="400"
-                                    data-price-4-en="700"
-                                    data-price-6-en="1000"
-                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <button class="btn-select" data-product-id="box2" data-product-name="Бокс «Ужин Чайковского»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- РАЗДЕЛ: ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ -->
             <h2 class="section-title" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
             <div class="boxes-grid">
-                <!-- СЛИВОЧНЫЙ ЛИМОННЫЙ КЕКС -->
                 <div class="box-card" data-product-type="cake">
-                    <div class="box-image" 
-                         data-bg-desktop="images/boxes-lemoncake.webp"
-                         data-bg-mobile="images/boxes-lemoncake-mobile.webp"
-                         data-gallery='["images/boxes-lemoncake.webp","images/boxes-lemoncake.webp","images/boxes-lemoncake.webp"]'
-                         data-bg-loaded="false">
-                    </div>
+                    <div class="box-image" data-bg-desktop="images/boxes-lemoncake.webp" data-bg-mobile="images/boxes-lemoncake-mobile.webp" data-gallery='["images/boxes-lemoncake.webp","images/boxes-lemoncake.webp","images/boxes-lemoncake.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="cakeTitle">Сливочный лимонный кекс</h3>
                         <p class="box-description" data-i18n="cakeDescr">Невероятно нежный лимонный кекс на основе сливочного масла и сливок.</p>
                         <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-value cake-price-ru">3 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                            <button class="btn-select" 
-                                    data-product-id="cake1" 
-                                    data-product-name="Сливочный лимонный кекс" 
-                                    data-product-price="3000"
-                                    data-product-price-en="150"
-                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price"><span class="price-value cake-price-ru">3 000</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="cake1" data-product-name="Сливочный лимонный кекс" data-product-price="3000" data-product-price-en="150" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- НЕЖНОЕ ПЕЧЕНЬЕ С ЛИМОННЫМ КУРДОМ -->
                 <div class="box-card" data-product-type="lemon-cookies">
-                    <div class="box-image" 
-                         data-bg-desktop="images/boxes-lemoncookies.webp"
-                         data-bg-mobile="images/boxes-lemoncookies-mobile.webp"
-                         data-gallery='["images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp"]'
-                         data-bg-loaded="false">
-                    </div>
+                    <div class="box-image" data-bg-desktop="images/boxes-lemoncookies.webp" data-bg-mobile="images/boxes-lemoncookies-mobile.webp" data-gallery='["images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="lemonCookiesTitle">Нежное печенье с лимонным курдом</h3>
                         <p class="box-description" data-i18n="lemonCookiesDescr">Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.</p>
                         <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-value lemon-cookies-price-ru">1 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                            <button class="btn-select" 
-                                    data-product-id="lemon-cookies" 
-                                    data-product-name="Нежное печенье с лимонным курдом" 
-                                    data-product-price="1000"
-                                    data-product-price-en="50"
-                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price"><span class="price-value lemon-cookies-price-ru">1 000</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="lemon-cookies" data-product-name="Нежное печенье с лимонным курдом" data-product-price="1000" data-product-price-en="50" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- ОВСЯНОЕ ПЕЧЕНЬЕ С ОРЕХАМИ И ИЗЮМОМ -->
                 <div class="box-card" data-product-type="oat-cookies">
-                    <div class="box-image" 
-                         data-bg-desktop="images/boxes-oatcookies.webp"
-                         data-bg-mobile="images/boxes-oatcookies-mobile.webp"
-                         data-gallery='["images/boxes-oatcookies.webp","images/boxes-oatcookies.webp","images/boxes-oatcookies.webp"]'
-                         data-bg-loaded="false">
-                    </div>
+                    <div class="box-image" data-bg-desktop="images/boxes-oatcookies.webp" data-bg-mobile="images/boxes-oatcookies-mobile.webp" data-gallery='["images/boxes-oatcookies.webp","images/boxes-oatcookies.webp","images/boxes-oatcookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="oatCookiesTitle">Овсяное печенье с орехами и изюмом</h3>
                         <p class="box-description" data-i18n="oatCookiesDescr">Овсяные хлопья, изюм, фундук и ничего лишнего.</p>
                         <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-value oat-cookies-price-ru">800</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                            <button class="btn-select" 
-                                    data-product-id="oat-cookies" 
-                                    data-product-name="Овсяное печенье с орехами и изюмом" 
-                                    data-product-price="800"
-                                    data-product-price-en="40"
-                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price"><span class="price-value oat-cookies-price-ru">800</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="oat-cookies" data-product-name="Овсяное печенье с орехами и изюмом" data-product-price="800" data-product-price-en="40" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- РАЗДЕЛ: ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ -->
             <h2 class="section-title" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
             <div class="boxes-grid">
-                <!-- РАССТЕГАИ С КРАСНОЙ РЫБОЙ И РИСОМ -->
                 <div class="box-card" data-product-type="rasstegai">
-                    <div class="box-image" 
-                         data-bg-desktop="images/boxes-rasstegai.webp"
-                         data-bg-mobile="images/boxes-rasstegai-mobile.webp"
-                         data-gallery='["images/boxes-rasstegai.webp","images/boxes-rasstegai.webp","images/boxes-rasstegai.webp"]'
-                         data-bg-loaded="false">
-                    </div>
+                    <div class="box-image" data-bg-desktop="images/boxes-rasstegai.webp" data-bg-mobile="images/boxes-rasstegai-mobile.webp" data-gallery='["images/boxes-rasstegai.webp","images/boxes-rasstegai.webp","images/boxes-rasstegai.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="rasstegaiTitle">Расстегаи с красной рыбой и рисом</h3>
                         <p class="box-description" data-i18n="rasstegaiDescr">Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.</p>
                         <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-value rasstegai-price-ru">1 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                            <button class="btn-select" 
-                                    data-product-id="rasstegai" 
-                                    data-product-name="Расстегаи с красной рыбой и рисом" 
-                                    data-product-price="1000"
-                                    data-product-price-en="50"
-                                    data-i18n="btnSelect">ВЫБРАТЬ</button>
+                            <div class="box-price"><span class="price-value rasstegai-price-ru">1 000</span> <span class="currency">₽</span></div>
+                            <button class="btn-select" data-product-id="rasstegai" data-product-name="Расстегаи с красной рыбой и рисом" data-product-price="1000" data-product-price-en="50" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
@@ -806,30 +522,19 @@
         </div>
     </section>
 
-    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
     <footer class="footer">
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.png" alt="Telegram" loading="lazy">
-                </a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.png" alt="MAX" loading="lazy">
-                </a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.png" alt="Instagram" loading="lazy">
-                </a>
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.png" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.png" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.png" alt="Instagram" loading="lazy"></a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для RU) -->
             <div class="legal-links-ru">
                 <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
                 <a href="offer.html" target="_blank">Публичная оферта</a>
             </div>
-            
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ (только для EN) -->
             <div class="legal-links-en">
                 <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
@@ -838,7 +543,6 @@
         </div>
     </footer>
 
-    <!-- МОДАЛКА НАСТРОЙКИ ТОВАРА -->
     <div class="modal-overlay" id="productModalOverlay">
         <div class="product-modal">
             <div class="modal-header">
@@ -852,25 +556,18 @@
                     <button class="gallery-nav next" id="galleryNext">❯</button>
                     <div class="gallery-dots" id="galleryDots"></div>
                 </div>
-                <!-- Описание товара (для кекса, печенья, расстегаев) -->
                 <div class="modal-description" id="modalDescription" style="display: none;"></div>
-                <!-- Количество персон (для боксов) -->
                 <div class="modal-section" id="personsSection">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
-                    <div class="persons-select" id="personsSelect">
-                    </div>
+                    <div class="persons-select" id="personsSelect"></div>
                 </div>
-                <!-- Выбор количества (для печенья и расстегаев) -->
                 <div class="modal-section" id="quantitySection" style="display: none;">
                     <div class="modal-section-title" data-i18n="modalQuantity">Количество</div>
-                    <div class="quantity-select" id="quantitySelect">
-                    </div>
+                    <div class="quantity-select" id="quantitySelect"></div>
                 </div>
-                <!-- Аллергены (только для боксов) -->
                 <div class="modal-section" id="allergensSection">
                     <div class="modal-section-title" data-i18n="modalAllergens">Исключить аллергены</div>
-                    <div class="allergens-grid" id="allergensGrid">
-                    </div>
+                    <div class="allergens-grid" id="allergensGrid"></div>
                 </div>
             </div>
             <div class="modal-actions">
@@ -880,12 +577,11 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА "ПЕРЕЙТИ В КОРЗИНУ?" -->
     <div class="cart-prompt-overlay" id="cartPromptOverlay">
         <div class="cart-prompt">
             <div class="cart-prompt-icon">🛒</div>
             <h3 class="cart-prompt-title" data-i18n="cartPromptTitle">Товар добавлен!</h3>
-            <p class="cart-prompt-text" data-i18n="cartPromptText">Перейти в корзину или продолжить выбирать?</p>
+            <p class="cart-prompt-text" data-i18n="cartPromptText">Перейти в корзину или продолжать выбирать?</p>
             <div class="cart-prompt-actions">
                 <button class="btn-prompt-continue" id="promptContinue" data-i18n="btnContinue">Продолжить</button>
                 <button class="btn-prompt-cart" id="promptCart" data-i18n="btnGoToCart">В корзину</button>
@@ -893,7 +589,6 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script>
     const translations = {
         ru: {
@@ -901,36 +596,22 @@
             navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
-            sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ",
-            sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
+            sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ", sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
             badgeHit: "ХИТ", badgePremium: "PREMIUM", badgeNew: "NEW",
-            box1Title: "Бокс «Ужин Николая II»", 
-            box1Descr: "Так питался Великий Император. Погружение в эпоху царской России через изысканные блюда.",
-            box2Title: "Бокс «Ужин Чайковского»",
-            box2Descr: "Так питался Великий композитор. Погружение в эпоху царской России через изысканные блюда.",
-            cakeTitle: "Сливочный лимонный кекс",
-            cakeDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.",
-            lemonCookiesTitle: "Нежное печенье с лимонным курдом",
-            lemonCookiesDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.",
-            oatCookiesTitle: "Овсяное печенье с орехами и изюмом",
-            oatCookiesDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
-            rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
-            rasstegaiDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
-            featNicholas1: "5 блюд от шефа",
-            featNicholas2: "На 2-4-6 персон",
-            featNicholas3: "Музыкальное сопровождение того времени",
+            box1Title: "Бокс «Ужин Николая II»", box1Descr: "Так питался Великий Император. Погружение в эпоху царской России через изысканные блюда.",
+            box2Title: "Бокс «Ужин Чайковского»", box2Descr: "Так питался Великий композитор. Погружение в эпоху царской России через изысканные блюда.",
+            cakeTitle: "Сливочный лимонный кекс", cakeDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.",
+            lemonCookiesTitle: "Нежное печенье с лимонным курдом", lemonCookiesDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.",
+            oatCookiesTitle: "Овсяное печенье с орехами и изюмом", oatCookiesDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
+            rasstegaiTitle: "Расстегаи с красной рыбой и рисом", rasstegaiDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
+            featNicholas1: "5 блюд от шефа", featNicholas2: "На 2-4-6 персон", featNicholas3: "Музыкальное сопровождение того времени",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество",
-            persons2Short: "персоны", persons4Short: "персоны", persons6Short: "персон",
-            qty4Short: "4 штуки", qty8Short: "8 штук",
             allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
-            cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжить выбирать?",
+            cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжать выбирать?",
             btnContinue: "Продолжить", btnGoToCart: "В корзину",
             priceFrom: "от ",
-            nicholasPrice2: "8 000 ₽",
-            nicholasPrice4: "15 000 ₽",
-            nicholasPrice6: "20 000 ₽",
             cakeFullDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.\nИдеальный вариант для тех, кто предпочитает не слишком сладкие цитрусовые десерты с богатым сливочным вкусом.\nВес ~ 1 кг",
             lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
             oatCookiesFullDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
@@ -941,36 +622,22 @@
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery •  Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
-            sectionSweets: "CHOOSE YOUR SWEET",
-            sectionSavory: "CHOOSE YOUR SAVORY",
+            sectionSweets: "CHOOSE YOUR SWEET", sectionSavory: "CHOOSE YOUR SAVORY",
             badgeHit: "HIT", badgePremium: "PREMIUM", badgeNew: "NEW",
-            box1Title: "Nicholas II Dinner Box", 
-            box1Descr: "As the Great Emperor dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
-            box2Title: "Tchaikovsky Dinner Box",
-            box2Descr: "As the Great Composer dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
-            cakeTitle: "Creamy Lemon Cake",
-            cakeDescr: "Incredibly tender lemon cake based on butter and cream.",
-            lemonCookiesTitle: "Tender Cookies with Lemon Curd",
-            lemonCookiesDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center.",
-            oatCookiesTitle: "Oat Cookies with Nuts and Raisins",
-            oatCookiesDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
-            rasstegaiTitle: "Rasstegai with Red Fish and Rice",
-            rasstegaiDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
-            featNicholas1: "5 chef's dishes",
-            featNicholas2: "For 2-4-6 people",
-            featNicholas3: "Period music accompaniment",
+            box1Title: "Nicholas II Dinner Box", box1Descr: "As the Great Emperor dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
+            box2Title: "Tchaikovsky Dinner Box", box2Descr: "As the Great Composer dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
+            cakeTitle: "Creamy Lemon Cake", cakeDescr: "Incredibly tender lemon cake based on butter and cream.",
+            lemonCookiesTitle: "Tender Cookies with Lemon Curd", lemonCookiesDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center.",
+            oatCookiesTitle: "Oat Cookies with Nuts and Raisins", oatCookiesDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
+            rasstegaiTitle: "Rasstegai with Red Fish and Rice", rasstegaiDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
+            featNicholas1: "5 chef's dishes", featNicholas2: "For 2-4-6 people", featNicholas3: "Period music accompaniment",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity",
-            persons2Short: "people", persons4Short: "people", persons6Short: "people",
-            qty4Short: "4 pieces", qty8Short: "8 pieces",
             allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
             btnContinue: "Continue", btnGoToCart: "Go to cart",
             priceFrom: "from ",
-            nicholasPrice2: "AED 400",
-            nicholasPrice4: "AED 700",
-            nicholasPrice6: "AED 1 000",
             cakeFullDescr: "Incredibly tender lemon cake based on butter and cream.\nPerfect for those who prefer not too sweet citrus desserts with a rich creamy taste.\nWeight ~ 1 kg",
             lemonCookiesFullDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center. Perfect with warm drinks for those tired of classic cakes.",
             oatCookiesFullDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
@@ -985,50 +652,35 @@
     let currentGalleryIndex = 0;
     const isProduction = window.location.hostname !== 'localhost';
 
-    function trackGA4Event(eventName, params) {
-        if (isProduction && typeof gtag === 'function') {
-            gtag('event', eventName, params);
-        }
-    }
+    // ✅ КАРТИНКИ ТОВАРОВ (для передачи на checkout)
+    const productImages = {
+        'box1': 'images/boxes-nicholas.webp',
+        'box2': 'images/boxes-tchaikovsky.webp',
+        'cake1': 'images/boxes-lemoncake.webp',
+        'lemon-cookies': 'images/boxes-lemoncookies.webp',
+        'oat-cookies': 'images/boxes-oatcookies.webp',
+        'rasstegai': 'images/boxes-rasstegai.webp'
+    };
 
-    function ymTrack(goalId, params) {
-        if (typeof ym === 'function') {
-            ym(110092456, 'reachGoal', goalId, params);
-        }
-    }
-
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => { clearTimeout(timeout); func(...args); };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
+    function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
+    function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
+    function debounce(func, wait) { let timeout; return function(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
 
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
-            const totalQty = Array.isArray(cart) ? 
-                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
             cartCount.textContent = totalQty > 0 ? totalQty : '0';
         }
     }
-
-    function saveCart() {
-        localStorage.setItem('hedonism_cart', JSON.stringify(cart));
-    }
+    function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
 
     function getNicholasPrice(persons, lang) {
         const prices = { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } };
         return prices[lang]?.[persons] || prices[lang]?.[2];
     }
+    function formatPrice(amount, lang) { return lang === 'en' ? `AED ${amount}` : `${amount.toLocaleString('ru-RU')} ₽`; }
 
-    function formatPrice(amount, lang) {
-        return lang === 'en' ? `AED ${amount}` : `${amount.toLocaleString('ru-RU')} ₽`;
-    }
-
-    // ✅ ТИПЫ ТОВАРОВ
     function getProductType(productId) {
         if (productId === 'box1' || productId === 'box2') return 'box';
         if (productId === 'cake1') return 'cake';
@@ -1036,7 +688,6 @@
         return 'other';
     }
 
-    // ✅ ЦЕНЫ ДЛЯ ТОВАРОВ С ВЫБОРОМ КОЛИЧЕСТВА
     function getQuantityPrices(productId, lang) {
         const prices = {
             'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
@@ -1046,14 +697,12 @@
         return prices[productId]?.[lang] || { 4: 0, 8: 0 };
     }
 
-    // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ
     function renderPersonOptions(productId) {
         const container = document.getElementById('personsSelect');
         const isNicholas = productId === 'box1' || productId === 'box2';
         let html = '';
         const persons = [2, 4, 6];
         const icons = ['👥', '👥👥', '👥👥👥'];
-        
         persons.forEach((count, index) => {
             const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
             const priceClass = isNicholas ? '' : 'hidden';
@@ -1062,15 +711,9 @@
         container.innerHTML = html;
     }
 
-    // ✅ ГЕНЕРАЦИЯ КАРТОЧЕК ВЫБОРА КОЛИЧЕСТВА (4/8 ШТ)
     function renderQuantityOptions(productId) {
         const container = document.getElementById('quantitySelect');
         const prices = getQuantityPrices(productId, currentLang);
-        const isRasstegai = productId === 'rasstegai';
-        const itemWord = isRasstegai 
-            ? (currentLang === 'ru' ? 'расстегаев' : 'rasstegai') 
-            : (currentLang === 'ru' ? 'печенья' : 'cookies');
-        
         let html = '';
         [4, 8].forEach((count, index) => {
             const price = formatPrice(prices[count], currentLang);
@@ -1080,22 +723,14 @@
             } else {
                 label = `${count} pieces`;
             }
-            html += `<label class="quantity-option">
-                <input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" data-price="${prices[count]}" ${index === 0 ? 'checked' : ''}>
-                <span class="quantity-label">
-                    <span class="quantity-count">${label}</span>
-                    <span class="quantity-price">${price}</span>
-                </span>
-            </label>`;
+            html += `<label class="quantity-option"><input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" data-price="${prices[count]}" ${index === 0 ? 'checked' : ''}><span class="quantity-label"><span class="quantity-count">${label}</span><span class="quantity-price">${price}</span></span></label>`;
         });
         container.innerHTML = html;
     }
 
-    // ✅ ГЕНЕРАЦИЯ АЛЛЕРГЕНОВ
     function renderAllergens(productId) {
         const container = document.getElementById('allergensGrid');
         const isTchaikovsky = productId === 'box2';
-        
         let allergens = [];
         if (isTchaikovsky) {
             allergens = [
@@ -1116,7 +751,6 @@
                 { value: 'Орехи', icon: '🥜', key: 'allergen7' }
             ];
         }
-        
         let html = '';
         allergens.forEach(allergen => {
             html += `<label class="allergen-option"><input type="checkbox" name="modalAllergen" value="${allergen.value}" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">${allergen.icon}</span><span data-i18n="${allergen.key}">${translations[currentLang][allergen.key]}</span></span></label>`;
@@ -1152,7 +786,6 @@
         });
     }
 
-    // ✅ ОБНОВЛЕНИЕ ЦЕН НА КАРТОЧКАХ ПРИ СМЕНЕ ЯЗЫКА
     function updateBoxPrices() {
         const nicholasBoxes = document.querySelectorAll('.box-card[data-product-type="nicholas"], .box-card[data-product-type="tchaikovsky"]');
         nicholasBoxes.forEach(box => {
@@ -1161,32 +794,23 @@
                 const priceValue = boxPrice.querySelector('.price-value');
                 const currency = boxPrice.querySelector('.currency');
                 if (priceValue && currency) {
-                    if (currentLang === 'en') {
-                        priceValue.textContent = '400';
-                        currency.textContent = 'AED';
-                    } else {
-                        priceValue.textContent = '8 000';
-                        currency.textContent = '₽';
-                    }
+                    if (currentLang === 'en') { priceValue.textContent = '400'; currency.textContent = 'AED'; }
+                    else { priceValue.textContent = '8 000'; currency.textContent = '₽'; }
                 }
             }
         });
-        
         document.querySelectorAll('.cake-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '150' : '3 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
-        
         document.querySelectorAll('.lemon-cookies-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '50' : '1 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
-        
         document.querySelectorAll('.oat-cookies-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '40' : '800';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
-        
         document.querySelectorAll('.rasstegai-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '50' : '1 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
@@ -1200,35 +824,26 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'infoNote' || key === 'cakeFullDescr' || key === 'lemonCookiesFullDescr' || key === 'oatCookiesFullDescr' || key === 'rasstegaiFullDescr') { 
+                if (key === 'cakeFullDescr' || key === 'lemonCookiesFullDescr' || key === 'oatCookiesFullDescr' || key === 'rasstegaiFullDescr') { 
                     el.innerHTML = translations[lang][key].replace(/\n/g, '<br>'); 
-                }
-                else { el.textContent = translations[lang][key]; }
+                } else { el.textContent = translations[lang][key]; }
             }
         });
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            if (lang === 'ru') { 
-                langFlag.textContent = '🇷🇺'; 
-                langCurrent.textContent = 'RU'; 
-            } else { 
-                langFlag.textContent = '🇦🇪'; 
-                langCurrent.textContent = 'EN'; 
-            }
+            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
+            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
         }
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
-        if (currentProduct) {
-            renderModalContent(currentProduct.id);
-        }
+        if (currentProduct) renderModalContent(currentProduct.id);
         updateBoxPrices();
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    // ✅ РЕНДЕРИНГ СОДЕРЖИМОГО МОДАЛКИ В ЗАВИСИМОСТИ ОТ ТИПА ТОВАРА
     function renderModalContent(productId) {
         const productType = getProductType(productId);
         const personsSection = document.getElementById('personsSection');
@@ -1254,9 +869,7 @@
             quantitySection.style.display = 'block';
             allergensSection.style.display = 'none';
             modalDescription.style.display = 'block';
-            
-            const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : 
-                            productId === 'oat-cookies' ? 'oatCookiesFullDescr' : 'rasstegaiFullDescr';
+            const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : productId === 'oat-cookies' ? 'oatCookiesFullDescr' : 'rasstegaiFullDescr';
             modalDescription.innerHTML = translations[currentLang][descrKey].replace(/\n/g, '<br>');
             renderQuantityOptions(productId);
         }
@@ -1310,7 +923,6 @@
     function getModalOptions() {
         const productType = getProductType(currentProduct.id);
         let options = { persons: null, quantity: null, allergens: [] };
-        
         if (productType === 'box') {
             options.persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
             options.allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
@@ -1318,7 +930,6 @@
             const checkedQty = document.querySelector('input[name="modalQuantity"]:checked');
             options.quantity = checkedQty ? parseInt(checkedQty.value) : 4;
         }
-        
         return options;
     }
     
@@ -1328,14 +939,10 @@
         
         const allergensTranslated = options.allergens.map(allergen => {
             const allergenMap = { 
-                'Грибы': translations[currentLang].allergen1, 
-                'Мед': translations[currentLang].allergen2, 
-                'Лактоза': translations[currentLang].allergen3, 
-                'Яйца': translations[currentLang].allergen4, 
-                'Глютен': translations[currentLang].allergen5,
-                'Горчица': translations[currentLang].allergen2,
-                'Красная рыба': translations[currentLang].allergen6, 
-                'Орехи': translations[currentLang].allergen7 
+                'Грибы': translations[currentLang].allergen1, 'Мед': translations[currentLang].allergen2, 
+                'Лактоза': translations[currentLang].allergen3, 'Яйца': translations[currentLang].allergen4, 
+                'Глютен': translations[currentLang].allergen5, 'Горчица': translations[currentLang].allergen2,
+                'Красная рыба': translations[currentLang].allergen6, 'Орехи': translations[currentLang].allergen7 
             };
             return allergenMap[allergen] || allergen;
         });
@@ -1355,10 +962,13 @@
             variantLabel = `${options.quantity} шт`;
         }
         
+        // ✅ ДОБАВЛЕНО: сохраняем картинку и тип товара в корзину
         const cartItem = { 
             id: Date.now(), 
             productId: currentProduct.id, 
             name: currentProduct.name, 
+            image: productImages[currentProduct.id] || '',       // ✅ картинка
+            productType: productType,                             // ✅ тип товара
             basePrice: currentProduct.price, 
             price: finalPrice, 
             quantity: 1, 
@@ -1375,24 +985,12 @@
         showCartPrompt();
         
         trackGA4Event('add_to_cart', { 
-            currency: currentLang === 'en' ? 'AED' : 'RUB', 
-            value: finalPrice, 
-            items: [{ 
-                item_id: currentProduct.id, 
-                item_name: currentProduct.name, 
-                price: finalPrice, 
-                quantity: 1, 
-                item_category: 'gastronomic_box', 
-                item_variant: variantLabel 
-            }] 
+            currency: currentLang === 'en' ? 'AED' : 'RUB', value: finalPrice, 
+            items: [{ item_id: currentProduct.id, item_name: currentProduct.name, price: finalPrice, quantity: 1, item_category: 'gastronomic_box', item_variant: variantLabel }] 
         });
         ymTrack('box_added_to_cart', { 
-            product_id: currentProduct.id, 
-            product_name: currentProduct.name, 
-            price: finalPrice, 
-            currency: currentLang === 'en' ? 'AED' : 'RUB', 
-            variant: variantLabel,
-            allergens_count: options.allergens.length 
+            product_id: currentProduct.id, product_name: currentProduct.name, price: finalPrice, 
+            currency: currentLang === 'en' ? 'AED' : 'RUB', variant: variantLabel, allergens_count: options.allergens.length 
         });
     }
     
@@ -1414,6 +1012,7 @@
         updateCartCount();
         setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes.html', language: currentLang }); }, 1000);
         ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 6 });
+        
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -1428,19 +1027,17 @@
             });
             document.addEventListener('click', e => { if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show'); });
         }
+        
         document.querySelectorAll('.btn-select').forEach(btn => {
             btn.addEventListener('click', function() {
-                const productData = { 
-                    id: this.dataset.productId, 
-                    name: this.dataset.productName, 
-                    price: parseInt(this.dataset.productPrice) 
-                };
+                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
                 const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
                 trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
                 ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
                 openProductModal(productData, galleryImages);
             });
         });
+        
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
         document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
@@ -1450,6 +1047,7 @@
             ymTrack('cart_click_boxes', { cart_items: cart.length });
             window.location.href = 'checkout.html';
         });
+        
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
@@ -1458,6 +1056,7 @@
                 else if (href?.includes('index.html') && !href.includes('#')) ymTrack('nav_home_click');
             });
         });
+        
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
@@ -1465,21 +1064,18 @@
                 ymTrack(goalId);
             });
         });
+        
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
         document.getElementById('promptContinue')?.addEventListener('click', closeCartPrompt);
         document.getElementById('promptCart')?.addEventListener('click', goToCheckout);
         cartPromptOverlay?.addEventListener('click', e => { if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); });
         
-        // ✅ Закрытие карточек по нажатию ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' || e.code === 'Escape') {
                 const productModal = document.getElementById('productModalOverlay');
                 const cartPrompt = document.getElementById('cartPromptOverlay');
-                if (productModal && productModal.classList.contains('open')) {
-                    closeProductModal();
-                } else if (cartPrompt && cartPrompt.classList.contains('open')) {
-                    closeCartPrompt();
-                }
+                if (productModal && productModal.classList.contains('open')) closeProductModal();
+                else if (cartPrompt && cartPrompt.classList.contains('open')) closeCartPrompt();
             }
         });
         
