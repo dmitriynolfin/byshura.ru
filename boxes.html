@@ -129,7 +129,8 @@
         .box-price { font-size: 16px; font-weight: 600; color: #070395; display: flex; align-items: baseline; gap: 4px; }
         .box-price .price-value { font-weight: 600; }
         .box-price .currency { font-size: 14px; color: #999; font-weight: 400; }
-        html[lang="en"] .box-price { flex-direction: row-reverse; }
+        /* ✅ ИСПРАВЛЕНИЕ 1: В EN валюта (AED) ставится перед числом через order, а не row-reverse */
+        html[lang="en"] .box-price .currency { order: -1; }
         .btn-select { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
         .btn-select:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
         
@@ -207,7 +208,8 @@
         
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .footer-copyright { font-size: 14px; font-weight: 400; text-align: center; color: #070395; }
+        /* ✅ ИСПРАВЛЕНИЕ 3: font-weight 600 — как на index.html */
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -480,25 +482,35 @@
                     </div>
                 </div>
                 
+                <!-- ✅ ИСПРАВЛЕНИЕ 2: Добавлен price-from для печенья с лимонным курдом -->
                 <div class="box-card" data-product-type="lemon-cookies">
                     <div class="box-image" data-bg-desktop="images/boxes-lemoncookies.webp" data-bg-mobile="images/boxes-lemoncookies-mobile.webp" data-gallery='["images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="lemonCookiesTitle">Нежное печенье с лимонным курдом</h3>
                         <p class="box-description" data-i18n="lemonCookiesDescr">Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.</p>
                         <div class="box-footer">
-                            <div class="box-price"><span class="price-value lemon-cookies-price-ru">1 000</span> <span class="currency">₽</span></div>
+                            <div class="box-price">
+                                <span class="price-from" data-i18n="priceFrom">от </span>
+                                <span class="price-value lemon-cookies-price-ru">1 000</span> 
+                                <span class="currency">₽</span>
+                            </div>
                             <button class="btn-select" data-product-id="lemon-cookies" data-product-name="Нежное печенье с лимонным курдом" data-product-price="1000" data-product-price-en="50" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
+                <!-- ✅ ИСПРАВЛЕНИЕ 2: Добавлен price-from для овсяного печенья -->
                 <div class="box-card" data-product-type="oat-cookies">
                     <div class="box-image" data-bg-desktop="images/boxes-oatcookies.webp" data-bg-mobile="images/boxes-oatcookies-mobile.webp" data-gallery='["images/boxes-oatcookies.webp","images/boxes-oatcookies.webp","images/boxes-oatcookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="oatCookiesTitle">Овсяное печенье с орехами и изюмом</h3>
                         <p class="box-description" data-i18n="oatCookiesDescr">Овсяные хлопья, изюм, фундук и ничего лишнего.</p>
                         <div class="box-footer">
-                            <div class="box-price"><span class="price-value oat-cookies-price-ru">800</span> <span class="currency">₽</span></div>
+                            <div class="box-price">
+                                <span class="price-from" data-i18n="priceFrom">от </span>
+                                <span class="price-value oat-cookies-price-ru">800</span> 
+                                <span class="currency">₽</span>
+                            </div>
                             <button class="btn-select" data-product-id="oat-cookies" data-product-name="Овсяное печенье с орехами и изюмом" data-product-price="800" data-product-price-en="40" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
@@ -507,13 +519,18 @@
             
             <h2 class="section-title" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
             <div class="boxes-grid">
+                <!-- ✅ ИСПРАВЛЕНИЕ 2: Добавлен price-from для расстегаев -->
                 <div class="box-card" data-product-type="rasstegai">
                     <div class="box-image" data-bg-desktop="images/boxes-rasstegai.webp" data-bg-mobile="images/boxes-rasstegai-mobile.webp" data-gallery='["images/boxes-rasstegai.webp","images/boxes-rasstegai.webp","images/boxes-rasstegai.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="rasstegaiTitle">Расстегаи с красной рыбой и рисом</h3>
                         <p class="box-description" data-i18n="rasstegaiDescr">Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.</p>
                         <div class="box-footer">
-                            <div class="box-price"><span class="price-value rasstegai-price-ru">1 000</span> <span class="currency">₽</span></div>
+                            <div class="box-price">
+                                <span class="price-from" data-i18n="priceFrom">от </span>
+                                <span class="price-value rasstegai-price-ru">1 000</span> 
+                                <span class="currency">₽</span>
+                            </div>
                             <button class="btn-select" data-product-id="rasstegai" data-product-name="Расстегаи с красной рыбой и рисом" data-product-price="1000" data-product-price-en="50" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
@@ -652,7 +669,6 @@
     let currentGalleryIndex = 0;
     const isProduction = window.location.hostname !== 'localhost';
 
-    // ✅ КАРТИНКИ ТОВАРОВ (для передачи на checkout)
     const productImages = {
         'box1': 'images/boxes-nicholas.webp',
         'box2': 'images/boxes-tchaikovsky.webp',
@@ -962,13 +978,12 @@
             variantLabel = `${options.quantity} шт`;
         }
         
-        // ✅ ДОБАВЛЕНО: сохраняем картинку и тип товара в корзину
         const cartItem = { 
             id: Date.now(), 
             productId: currentProduct.id, 
             name: currentProduct.name, 
-            image: productImages[currentProduct.id] || '',       // ✅ картинка
-            productType: productType,                             // ✅ тип товара
+            image: productImages[currentProduct.id] || '',
+            productType: productType,
             basePrice: currentProduct.price, 
             price: finalPrice, 
             quantity: 1, 
