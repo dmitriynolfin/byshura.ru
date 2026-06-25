@@ -65,10 +65,13 @@
         .header-left { display: flex; align-items: center; gap: 30px; }
         .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
-        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding: 5px 0; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #FFD93D; transition: width 0.3s; }
+        .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: #FFD93D; }
-        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
-        .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
+        .nav-link-cta::after { display: none !important; }
+        .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
         .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
@@ -76,11 +79,47 @@
         .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
         .btn-back:hover { background: #070395; color: white; }
-        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
+        
+        /* ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА - КАК НА index.html/history.html */
+        .lang-selector { 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            font-weight: 600; 
+            font-size: 13px; 
+            cursor: pointer; 
+            position: relative; 
+            white-space: nowrap; 
+            min-height: 44px; 
+            padding: 5px 10px; 
+            border-radius: 20px; 
+            background: rgba(7,3,149,0.05);
+            transition: background 0.3s;
+        }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
+        
+        .lang-dropdown { 
+            position: absolute; 
+            top: 100%; 
+            right: 0; 
+            background: white; 
+            border: 1px solid #eee; 
+            border-radius: 4px; 
+            box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); 
+            min-width: 220px; 
+            display: none; 
+            z-index: 100; 
+            margin-top: 5px; 
+        }
         .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
+        .lang-dropdown a { 
+            display: block; 
+            padding: 10px 15px; 
+            font-size: 13px; 
+            text-transform: none; 
+            color: #070395;
+            transition: background 0.2s;
+        }
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
@@ -185,11 +224,11 @@
         .btn-prompt-cart { flex: 1; background: #070395; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; transition: all 0.3s; }
         .btn-prompt-cart:hover { background: #FFD93D; color: #070395; }
         
-        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА, ШРИФТ 500) */
+        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА, ШРИФТ 600) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         /* ✅ УБРАЛИ footer-logo (кнопку с лимоном) */
-        .footer-copyright { font-size: 14px; font-weight: 500; text-align: center; color: #070395; } /* ✅ font-weight: 500 как на index.html */
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
@@ -295,7 +334,7 @@
             .allergen-option { padding: 8px 10px; }
             .allergen-label { font-size: 13px; }
             
-            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ, КОМПАКТНЫЕ */
+            /* ✅ МОБИЛЬНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК ПЕРСОН - ТОЛЬКО ЭМОДЗИ, ОДИНАКОВЫЙ РАЗМЕР ЦЕН */
             .persons-select { 
                 gap: 6px; 
                 justify-content: center;
@@ -315,40 +354,12 @@
                 margin-bottom: 2px;
                 line-height: 1;
             }
+            /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН В МОДАЛКЕ */
             .person-price { 
-                font-size: 11px; 
+                font-size: 11px !important; /* ✅ !important для переопределения */
                 padding: 2px 6px;
                 margin-top: 2px;
                 border-radius: 10px;
-            }
-            
-            /* ✅ ДЛЯ БОКСА НИКОЛАЯ II: УМЕНЬШАЕМ БЛОКИ С 2 И 4 ЭМОДЗИ */
-            .person-option:nth-child(1) .person-label,
-            .person-option:nth-child(2) .person-label {
-                padding: 6px 1px;
-                min-height: 50px;
-            }
-            .person-option:nth-child(1) .person-icon,
-            .person-option:nth-child(2) .person-icon {
-                font-size: 14px;
-            }
-            .person-option:nth-child(1) .person-price,
-            .person-option:nth-child(2) .person-price {
-                font-size: 10px;
-                padding: 2px 5px;
-            }
-            
-            /* ✅ БЛОК С 6 ЭМОДЗИ - ЧУТЬ БОЛЬШЕ, НО ВСЁ ЕЩЁ В ОДНУ СТРОКУ */
-            .person-option:nth-child(3) .person-label {
-                padding: 8px 3px;
-                min-height: 55px;
-            }
-            .person-option:nth-child(3) .person-icon {
-                font-size: 15px;
-            }
-            .person-option:nth-child(3) .person-price {
-                font-size: 11px;
-                padding: 2px 6px;
             }
             
             /* ✅ FOOTER КАК НА index.html */
@@ -368,7 +379,7 @@
             .legal-links-en a:hover { color: #070395; }
         }
         
-        /* ✅ iPhone XR / 414px - ОСОБЫЕ СТИЛИ ДЛЯ ЭМОДЗИ */
+        /* ✅ iPhone XR / 414px - ОДИНАКОВЫЙ РАЗМЕР ЦЕН */
         @media (max-width: 414px) {
             .persons-select { gap: 4px; }
             .person-option { flex: 1 1 29%; max-width: 31%; }
@@ -377,9 +388,11 @@
             .person-option:nth-child(1) .person-icon,
             .person-option:nth-child(2) .person-icon { font-size: 13px; }
             .person-option:nth-child(3) .person-icon { font-size: 14px; }
-            .person-price { font-size: 10px; padding: 2px 4px; }
-            .person-option:nth-child(1) .person-price,
-            .person-option:nth-child(2) .person-price { font-size: 9px; padding: 1px 4px; }
+            /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН */
+            .person-price { 
+                font-size: 10px !important; /* ✅ !important для переопределения */
+                padding: 2px 4px; 
+            }
         }
         
         @media (max-width: 360px) {
@@ -397,7 +410,11 @@
             .person-option:nth-child(1) .person-icon,
             .person-option:nth-child(2) .person-icon { font-size: 12px; }
             .person-option:nth-child(3) .person-icon { font-size: 13px; }
-            .person-price { font-size: 9px; padding: 1px 4px; }
+            /* ✅ ОДИНАКОВЫЙ РАЗМЕР ШРИФТА ДЛЯ ВСЕХ ЦЕН */
+            .person-price { 
+                font-size: 9px !important; /* ✅ !important для переопределения */
+                padding: 1px 4px; 
+            }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -447,6 +464,7 @@
                     </button>
                 </div>
                 <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
+                <!-- ✅ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА - КАК НА index.html/history.html -->
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
@@ -477,7 +495,7 @@
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
             <div class="boxes-grid">
                 <!-- БОКС 1: УЖИН НИКОЛАЯ II -->
-                <div class="box-card">
+                <div class="box-card" data-product-type="nicholas">
                     <div class="box-image" 
                          data-bg-desktop="images/boxes-nicholas.webp"
                          data-bg-mobile="images/boxes-nicholas-mobile.webp"
@@ -494,7 +512,8 @@
                             <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
                         </div>
                         <div class="box-footer">
-                            <div class="box-price">
+                            <!-- ✅ Динамическая цена для бокса Николая II -->
+                            <div class="box-price" data-nicholas-base-price-ru="8 000" data-nicholas-base-price-en="400">
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
                             </div>
@@ -633,7 +652,7 @@
         </div>
     </section>
 
-    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА, ШРИФТ 500) -->
+    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
     <footer class="footer">
         <div class="container footer-container">
             <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
@@ -721,7 +740,6 @@
 
     <!-- JAVASCRIPT -->
     <script>
-    // ===== ПЕРЕВОДЫ =====
     const translations = {
         ru: {
             pageTitle: "Боксы - Вестник Гедонизма",
@@ -885,6 +903,24 @@
         });
     }
 
+    // ✅ ОБНОВЛЕНИЕ ЦЕНЫ ДЛЯ БОКСА НИКОЛАЯ II ПРИ СМЕНЕ ЯЗЫКА
+    function updateNicholasBoxPrice() {
+        const nicholasBox = document.querySelector('.box-card[data-product-type="nicholas"] .box-price');
+        if (nicholasBox) {
+            const priceValue = nicholasBox.querySelector('.price-value');
+            const currency = nicholasBox.querySelector('.currency');
+            if (priceValue && currency) {
+                if (currentLang === 'en') {
+                    priceValue.textContent = '400';
+                    currency.textContent = 'AED';
+                } else {
+                    priceValue.textContent = '8 000';
+                    currency.textContent = '₽';
+                }
+            }
+        }
+    }
+
     function applyLanguage(lang) {
         if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
@@ -909,6 +945,8 @@
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
         if (currentProduct) renderPersonOptions(currentProduct.id);
+        // ✅ Обновляем цену для бокса Николая II при смене языка
+        updateNicholasBoxPrice();
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
