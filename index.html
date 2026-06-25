@@ -336,7 +336,6 @@
         /* FOOTER - ✅ БЕЗ КНОПКИ С ЛИМОНОМ */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        /* ✅ УБРАЛИ .footer-logo (кнопку с лимоном) */
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
@@ -601,26 +600,25 @@
             </div>
             <div class="pickup-info">
                 <div class="pickup-item"><div class="pickup-icon">📅</div><span class="pickup-text" data-i18n="pickupDays">Пятница | Суббота | Воскресенье</span></div>
-                <div class="pickup-item"><div class="pickup-icon">🕔</div><span class="pickup-text">17.00 – 23.00</span></div>
-                <div class="pickup-item"><div class="pickup-icon">📍</div><span class="pickup-text">ЖК Prime Park<br>Ленинградский проспект 37/7</span></div>
+                <div class="pickup-item"><div class="pickup-icon">🕔</div><span class="pickup-text" data-i18n="pickupTime">17.00 – 23.00</span></div>
+                <div class="pickup-item"><div class="pickup-icon">📍</div><span class="pickup-text" data-i18n="pickupAddress">ЖК Prime Park<br>Ленинградский проспект 37/7</span></div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER - ✅ БЕЗ КНОПКИ С ЛИМОНОМ -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
-            <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.png" alt="Telegram" loading="lazy">
+                    <img src="images/tg_logo.webp" alt="Telegram" loading="lazy">
                 </a>
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.png" alt="MAX" loading="lazy">
+                    <img src="images/max_logo.webp" alt="MAX" loading="lazy">
                 </a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.png" alt="Instagram" loading="lazy">
+                    <img src="images/ins_logo.webp" alt="Instagram" loading="lazy">
                 </a>
             </div>
             <div class="legal-links-ru">
@@ -649,11 +647,13 @@
             card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
             pickupTitle: "САМОВЫВОЗ", pickupDescr: "Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично",
             pickupDays: "Пятница | Суббота | Воскресенье",
+            pickupTime: "17.00 – 23.00",
+            pickupAddress: "ЖК Prime Park<br>Ленинградский проспект 37/7",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartAlert: "Добавьте товары в корзину на странице боксов"
         },
         en: {
-            pageTitle: "Hedonism Dispatch — Gastro Box Delivery in Moscow | Fri-Sun 17:00-23:00",
+            pageTitle: "Hedonism Dispatch — Gastro Box Delivery in Dubai | Fri-Sun 17:00-23:00",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             heroBtn: "ORDER BOX", btnOrder: "PLACE ORDER",
@@ -662,6 +662,8 @@
             card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
             pickupTitle: "PICKUP", pickupDescr: "Our home restaurant currently delivers only, but we're always happy to hand over your order in person",
             pickupDays: "Friday | Saturday | Sunday",
+            pickupTime: "17:00 – 23:00",
+            pickupAddress: "Merano Tower Damac<br>Dubai",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first"
         }
@@ -671,21 +673,18 @@
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     const isProduction = window.location.hostname !== 'localhost';
 
-    // ===== GA4 HELPER (оптимизировано) =====
     function trackGA4Event(eventName, params) {
         if (isProduction && typeof gtag === 'function') {
             gtag('event', eventName, params);
         }
     }
 
-    // ===== YANDEX METRIKA HELPER =====
     function ymTrack(goalId, params) {
         if (typeof ym === 'function') {
             ym(110092456, 'reachGoal', goalId, params);
         }
     }
 
-    // ===== DEBOUNCE (для оптимизации) =====
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -695,7 +694,6 @@
         };
     }
 
-    // ✅ ФУНКЦИЯ ОБНОВЛЕНИЯ СЧЁТЧИКА КОРЗИНЫ
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
@@ -704,7 +702,6 @@
         }
     }
 
-    // ✅ LAZY LOAD ДЛЯ BACKGROUND-ИЗОБРАЖЕНИЙ
     function lazyLoadBackgrounds() {
         const images = document.querySelectorAll('.hero-image[data-bg-desktop], .about-image[data-bg-desktop]');
         const observer = new IntersectionObserver((entries) => {
@@ -726,7 +723,6 @@
         images.forEach(img => observer.observe(img));
     }
 
-    // ✅ ОБНОВЛЕНИЕ ФОНОВОГО ИЗОБРАЖЕНИЯ PICKUP
     function updatePickupBackground() {
         const pickupSection = document.querySelector('.pickup');
         if (pickupSection) {
@@ -743,7 +739,6 @@
         }
     }
 
-    // ✅ АДАПТАЦИЯ ИЗОБРАЖЕНИЙ ПОД УСТРОЙСТВО
     function adaptImagesForDevice() {
         const isMobile = window.innerWidth <= 768;
         document.querySelectorAll('.hero-image[data-bg-desktop], .about-image[data-bg-desktop]').forEach(img => {
@@ -765,7 +760,12 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
+                // ✅ Для pickupAddress и других полей с HTML (перевод строки через <br>) используем innerHTML
+                if (key === 'pickupAddress') {
+                    el.innerHTML = translations[lang][key];
+                } else {
+                    el.textContent = translations[lang][key];
+                }
             }
         });
         
@@ -785,21 +785,15 @@
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    // ===== MAIN INIT =====
     document.addEventListener('DOMContentLoaded', function() {
-        // ✅ 1. Загружаем язык
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
         const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
         applyLanguage(langToUse);
         
-        // ✅ 2. Lazy load изображений
         lazyLoadBackgrounds();
-        
-        // ✅ 3. Обновляем счётчик корзины
         updateCartCount();
         
-        // 📊 GA4: просмотр главной страницы (отложенный)
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title,
@@ -809,10 +803,8 @@
             });
         }, 1000);
         
-        // 🎯 Метрика: главная загружена
         ymTrack('index_viewed', { lang: currentLang });
         
-        // Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -830,7 +822,6 @@
             });
         }
         
-        // ===== HERO SLIDER =====
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
@@ -854,7 +845,6 @@
         
         setInterval(() => { goToSlide((currentSlide + 1) % slides.length); }, 5000);
         
-        // ===== КНОПКИ ЗАКАЗА =====
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { page: 'index', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
             ymTrack('cart_click_index', { cart_items: cart.length });
@@ -877,7 +867,6 @@
             window.location.href = 'boxes.html';
         });
         
-        // Навигация
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
@@ -889,7 +878,6 @@
             });
         });
         
-        // Соцсети
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
@@ -899,7 +887,6 @@
             });
         });
         
-        // Скролл до секций (debounced)
         const trackedSections = { 'catalog': { goal: 'scroll_about', ga_event: 'section_view', section: 'about' }, 'contacts': { goal: 'scroll_pickup', ga_event: 'section_view', section: 'pickup' } };
         const sectionTracked = {};
         const checkSectionScroll = debounce(function() {
@@ -918,7 +905,6 @@
         window.addEventListener('scroll', checkSectionScroll);
         setTimeout(checkSectionScroll, 1000);
         
-        // Глубина скролла
         let scrollDepthTracked = { 25: false, 50: false, 75: false, 100: false };
         window.addEventListener('scroll', function() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -932,11 +918,9 @@
             });
         });
         
-        // Время на странице
         setTimeout(() => { trackGA4Event('engagement', { page: 'index', time_on_page: 30 }); }, 30000);
         setTimeout(() => { trackGA4Event('engagement', { page: 'index', time_on_page: 60 }); }, 60000);
         
-        // Анимации появления
         const fadeElements = document.querySelectorAll('.fade-in');
         fadeElements.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; });
         const checkFade = debounce(function() {
@@ -949,7 +933,6 @@
         window.addEventListener('scroll', checkFade);
         checkFade();
         
-        // Header effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
             if (header) {
@@ -958,13 +941,11 @@
             }
         });
         
-        // Resize handler (debounced)
         window.addEventListener('resize', debounce(adaptImagesForDevice, 250));
         
         console.log(`✅ index.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
     });
     
-    // ✅ Слушаем изменения localStorage
     window.addEventListener('storage', function(e) {
         if (e.key === 'hedonism_cart') {
             cart = JSON.parse(e.newValue) || [];
