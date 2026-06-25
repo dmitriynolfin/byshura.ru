@@ -114,7 +114,6 @@
         .box-price .price-value { font-weight: 600; }
         .box-price .currency { font-size: 14px; color: #999; font-weight: 400; }
         
-        /* ✅ ИСПРАВЛЕНИЕ: в EN порядок "from AED 400" */
         html[lang="en"] .box-price .price-from { order: 1; }
         html[lang="en"] .box-price .currency { order: 2; }
         html[lang="en"] .box-price .price-value { order: 3; }
@@ -607,6 +606,7 @@
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество",
             allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
+            allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
             cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжать выбирать?",
             btnContinue: "Продолжить", btnGoToCart: "В корзину",
@@ -633,6 +633,7 @@
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity",
             allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
+            allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
             btnContinue: "Continue", btnGoToCart: "Go to cart",
@@ -784,7 +785,6 @@
         });
     }
 
-    // ✅ ИСПРАВЛЕНИЕ: функция теперь корректно формирует цену в EN
     function updateBoxPrices() {
         const nicholasBoxes = document.querySelectorAll('.box-card[data-product-type="nicholas"], .box-card[data-product-type="tchaikovsky"]');
         nicholasBoxes.forEach(box => {
@@ -920,8 +920,15 @@
     }
     
     function getModalOptions() {
+        // ✅ ИСПРАВЛЕНИЕ: проверка на null
+        if (!currentProduct) {
+            console.error('❌ currentProduct is null в getModalOptions');
+            return { persons: null, quantity: null, allergens: [] };
+        }
+        
         const productType = getProductType(currentProduct.id);
         let options = { persons: null, quantity: null, allergens: [] };
+        
         if (productType === 'box') {
             options.persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
             options.allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
@@ -933,7 +940,13 @@
     }
     
     function addToCartWithOptions(options) {
-        if (!currentProduct) return;
+        // ✅ ИСПРАВЛЕНИЕ: проверка на null
+        if (!currentProduct) {
+            console.error('❌ currentProduct is null в addToCartWithOptions');
+            alert('Ошибка: товар не выбран. Попробуйте ещё раз.');
+            return;
+        }
+        
         const productType = getProductType(currentProduct.id);
         
         const allergensTranslated = options.allergens.map(allergen => {
@@ -976,12 +989,12 @@
                 allergens: allergensTranslated 
             } 
         };
+        
         cart.push(cartItem); 
         saveCart(); 
         updateCartCount(); 
-        closeProductModal(); 
-        showCartPrompt();
         
+        // ✅ ИСПРАВЛЕНИЕ: трекаем события ДО закрытия модалки, пока currentProduct ещё доступен
         trackGA4Event('add_to_cart', { 
             currency: currentLang === 'en' ? 'AED' : 'RUB', value: finalPrice, 
             items: [{ item_id: currentProduct.id, item_name: currentProduct.name, price: finalPrice, quantity: 1, item_category: 'gastronomic_box', item_variant: variantLabel }] 
@@ -990,6 +1003,9 @@
             product_id: currentProduct.id, product_name: currentProduct.name, price: finalPrice, 
             currency: currentLang === 'en' ? 'AED' : 'RUB', variant: variantLabel, allergens_count: options.allergens.length 
         });
+        
+        closeProductModal(); 
+        showCartPrompt();
     }
     
     function showCartPrompt() { document.getElementById('cartPromptOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -1039,7 +1055,18 @@
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
         document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
-        document.getElementById('modalAddToCart')?.addEventListener('click', () => addToCartWithOptions(getModalOptions()));
+        
+        // ✅ ИСПРАВЛЕНИЕ: безопасный вызов addToCartWithOptions
+        document.getElementById('modalAddToCart')?.addEventListener('click', () => {
+            try {
+                const options = getModalOptions();
+                addToCartWithOptions(options);
+            } catch (error) {
+                console.error('❌ Ошибка при добавлении в корзину:', error);
+                alert('Произошла ошибка. Попробуйте ещё раз.');
+            }
+        });
+        
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
             ymTrack('cart_click_boxes', { cart_items: cart.length });
