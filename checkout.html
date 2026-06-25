@@ -161,7 +161,6 @@
         .date-hint { font-size: 12px; color: #666; margin-top: 5px; display: block; }
         .date-hint strong { color: #070395; }
         
-        /* ✅ ИСПРАВЛЕНИЕ 1: Футер как на index.html — без footer-logo, font-weight 600 */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -242,12 +241,10 @@
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-links-ru a:hover { color: #070395; }
             .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             html[lang="en"] .legal-links-en { display: flex !important; }
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-links-en a:hover { color: #070395; }
             .consent-group { padding: 12px; margin: 20px 0 25px; }
             .consent-text { font-size: 12px; line-height: 1.4; }
             .datetime-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; align-items: flex-start; }
@@ -447,7 +444,6 @@
         </div>
     </section>
 
-    <!-- ✅ ИСПРАВЛЕНИЕ 1: Футер как на index.html — без footer-logo -->
     <footer class="footer">
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
@@ -470,6 +466,9 @@
     </footer>
 
     <script>
+    // ✅ ВАЖНО: ВСТАВЬТЕ СЮДА URL ВАШЕГО APPS SCRIPT WEB APP
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/exec';
+
     const translations = {
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма",
@@ -562,7 +561,6 @@
         }
     };
 
-    // ✅ ИСПРАВЛЕНИЕ 2: Таблица цен для всех товаров в обеих валютах
     const priceTable = {
         'box1': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
         'box2': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
@@ -605,31 +603,20 @@
         return lang === 'en' ? 40 : 800;
     }
 
-    // ✅ ИСПРАВЛЕНИЕ 2: Пересчёт цены товара на основе productId, options и языка
     function recalculateItemPrice(item, lang) {
         const productId = item.productId;
         const options = item.options || {};
         const table = priceTable[productId];
-        
-        if (!table) return item.price; // fallback
-        
-        // Боксы: цена зависит от количества персон
+        if (!table) return item.price;
         if (productId === 'box1' || productId === 'box2') {
             const persons = parseInt(options.persons) || 2;
             return table[lang]?.[persons] || table[lang]?.[2];
         }
-        
-        // Кекс: фиксированная цена
-        if (productId === 'cake1') {
-            return table[lang];
-        }
-        
-        // Печенье и расстегаи: цена зависит от количества штук
+        if (productId === 'cake1') return table[lang];
         if (table[lang] && typeof table[lang] === 'object') {
             const qty = parseInt(options.quantity) || 4;
             return table[lang][qty] || table[lang][4];
         }
-        
         return item.price;
     }
 
@@ -700,7 +687,6 @@
         let html = '', total = 0;
         
         cart.forEach(item => {
-            // ✅ ИСПРАВЛЕНИЕ 2: Пересчитываем цену при каждом рендере
             const itemPrice = recalculateItemPrice(item, lang);
             const itemTotal = itemPrice * item.quantity;
             total += itemTotal;
@@ -808,74 +794,26 @@
         }
     }
 
-    const OWNER_CONFIG = {
-        telegramBotToken: '',
-        telegramChatId: '',
-        ownerEmail: 'saschhen@gmail.com',
-        ownerPhone: '79636221265'
-    };
-
-    async function notifyOwner(orderData) {
-        const t = translations[currentLang];
-        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
-        const paymentMap = { 'sber': t.payment1, 'tbank': t.payment2, 'alfa': t.payment3, 'cash': t.payment4 };
-        const paymentText = paymentMap[orderData.payment] || orderData.payment;
-        
-        const itemsList = orderData.items.map(item => {
-            const itemName = getItemName(item, orderData.lang);
-            const productType = item.productType || getProductTypeById(item.productId);
-            let optionsText = '';
+    // ✅ ОТПРАВКА ДАННЫХ ЗАКАЗА В APPS SCRIPT
+    async function sendToAppsScript(orderData) {
+        try {
+            console.log('📤 Отправка в Apps Script...');
+            Logger.log('📤 Отправка в Apps Script...');
             
-            if (productType === 'box') {
-                const persons = item.options?.persons || 2;
-                optionsText = ` (${persons} ${orderData.lang === 'ru' ? getPersonsWordRu(persons) : (persons === 1 ? 'pers.' : 'pers.')})`;
-            } else if (productType === 'cake') {
-                optionsText = orderData.lang === 'ru' ? ' (~1 кг)' : ' (~1 kg)';
-            } else if (productType === 'quantity-item') {
-                const qty = item.options?.quantity || 4;
-                optionsText = orderData.lang === 'ru' ? ` (${qty} шт)` : ` (${qty} pcs)`;
-            }
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(orderData)
+            });
             
-            return `• ${itemName}${optionsText} × ${item.quantity}`;
-        }).join('\n');
-        
-        if (OWNER_CONFIG.telegramBotToken && OWNER_CONFIG.telegramChatId) {
-            const tgMessage = `🛒 *НОВЫЙ ЗАКАЗ!*\n\n` +
-                `🔢 *Номер:* \`${orderData.orderNumber}\`\n` +
-                `👤 *Имя:* ${orderData.name}\n` +
-                `📱 *Телефон:* ${orderData.phone}\n` +
-                `💬 *Мессенджер:* ${orderData.messenger}\n\n` +
-                `🚚 *Доставка:* ${deliveryText}${orderData.delivery === 'courier' ? '\n📍 *Адрес:* ' + orderData.address : ''}\n` +
-                `📅 *Дата/время:* ${orderData.date} ${orderData.time}\n` +
-                `💳 *Оплата:* ${paymentText}\n` +
-                `${orderData.comment ? '💬 *Комментарий:* ' + orderData.comment + '\n' : ''}\n` +
-                `📦 *Состав:*\n${itemsList}\n\n` +
-                `💰 *Итого: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}*`;
-            
-            try {
-                const response = await fetch(`https://api.telegram.org/bot${OWNER_CONFIG.telegramBotToken}/sendMessage`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: OWNER_CONFIG.telegramChatId, text: tgMessage, parse_mode: 'Markdown' })
-                });
-                if (!response.ok) console.error('❌ Telegram API error:', await response.text());
-            } catch (e) { console.error('❌ Telegram error:', e); }
+            console.log('✅ Данные отправлены в Apps Script');
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка отправки в Apps Script:', error);
+            // Не блокируем оформление заказа, даже если Apps Script недоступен
+            return false;
         }
-        
-        const emailSubject = `🛒 Новый заказ #${orderData.orderNumber} от ${orderData.name}`;
-        const emailBody = `НОВЫЙ ЗАКАЗ #${orderData.orderNumber}\n\n` +
-            `Имя: ${orderData.name}\nТелефон: ${orderData.phone}\nМессенджер: ${orderData.messenger}\n\n` +
-            `Доставка: ${deliveryText}${orderData.delivery === 'courier' ? '\nАдрес: ' + orderData.address : ''}\n` +
-            `Дата/время: ${orderData.date} ${orderData.time}\nОплата: ${paymentText}\n` +
-            `Комментарий: ${orderData.comment || '-'}\n\nСостав:\n${itemsList}\n\n` +
-            `ИТОГО: ${orderData.total.toLocaleString('ru-RU')} ${orderData.currency}`;
-        
-        orderData.emailLink = `mailto:${OWNER_CONFIG.ownerEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        
-        const maxMessage = `Заказ #${orderData.orderNumber}!\n${orderData.name}\n${orderData.phone}\n${deliveryText}\n${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
-        orderData.maxLink = `https://max.ru/share/text?text=${encodeURIComponent(maxMessage)}`;
-        
-        const waMessage = ` Новый заказ #${orderData.orderNumber}!\n\nИмя: ${orderData.name}\nТелефон: ${orderData.phone}\nДоставка: ${deliveryText}\nДата: ${orderData.date} ${orderData.time}\nИтого: ${orderData.total} ${orderData.currency}`;
-        orderData.whatsappLink = `https://wa.me/${OWNER_CONFIG.ownerPhone}?text=${encodeURIComponent(waMessage)}`;
     }
 
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
@@ -1187,7 +1125,7 @@
                 const courierCost = currentLang === 'en' ? 40 : 800;
                 const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                 
-                // ✅ ИСПРАВЛЕНИЕ 2: Пересчитываем цены для всех товаров в orderData
+                // ✅ Пересчитываем цены для всех товаров
                 const orderItems = cart.map(item => ({
                     id: item.id, productId: item.productId, name: item.name,
                     image: item.image, productType: item.productType,
@@ -1197,6 +1135,7 @@
                     options: item.options
                 }));
                 
+                // ✅ Формируем данные заказа
                 const orderData = {
                     orderNumber: orderNumber,
                     createdAt: new Date().toISOString(),
@@ -1211,7 +1150,10 @@
                     items: orderItems,
                     total: orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0) + (delivery === 'courier' ? courierCost : 0),
                     currency: currentLang === 'en' ? 'AED' : '₽',
-                    lang: currentLang
+                    lang: currentLang,
+                    // ✅ Данные согласия на обработку персональных данных
+                    consentGiven: consentCheckbox.checked,
+                    consentTimestamp: new Date().toISOString()
                 };
                 
                 try {
@@ -1224,7 +1166,12 @@
                     });
                     ymTrack('checkout_start');
                     
-                    await notifyOwner(orderData);
+                    // ✅ ОТПРАВКА В APPS SCRIPT (email + таблица Google)
+                    console.log('📤 Отправка заказа #' + orderNumber + ' в Apps Script...');
+                    await sendToAppsScript(orderData);
+                    console.log('✅ Заказ отправлен в Apps Script');
+                    
+                    // Сохраняем заказ в sessionStorage для страницы thank-you
                     sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
                     
                     trackGA4Event('purchase', {
