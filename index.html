@@ -333,6 +333,29 @@
         .pickup-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .pickup-text { font-size: 17px; line-height: 1.5; text-align: left; }
         
+        /* ✅ КЛИКАБЕЛЬНЫЙ АДРЕС */
+        .pickup-address-link {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+        .pickup-address-link:hover {
+            color: #FFD93D;
+            text-decoration: underline;
+        }
+        .pickup-address-link::after {
+            content: '🗺️';
+            margin-left: 8px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        .pickup-address-link:hover::after {
+            opacity: 1;
+        }
+        
         /* FOOTER - ✅ БЕЗ КНОПКИ С ЛИМОНОМ */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
@@ -601,7 +624,7 @@
             <div class="pickup-info">
                 <div class="pickup-item"><div class="pickup-icon">📅</div><span class="pickup-text" data-i18n="pickupDays">Пятница | Суббота | Воскресенье</span></div>
                 <div class="pickup-item"><div class="pickup-icon">🕔</div><span class="pickup-text" data-i18n="pickupTime">17.00 – 23.00</span></div>
-                <div class="pickup-item"><div class="pickup-icon">📍</div><span class="pickup-text" data-i18n="pickupAddress">ЖК Prime Park<br>Ленинградский проспект 37/7</span></div>
+                <div class="pickup-item"><div class="pickup-icon">📍</div><a href="#" class="pickup-text pickup-address-link" id="pickupAddressLink" data-i18n="pickupAddress" target="_blank" rel="noopener noreferrer">ЖК Prime Park<br>Ленинградский проспект 37/7</a></div>
             </div>
         </div>
     </section>
@@ -667,6 +690,12 @@
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first"
         }
+    };
+
+    // ✅ ССЫЛКИ НА КАРТЫ
+    const mapLinks = {
+        ru: 'https://yandex.ru/maps/?text=Ленинградский+проспект+37/7+ЖК+Prime+Park',
+        en: 'https://www.google.com/maps/search/?api=1&query=Merano+Tower+Damac+Dubai'
     };
 
     let currentLang = 'ru';
@@ -769,6 +798,12 @@
             }
         });
         
+        // ✅ ОБНОВЛЯЕМ ССЫЛКУ НА КАРТЫ
+        const addressLink = document.getElementById('pickupAddressLink');
+        if (addressLink) {
+            addressLink.href = mapLinks[lang] || mapLinks.ru;
+        }
+        
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
@@ -865,6 +900,16 @@
             trackGA4Event('cta_click', { cta_name: 'order_box', cta_location: 'header', page: 'index' });
             ymTrack('index_order_click', { source: 'header' });
             window.location.href = 'boxes.html';
+        });
+        
+        // ✅ ТРЕКИНГ КЛИКА ПО АДРЕСУ
+        document.getElementById('pickupAddressLink')?.addEventListener('click', function() {
+            trackGA4Event('map_click', { 
+                location: currentLang === 'ru' ? 'moscow' : 'dubai',
+                map_service: currentLang === 'ru' ? 'yandex' : 'google',
+                page: 'index'
+            });
+            ymTrack('address_map_click', { lang: currentLang });
         });
         
         document.querySelectorAll('.nav-link').forEach(link => {
