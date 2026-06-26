@@ -323,8 +323,8 @@
         .about-content h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
         .about-content p { font-size: 14px; color: #555; margin-bottom: 0; }
         
-        /* PICKUP */
-        .pickup { position: relative; height: 100vh; min-height: 400px; background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)) center/cover; display: flex; align-items: center; color: white; transition: background-image 0.3s ease; }
+        /* ✅ PICKUP — УМЕНЬШЕН В 2 РАЗА */
+        .pickup { position: relative; height: 50vh; min-height: 200px; background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)) center/cover; display: flex; align-items: center; color: white; transition: background-image 0.3s ease; }
         .pickup-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
         .pickup-title { font-size: 37px; font-weight: 500; margin-bottom: 20px; }
         .pickup-descr { font-size: 17px; opacity: 0.9; line-height: 1.8; }
@@ -783,7 +783,6 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                // ✅ Для pickupAddress и других полей с HTML (перевод строки через <br>) используем innerHTML
                 if (key === 'pickupAddress') {
                     el.innerHTML = translations[lang][key];
                 } else {
@@ -792,7 +791,6 @@
             }
         });
         
-        // ✅ ОБНОВЛЯЕМ ССЫЛКУ НА КАРТЫ
         const addressLink = document.getElementById('pickupAddressLink');
         if (addressLink) {
             addressLink.href = mapLinks[lang] || mapLinks.ru;
@@ -896,7 +894,6 @@
             window.location.href = 'boxes.html';
         });
         
-        // ✅ ТРЕКИНГ КЛИКА ПО АДРЕСУ
         document.getElementById('pickupAddressLink')?.addEventListener('click', function() {
             trackGA4Event('map_click', { 
                 location: currentLang === 'ru' ? 'moscow' : 'dubai',
