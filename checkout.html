@@ -466,7 +466,7 @@
     </footer>
 
     <script>
-    // ✅ ВАЖНО: URL ВАШЕГО APPS SCRIPT WEB APP
+    // ✅ URL ВАШЕГО APPS SCRIPT WEB APP
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJGn5RAB4nJnGu1f8ibfF5rSuTViiegHaCANS6DPygqolK1WoYESXEGH-9x5eSix51/exec';
 
     const translations = {
@@ -794,38 +794,45 @@
         }
     }
 
-    // ✅ ОТПРАВКА ДАННЫХ ЗАКАЗА В APPS SCRIPT (исправлено)
-    async function sendToAppsScript(orderData) {
+    // ✅ ОПТИМИЗИРОВАННАЯ ОТПРАВКА ЗАКАЗА
+    // Используем sendBeacon (мгновенно, неблокирующий) + fetch с keepalive как резерв
+    function sendToAppsScript(orderData) {
+        console.log('📤 Отправка заказа #' + orderData.orderNumber);
+        
+        const jsonStr = JSON.stringify(orderData);
+        let sent = false;
+        
+        // Способ 1: sendBeacon — мгновенный, неблокирующий, работает даже при закрытии страницы
+        if (navigator.sendBeacon) {
+            try {
+                const blob = new Blob([jsonStr], { type: 'application/json' });
+                sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                if (sent) {
+                    console.log('✅ Отправлено через sendBeacon');
+                    return true;
+                }
+            } catch (e) {
+                console.warn('sendBeacon failed:', e);
+            }
+        }
+        
+        // Способ 2: fetch с keepalive — запрос продолжит выполняться даже после перехода на другую страницу
         try {
-            console.log('📤 Отправка заказа #' + orderData.orderNumber + ' в Apps Script...');
-            
-            // Способ 1: обычный fetch с redirect: 'follow'
-            const response = await fetch(APPS_SCRIPT_URL, {
+            fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(orderData),
-                redirect: 'follow'
-            });
-            
-            console.log('✅ Fetch ответ, статус:', response.status);
-            
-            // Способ 2 (резервный): sendBeacon — работает даже при закрытии страницы
-            if (navigator.sendBeacon) {
-                const blob = new Blob([JSON.stringify(orderData)], { type: 'application/json' });
-                const beaconSent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                console.log('📡 sendBeacon:', beaconSent ? 'успешно' : 'не удалось');
-            }
-            
+                body: jsonStr,
+                keepalive: true
+            }).catch(err => console.warn('fetch keepalive failed:', err));
+            console.log('✅ Отправлено через fetch с keepalive');
             return true;
         } catch (error) {
-            console.error('❌ Ошибка отправки в Apps Script:', error);
-            // Резервный способ: сохраняем в localStorage, чтобы thank-you.html мог повторить отправку
+            console.error('❌ Все способы отправки не сработали:', error);
+            // Сохраняем в localStorage для повторной отправки на thank-you.html
             try {
-                localStorage.setItem('hedonism_pending_order', JSON.stringify(orderData));
-                console.log('💾 Заказ сохранён в localStorage для повторной отправки');
-            } catch (e) {
-                console.error('Не удалось сохранить в localStorage:', e);
-            }
+                localStorage.setItem('hedonism_pending_order', jsonStr);
+                console.log('💾 Заказ сохранён для повторной отправки');
+            } catch (e) {}
             return false;
         }
     }
@@ -1092,7 +1099,7 @@
         
         const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
-            checkoutForm.addEventListener('submit', async function(e) {
+            checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 const submitBtn = document.getElementById('submitBtn');
@@ -1104,11 +1111,6 @@
                 const consentCheckbox = document.getElementById('consentCheckbox');
                 if (consentCheckbox && !consentCheckbox.checked) {
                     alert(translations[currentLang].consentError);
-                    submitBtn.disabled = false;
-                    const btnText = submitBtn.querySelector('.btn-text');
-                    const btnLoading = submitBtn.querySelector('.btn-loading');
-                    if (btnText) btnText.style.display = 'inline';
-                    if (btnLoading) btnLoading.style.display = 'none';
                     return;
                 }
                 
@@ -1121,14 +1123,10 @@
                 const time = document.getElementById('time').value;
                 if (!date || !time) {
                     alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время доставки.' : 'Please select delivery date and time.');
-                    submitBtn.disabled = false;
-                    const btnText = submitBtn.querySelector('.btn-text');
-                    const btnLoading = submitBtn.querySelector('.btn-loading');
-                    if (btnText) btnText.style.display = 'inline';
-                    if (btnLoading) btnLoading.style.display = 'none';
                     return;
                 }
                 
+                // Блокируем кнопку сразу
                 submitBtn.disabled = true;
                 const btnText = submitBtn.querySelector('.btn-text');
                 const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1139,7 +1137,7 @@
                 const courierCost = currentLang === 'en' ? 40 : 800;
                 const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                 
-                // ✅ Пересчитываем цены для всех товаров
+                // Пересчитываем цены для всех товаров
                 const orderItems = cart.map(item => ({
                     id: item.id, productId: item.productId, name: item.name,
                     image: item.image, productType: item.productType,
@@ -1149,7 +1147,7 @@
                     options: item.options
                 }));
                 
-                // ✅ Формируем данные заказа
+                // Формируем данные заказа
                 const orderData = {
                     orderNumber: orderNumber,
                     createdAt: new Date().toISOString(),
@@ -1169,62 +1167,55 @@
                     consentTimestamp: new Date().toISOString()
                 };
                 
-                try {
-                    trackGA4Event('begin_checkout', {
-                        currency: orderData.currency, value: orderData.total,
-                        items: orderData.items.map(item => ({
-                            item_id: item.productId, item_name: getItemName(item, currentLang),
-                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
-                        }))
-                    });
-                    ymTrack('checkout_start');
-                    
-                    // ✅ ОТПРАВКА В APPS SCRIPT
-                    console.log('📤 Отправка заказа #' + orderNumber + ' в Apps Script...');
-                    const sent = await sendToAppsScript(orderData);
-                    console.log(sent ? '✅ Заказ отправлен' : '⚠️ Возникли проблемы с отправкой, но заказ сохранён');
-                    
-                    // Сохраняем заказ в sessionStorage для страницы thank-you
-                    sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
-                    
-                    trackGA4Event('purchase', {
-                        transaction_id: orderData.orderNumber, currency: orderData.currency,
-                        value: orderData.total,
-                        shipping: delivery === 'courier' ? courierCost : 0,
-                        items: orderData.items.map(item => ({
-                            item_id: item.productId, item_name: getItemName(item, currentLang),
-                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
-                            item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
-                                         item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
-                        }))
-                    });
-                    
-                    ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
-                    
-                    if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
-                        dataLayer.push({
-                            'ecommerce': {
-                                'purchase': {
-                                    'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
-                                    'products': orderData.items.map(item => ({ 'id': item.productId, 'name': getItemName(item, currentLang), 'price': item.price, 'quantity': item.quantity }))
-                                }
+                // Трекинг ДО отправки (чтобы успел отправиться)
+                trackGA4Event('begin_checkout', {
+                    currency: orderData.currency, value: orderData.total,
+                    items: orderData.items.map(item => ({
+                        item_id: item.productId, item_name: getItemName(item, currentLang),
+                        price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
+                    }))
+                });
+                ymTrack('checkout_start');
+                
+                // ✅ ОТПРАВКА ЗАКАЗА — НЕБЛОКИРУЮЩАЯ
+                // sendBeacon мгновенный, fetch с keepalive продолжит выполняться после перехода
+                sendToAppsScript(orderData);
+                
+                // Сохраняем заказ в sessionStorage для страницы thank-you
+                sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                
+                // Трекинг покупки
+                trackGA4Event('purchase', {
+                    transaction_id: orderData.orderNumber, currency: orderData.currency,
+                    value: orderData.total,
+                    shipping: delivery === 'courier' ? courierCost : 0,
+                    items: orderData.items.map(item => ({
+                        item_id: item.productId, item_name: getItemName(item, currentLang),
+                        price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
+                        item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
+                                     item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
+                    }))
+                });
+                
+                ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
+                
+                if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
+                    dataLayer.push({
+                        'ecommerce': {
+                            'purchase': {
+                                'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
+                                'products': orderData.items.map(item => ({ 'id': item.productId, 'name': getItemName(item, currentLang), 'price': item.price, 'quantity': item.quantity }))
                             }
-                        });
-                    }
-                    
-                    cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                    
-                    // ✅ Переходим на thank-you даже если Apps Script не ответил
-                    window.location.href = 'thank-you.html';
-                    
-                } catch (error) {
-                    console.error('❌ Ошибка при оформлении заказа:', error);
-                    alert('⚠️ Произошла ошибка при отправке заказа. Попробуйте ещё раз.\n\n' + error.message);
-                    trackGA4Event('checkout_error', { error_message: error.message, page_location: window.location.href });
-                    submitBtn.disabled = false;
-                    if (btnText) btnText.style.display = 'inline';
-                    if (btnLoading) btnLoading.style.display = 'none';
+                        }
+                    });
                 }
+                
+                // Очищаем корзину
+                cart = []; saveCart(); updateCartCount(); renderOrderSummary();
+                
+                // ✅ МГНОВЕННЫЙ ПЕРЕХОД — не ждём ответа от сервера
+                // Заказ уже отправляется в фоне через sendBeacon / fetch keepalive
+                window.location.href = 'thank-you.html';
             });
         }
         
