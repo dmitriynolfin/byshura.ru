@@ -795,46 +795,43 @@
     }
 
     // ✅ ОПТИМИЗИРОВАННАЯ ОТПРАВКА ЗАКАЗА
-    // Используем sendBeacon (мгновенно, неблокирующий) + fetch с keepalive как резерв
+    // Используем fetch БЕЗ await - запуск в фоне, не блокирует UI
+    // redirect: 'follow' обязателен для Apps Script (он делает редирект)
+    // keepalive: true - запрос продолжит выполняться даже после перехода на другую страницу
     function sendToAppsScript(orderData) {
-        console.log('📤 Отправка заказа #' + orderData.orderNumber);
+        console.log('📤 Отправка заказа #' + orderData.orderNumber + ' в Apps Script...');
         
         const jsonStr = JSON.stringify(orderData);
-        let sent = false;
         
-        // Способ 1: sendBeacon — мгновенный, неблокирующий, работает даже при закрытии страницы
-        if (navigator.sendBeacon) {
-            try {
-                const blob = new Blob([jsonStr], { type: 'application/json' });
-                sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                if (sent) {
-                    console.log('✅ Отправлено через sendBeacon');
-                    return true;
-                }
-            } catch (e) {
-                console.warn('sendBeacon failed:', e);
+        // Запускаем fetch в фоне БЕЗ await - не блокируем UI
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: jsonStr,
+            redirect: 'follow',  // ВАЖНО: Apps Script делает редирект
+            keepalive: true      // Запрос продолжится даже после перехода на другую страницу
+        })
+        .then(response => {
+            console.log('✅ Fetch ответ, статус:', response.status);
+            if (response.ok) {
+                console.log('✅ Заказ успешно сохранён в Apps Script');
+            } else {
+                console.warn('⚠️ Apps Script вернул статус:', response.status);
             }
-        }
-        
-        // Способ 2: fetch с keepalive — запрос продолжит выполняться даже после перехода на другую страницу
-        try {
-            fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: jsonStr,
-                keepalive: true
-            }).catch(err => console.warn('fetch keepalive failed:', err));
-            console.log('✅ Отправлено через fetch с keepalive');
-            return true;
-        } catch (error) {
-            console.error('❌ Все способы отправки не сработали:', error);
+        })
+        .catch(error => {
+            console.error('❌ Ошибка отправки в Apps Script:', error);
             // Сохраняем в localStorage для повторной отправки на thank-you.html
             try {
                 localStorage.setItem('hedonism_pending_order', jsonStr);
-                console.log('💾 Заказ сохранён для повторной отправки');
-            } catch (e) {}
-            return false;
-        }
+                console.log('💾 Заказ сохранён в localStorage для повторной отправки на thank-you.html');
+            } catch (e) {
+                console.error('Не удалось сохранить в localStorage:', e);
+            }
+        });
+        
+        console.log('✅ Fetch запущен в фоне, переходим на thank-you.html');
+        return true;
     }
 
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
@@ -1178,7 +1175,8 @@
                 ymTrack('checkout_start');
                 
                 // ✅ ОТПРАВКА ЗАКАЗА — НЕБЛОКИРУЮЩАЯ
-                // sendBeacon мгновенный, fetch с keepalive продолжит выполняться после перехода
+                // Fetch запускается в фоне, не ждём ответа
+                // keepalive: true гарантирует что запрос дойдёт даже после перехода
                 sendToAppsScript(orderData);
                 
                 // Сохраняем заказ в sessionStorage для страницы thank-you
@@ -1214,7 +1212,7 @@
                 cart = []; saveCart(); updateCartCount(); renderOrderSummary();
                 
                 // ✅ МГНОВЕННЫЙ ПЕРЕХОД — не ждём ответа от сервера
-                // Заказ уже отправляется в фоне через sendBeacon / fetch keepalive
+                // Заказ уже отправляется в фоне через fetch с keepalive
                 window.location.href = 'thank-you.html';
             });
         }
