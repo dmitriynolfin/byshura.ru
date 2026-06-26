@@ -72,16 +72,17 @@
         .thankyou-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .thankyou-container { max-width: 900px; margin: 0 auto; }
         
+        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ В HERO-БЛОКЕ */
         .thankyou-hero { 
-            background: white; border-radius: 24px; padding: 50px 40px; 
-            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; 
+            background: white; border-radius: 24px; padding: 35px 40px; 
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px; 
             text-align: center;
         }
         .thankyou-icon {
-            width: 100px; height: 100px; margin: 0 auto 25px;
+            width: 80px; height: 80px; margin: 0 auto 15px;
             background: linear-gradient(135deg, #FFD93D 0%, #FFB800 100%);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 56px; box-shadow: 0 10px 30px rgba(255,217,61,0.3);
+            font-size: 44px; box-shadow: 0 10px 30px rgba(255,217,61,0.3);
             animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         @keyframes popIn {
@@ -90,63 +91,66 @@
             100% { transform: scale(1); opacity: 1; }
         }
         .thankyou-title { 
-            font-size: 36px; font-weight: 700; margin-bottom: 15px; color: #070395;
+            font-size: 32px; font-weight: 700; margin-bottom: 10px; color: #070395;
         }
         .thankyou-subtitle { 
-            font-size: 16px; color: #666; margin-bottom: 25px; line-height: 1.6;
+            font-size: 15px; color: #666; margin-bottom: 18px; line-height: 1.5;
         }
         .order-number-badge {
             display: inline-block; background: #070395; color: white;
-            padding: 12px 28px; border-radius: 30px; font-weight: 600; font-size: 15px;
+            padding: 10px 24px; border-radius: 30px; font-weight: 600; font-size: 14px;
             letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(7,3,149,0.2);
         }
         .order-number-badge span { color: #FFD93D; margin-left: 6px; }
         
+        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ В БЛОКЕ ДЕТАЛЕЙ */
         .thankyou-details {
-            background: white; border-radius: 24px; padding: 35px;
-            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px;
+            background: white; border-radius: 24px; padding: 25px 30px;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px;
         }
-        .details-section { margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid #eee; }
+        .details-section { margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
         .details-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         .details-section-title {
-            font-size: 18px; font-weight: 600; color: #070395;
-            margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+            font-size: 17px; font-weight: 600; color: #070395;
+            margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
         }
         .details-section-title::before {
-            content: ''; width: 4px; height: 20px; background: #FFD93D; border-radius: 2px;
+            content: ''; width: 4px; height: 18px; background: #FFD93D; border-radius: 2px;
         }
         
+        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ МЕЖДУ ТОВАРАМИ И КАРТИНКАМИ */
         .order-item { 
-            display: flex; gap: 15px; padding: 15px 0; 
+            display: flex; gap: 12px; padding: 10px 0; 
             border-bottom: 1px solid #f5f5f5; align-items: flex-start;
         }
         .order-item:last-child { border-bottom: none; }
         .order-item-thumb { 
-            width: 70px; height: 70px; border-radius: 12px; 
+            width: 60px; height: 60px; border-radius: 10px; 
             background-size: cover; background-position: center; 
             flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f0f0f0; 
         }
         .order-item-info { flex: 1; min-width: 0; }
-        .order-item-name { font-weight: 600; color: #070395; margin-bottom: 5px; font-size: 15px; }
-        .order-item-options { font-size: 13px; color: #666; margin-bottom: 6px; }
-        .order-item-option { display: flex; gap: 5px; margin-bottom: 3px; }
+        .order-item-name { font-weight: 600; color: #070395; margin-bottom: 3px; font-size: 14px; }
+        .order-item-options { font-size: 12px; color: #666; margin-bottom: 0; }
+        .order-item-option { display: flex; gap: 5px; margin-bottom: 2px; }
+        .order-item-option:last-child { margin-bottom: 0; }
         .order-item-option-label { color: #999; }
         .order-item-option-value { color: #070395; font-weight: 500; }
         .order-item-price { 
-            font-weight: 600; color: #070395; font-size: 16px; 
+            font-weight: 600; color: #070395; font-size: 15px; 
             white-space: nowrap; display: flex; align-items: baseline; gap: 4px;
             flex-shrink: 0;
         }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         
+        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ МЕЖДУ СТРОКАМИ ИНФОРМАЦИИ */
         .info-row {
             display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 10px 0; gap: 15px;
+            padding: 6px 0; gap: 15px;
         }
         .info-row:not(:last-child) { border-bottom: 1px dashed #eee; }
-        .info-label { color: #999; font-size: 14px; flex-shrink: 0; }
-        .info-value { color: #070395; font-weight: 500; font-size: 14px; text-align: right; }
-        /* ✅ Для строки с ценой доставки — flex с обратным порядком в EN */
+        .info-label { color: #999; font-size: 13px; flex-shrink: 0; }
+        .info-value { color: #070395; font-weight: 500; font-size: 13px; text-align: right; }
         .info-value-price {
             display: flex; align-items: baseline; gap: 4px;
             justify-content: flex-end;
@@ -155,31 +159,31 @@
         
         .order-total-row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 0 0; margin-top: 10px;
+            padding: 12px 0 0; margin-top: 8px;
             border-top: 2px solid #070395;
-            font-size: 20px; font-weight: 700; color: #070395;
+            font-size: 18px; font-weight: 700; color: #070395;
         }
         .order-total-value {
             display: flex; align-items: baseline; gap: 6px;
         }
         html[lang="en"] .order-total-value { flex-direction: row-reverse; }
         
-        .thankyou-actions { text-align: center; margin-top: 30px; }
+        .thankyou-actions { text-align: center; margin-top: 20px; }
         .btn-home {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: #070395; color: white; padding: 16px 40px;
+            background: #070395; color: white; padding: 14px 36px;
             border-radius: 30px; font-weight: 600; font-size: 14px;
             text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer;
         }
         .btn-home:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7,3,149,0.2); }
         
         .no-order {
-            background: white; border-radius: 24px; padding: 60px 40px;
+            background: white; border-radius: 24px; padding: 50px 40px;
             box-shadow: 0 5px 20px rgba(7,3,149,0.1); text-align: center;
         }
-        .no-order-icon { font-size: 64px; margin-bottom: 20px; }
-        .no-order-title { font-size: 24px; font-weight: 700; color: #070395; margin-bottom: 15px; }
-        .no-order-text { color: #666; margin-bottom: 30px; }
+        .no-order-icon { font-size: 56px; margin-bottom: 15px; }
+        .no-order-title { font-size: 22px; font-weight: 700; color: #070395; margin-bottom: 10px; }
+        .no-order-text { color: #666; margin-bottom: 20px; }
         
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
@@ -218,14 +222,22 @@
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             .header-right { gap: 10px; }
             
-            .thankyou-hero { padding: 40px 25px; }
-            .thankyou-icon { width: 80px; height: 80px; font-size: 44px; }
-            .thankyou-title { font-size: 28px; }
-            .thankyou-subtitle { font-size: 15px; }
-            .thankyou-details { padding: 25px; }
+            .thankyou-hero { padding: 28px 20px; margin-bottom: 15px; }
+            .thankyou-icon { width: 64px; height: 64px; font-size: 34px; margin-bottom: 12px; }
+            .thankyou-title { font-size: 24px; margin-bottom: 8px; }
+            .thankyou-subtitle { font-size: 14px; margin-bottom: 14px; }
+            .thankyou-details { padding: 18px 20px; margin-bottom: 15px; }
+            .details-section { margin-bottom: 14px; padding-bottom: 12px; }
+            .details-section-title { font-size: 15px; margin-bottom: 8px; }
             
-            .order-item { flex-direction: row; }
-            .order-item-thumb { width: 60px; height: 60px; }
+            .order-item { gap: 10px; padding: 8px 0; }
+            .order-item-thumb { width: 52px; height: 52px; border-radius: 8px; }
+            .order-item-name { font-size: 13px; }
+            .order-item-options { font-size: 11px; }
+            .order-item-price { font-size: 14px; }
+            
+            .info-row { padding: 5px 0; }
+            .info-label, .info-value { font-size: 12px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
@@ -243,24 +255,28 @@
             .header-right { gap: 8px; }
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            .thankyou-hero { padding: 35px 20px; }
-            .thankyou-icon { width: 70px; height: 70px; font-size: 38px; margin-bottom: 20px; }
-            .thankyou-title { font-size: 24px; }
-            .thankyou-subtitle { font-size: 14px; }
-            .order-number-badge { padding: 10px 22px; font-size: 14px; }
-            .thankyou-details { padding: 20px; }
-            .details-section-title { font-size: 16px; }
+            .thankyou-hero { padding: 22px 16px; border-radius: 18px; }
+            .thankyou-icon { width: 56px; height: 56px; font-size: 28px; margin-bottom: 10px; }
+            .thankyou-title { font-size: 20px; margin-bottom: 6px; }
+            .thankyou-subtitle { font-size: 13px; margin-bottom: 12px; }
+            .order-number-badge { padding: 8px 18px; font-size: 13px; }
+            .thankyou-details { padding: 16px; border-radius: 18px; }
+            .details-section { margin-bottom: 12px; padding-bottom: 10px; }
+            .details-section-title { font-size: 14px; margin-bottom: 6px; }
             
-            .order-item { flex-direction: column; }
-            .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
-            .order-item-name { font-size: 15px; }
-            .order-item-options { font-size: 12px; }
-            .order-item-price { font-size: 16px; }
+            .order-item { flex-direction: column; gap: 8px; padding: 8px 0; }
+            .order-item-thumb { width: 100%; height: 100px; border-radius: 12px; }
+            .order-item-name { font-size: 14px; }
+            .order-item-options { font-size: 11px; }
+            .order-item-price { font-size: 15px; }
             
-            .info-row { flex-direction: column; gap: 4px; }
+            .info-row { flex-direction: column; gap: 2px; padding: 5px 0; }
             .info-value { text-align: left; }
             .info-value-price { justify-content: flex-start; }
-            .order-total-row { font-size: 18px; }
+            .order-total-row { font-size: 16px; padding-top: 10px; margin-top: 6px; }
+            
+            .thankyou-actions { margin-top: 15px; }
+            .btn-home { padding: 12px 28px; font-size: 13px; }
             
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
@@ -278,9 +294,12 @@
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            .thankyou-title { font-size: 22px; }
+            .thankyou-title { font-size: 19px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
+            .thankyou-hero { padding: 18px 14px; }
+            .thankyou-details { padding: 14px; }
+            .order-item-thumb { height: 80px; }
         }
     </style>
     
@@ -508,20 +527,14 @@
         return item.price;
     }
 
-    // ✅ Функция пересчёта итоговой суммы заказа с учётом текущего языка
     function recalculateOrderTotal(lang) {
         if (!orderData) return 0;
-        
-        // Сумма товаров в текущей валюте
         let itemsTotal = 0;
         orderData.items.forEach(item => {
             const itemPrice = recalculateItemPrice(item, lang);
             itemsTotal += itemPrice * item.quantity;
         });
-        
-        // Стоимость доставки в текущей валюте
         const deliveryCost = orderData.delivery === 'courier' ? (lang === 'en' ? 40 : 800) : 0;
-        
         return itemsTotal + deliveryCost;
     }
 
@@ -592,7 +605,6 @@
             return;
         }
         
-        // ✅ Рендерим товары + считаем сумму товаров
         let itemsHtml = '';
         let itemsTotal = 0;
         
@@ -647,11 +659,8 @@
             `;
         });
         
-        // ✅ Доставка
         const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
         const deliveryCost = orderData.delivery === 'courier' ? (currentLang === 'en' ? 40 : 800) : 0;
-        
-        // ✅ Итого: сумма товаров + доставка (пересчитано в текущей валюте)
         const totalValue = itemsTotal + deliveryCost;
         
         container.innerHTML = `
