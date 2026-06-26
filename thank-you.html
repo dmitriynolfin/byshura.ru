@@ -54,12 +54,6 @@
         .nav-link.active { color: #FFD93D; }
         .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
-        .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
-        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
-        .btn-back:hover { background: #070395; color: white; }
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
         .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
@@ -72,7 +66,6 @@
         .thankyou-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .thankyou-container { max-width: 900px; margin: 0 auto; }
         
-        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ В HERO-БЛОКЕ */
         .thankyou-hero { 
             background: white; border-radius: 24px; padding: 35px 40px; 
             box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px; 
@@ -103,7 +96,6 @@
         }
         .order-number-badge span { color: #FFD93D; margin-left: 6px; }
         
-        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ В БЛОКЕ ДЕТАЛЕЙ */
         .thankyou-details {
             background: white; border-radius: 24px; padding: 25px 30px;
             box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px;
@@ -118,7 +110,6 @@
             content: ''; width: 4px; height: 18px; background: #FFD93D; border-radius: 2px;
         }
         
-        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ МЕЖДУ ТОВАРАМИ И КАРТИНКАМИ */
         .order-item { 
             display: flex; gap: 12px; padding: 10px 0; 
             border-bottom: 1px solid #f5f5f5; align-items: flex-start;
@@ -143,7 +134,6 @@
         }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         
-        /* ✅ УМЕНЬШЕНЫ ОТСТУПЫ МЕЖДУ СТРОКАМИ ИНФОРМАЦИИ */
         .info-row {
             display: flex; justify-content: space-between; align-items: flex-start;
             padding: 6px 0; gap: 15px;
@@ -216,10 +206,6 @@
             .thankyou-page { padding-top: 112px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            .header-icons { gap: 10px; }
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
-            .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             .header-right { gap: 10px; }
             
             .thankyou-hero { padding: 28px 20px; margin-bottom: 15px; }
@@ -247,11 +233,6 @@
             .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .thankyou-page { padding-top: 112px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            .header-icons { gap: 8px; }
-            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
-            .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; }
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             .header-right { gap: 8px; }
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
@@ -293,10 +274,7 @@
         
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
-            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .thankyou-title { font-size: 19px; }
-            .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
-            .icon-btn svg { width: 22px; height: 22px; }
             .thankyou-hero { padding: 18px 14px; }
             .thankyou-details { padding: 14px; }
             .order-item-thumb { height: 80px; }
@@ -326,17 +304,6 @@
                 </nav>
             </div>
             <div class="header-right">
-                <div class="header-icons">
-                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                </div>
-                <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
@@ -382,7 +349,7 @@
     const translations = {
         ru: {
             pageTitle: "Спасибо за заказ - Вестник Гедонизма",
-            navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
+            navOrder: "ЗАКАЗАТЬ БОКС", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
             thankyouTitle: "СПАСИБО ЗА ЗАКАЗ!",
             thankyouSubtitle: "Ваш заказ успешно принят. Мы уже начали его готовить. Скоро свяжемся с вами для подтверждения деталей.",
@@ -422,7 +389,7 @@
         },
         en: {
             pageTitle: "Thank you for your order - Hedonism Dispatch",
-            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
+            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY",
             marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             thankyouTitle: "THANK YOU FOR YOUR ORDER!",
             thankyouSubtitle: "Your order has been successfully received. We're already preparing it. We'll contact you soon to confirm the details.",
@@ -460,6 +427,17 @@
             weightLabel: "Weight ~1 kg",
             deliveryFree: "Free"
         }
+    };
+
+    // ✅ СЛОВАРЬ ПЕРЕВОДА АЛЛЕРГЕНОВ
+    const allergenTranslations = {
+        'Грибы': { ru: 'Грибы', en: 'Mushrooms' },
+        'Горчица': { ru: 'Горчица', en: 'Mustard' },
+        'Лактоза': { ru: 'Лактоза', en: 'Lactose' },
+        'Яйца': { ru: 'Яйца', en: 'Eggs' },
+        'Глютен': { ru: 'Глютен', en: 'Gluten' },
+        'Красная рыба': { ru: 'Красная рыба', en: 'Red Fish' },
+        'Орехи': { ru: 'Орехи', en: 'Nuts' }
     };
 
     const productNames = {
@@ -508,6 +486,14 @@
         if (count === 1) return translations.ru.personsWord1;
         if (count >= 2 && count <= 4) return translations.ru.personsWord2;
         return translations.ru.personsWord5;
+    }
+
+    // ✅ ФУНКЦИЯ ПЕРЕВОДА АЛЛЕРГЕНА
+    function translateAllergen(name, lang) {
+        if (allergenTranslations[name]) {
+            return allergenTranslations[name][lang] || name;
+        }
+        return name;
     }
 
     function recalculateItemPrice(item, lang) {
@@ -628,8 +614,11 @@
                     personsLabel = persons === 1 ? '1 person' : `${persons} people`;
                 }
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
+                
+                // ✅ АЛЛЕРГЕНЫ С ПЕРЕВОДОМ НА ТЕКУЩИЙ ЯЗЫК
                 if (item.options?.allergens?.length > 0) {
-                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
+                    const translatedAllergens = item.options.allergens.map(a => translateAllergen(a, currentLang));
+                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${translatedAllergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
