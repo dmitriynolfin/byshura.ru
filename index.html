@@ -44,20 +44,17 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     
-    <!-- DNS Prefetch для производительности -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="dns-prefetch" href="//www.googletagmanager.com">
     <link rel="dns-prefetch" href="//mc.yandex.ru">
     
-    <!-- Preload критичных ресурсов -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
     <link rel="preload" as="image" href="images/main-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/main-1.webp" media="(min-width: 769px)" fetchpriority="high">
     
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
     
-    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -70,7 +67,6 @@
       });
     </script>
     
-    <!-- Schema.org -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -105,7 +101,6 @@
     }
     </script>
     
-    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -133,7 +128,6 @@
         img { max-width: 100%; height: auto; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* Skip Navigation для accessibility */
         .skip-nav {
             position: absolute;
             top: -40px;
@@ -148,32 +142,7 @@
             top: 0;
         }
         
-        .marquee-bar { 
-            position: fixed; 
-            top: 70px; 
-            left: 0; 
-            width: 100%; 
-            background: #e0e0e0; 
-            color: #070395; 
-            padding: 8px 0; 
-            z-index: 999; 
-            overflow: hidden; 
-            font-weight: 600; 
-            font-size: 14px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
-        .marquee-content { 
-            display: inline-block; 
-            white-space: nowrap; 
-            animation: marquee 20s linear infinite; 
-            padding-left: 100%; 
-        }
-        @keyframes marquee { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(-100%); } 
-        }
-        
+        /* ✅ ШАПКА БЕЗ ЛИНИИ СНИЗУ */
         .header { 
             position: fixed; 
             top: 0; 
@@ -182,8 +151,8 @@
             background: rgba(255,255,255,0.98); 
             padding: 15px 0; 
             z-index: 1000; 
-            border-bottom: 1px solid rgba(7,3,149,0.2); 
             backdrop-filter: blur(10px); 
+            transition: box-shadow 0.3s;
         }
         .header-container { 
             display: flex; 
@@ -343,12 +312,40 @@
             color: #070395; 
         }
         
+        /* ✅ БЕГУЩАЯ СТРОКА ПРИЛЕГАЕТ К ШАПКЕ (top = высота header = 75px) */
+        .marquee-bar { 
+            position: fixed; 
+            top: 75px; 
+            left: 0; 
+            width: 100%; 
+            background: #e0e0e0; 
+            color: #070395; 
+            padding: 8px 0; 
+            z-index: 999; 
+            overflow: hidden; 
+            font-weight: 600; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .marquee-content { 
+            display: inline-block; 
+            white-space: nowrap; 
+            animation: marquee 20s linear infinite; 
+            padding-left: 100%; 
+        }
+        @keyframes marquee { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-100%); } 
+        }
+        
+        /* ✅ HERO НАЧИНАЕТСЯ СРАЗУ ПОСЛЕ ШАПКИ + БЕГУЩЕЙ СТРОКИ (75 + 38 = 113px) */
         .hero { 
             position: relative; 
             height: 100vh; 
             min-height: 700px; 
             overflow: hidden; 
-            margin-top: 36px; 
+            margin-top: 113px; 
         }
         .hero-slider { 
             height: 100%; 
@@ -605,10 +602,12 @@
             .pickup-container { grid-template-columns: 1fr; }
         }
         
+        /* ✅ МОБИЛЬНАЯ ВЕРСИЯ - пересчитанные отступы */
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .marquee-bar { top: 72px; font-size: 11px; }
-            .hero { margin-top: 42px; }
+            /* Header: 12*2 + 42 = 66px, Marquee: 6*2 + 11*1.6 ≈ 30px, Total: 96px */
+            .marquee-bar { top: 66px; font-size: 11px; padding: 6px 0; }
+            .hero { margin-top: 96px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .btn-order { padding: 22px 55px; font-size: 15px; min-width: 260px; }
             .pickup-title { font-size: 28px; }
@@ -617,7 +616,10 @@
         }
         
         @media (max-width: 480px) { 
-            .hero { min-height: 600px; }
+            .header { padding: 10px 0; }
+            /* Header: 10*2 + 40 = 60px, Marquee: 5*2 + 10*1.6 ≈ 26px, Total: 86px */
+            .marquee-bar { top: 60px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
+            .hero { margin-top: 86px; min-height: 600px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .btn-order { padding: 20px 45px; font-size: 15px; min-width: 240px; }
             .pickup-title { font-size: 24px; }
@@ -634,7 +636,6 @@
         }
     </style>
     
-    <!-- Яндекс.Метрика -->
     <script type="text/javascript">
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -645,7 +646,6 @@
     </script>
 </head>
 <body>
-    <!-- Skip Navigation -->
     <a href="#main-content" class="skip-nav">Перейти к содержимому</a>
 
     <header class="header" role="banner">
@@ -988,7 +988,6 @@
         
         ymTrack('index_viewed', { lang: currentLang });
         
-        // Language selector
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
@@ -1017,7 +1016,6 @@
             });
         }
         
-        // Slider
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
@@ -1046,13 +1044,11 @@
         
         setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
         
-        // Cart button - улучшенный UX
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { page: 'index', cart_items: cart.length });
             ymTrack('cart_click_index');
             
             if (cart.length === 0) {
-                // Показываем уведомление и редиректим
                 const notification = document.createElement('div');
                 notification.style.cssText = `
                     position: fixed;
@@ -1079,7 +1075,6 @@
             }
         });
         
-        // Order buttons
         document.getElementById('orderBtn')?.addEventListener('click', function() {
             trackGA4Event('cta_click', { cta_name: 'order_box', cta_location: 'hero' });
             ymTrack('index_order_click', { source: 'hero' });
@@ -1092,7 +1087,6 @@
             window.location.href = 'boxes.html';
         });
         
-        // Address link
         document.getElementById('pickupAddressLink')?.addEventListener('click', function() {
             trackGA4Event('map_click', { 
                 location: currentLang === 'ru' ? 'moscow' : 'dubai',
@@ -1101,7 +1095,6 @@
             ymTrack('address_map_click');
         });
         
-        // Navigation tracking
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
@@ -1113,7 +1106,6 @@
             });
         });
         
-        // Social links tracking
         document.querySelectorAll('.social-link').forEach(link => {
             link.addEventListener('click', function() {
                 const platform = this.getAttribute('aria-label') || 'social';
@@ -1122,7 +1114,6 @@
             });
         });
         
-        // Scroll tracking
         const trackedSections = { 
             'catalog': { goal: 'scroll_about', section: 'about' }, 
             'contacts': { goal: 'scroll_pickup', section: 'pickup' } 
@@ -1146,7 +1137,6 @@
         window.addEventListener('scroll', checkSectionScroll);
         setTimeout(checkSectionScroll, 1000);
         
-        // Fade-in animations
         const fadeElements = document.querySelectorAll('.fade-in');
         fadeElements.forEach(el => {
             el.style.opacity = '0';
@@ -1166,13 +1156,12 @@
         window.addEventListener('scroll', checkFade);
         checkFade();
         
-        // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('.header');
             if (header) {
                 header.style.boxShadow = window.scrollY > 50 
                     ? '0 2px 20px rgba(0,0,0,0.1)' 
-                    : '0 1px 0 rgba(7,3,149,0.2)';
+                    : 'none';
             }
         });
         
