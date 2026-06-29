@@ -268,6 +268,57 @@
         .hero-image { width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; will-change: transform; }
         .hero-content { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; }
         
+        /* ✅ ЗОНЫ КЛИКА ДЛЯ ПЕРЕКЛЮЧЕНИЯ СЛАЙДОВ */
+        .hero-nav-zone {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            z-index: 5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        .hero-nav-zone.prev {
+            left: 0;
+            justify-content: flex-start;
+            padding-left: 30px;
+        }
+        .hero-nav-zone.next {
+            right: 0;
+            justify-content: flex-end;
+            padding-right: 30px;
+        }
+        .hero-nav-zone:hover {
+            background: linear-gradient(90deg, rgba(0,0,0,0.15), transparent);
+        }
+        .hero-nav-zone.next:hover {
+            background: linear-gradient(270deg, rgba(0,0,0,0.15), transparent);
+        }
+        .hero-nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .hero-nav-zone:hover .hero-nav-arrow {
+            opacity: 1;
+            transform: scale(1);
+            background: rgba(255,255,255,0.3);
+        }
+        
         /* ✅ УВЕЛИЧЕННАЯ И ЯРКАЯ КНОПКА ORDER BOX */
         .btn-order {
             background: linear-gradient(135deg, #FFD93D 0%, #ffb800 100%);
@@ -412,6 +463,10 @@
             .about-content p { font-size: 14px; }
             .header-right { gap: 10px; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
+            /* ✅ Мобильные стрелки слайдера */
+            .hero-nav-arrow { width: 40px; height: 40px; font-size: 20px; }
+            .hero-nav-zone.prev { padding-left: 15px; }
+            .hero-nav-zone.next { padding-right: 15px; }
         }
         
         @media (max-width: 480px) { 
@@ -530,6 +585,14 @@
 
     <!-- HERO -->
     <section class="hero">
+        <!-- ✅ ЗОНЫ КЛИКА ДЛЯ ПЕРЕКЛЮЧЕНИЯ СЛАЙДОВ -->
+        <div class="hero-nav-zone prev" id="heroNavPrev" aria-label="Предыдущий слайд" role="button" tabindex="0">
+            <div class="hero-nav-arrow">❮</div>
+        </div>
+        <div class="hero-nav-zone next" id="heroNavNext" aria-label="Следующий слайд" role="button" tabindex="0">
+            <div class="hero-nav-arrow">❯</div>
+        </div>
+        
         <div class="hero-slider">
             <div class="hero-slide active">
                 <div class="hero-image" 
@@ -852,6 +915,7 @@
         const slides = document.querySelectorAll('.hero-slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
+        let autoSlideInterval = null;
         
         function goToSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
@@ -863,14 +927,61 @@
             ymTrack('hero_slide_changed', { slide: index + 1 });
         }
         
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % slides.length);
+        }
+        
+        function prevSlide() {
+            goToSlide((currentSlide - 1 + slides.length) % slides.length);
+        }
+        
+        function resetAutoSlide() {
+            if (autoSlideInterval) clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+        
         dots.forEach(dot => {
             dot.addEventListener('click', () => {
                 const slideIndex = parseInt(dot.dataset.slide);
                 goToSlide(slideIndex);
+                resetAutoSlide();
             });
         });
         
-        setInterval(() => { goToSlide((currentSlide + 1) % slides.length); }, 5000);
+        // ✅ ОБРАБОТЧИКИ КЛИКА ПО ЗОНАМ СЛАЙДЕРА
+        const heroNavPrev = document.getElementById('heroNavPrev');
+        const heroNavNext = document.getElementById('heroNavNext');
+        
+        if (heroNavPrev) {
+            heroNavPrev.addEventListener('click', function(e) {
+                prevSlide();
+                resetAutoSlide();
+            });
+            heroNavPrev.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    prevSlide();
+                    resetAutoSlide();
+                }
+            });
+        }
+        
+        if (heroNavNext) {
+            heroNavNext.addEventListener('click', function(e) {
+                nextSlide();
+                resetAutoSlide();
+            });
+            heroNavNext.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                    resetAutoSlide();
+                }
+            });
+        }
+        
+        // ✅ АВТОПРОКРУТКА С ВОЗМОЖНОСТЬЮ СБРОСА ПРИ РУЧНОМ ПЕРЕКЛЮЧЕНИИ
+        resetAutoSlide();
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { page: 'index', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
