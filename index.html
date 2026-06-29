@@ -457,33 +457,37 @@
             .pickup-icon { width: 38px; height: 38px; font-size: 18px; }
             .pickup-text { font-size: 16px; }
             
-            /* ✅ МОБИЛЬНАЯ ВЕРСИЯ ABOUT: КАРТИНКА НА ВСЮ ШИРИНУ + ТЕКСТ СНИЗУ */
-            .about-grid { gap: 25px; }
+            /* ✅ МОБИЛЬНАЯ ВЕРСИЯ ABOUT: БОЛЬШАЯ КАРТИНКА НА ВСЮ ШИРИНУ + ТЕКСТ СНИЗУ */
+            .about-grid { 
+                gap: 30px; 
+                grid-template-columns: 1fr;
+            }
             .about-card { 
                 flex-direction: column; 
                 padding: 0; 
                 overflow: hidden; 
                 gap: 0;
-                border-radius: 16px;
-                box-shadow: 0 5px 20px rgba(7,3,149,0.08);
+                border-radius: 20px;
+                box-shadow: 0 5px 25px rgba(7,3,149,0.1);
             }
-            .about-card:hover { transform: none !important; box-shadow: 0 10px 30px rgba(7,3,149,0.15); }
+            .about-card:hover { transform: none !important; box-shadow: 0 10px 35px rgba(7,3,149,0.18); }
             .about-image { 
                 width: 100%; 
-                height: 220px; 
+                height: 320px; 
                 border-radius: 0; 
                 flex-shrink: 0; 
             }
             .about-content { 
-                padding: 20px; 
+                padding: 25px 20px; 
                 text-align: center; 
             }
             .about-content h3 { 
-                font-size: 19px; 
-                margin-bottom: 10px; 
+                font-size: 20px; 
+                margin-bottom: 12px; 
             }
             .about-content p { 
-                font-size: 14px; 
+                font-size: 15px; 
+                line-height: 1.6;
             }
             
             .header-right { gap: 10px; }
@@ -516,11 +520,11 @@
             .pickup-item { gap: 14px; }
             .about { padding: 45px 0; }
             
-            /* ✅ УМЕНЬШЕННАЯ КАРТИНКА ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
-            .about-image { height: 180px; }
-            .about-content { padding: 18px; }
-            .about-content h3 { font-size: 17px; margin-bottom: 8px; }
-            .about-content p { font-size: 13px; }
+            /* ✅ БОЛЬШАЯ КАРТИНКА ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+            .about-image { height: 280px; }
+            .about-content { padding: 22px 18px; }
+            .about-content h3 { font-size: 19px; margin-bottom: 10px; }
+            .about-content p { font-size: 14px; }
             
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
@@ -543,6 +547,8 @@
             .hero-content { bottom: 200px !important; }
             .btn-order { padding: 22px 50px !important; min-height: 64px !important; min-width: 260px !important; font-size: 16px !important; }
             .slider-dots { bottom: 40px; }
+            /* ✅ ЕЩЁ БОЛЬШЕ КАРТИНКА ДЛЯ ВЫСОКИХ ЭКРАНОВ */
+            .about-image { height: 340px; }
         }
         
         @media (max-width: 360px) {
@@ -550,11 +556,11 @@
             .btn-shop { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .btn-order { padding: 18px 35px !important; font-size: 14px !important; min-width: 220px !important; min-height: 56px !important; }
             
-            /* ✅ ЕЩЁ БОЛЬШЕ УМЕНЬШЕННАЯ КАРТИНКА ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
-            .about-image { height: 160px; }
-            .about-content { padding: 16px; }
-            .about-content h3 { font-size: 16px; }
-            .about-content p { font-size: 12px; }
+            /* ✅ КАРТИНКА ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+            .about-image { height: 240px; }
+            .about-content { padding: 18px 16px; }
+            .about-content h3 { font-size: 18px; }
+            .about-content p { font-size: 13px; }
             
             .pickup-title { font-size: 22px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
