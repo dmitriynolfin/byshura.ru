@@ -445,7 +445,7 @@
             opacity: 1;
         }
         
-        /* ✅ СЕКЦИЯ: НАШИ УЖИНЫ (БЕЗ HOVER-ЭФФЕКТОВ) */
+        /* ✅ СЕКЦИЯ: НАШИ УЖИНЫ (БЕЗ HOVER-ЭФФЕКТОВ КАРТОЧКИ) */
         .dinners {
             padding: 80px 0;
             background: #f8f9fa;
@@ -466,7 +466,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* ✅ КАРТОЧКА УЖИНА: СТАТИЧНЫЙ ДИЗАЙН БЕЗ HOVER-ЭФФЕКТОВ */
+        /* ✅ КАРТОЧКА УЖИНА: СТАТИЧНЫЙ ДИЗАЙН */
         .dinner-card {
             background: white;
             border-radius: 20px;
@@ -504,6 +504,7 @@
             margin-bottom: 20px;
             flex: 1;
         }
+        /* ✅ КНОПКА "ПОДРОБНЕЕ" — КЛИКАБЕЛЬНАЯ КАК "НАПИСАТЬ НАМ" */
         .dinner-card-btn {
             display: inline-flex;
             align-items: center;
@@ -513,11 +514,28 @@
             color: white !important;
             padding: 14px 30px;
             border-radius: 25px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             align-self: flex-start;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(7,3,149,0.2);
+            pointer-events: auto;
+            min-height: 48px;
+            position: relative;
+            user-select: none;
+        }
+        .dinner-card-btn:hover {
+            background: #FFD93D;
+            color: #070395 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,217,61,0.4);
+        }
+        .dinner-card-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255,217,61,0.3);
         }
         
         /* Секция "Индивидуальный ужин" */
@@ -664,6 +682,11 @@
             .dinner-card-image { height: 280px; }
             .dinner-card-content { padding: 25px; }
             .dinner-card-title { font-size: 22px; }
+            .dinner-card-btn {
+                align-self: stretch;
+                text-align: center;
+                justify-content: center;
+            }
             
             .custom-dinner { padding: 60px 0; }
             .custom-dinner-icon { font-size: 56px; }
@@ -713,7 +736,12 @@
             .dinner-card-content { padding: 20px; }
             .dinner-card-title { font-size: 20px; margin-bottom: 12px; }
             .dinner-card-descr { font-size: 14px; margin-bottom: 15px; }
-            .dinner-card-btn { padding: 12px 25px; font-size: 13px; }
+            .dinner-card-btn { 
+                padding: 13px 25px; 
+                font-size: 13px; 
+                align-self: stretch;
+                justify-content: center;
+            }
             
             .custom-dinner { padding: 45px 0; }
             .custom-dinner-icon { font-size: 48px; margin-bottom: 20px; }
@@ -765,6 +793,12 @@
             .dinners-title { font-size: 22px; }
             .dinner-card-image { height: 200px; }
             .dinner-card-title { font-size: 18px; }
+            .dinner-card-btn { 
+                padding: 12px 20px !important; 
+                font-size: 12px !important;
+                align-self: stretch !important;
+                justify-content: center !important;
+            }
             .custom-dinner-title { font-size: 22px; }
             .custom-dinner-descr { font-size: 14px; }
         }
@@ -936,7 +970,7 @@
                     <div class="dinner-card-content">
                         <h3 class="dinner-card-title" data-i18n="dinnerNicholasTitle">Ужин Николая II</h3>
                         <p class="dinner-card-descr" data-i18n="dinnerNicholasDescr">Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.</p>
-                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn">ПОДРОБНЕЕ →</span>
+                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn" role="button" tabindex="0">ПОДРОБНЕЕ →</span>
                     </div>
                 </a>
                 
@@ -946,7 +980,7 @@
                     <div class="dinner-card-content">
                         <h3 class="dinner-card-title" data-i18n="dinnerTchaikovskyTitle">Ужин Чайковского</h3>
                         <p class="dinner-card-descr" data-i18n="dinnerTchaikovskyDescr">Откройте для себя вкусы, которые вдохновляли великого композитора. 5 уникальных блюд, созданных по историческим рецептам, с музыкальным сопровождением произведений Чайковского.</p>
-                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn">ПОДРОБНЕЕ →</span>
+                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn" role="button" tabindex="0">ПОДРОБНЕЕ →</span>
                     </div>
                 </a>
             </div>
@@ -1320,6 +1354,26 @@
         document.getElementById('dinnerCardTchaikovsky')?.addEventListener('click', function() {
             trackGA4Event('dinner_card_click', { dinner_type: 'tchaikovsky', page: 'index' });
             ymTrack('dinner_tchaikovsky_click');
+        });
+        
+        // ✅ ОБРАБОТЧИКИ КНОПОК "ПОДРОБНЕЕ" — ПЕРЕХОД ПО ССЫЛКАМ
+        document.querySelectorAll('.dinner-card-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Предотвращаем всплытие, чтобы сработал переход по ссылке карточки
+                const card = this.closest('.dinner-card');
+                if (card && card.href) {
+                    window.location.href = card.href;
+                }
+            });
+            btn.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const card = this.closest('.dinner-card');
+                    if (card && card.href) {
+                        window.location.href = card.href;
+                    }
+                }
+            });
         });
         
         document.getElementById('customDinnerBtn')?.addEventListener('click', function() {
