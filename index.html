@@ -445,9 +445,7 @@
             opacity: 1;
         }
         
-        /* ✅ НОВЫЕ СЕКЦИИ: НАШИ УЖИНЫ И ИНДИВИДУАЛЬНЫЙ УЖИН */
-        
-        /* Секция "Наши ужины" */
+        /* ✅ СЕКЦИЯ: НАШИ УЖИНЫ (БЕЗ HOVER-ЭФФЕКТОВ) */
         .dinners {
             padding: 80px 0;
             background: #f8f9fa;
@@ -468,20 +466,16 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        /* ✅ КАРТОЧКА УЖИНА: СТАТИЧНЫЙ ДИЗАЙН БЕЗ HOVER-ЭФФЕКТОВ */
         .dinner-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 5px 25px rgba(7,3,149,0.1);
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             text-decoration: none;
             color: inherit;
-        }
-        .dinner-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(7,3,149,0.2);
         }
         .dinner-card-image {
             width: 100%;
@@ -489,22 +483,7 @@
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
-            position: relative;
-            overflow: hidden;
-        }
-        .dinner-card-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.3));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .dinner-card:hover .dinner-card-image::after {
-            opacity: 1;
+            flex-shrink: 0;
         }
         .dinner-card-content {
             padding: 30px;
@@ -538,13 +517,7 @@
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
             align-self: flex-start;
-        }
-        .dinner-card-btn:hover {
-            background: #FFD93D;
-            color: #070395 !important;
-            transform: translateX(5px);
         }
         
         /* Секция "Индивидуальный ужин" */
@@ -684,7 +657,7 @@
             }
             .about-card:hover { transform: none !important; }
             
-            /* ✅ НОВЫЕ СЕКЦИИ: АДАПТИВНОСТЬ */
+            /* ✅ СЕКЦИЯ НАШИ УЖИНЫ: АДАПТИВНОСТЬ */
             .dinners { padding: 60px 0; }
             .dinners-title { font-size: 28px; margin-bottom: 40px; }
             .dinners-grid { grid-template-columns: 1fr; gap: 30px; }
@@ -733,7 +706,7 @@
             .about-content h3 { font-size: 19px; margin-bottom: 10px; }
             .about-content p { font-size: 14px; }
             
-            /* ✅ НОВЫЕ СЕКЦИИ: МАЛЕНЬКИЕ ЭКРАНЫ */
+            /* ✅ СЕКЦИЯ НАШИ УЖИНЫ: МАЛЕНЬКИЕ ЭКРАНЫ */
             .dinners { padding: 45px 0; }
             .dinners-title { font-size: 24px; margin-bottom: 30px; }
             .dinner-card-image { height: 240px; }
@@ -952,7 +925,7 @@
         </div>
     </section>
 
-    <!-- ✅ НОВАЯ СЕКЦИЯ: НАШИ УЖИНЫ -->
+    <!-- ✅ СЕКЦИЯ: НАШИ УЖИНЫ -->
     <section class="dinners">
         <div class="container">
             <h2 class="dinners-title" data-i18n="dinnersTitle">НАШИ УЖИНЫ</h2>
@@ -980,7 +953,7 @@
         </div>
     </section>
 
-    <!-- ✅ НОВАЯ СЕКЦИЯ: ИНДИВИДУАЛЬНЫЙ УЖИН -->
+    <!-- ✅ СЕКЦИЯ: ИНДИВИДУАЛЬНЫЙ УЖИН -->
     <section class="custom-dinner">
         <div class="container custom-dinner-container">
             <div class="custom-dinner-icon">✨</div>
