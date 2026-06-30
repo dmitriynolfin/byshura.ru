@@ -94,9 +94,54 @@
         .lang-descr { color: #666; font-size: 12px; }
         
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
-        .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
+        
+        /* ✅ НОВАЯ СЕКЦИЯ: НАВИГАЦИОННЫЕ КНОПКИ */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 25px 0 40px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 108px; /* 70px (header) + 38px (marquee) */
+            background: #f8f9fa;
+            z-index: 500;
+            margin-bottom: 10px;
+        }
+        .category-btn {
+            background: white;
+            color: #070395;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid #070395;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(7,3,149,0.1);
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        .category-btn:hover {
+            background: #070395;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(7,3,149,0.25);
+        }
+        .category-btn.active {
+            background: #070395;
+            color: white;
+            box-shadow: 0 6px 18px rgba(7,3,149,0.3);
+        }
+        
+        .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; scroll-margin-top: 180px; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
-        .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; }
+        .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; scroll-margin-top: 180px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
         .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
@@ -255,6 +300,17 @@
             .btn-order { animation: none !important; }
             .box-card:hover { transform: none !important; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
+            
+            /* ✅ АДАПТИВНОСТЬ НАВИГАЦИИ */
+            .category-nav { 
+                top: 108px; 
+                gap: 10px; 
+                padding: 20px 0 30px; 
+            }
+            .category-btn { 
+                padding: 12px 25px; 
+                font-size: 13px; 
+            }
         }
         
         @media (max-width: 480px) { 
@@ -311,6 +367,17 @@
             html[lang="en"] .legal-links-en { display: flex !important; }
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-links-en a:hover { color: #070395; }
+            
+            /* ✅ НАВИГАЦИЯ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+            .category-nav { 
+                gap: 8px; 
+                padding: 15px 0 25px;
+            }
+            .category-btn { 
+                padding: 10px 18px; 
+                font-size: 12px; 
+                letter-spacing: 0.5px;
+            }
         }
         
         @media (max-width: 414px) {
@@ -345,6 +412,12 @@
             .quantity-count { font-size: 14px; }
             .quantity-price { font-size: 11px !important; padding: 2px 6px; }
             .modal-body { max-height: calc(90vh - 130px); }
+            
+            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ */
+            .category-btn { 
+                padding: 9px 14px; 
+                font-size: 11px; 
+            }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -402,7 +475,14 @@
 
     <section class="catalog">
         <div class="container">
-            <h1 class="page-title" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
+            <!-- ✅ НОВАЯ НАВИГАЦИЯ: КНОПКИ КАТЕГОРИЙ -->
+            <nav class="category-nav" id="categoryNav" aria-label="Навигация по категориям">
+                <button class="category-btn active" data-target="section-boxes" data-i18n="catBoxes">БОКСЫ</button>
+                <button class="category-btn" data-target="section-sweets" data-i18n="catSweets">СЛАДКОЕ</button>
+                <button class="category-btn" data-target="section-savory" data-i18n="catSavory">СОЛЕНОЕ</button>
+            </nav>
+            
+            <h1 class="page-title" id="section-boxes" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
             <div class="boxes-grid">
                 <div class="box-card" data-product-type="nicholas">
@@ -452,7 +532,7 @@
                 </div>
             </div>
             
-            <h2 class="section-title" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
+            <h2 class="section-title" id="section-sweets" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
             <div class="boxes-grid">
                 <div class="box-card" data-product-type="cake">
                     <div class="box-image" data-bg-desktop="images/boxes-lemoncake.webp" data-bg-mobile="images/boxes-lemoncake-mobile.webp" data-gallery='["images/boxes-lemoncake.webp","images/boxes-lemoncake.webp","images/boxes-lemoncake.webp"]' data-bg-loaded="false"></div>
@@ -499,7 +579,7 @@
                 </div>
             </div>
             
-            <h2 class="section-title" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
+            <h2 class="section-title" id="section-savory" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
             <div class="boxes-grid">
                 <div class="box-card" data-product-type="rasstegai">
                     <div class="box-image" data-bg-desktop="images/boxes-rasstegai.webp" data-bg-mobile="images/boxes-rasstegai-mobile.webp" data-gallery='["images/boxes-rasstegai.webp","images/boxes-rasstegai.webp","images/boxes-rasstegai.webp"]' data-bg-loaded="false"></div>
@@ -593,6 +673,7 @@
             pageTitle: "Боксы - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
             marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
+            catBoxes: "БОКСЫ", catSweets: "СЛАДКОЕ", catSavory: "СОЛЕНОЕ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ", sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
             badgeHit: "ХИТ", badgePremium: "PREMIUM", badgeNew: "NEW",
@@ -620,6 +701,7 @@
             pageTitle: "Boxes - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
             marquee: "🚚 Same-day delivery •  Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            catBoxes: "BOXES", catSweets: "SWEETS", catSavory: "SAVORY",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
             sectionSweets: "CHOOSE YOUR SWEET", sectionSavory: "CHOOSE YOUR SAVORY",
             badgeHit: "HIT", badgePremium: "PREMIUM", badgeNew: "NEW",
@@ -920,7 +1002,6 @@
     }
     
     function getModalOptions() {
-        // ✅ ИСПРАВЛЕНИЕ: проверка на null
         if (!currentProduct) {
             console.error('❌ currentProduct is null в getModalOptions');
             return { persons: null, quantity: null, allergens: [] };
@@ -940,7 +1021,6 @@
     }
     
     function addToCartWithOptions(options) {
-        // ✅ ИСПРАВЛЕНИЕ: проверка на null
         if (!currentProduct) {
             console.error('❌ currentProduct is null в addToCartWithOptions');
             alert('Ошибка: товар не выбран. Попробуйте ещё раз.');
@@ -994,7 +1074,6 @@
         saveCart(); 
         updateCartCount(); 
         
-        // ✅ ИСПРАВЛЕНИЕ: трекаем события ДО закрытия модалки, пока currentProduct ещё доступен
         trackGA4Event('add_to_cart', { 
             currency: currentLang === 'en' ? 'AED' : 'RUB', value: finalPrice, 
             items: [{ item_id: currentProduct.id, item_name: currentProduct.name, price: finalPrice, quantity: 1, item_category: 'gastronomic_box', item_variant: variantLabel }] 
@@ -1015,6 +1094,47 @@
         trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0), items: cart.map(item => ({ item_id: item.productId, item_name: item.name, price: item.price, quantity: item.quantity })) });
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
         window.location.href = 'checkout.html';
+    }
+
+    // ✅ ПЛАВНАЯ ПРОКРУТКА К СЕКЦИИ
+    function scrollToSection(targetId) {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        
+        const headerHeight = 75; // Высота шапки
+        const marqueeHeight = 38; // Высота бегущей строки
+        const navHeight = 80; // Высота навигации
+        const offset = headerHeight + marqueeHeight + navHeight + 10;
+        
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    // ✅ ОБНОВЛЕНИЕ АКТИВНОЙ КНОПКИ ПРИ СКРОЛЛЕ
+    function updateActiveCategoryBtn() {
+        const sections = [
+            { id: 'section-boxes', btn: 'section-boxes' },
+            { id: 'section-sweets', btn: 'section-sweets' },
+            { id: 'section-savory', btn: 'section-savory' }
+        ];
+        
+        const scrollPos = window.pageYOffset + 250;
+        let activeId = sections[0].id;
+        
+        sections.forEach(section => {
+            const el = document.getElementById(section.id);
+            if (el && el.offsetTop <= scrollPos) {
+                activeId = section.id;
+            }
+        });
+        
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.target === activeId);
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1042,6 +1162,36 @@
             document.addEventListener('click', e => { if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
+        // ✅ ОБРАБОТЧИКИ КНОПОК НАВИГАЦИИ
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                
+                // Трекинг аналитики
+                trackGA4Event('category_nav_click', { category: targetId, page: 'boxes' });
+                ymTrack('category_nav_click', { category: targetId });
+                
+                // Обновление активной кнопки
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Плавная прокрутка
+                scrollToSection(targetId);
+            });
+        });
+        
+        // ✅ ОБНОВЛЕНИЕ АКТИВНОЙ КНОПКИ ПРИ СКРОЛЛЕ
+        let scrollTicking = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(function() {
+                    updateActiveCategoryBtn();
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
+        });
+        
         document.querySelectorAll('.btn-select').forEach(btn => {
             btn.addEventListener('click', function() {
                 const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
@@ -1056,7 +1206,6 @@
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
         document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
         
-        // ✅ ИСПРАВЛЕНИЕ: безопасный вызов addToCartWithOptions
         document.getElementById('modalAddToCart')?.addEventListener('click', () => {
             try {
                 const options = getModalOptions();
