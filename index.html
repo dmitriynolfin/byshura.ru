@@ -195,7 +195,8 @@
         .form-label, .form-input, .form-select,
         .order-item-name, .order-item-price,
         .success-title, .success-subtitle,
-        .order-number-value, .detail-label, .detail-value {
+        .order-number-value, .detail-label, .detail-value,
+        .dinners-title, .dinner-card-title, .custom-dinner-title {
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif !important;
         }
         
@@ -209,14 +210,16 @@
         .checkout-title, .form-title,
         .order-item-name, .order-item-price,
         .success-title, .order-number-value,
-        .detail-value, .btn-primary, .btn-secondary {
+        .detail-value, .btn-primary, .btn-secondary,
+        .dinners-title, .dinner-card-title, .custom-dinner-title {
             font-weight: 600 !important;
         }
         
         /* ✅ ОБЫЧНЫЙ ШРИФТ ДЛЯ ТЕКСТА */
         p, .about-content p, .pickup-descr, .pickup-text,
         .checkout-subtitle, .form-label, .detail-label,
-        .success-subtitle, .info-note {
+        .success-subtitle, .info-note,
+        .dinner-card-descr, .custom-dinner-descr {
             font-weight: 400 !important;
         }
         
@@ -442,6 +445,167 @@
             opacity: 1;
         }
         
+        /* ✅ НОВЫЕ СЕКЦИИ: НАШИ УЖИНЫ И ИНДИВИДУАЛЬНЫЙ УЖИН */
+        
+        /* Секция "Наши ужины" */
+        .dinners {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        .dinners-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #070395;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dinners-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dinner-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(7,3,149,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        .dinner-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(7,3,149,0.2);
+        }
+        .dinner-card-image {
+            width: 100%;
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .dinner-card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.3));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .dinner-card:hover .dinner-card-image::after {
+            opacity: 1;
+        }
+        .dinner-card-content {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .dinner-card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #070395;
+        }
+        .dinner-card-descr {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .dinner-card-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #070395;
+            color: white !important;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        .dinner-card-btn:hover {
+            background: #FFD93D;
+            color: #070395 !important;
+            transform: translateX(5px);
+        }
+        
+        /* Секция "Индивидуальный ужин" */
+        .custom-dinner {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
+            color: white;
+            text-align: center;
+        }
+        .custom-dinner-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .custom-dinner-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .custom-dinner-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .custom-dinner-descr {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            opacity: 0.95;
+        }
+        .custom-dinner-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #FFD93D;
+            color: #070395 !important;
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,217,61,0.3);
+            text-decoration: none;
+        }
+        .custom-dinner-btn:hover {
+            background: white;
+            color: #070395 !important;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(255,255,255,0.4);
+        }
+        
         /* FOOTER - ✅ БЕЗ КНОПКИ С ЛИМОНОМ */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
@@ -479,6 +643,7 @@
             .pickup-container { grid-template-columns: 1fr; }
             .header-right { gap: 15px; }
             .about-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .dinners-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         }
         
         @media (max-width: 768px) { 
@@ -519,6 +684,19 @@
             }
             .about-card:hover { transform: none !important; }
             
+            /* ✅ НОВЫЕ СЕКЦИИ: АДАПТИВНОСТЬ */
+            .dinners { padding: 60px 0; }
+            .dinners-title { font-size: 28px; margin-bottom: 40px; }
+            .dinners-grid { grid-template-columns: 1fr; gap: 30px; }
+            .dinner-card-image { height: 280px; }
+            .dinner-card-content { padding: 25px; }
+            .dinner-card-title { font-size: 22px; }
+            
+            .custom-dinner { padding: 60px 0; }
+            .custom-dinner-icon { font-size: 56px; }
+            .custom-dinner-title { font-size: 28px; }
+            .custom-dinner-descr { font-size: 16px; }
+            
             .header-right { gap: 10px; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             /* ✅ Мобильные стрелки слайдера */
@@ -554,6 +732,21 @@
             .about-content { padding: 22px 18px; }
             .about-content h3 { font-size: 19px; margin-bottom: 10px; }
             .about-content p { font-size: 14px; }
+            
+            /* ✅ НОВЫЕ СЕКЦИИ: МАЛЕНЬКИЕ ЭКРАНЫ */
+            .dinners { padding: 45px 0; }
+            .dinners-title { font-size: 24px; margin-bottom: 30px; }
+            .dinner-card-image { height: 240px; }
+            .dinner-card-content { padding: 20px; }
+            .dinner-card-title { font-size: 20px; margin-bottom: 12px; }
+            .dinner-card-descr { font-size: 14px; margin-bottom: 15px; }
+            .dinner-card-btn { padding: 12px 25px; font-size: 13px; }
+            
+            .custom-dinner { padding: 45px 0; }
+            .custom-dinner-icon { font-size: 48px; margin-bottom: 20px; }
+            .custom-dinner-title { font-size: 24px; margin-bottom: 15px; }
+            .custom-dinner-descr { font-size: 15px; margin-bottom: 25px; }
+            .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
             
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
@@ -594,6 +787,13 @@
             .pickup-title { font-size: 22px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
+            
+            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ */
+            .dinners-title { font-size: 22px; }
+            .dinner-card-image { height: 200px; }
+            .dinner-card-title { font-size: 18px; }
+            .custom-dinner-title { font-size: 22px; }
+            .custom-dinner-descr { font-size: 14px; }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -752,6 +952,46 @@
         </div>
     </section>
 
+    <!-- ✅ НОВАЯ СЕКЦИЯ: НАШИ УЖИНЫ -->
+    <section class="dinners">
+        <div class="container">
+            <h2 class="dinners-title" data-i18n="dinnersTitle">НАШИ УЖИНЫ</h2>
+            <div class="dinners-grid">
+                <!-- Карточка: Ужин Николая II -->
+                <a href="boxes.html#box1" class="dinner-card" id="dinnerCardNicholas">
+                    <div class="dinner-card-image" style="background-image: url('images/boxes-nicholas.webp');"></div>
+                    <div class="dinner-card-content">
+                        <h3 class="dinner-card-title" data-i18n="dinnerNicholasTitle">Ужин Николая II</h3>
+                        <p class="dinner-card-descr" data-i18n="dinnerNicholasDescr">Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.</p>
+                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn">ПОДРОБНЕЕ →</span>
+                    </div>
+                </a>
+                
+                <!-- Карточка: Ужин Чайковского -->
+                <a href="boxes.html#box2" class="dinner-card" id="dinnerCardTchaikovsky">
+                    <div class="dinner-card-image" style="background-image: url('images/boxes-tchaikovsky.webp');"></div>
+                    <div class="dinner-card-content">
+                        <h3 class="dinner-card-title" data-i18n="dinnerTchaikovskyTitle">Ужин Чайковского</h3>
+                        <p class="dinner-card-descr" data-i18n="dinnerTchaikovskyDescr">Откройте для себя вкусы, которые вдохновляли великого композитора. 5 уникальных блюд, созданных по историческим рецептам, с музыкальным сопровождением произведений Чайковского.</p>
+                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn">ПОДРОБНЕЕ →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ НОВАЯ СЕКЦИЯ: ИНДИВИДУАЛЬНЫЙ УЖИН -->
+    <section class="custom-dinner">
+        <div class="container custom-dinner-container">
+            <div class="custom-dinner-icon">✨</div>
+            <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН</h2>
+            <p class="custom-dinner-descr" data-i18n="customDinnerDescr">Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.</p>
+            <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer" class="custom-dinner-btn" id="customDinnerBtn">
+                <span data-i18n="customDinnerBtn">НАПИСАТЬ НАМ</span>
+            </a>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
@@ -795,6 +1035,15 @@
             pickupDays: "Пятница | Суббота | Воскресенье",
             pickupTime: "17.00 – 23.00",
             pickupAddress: "ЖК Prime Park<br>Ленинградский проспект 37/7",
+            dinnersTitle: "НАШИ УЖИНЫ",
+            dinnerNicholasTitle: "Ужин Николая II",
+            dinnerNicholasDescr: "Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.",
+            dinnerTchaikovskyTitle: "Ужин Чайковского",
+            dinnerTchaikovskyDescr: "Откройте для себя вкусы, которые вдохновляли великого композитора. 5 уникальных блюд, созданных по историческим рецептам, с музыкальным сопровождением произведений Чайковского.",
+            dinnerCardBtn: "ПОДРОБНЕЕ →",
+            customDinnerTitle: "ИНДИВИДУАЛЬНЫЙ УЖИН",
+            customDinnerDescr: "Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.",
+            customDinnerBtn: "НАПИСАТЬ НАМ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartAlert: "Добавьте товары в корзину на странице боксов"
         },
@@ -810,6 +1059,15 @@
             pickupDays: "Friday | Saturday | Sunday",
             pickupTime: "17:00 – 23:00",
             pickupAddress: "Merano Tower Damac<br>Dubai",
+            dinnersTitle: "OUR DINNERS",
+            dinnerNicholasTitle: "Nicholas II Dinner",
+            dinnerNicholasDescr: "Immerse yourself in the era of Imperial Russia through exquisite dishes enjoyed by the last emperor. 5 signature dishes with historical facts and period music accompaniment.",
+            dinnerTchaikovskyTitle: "Tchaikovsky Dinner",
+            dinnerTchaikovskyDescr: "Discover the flavors that inspired the great composer. 5 unique dishes created from historical recipes, accompanied by Tchaikovsky's musical masterpieces.",
+            dinnerCardBtn: "LEARN MORE →",
+            customDinnerTitle: "CUSTOM DINNER",
+            customDinnerDescr: "Want a unique gastronomic experience created just for you? We'll develop a personalized menu based on your preferences, occasion, and mood. Contact us, and we'll create the dinner of your dreams.",
+            customDinnerBtn: "CONTACT US",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first"
         }
@@ -1080,6 +1338,22 @@
             ymTrack('address_map_click', { lang: currentLang });
         });
         
+        // ✅ ОБРАБОТЧИКИ ДЛЯ НОВЫХ СЕКЦИЙ
+        document.getElementById('dinnerCardNicholas')?.addEventListener('click', function() {
+            trackGA4Event('dinner_card_click', { dinner_type: 'nicholas', page: 'index' });
+            ymTrack('dinner_nicholas_click');
+        });
+        
+        document.getElementById('dinnerCardTchaikovsky')?.addEventListener('click', function() {
+            trackGA4Event('dinner_card_click', { dinner_type: 'tchaikovsky', page: 'index' });
+            ymTrack('dinner_tchaikovsky_click');
+        });
+        
+        document.getElementById('customDinnerBtn')?.addEventListener('click', function() {
+            trackGA4Event('custom_dinner_click', { page: 'index' });
+            ymTrack('custom_dinner_click');
+        });
+        
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
@@ -1100,7 +1374,12 @@
             });
         });
         
-        const trackedSections = { 'catalog': { goal: 'scroll_about', ga_event: 'section_view', section: 'about' }, 'contacts': { goal: 'scroll_pickup', ga_event: 'section_view', section: 'pickup' } };
+        const trackedSections = { 
+            'catalog': { goal: 'scroll_about', ga_event: 'section_view', section: 'about' }, 
+            'contacts': { goal: 'scroll_pickup', ga_event: 'section_view', section: 'pickup' },
+            'dinners': { goal: 'scroll_dinners', ga_event: 'section_view', section: 'dinners' },
+            'custom-dinner': { goal: 'scroll_custom_dinner', ga_event: 'section_view', section: 'custom_dinner' }
+        };
         const sectionTracked = {};
         const checkSectionScroll = debounce(function() {
             Object.entries(trackedSections).forEach(([id, tracking]) => {
