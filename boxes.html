@@ -95,7 +95,7 @@
         
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
         
-        /* ✅ НОВАЯ СЕКЦИЯ: НАВИГАЦИОННЫЕ КНОПКИ */
+        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ */
         .category-nav {
             display: flex;
             justify-content: center;
@@ -301,15 +301,19 @@
             .box-card:hover { transform: none !important; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             
-            /* ✅ АДАПТИВНОСТЬ НАВИГАЦИИ */
+            /* ✅ НАВИГАЦИЯ ПРИЖАТА К БЕГУЩЕЙ СТРОКЕ БЕЗ ПРОСВЕТА */
+            /* Marquee bottom: 72px (top) + 6px*2 (padding) + 11px*1.6 (font) ≈ 105px */
             .category-nav { 
-                top: 108px; 
+                top: 105px; 
                 gap: 10px; 
-                padding: 20px 0 30px; 
+                padding: 12px 0 20px; 
+                margin-bottom: 0;
             }
             .category-btn { 
-                padding: 12px 25px; 
-                font-size: 13px; 
+                padding: 11px 22px; 
+                font-size: 12px; 
+                min-height: 42px;
+                border-radius: 25px;
             }
         }
         
@@ -368,15 +372,21 @@
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-links-en a:hover { color: #070395; }
             
-            /* ✅ НАВИГАЦИЯ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+            /* ✅ НАВИГАЦИЯ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ — ПРИЖАТА БЕЗ ПРОСВЕТА */
+            /* Marquee bottom: 72px (top) + 5px*2 (padding) + 10px*1.6 (font) ≈ 98px */
             .category-nav { 
-                gap: 8px; 
-                padding: 15px 0 25px;
+                top: 98px; 
+                gap: 6px; 
+                padding: 10px 0 16px;
+                margin-bottom: 0;
             }
             .category-btn { 
-                padding: 10px 18px; 
-                font-size: 12px; 
+                padding: 9px 16px; 
+                font-size: 11px; 
                 letter-spacing: 0.5px;
+                min-height: 38px;
+                border-radius: 22px;
+                border-width: 1.5px;
             }
         }
         
@@ -413,10 +423,12 @@
             .quantity-price { font-size: 11px !important; padding: 2px 6px; }
             .modal-body { max-height: calc(90vh - 130px); }
             
-            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ */
+            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ — КОМПАКТНАЯ НАВИГАЦИЯ */
             .category-btn { 
-                padding: 9px 14px; 
-                font-size: 11px; 
+                padding: 8px 12px; 
+                font-size: 10px; 
+                min-height: 34px;
+                border-radius: 20px;
             }
         }
         
@@ -1101,9 +1113,9 @@
         const target = document.getElementById(targetId);
         if (!target) return;
         
-        const headerHeight = 75; // Высота шапки
-        const marqueeHeight = 38; // Высота бегущей строки
-        const navHeight = 80; // Высота навигации
+        const headerHeight = 75;
+        const marqueeHeight = 38;
+        const navHeight = 80;
         const offset = headerHeight + marqueeHeight + navHeight + 10;
         
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
@@ -1167,15 +1179,12 @@
             btn.addEventListener('click', function() {
                 const targetId = this.dataset.target;
                 
-                // Трекинг аналитики
                 trackGA4Event('category_nav_click', { category: targetId, page: 'boxes' });
                 ymTrack('category_nav_click', { category: targetId });
                 
-                // Обновление активной кнопки
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
-                // Плавная прокрутка
                 scrollToSection(targetId);
             });
         });
