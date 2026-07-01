@@ -119,10 +119,15 @@
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        /* ===== БЕГУЩАЯ СТРОКА (как в референсе) ===== */
+        /* ===== БЕГУЩАЯ СТРОКА — прикреплена к нижней части шапки ===== */
         .marquee-bar { 
+            position: fixed;
+            top: 75px; /* сразу под шапкой */
+            left: 0;
+            width: 100%;
+            z-index: 999; /* под шапкой (1000), над контентом */
             background: #FFD93D;
-            padding: 14px 0;
+            padding: 12px 0;
             overflow: hidden;
             border-bottom: 1px solid rgba(7,3,149,0.1);
         }
@@ -156,6 +161,7 @@
         .hero { 
             position: relative; height: 100vh; min-height: 700px; 
             overflow: hidden;
+            margin-top: 46px; /* сдвигаем вниз, чтобы бегущая строка не перекрывала */
         }
         .hero-slider { 
             height: 100%; width: 100%; 
@@ -235,14 +241,14 @@
         }
         .dot.active { background: white; transform: scale(1.2); }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ (как в референсе) ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ (в стиле pauline-cake) ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
         }
         .team-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         .team-header h2 {
             font-size: 36px;
@@ -250,22 +256,33 @@
             color: #070395;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 15px;
         }
+        .team-header p {
+            font-size: 16px;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Сетка в стиле pauline-cake: 3 карточки в ряд */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        .team-card {
-            background: white;
+            gap: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 2px solid #070395;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(7,3,149,0.08);
-            transition: all 0.3s;
+            background: white;
         }
-        .team-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(7,3,149,0.15);
+        .team-card {
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #070395;
+        }
+        .team-card:last-child {
+            border-right: none;
         }
         .team-card-image {
             width: 100%;
@@ -273,15 +290,22 @@
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
+            border-bottom: 2px solid #070395;
         }
         .team-card-content {
-            padding: 25px;
+            padding: 30px 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .team-card-content h3 {
             font-size: 20px;
             font-weight: 700;
             color: #070395;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .team-card-content p {
             font-size: 14px;
@@ -289,7 +313,7 @@
             line-height: 1.6;
         }
         
-        /* ===== БЛОК САМОВЫВОЗА (как в референсе) ===== */
+        /* ===== БЛОК САМОВЫВОЗА ===== */
         .pickup-section {
             padding: 80px 0;
             background: white;
@@ -325,6 +349,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s;
+            text-align: center;
         }
         .pickup-map-btn:hover {
             background: #070395;
@@ -373,6 +398,57 @@
         }
         .pickup-info-text a:hover {
             color: #FFD93D;
+        }
+        
+        /* ===== МОДАЛЬНОЕ ОКНО С КАРТОЙ (как в pauline-cake) ===== */
+        .map-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .map-modal.active {
+            display: flex;
+        }
+        .map-modal-content {
+            width: 100%;
+            max-width: 1100px;
+            height: 85vh;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .map-modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            z-index: 10;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #070395;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #070395;
+            transition: all 0.3s;
+        }
+        .map-modal-close:hover {
+            background: #070395;
+            color: white;
+        }
+        .map-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
         /* ===== СЕКЦИЯ: НАШИ УЖИНЫ ===== */
@@ -535,14 +611,19 @@
         @media (max-width: 1024px) { 
             .container { padding: 0 20px; } 
             .nav-menu { display: none; }
-            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: 1fr; }
+            .team-card { border-right: none; border-bottom: 2px solid #070395; }
+            .team-card:last-child { border-bottom: none; }
             .pickup-info-grid { grid-template-columns: repeat(2, 1fr); }
             .dinners-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         }
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .hero { min-height: 500px; }
+            .marquee-bar { top: 66px; padding: 10px 0; }
+            .marquee-item { font-size: 12px; padding: 0 25px; }
+            .marquee-item svg { width: 18px; height: 18px; }
+            .hero { min-height: 500px; margin-top: 40px; }
             .hero-content { bottom: 80px; }
             .btn-order { padding: 18px 40px; font-size: 14px; min-width: 220px; }
             .slider-dots { bottom: 25px; }
@@ -551,19 +632,18 @@
             /* Скрыть стрелки на мобильных */
             .hero-nav-zone { display: none; }
             
-            /* Карточки команды — 1 колонка */
+            /* Карточки команды */
             .team-section { padding: 50px 0; }
             .team-header h2 { font-size: 28px; }
-            .team-grid { grid-template-columns: 1fr; gap: 20px; }
-            .team-card-content { padding: 20px; }
+            .team-card-content { padding: 25px 20px; }
             .team-card-content h3 { font-size: 18px; }
             
-            /* Блок самовывоза — 1 колонка */
+            /* Блок самовывоза */
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
             .pickup-info-grid { grid-template-columns: 1fr; gap: 30px; }
             
-            /* Наши ужины — 1 колонка */
+            /* Наши ужины */
             .dinners { padding: 50px 0; }
             .dinners-title { font-size: 28px; margin-bottom: 30px; }
             .dinners-grid { grid-template-columns: 1fr; gap: 25px; }
@@ -577,14 +657,14 @@
             .custom-dinner-descr { font-size: 15px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
+            
+            /* Модальное окно карты */
+            .map-modal-content { height: 75vh; border-radius: 12px; }
+            .map-modal-close { width: 40px; height: 40px; top: 10px; right: 10px; }
         }
         
         @media (max-width: 480px) {
-            .marquee-item { font-size: 12px; padding: 0 25px; }
-            .marquee-item svg { width: 18px; height: 18px; }
-            
-            .team-grid { gap: 15px; }
-            .team-card-content { padding: 18px; }
+            .team-card-content { padding: 20px 16px; }
             .team-card-content h3 { font-size: 17px; }
             .team-card-content p { font-size: 13px; }
             
@@ -603,14 +683,6 @@
             .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
         }
     </style>
-    
-    <script type="text/javascript">
-       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-       ym(110092456, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
-    </script>
 </head>
 <body>
 
@@ -646,7 +718,7 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА (как в референсе) -->
+    <!-- БЕГУЩАЯ СТРОКА — прикреплена к нижней части шапки -->
     <div class="marquee-bar">
         <div class="marquee-track">
             <div class="marquee-item">
@@ -801,11 +873,12 @@
         </div>
     </section>
 
-    <!-- КАРТОЧКИ КОМАНДЫ (как в референсе) -->
+    <!-- КАРТОЧКИ КОМАНДЫ (в стиле pauline-cake) -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
                 <h2 data-i18n="teamTitle">О НАС</h2>
+                <p data-i18n="teamSubtitle">Мы создаём уникальные гастрономические впечатления с заботой и любовью</p>
             </div>
             <div class="team-grid">
                 <div class="team-card">
@@ -845,7 +918,7 @@
         </div>
     </section>
 
-    <!-- БЛОК САМОВЫВОЗА (как в референсе) -->
+    <!-- БЛОК САМОВЫВОЗА -->
     <section class="pickup-section" id="contacts">
         <div class="container">
             <div class="pickup-header">
@@ -893,6 +966,14 @@
             </div>
         </div>
     </section>
+
+    <!-- МОДАЛЬНОЕ ОКНО С КАРТОЙ (как в pauline-cake) -->
+    <div class="map-modal" id="mapModal">
+        <div class="map-modal-content">
+            <button class="map-modal-close" id="mapModalClose">&times;</button>
+            <iframe id="mapIframe" src="" allowfullscreen loading="lazy"></iframe>
+        </div>
+    </div>
 
     <!-- НАШИ УЖИНЫ -->
     <section class="dinners">
@@ -965,6 +1046,7 @@
             marquee1: "СВЕЖИЕ ПРОДУКТЫ", marquee2: "ПОДАРОЧНАЯ УПАКОВКА",
             heroBtn: "ЗАКАЗАТЬ", btnOrder: "ЗАКАЗАТЬ",
             teamTitle: "О НАС",
+            teamSubtitle: "Мы создаём уникальные гастрономические впечатления с заботой и любовью",
             card1Title: "НАША КОМАНДА", card1Descr: "Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше",
             card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей",
             card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
@@ -989,6 +1071,7 @@
             marquee1: "FRESH PRODUCTS", marquee2: "GIFT PACKAGING",
             heroBtn: "ORDER BOX", btnOrder: "PLACE ORDER",
             teamTitle: "ABOUT US",
+            teamSubtitle: "We create unique gastronomic experiences with care and love",
             card1Title: "OUR TEAM", card1Descr: "Our family consists of two people. But we're sure there will be more of us soon",
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
             card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
@@ -1010,9 +1093,9 @@
         }
     };
 
-    const mapLinks = {
-        ru: 'https://yandex.ru/maps/?text=Ленинградский+проспект+37/7+ЖК+Prime+Park',
-        en: 'https://www.google.com/maps/search/?api=1&query=Merano+Tower+Damac+Dubai'
+    const mapUrls = {
+        ru: 'https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&pt=37.5314%2C55.7887&l=map',
+        en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d55.2!3d25.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzAwLjAiTiA1NcKwMTInMDAuMCJF!5e0!3m2!1sen!2sae!4v1'
     };
 
     let currentLang = 'ru';
@@ -1022,10 +1105,6 @@
 
     function trackGA4Event(eventName, params) {
         if (typeof gtag === 'function') gtag('event', eventName, params);
-    }
-
-    function ymTrack(goalId, params) {
-        if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params);
     }
 
     function updateSliderPosition() {
@@ -1107,6 +1186,23 @@
         
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+    }
+
+    // Модальное окно с картой
+    function openMapModal() {
+        const modal = document.getElementById('mapModal');
+        const iframe = document.getElementById('mapIframe');
+        iframe.src = mapUrls[currentLang];
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMapModal() {
+        const modal = document.getElementById('mapModal');
+        const iframe = document.getElementById('mapIframe');
+        modal.classList.remove('active');
+        iframe.src = '';
+        document.body.style.overflow = '';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1199,10 +1295,22 @@
             window.location.href = 'checkout.html';
         });
         
-        // Кнопка карты
+        // Кнопка карты — открывает модальное окно с iframe
         document.getElementById('pickupMapBtn')?.addEventListener('click', e => {
             e.preventDefault();
-            window.open(mapLinks[currentLang], '_blank');
+            openMapModal();
+        });
+        
+        // Закрытие модального окна карты
+        document.getElementById('mapModalClose')?.addEventListener('click', closeMapModal);
+        document.getElementById('mapModal')?.addEventListener('click', e => {
+            if (e.target.id === 'mapModal') closeMapModal();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                const mapModal = document.getElementById('mapModal');
+                if (mapModal && mapModal.classList.contains('active')) closeMapModal();
+            }
         });
         
         // Кнопки "ПОДРОБНЕЕ"
@@ -1218,7 +1326,6 @@
         
         // Трекинг
         trackGA4Event('page_view', { page_path: '/index.html', language: currentLang });
-        ymTrack('index_viewed', { lang: currentLang });
     });
     </script>
 </body>
