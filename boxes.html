@@ -95,15 +95,15 @@
         
         .catalog { padding: 145px 0 60px; min-height: 100vh; }
         
-        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ */
+        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УЖЕ И КОМПАКТНЕЕ */
         .category-nav {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            padding: 25px 0 40px;
+            gap: 10px;
+            padding: 18px 0 25px;
             flex-wrap: wrap;
             position: sticky;
-            top: 108px; /* 70px (header) + 38px (marquee) */
+            top: 108px;
             background: #f8f9fa;
             z-index: 500;
             margin-bottom: 10px;
@@ -111,32 +111,31 @@
         .category-btn {
             background: white;
             color: #070395;
-            padding: 14px 35px;
-            border-radius: 30px;
+            padding: 10px 22px;
+            border-radius: 22px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             border: 2px solid #070395;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(7,3,149,0.1);
-            min-height: 48px;
+            min-height: 42px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             user-select: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(7,3,149,0.08);
         }
         .category-btn:hover {
             background: #070395;
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(7,3,149,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(7,3,149,0.2);
         }
         .category-btn.active {
             background: #070395;
             color: white;
-            box-shadow: 0 6px 18px rgba(7,3,149,0.3);
+            box-shadow: 0 4px 12px rgba(7,3,149,0.25);
         }
         
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; scroll-margin-top: 180px; }
@@ -301,19 +300,19 @@
             .box-card:hover { transform: none !important; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             
-            /* ✅ НАВИГАЦИЯ ПРИЖАТА К БЕГУЩЕЙ СТРОКЕ БЕЗ ПРОСВЕТА */
-            /* Marquee bottom: 72px (top) + 6px*2 (padding) + 11px*1.6 (font) ≈ 105px */
+            /* ✅ НАВИГАЦИЯ НА ПЛАНШЕТАХ — КОМПАКТНАЯ */
             .category-nav { 
                 top: 105px; 
-                gap: 10px; 
+                gap: 8px; 
                 padding: 12px 0 20px; 
                 margin-bottom: 0;
             }
             .category-btn { 
-                padding: 11px 22px; 
-                font-size: 12px; 
-                min-height: 42px;
-                border-radius: 25px;
+                padding: 9px 18px; 
+                font-size: 11px; 
+                min-height: 38px;
+                border-radius: 20px;
+                letter-spacing: 0.3px;
             }
         }
         
@@ -372,8 +371,7 @@
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-links-en a:hover { color: #070395; }
             
-            /* ✅ НАВИГАЦИЯ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ — ПРИЖАТА БЕЗ ПРОСВЕТА */
-            /* Marquee bottom: 72px (top) + 5px*2 (padding) + 10px*1.6 (font) ≈ 98px */
+            /* ✅ НАВИГАЦИЯ НА ТЕЛЕФОНАХ — ОЧЕНЬ КОМПАКТНАЯ */
             .category-nav { 
                 top: 98px; 
                 gap: 6px; 
@@ -381,11 +379,11 @@
                 margin-bottom: 0;
             }
             .category-btn { 
-                padding: 9px 16px; 
-                font-size: 11px; 
-                letter-spacing: 0.5px;
-                min-height: 38px;
-                border-radius: 22px;
+                padding: 8px 14px; 
+                font-size: 10px; 
+                letter-spacing: 0.3px;
+                min-height: 34px;
+                border-radius: 18px;
                 border-width: 1.5px;
             }
         }
@@ -423,12 +421,12 @@
             .quantity-price { font-size: 11px !important; padding: 2px 6px; }
             .modal-body { max-height: calc(90vh - 130px); }
             
-            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ — КОМПАКТНАЯ НАВИГАЦИЯ */
+            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ — МИНИМАЛЬНАЯ НАВИГАЦИЯ */
             .category-btn { 
-                padding: 8px 12px; 
-                font-size: 10px; 
-                min-height: 34px;
-                border-radius: 20px;
+                padding: 7px 12px; 
+                font-size: 9px; 
+                min-height: 30px;
+                border-radius: 16px;
             }
         }
         
@@ -487,7 +485,7 @@
 
     <section class="catalog">
         <div class="container">
-            <!-- ✅ НОВАЯ НАВИГАЦИЯ: КНОПКИ КАТЕГОРИЙ -->
+            <!-- ✅ НАВИГАЦИЯ: КНОПКИ КАТЕГОРИЙ (УЖЕ И КОМПАКТНЕЕ) -->
             <nav class="category-nav" id="categoryNav" aria-label="Навигация по категориям">
                 <button class="category-btn active" data-target="section-boxes" data-i18n="catBoxes">БОКСЫ</button>
                 <button class="category-btn" data-target="section-sweets" data-i18n="catSweets">СЛАДКОЕ</button>
@@ -1108,14 +1106,13 @@
         window.location.href = 'checkout.html';
     }
 
-    // ✅ ПЛАВНАЯ ПРОКРУТКА К СЕКЦИИ
     function scrollToSection(targetId) {
         const target = document.getElementById(targetId);
         if (!target) return;
         
         const headerHeight = 75;
         const marqueeHeight = 38;
-        const navHeight = 80;
+        const navHeight = 60;
         const offset = headerHeight + marqueeHeight + navHeight + 10;
         
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
@@ -1126,7 +1123,6 @@
         });
     }
 
-    // ✅ ОБНОВЛЕНИЕ АКТИВНОЙ КНОПКИ ПРИ СКРОЛЛЕ
     function updateActiveCategoryBtn() {
         const sections = [
             { id: 'section-boxes', btn: 'section-boxes' },
@@ -1174,7 +1170,6 @@
             document.addEventListener('click', e => { if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
-        // ✅ ОБРАБОТЧИКИ КНОПОК НАВИГАЦИИ
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const targetId = this.dataset.target;
@@ -1189,7 +1184,6 @@
             });
         });
         
-        // ✅ ОБНОВЛЕНИЕ АКТИВНОЙ КНОПКИ ПРИ СКРОЛЛЕ
         let scrollTicking = false;
         window.addEventListener('scroll', function() {
             if (!scrollTicking) {
