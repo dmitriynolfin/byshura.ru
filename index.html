@@ -345,59 +345,53 @@
             position: relative;
             background: #f0f0f0;
         }
-        .pickup-map-container.hidden {
-            display: none;
-        }
         .pickup-map-iframe {
             width: 100%;
             height: 500px;
             border: none;
             display: block;
         }
-        .pickup-map-close {
+        
+        /* Оверлей с подсказкой для мобильных */
+        .pickup-map-hint {
+            display: none;
             position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 10;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid #070395;
-            font-size: 22px;
-            cursor: pointer;
-            display: flex;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(7, 3, 149, 0.55);
+            backdrop-filter: blur(2px);
+            z-index: 5;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #070395;
-            transition: all 0.3s;
-        }
-        .pickup-map-close:hover {
-            background: #070395;
+            text-align: center;
             color: white;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
-        
-        /* Кнопка показать карту */
-        .pickup-map-show {
-            display: none;
-            margin: 0 auto 50px;
-            background: transparent;
-            color: #070395;
-            border: 2px solid #070395;
-            padding: 14px 40px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+        .pickup-map-hint.visible {
+            display: flex;
         }
-        .pickup-map-show.visible {
-            display: block;
+        .pickup-map-hint.fade-out {
+            opacity: 0;
         }
-        .pickup-map-show:hover {
-            background: #070395;
-            color: white;
+        .pickup-map-hint-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            animation: hint-pinch 2s ease-in-out infinite;
+        }
+        @keyframes hint-pinch {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .pickup-map-hint-text {
+            font-size: 16px;
+            font-weight: 600;
+            max-width: 280px;
+            line-height: 1.5;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
         
         .pickup-info-grid {
@@ -914,7 +908,11 @@
             
             <!-- Карта с возможностью приближения и просмотра окрестностей -->
             <div class="pickup-map-container" id="mapContainer">
-                <button class="pickup-map-close" id="mapClose" aria-label="Закрыть карту">&times;</button>
+                <!-- Оверлей с подсказкой для мобильных -->
+                <div class="pickup-map-hint" id="mapHint">
+                    <div class="pickup-map-hint-icon">🤏</div>
+                    <div class="pickup-map-hint-text" data-i18n="mapHintText">Используйте два пальца, чтобы увеличить масштаб и перемещать карту</div>
+                </div>
                 <iframe 
                     class="pickup-map-iframe"
                     id="mapIframe"
@@ -923,9 +921,6 @@
                     loading="lazy">
                 </iframe>
             </div>
-            
-            <!-- Кнопка показать карту (появляется после закрытия) -->
-            <button class="pickup-map-show" id="mapShow" data-i18n="pickupMapShow">ПОКАЗАТЬ КАРТУ</button>
             
             <div class="pickup-info-grid">
                 <div class="pickup-info-item">
@@ -1044,10 +1039,10 @@
             card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей",
             card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
             pickupTitle: "САМОВЫВОЗ", pickupDescr: "Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично",
-            pickupMapShow: "ПОКАЗАТЬ КАРТУ",
             pickupSchedule: "ЧАСЫ РАБОТЫ", pickupDays: "Пт-Сб-Вс", pickupTime: "17:00 – 23:00",
             pickupAddressTitle: "АДРЕС", pickupAddressText: "ЖК Prime Park<br>Ленинградский проспект 37/7",
             pickupContactTitle: "СВЯЗЬ",
+            mapHintText: "Используйте два пальца, чтобы увеличить масштаб и перемещать карту",
             dinnersTitle: "НАШИ УЖИНЫ",
             dinnerNicholasTitle: "Ужин Николая II",
             dinnerNicholasDescr: "Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.",
@@ -1069,10 +1064,10 @@
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
             card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
             pickupTitle: "PICKUP", pickupDescr: "Our home restaurant currently delivers only, but we're always happy to hand over your order in person",
-            pickupMapShow: "SHOW MAP",
             pickupSchedule: "WORKING HOURS", pickupDays: "Fri-Sat-Sun", pickupTime: "17:00 – 23:00",
             pickupAddressTitle: "ADDRESS", pickupAddressText: "Merano Tower Damac<br>Dubai",
             pickupContactTitle: "CONTACT",
+            mapHintText: "Use two fingers to zoom in and move the map",
             dinnersTitle: "OUR DINNERS",
             dinnerNicholasTitle: "Nicholas II Dinner",
             dinnerNicholasDescr: "Immerse yourself in the era of Imperial Russia through exquisite dishes enjoyed by the last emperor. 5 signature dishes with historical facts and period music accompaniment.",
@@ -1088,7 +1083,7 @@
 
     const mapUrls = {
         ru: 'https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&l=map&pt=37.5314%2C55.7887%2Cpm2rdm',
-        en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d55.2!3d25.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzAwLjAiTiA1NcKwMTInMDAuMCJF!5e0!3m2!1sen!2sae!4v1'
+        en: 'https://maps.google.com/maps?q=Merano+Tower+Damac+Dubai&t=&z=16&ie=UTF8&iwloc=&output=embed'
     };
 
     let currentLang = 'ru';
@@ -1155,6 +1150,45 @@
         images.forEach(img => observer.observe(img));
     }
 
+    // Обновление карты в зависимости от языка
+    function updateMap() {
+        const mapIframe = document.getElementById('mapIframe');
+        if (mapIframe) {
+            mapIframe.src = mapUrls[currentLang];
+        }
+    }
+
+    // Показ подсказки на мобильных при загрузке карты
+    function initMapHint() {
+        const mapHint = document.getElementById('mapHint');
+        const mapContainer = document.getElementById('mapContainer');
+        const mapIframe = document.getElementById('mapIframe');
+        
+        if (!mapHint || !mapContainer || !mapIframe) return;
+        
+        // Показываем подсказку только на touch-устройствах
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (!isTouchDevice) return;
+        
+        mapHint.classList.add('visible');
+        
+        // Скрываем подсказку при первом взаимодействии с картой
+        const dismissHint = () => {
+            mapHint.classList.add('fade-out');
+            setTimeout(() => {
+                mapHint.classList.remove('visible', 'fade-out');
+            }, 400);
+            mapIframe.removeEventListener('touchstart', dismissHint);
+            mapIframe.removeEventListener('mousedown', dismissHint);
+        };
+        
+        // Небольшая задержка, чтобы подсказка успела отобразиться
+        setTimeout(() => {
+            mapIframe.addEventListener('touchstart', dismissHint, { once: true });
+            mapIframe.addEventListener('mousedown', dismissHint, { once: true });
+        }, 300);
+    }
+
     function applyLanguage(lang) {
         if (!translations[lang]) lang = 'ru';
         currentLang = lang;
@@ -1179,21 +1213,12 @@
         
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
-    }
-
-    // Управление картой
-    function hideMap() {
-        const mapContainer = document.getElementById('mapContainer');
-        const mapShow = document.getElementById('mapShow');
-        mapContainer.classList.add('hidden');
-        mapShow.classList.add('visible');
-    }
-
-    function showMap() {
-        const mapContainer = document.getElementById('mapContainer');
-        const mapShow = document.getElementById('mapShow');
-        mapContainer.classList.remove('hidden');
-        mapShow.classList.remove('visible');
+        
+        // Обновляем карту при смене языка
+        updateMap();
+        
+        // Переинициализируем подсказку
+        initMapHint();
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1204,6 +1229,9 @@
         // Инициализация слайдера
         updateSliderPosition();
         resetAutoSlide();
+        
+        // Инициализация подсказки карты
+        initMapHint();
         
         // Свайп для мобильных
         const slider = document.getElementById('heroSlider');
@@ -1285,10 +1313,6 @@
         document.getElementById('cartBtn')?.addEventListener('click', () => {
             window.location.href = 'checkout.html';
         });
-        
-        // Управление картой
-        document.getElementById('mapClose')?.addEventListener('click', hideMap);
-        document.getElementById('mapShow')?.addEventListener('click', showMap);
         
         // Кнопки "ПОДРОБНЕЕ"
         document.querySelectorAll('.dinner-card-btn').forEach(btn => {
