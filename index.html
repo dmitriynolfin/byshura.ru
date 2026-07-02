@@ -371,13 +371,16 @@
             color: white;
             opacity: 1;
             transition: opacity 0.4s ease;
-            pointer-events: none;
+            /* ВАЖНО: pointer-events: auto, чтобы оверлей получал касания */
+            pointer-events: auto;
+            touch-action: auto;
         }
         .pickup-map-hint.visible {
             display: flex;
         }
         .pickup-map-hint.fade-out {
             opacity: 0;
+            pointer-events: none;
         }
         .pickup-map-hint-icon {
             font-size: 48px;
@@ -913,7 +916,7 @@
                 <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
                     <div class="pickup-map-hint-icon">🤏</div>
-                    <div class="pickup-map-hint-text" data-i18n="mapHintText">Используйте два пальца, чтобы увеличить масштаб и перемещать карту</div>
+                    <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <iframe 
                     class="pickup-map-iframe"
@@ -1044,7 +1047,7 @@
             pickupSchedule: "ЧАСЫ РАБОТЫ", pickupDays: "Пт-Сб-Вс", pickupTime: "17:00 – 23:00",
             pickupAddressTitle: "АДРЕС", pickupAddressText: "ЖК Prime Park<br>Ленинградский проспект 37/7",
             pickupContactTitle: "СВЯЗЬ",
-            mapHintText: "Используйте два пальца, чтобы увеличить масштаб и перемещать карту",
+            mapHintText: "Нажмите, чтобы увеличить масштаб и перемещать карту",
             dinnersTitle: "НАШИ УЖИНЫ",
             dinnerNicholasTitle: "Ужин Николая II",
             dinnerNicholasDescr: "Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.",
@@ -1069,7 +1072,7 @@
             pickupSchedule: "WORKING HOURS", pickupDays: "Fri-Sat-Sun", pickupTime: "17:00 – 23:00",
             pickupAddressTitle: "ADDRESS", pickupAddressText: "Merano Tower Damac<br>Dubai",
             pickupContactTitle: "CONTACT",
-            mapHintText: "Use two fingers to zoom in and move the map",
+            mapHintText: "Tap to zoom in and move the map",
             dinnersTitle: "OUR DINNERS",
             dinnerNicholasTitle: "Nicholas II Dinner",
             dinnerNicholasDescr: "Immerse yourself in the era of Imperial Russia through exquisite dishes enjoyed by the last emperor. 5 signature dishes with historical facts and period music accompaniment.",
@@ -1092,7 +1095,6 @@
     let currentSlide = 0;
     const totalSlides = 3;
     let autoSlideInterval = null;
-    let hintDismissHandler = null;
 
     function trackGA4Event(eventName, params) {
         if (typeof gtag === 'function') gtag('event', eventName, params);
@@ -1160,39 +1162,52 @@
         }
     }
 
+    // ========================================
+    // ИНИЦИАЛИЗАЦИЯ ПОДСКАЗКИ НАД КАРТОЙ
+    // ========================================
     function initMapHint() {
         const mapHint = document.getElementById('mapHint');
         const mapContainer = document.getElementById('mapContainer');
         
         if (!mapHint || !mapContainer) return;
         
+        // Проверяем, является ли устройство сенсорным
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (!isTouchDevice) {
             mapHint.classList.remove('visible', 'fade-out');
             return;
         }
         
+        // Сбрасываем состояние
         mapHint.classList.remove('fade-out');
         mapHint.classList.add('visible');
         
-        if (hintDismissHandler) {
-            mapContainer.removeEventListener('touchstart', hintDismissHandler, true);
-        }
-        
-        hintDismissHandler = (e) => {
+        // Функция скрытия подсказки
+        const dismissHint = () => {
             if (!mapHint.classList.contains('visible')) return;
+            
+            // Добавляем класс fade-out для анимации
             mapHint.classList.add('fade-out');
+            
+            // После завершения анимации убираем подсказку полностью
             setTimeout(() => {
                 mapHint.classList.remove('visible', 'fade-out');
+                // Удаляем обработчики
+                mapHint.removeEventListener('touchstart', dismissHint);
+                mapHint.removeEventListener('touchend', dismissHint);
+                mapHint.removeEventListener('click', dismissHint);
+                mapContainer.removeEventListener('touchstart', dismissHint);
             }, 400);
-            mapContainer.removeEventListener('touchstart', hintDismissHandler, true);
-            hintDismissHandler = null;
         };
         
-        mapContainer.addEventListener('touchstart', hintDismissHandler, { 
-            capture: true, 
-            passive: true 
-        });
+        // ВАЖНО: Добавляем обработчики на САМ ОВЕРЛЕЙ
+        // Так как pointer-events: auto, оверлей будет получать касания
+        mapHint.addEventListener('touchstart', dismissHint, { passive: true });
+        mapHint.addEventListener('touchend', dismissHint, { passive: true });
+        mapHint.addEventListener('click', dismissHint);
+        
+        // Также добавляем на контейнер как fallback
+        mapContainer.addEventListener('touchstart', dismissHint, { passive: true });
     }
 
     function applyLanguage(lang) {
