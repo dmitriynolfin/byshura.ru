@@ -162,7 +162,7 @@
             position: relative; height: 100vh; min-height: 700px; 
             overflow: hidden;
             margin-top: 46px;
-            touch-action: pan-y; /* Разрешаем вертикальный скролл, но перехватываем горизонтальный */
+            touch-action: pan-y;
         }
         .hero-slider { 
             height: 100%; width: 100%; 
@@ -241,7 +241,7 @@
         }
         .dot.active { background: white; transform: scale(1.2); }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ (НОВЫЙ ДИЗАЙН) ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
@@ -264,9 +264,12 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        .team-grid {
+        
+        /* Grid контейнер для карточек */
+        .team-mosaic {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, auto);
             gap: 0;
             max-width: 1200px;
             margin: 0 auto;
@@ -275,41 +278,67 @@
             overflow: hidden;
             background: white;
         }
-        .team-card {
-            display: flex;
-            flex-direction: column;
-            border-right: 2px solid #070395;
+        
+        /* Элементы мозаики */
+        .team-mosaic-item {
+            position: relative;
+            overflow: hidden;
         }
-        .team-card:last-child {
-            border-right: none;
-        }
-        .team-card-image {
+        
+        /* Изображения */
+        .team-mosaic-image {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            height: 100%;
+            min-height: 300px;
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
-            border-bottom: 2px solid #070395;
         }
-        .team-card-content {
-            padding: 30px 25px;
-            flex: 1;
+        
+        /* Текстовые блоки */
+        .team-mosaic-text {
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
+            padding: 40px 30px;
+            text-align: center;
+            background: white;
+            min-height: 300px;
         }
-        .team-card-content h3 {
-            font-size: 20px;
+        
+        .team-mosaic-text h3 {
+            font-size: 24px;
             font-weight: 700;
             color: #070395;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .team-card-content p {
-            font-size: 14px;
+        
+        .team-mosaic-text p {
+            font-size: 15px;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.7;
+            max-width: 400px;
+        }
+        
+        /* Разделители между элементами */
+        .team-mosaic-item:nth-child(odd) {
+            border-right: 2px solid #070395;
+        }
+        
+        .team-mosaic-item:nth-child(-n+4) {
+            border-bottom: 2px solid #070395;
+        }
+        
+        /* Убираем лишние границы */
+        .team-mosaic-item:nth-child(2) {
+            border-right: none;
+        }
+        
+        .team-mosaic-item:nth-child(6) {
+            border-bottom: none;
         }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -373,7 +402,7 @@
             opacity: 1;
             transition: opacity 0.4s ease;
             pointer-events: auto;
-            touch-action: none; /* КРИТИЧНО: предотвращает стандартное поведение браузера */
+            touch-action: none;
         }
         .pickup-map-hint.visible {
             display: flex;
@@ -604,9 +633,10 @@
         @media (max-width: 1024px) { 
             .container { padding: 0 20px; } 
             .nav-menu { display: none; }
-            .team-grid { grid-template-columns: 1fr; }
-            .team-card { border-right: none; border-bottom: 2px solid #070395; }
-            .team-card:last-child { border-bottom: none; }
+            .team-mosaic { grid-template-columns: 1fr; }
+            .team-mosaic-item:nth-child(odd) { border-right: none; }
+            .team-mosaic-item { border-bottom: 2px solid #070395; }
+            .team-mosaic-item:last-child { border-bottom: none; }
             .pickup-info-grid { grid-template-columns: repeat(2, 1fr); }
             .dinners-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         }
@@ -626,8 +656,10 @@
             
             .team-section { padding: 50px 0; }
             .team-header h2 { font-size: 28px; }
-            .team-card-content { padding: 25px 20px; }
-            .team-card-content h3 { font-size: 18px; }
+            .team-mosaic-text { padding: 30px 20px; min-height: 250px; }
+            .team-mosaic-text h3 { font-size: 20px; }
+            .team-mosaic-text p { font-size: 14px; }
+            .team-mosaic-image { min-height: 250px; }
             
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
@@ -650,9 +682,10 @@
         }
         
         @media (max-width: 480px) {
-            .team-card-content { padding: 20px 16px; }
-            .team-card-content h3 { font-size: 17px; }
-            .team-card-content p { font-size: 13px; }
+            .team-mosaic-text { padding: 25px 16px; min-height: 220px; }
+            .team-mosaic-text h3 { font-size: 18px; }
+            .team-mosaic-text p { font-size: 13px; }
+            .team-mosaic-image { min-height: 220px; }
             
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
@@ -858,43 +891,54 @@
         </div>
     </section>
 
-    <!-- КАРТОЧКИ КОМАНДЫ -->
+    <!-- КАРТОЧКИ КОМАНДЫ (НОВЫЙ ДИЗАЙН) -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
                 <h2 data-i18n="teamTitle">О НАС</h2>
                 <p data-i18n="teamSubtitle">Мы создаём уникальные гастрономические впечатления с заботой и любовью</p>
             </div>
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-card-image" 
+            <div class="team-mosaic">
+                <!-- Row 1: Image 1 | Text 1 -->
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-image" 
                          data-bg-desktop="images/team.webp"
                          data-bg-mobile="images/team-mobile.webp"
                          data-bg-loaded="false">
                     </div>
-                    <div class="team-card-content">
+                </div>
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-text">
                         <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
                         <p data-i18n="card1Descr">Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше</p>
                     </div>
                 </div>
-                <div class="team-card">
-                    <div class="team-card-image" 
-                         data-bg-desktop="images/experience.webp"
-                         data-bg-mobile="images/experience-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
-                    <div class="team-card-content">
+                
+                <!-- Row 2: Text 2 | Image 2 -->
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-text">
                         <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
                         <p data-i18n="card2Descr">Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей</p>
                     </div>
                 </div>
-                <div class="team-card">
-                    <div class="team-card-image" 
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-image" 
+                         data-bg-desktop="images/experience.webp"
+                         data-bg-mobile="images/experience-mobile.webp"
+                         data-bg-loaded="false">
+                    </div>
+                </div>
+                
+                <!-- Row 3: Image 3 | Text 3 -->
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-image" 
                          data-bg-desktop="images/music.webp"
                          data-bg-mobile="images/music-mobile.webp"
                          data-bg-loaded="false">
                     </div>
-                    <div class="team-card-content">
+                </div>
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-text">
                         <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
                         <p data-i18n="card3Descr">Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке</p>
                     </div>
@@ -1162,41 +1206,31 @@
         }
     }
 
-    // ========================================
-    // ИНИЦИАЛИЗАЦИЯ ПОДСКАЗКИ НАД КАРТОЙ
-    // ========================================
     function initMapHint() {
         const mapHint = document.getElementById('mapHint');
         const mapContainer = document.getElementById('mapContainer');
         
         if (!mapHint || !mapContainer) return;
         
-        // Проверяем, является ли устройство сенсорным
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (!isTouchDevice) {
             mapHint.classList.remove('visible', 'fade-out');
             return;
         }
         
-        // Сбрасываем состояние
         mapHint.classList.remove('fade-out');
         mapHint.classList.add('visible');
         
-        // Функция скрытия подсказки
         const dismissHint = (e) => {
             if (!mapHint.classList.contains('visible')) return;
             
-            // КРИТИЧНО: Предотвращаем стандартное поведение браузера (скролл, зум страницы)
             e.preventDefault();
             e.stopPropagation();
             
-            // Добавляем класс fade-out для анимации
             mapHint.classList.add('fade-out');
             
-            // После завершения анимации убираем подсказку полностью
             setTimeout(() => {
                 mapHint.classList.remove('visible', 'fade-out');
-                // Удаляем обработчики
                 mapHint.removeEventListener('touchstart', dismissHint);
                 mapHint.removeEventListener('touchend', dismissHint);
                 mapHint.removeEventListener('click', dismissHint);
@@ -1204,12 +1238,9 @@
             }, 400);
         };
         
-        // ВАЖНО: Используем { passive: false } чтобы можно было вызвать preventDefault
         mapHint.addEventListener('touchstart', dismissHint, { passive: false });
         mapHint.addEventListener('touchend', dismissHint, { passive: false });
         mapHint.addEventListener('click', dismissHint);
-        
-        // Также добавляем на контейнер как fallback
         mapContainer.addEventListener('touchstart', dismissHint, { passive: false });
     }
 
@@ -1252,9 +1283,6 @@
         
         initMapHint();
         
-        // ========================================
-        // ИНИЦИАЛИЗАЦИЯ СВАЙПА ДЛЯ HERO
-        // ========================================
         const heroSection = document.getElementById('heroSection');
         const heroSlider = document.getElementById('heroSlider');
         
@@ -1265,31 +1293,25 @@
         let isSwiping = false;
         let swipeThreshold = 50;
         
-        // Обработчик начала касания
         heroSection.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
             isSwiping = false;
         }, { passive: true });
         
-        // Обработчик движения пальца
         heroSection.addEventListener('touchmove', function(e) {
             touchEndX = e.changedTouches[0].screenX;
             touchEndY = e.changedTouches[0].screenY;
             
-            // Определяем, является ли движение горизонтальным свайпом
             const diffX = Math.abs(touchEndX - touchStartX);
             const diffY = Math.abs(touchEndY - touchStartY);
             
-            // Если горизонтальное движение больше вертикального - это свайп
             if (diffX > diffY && diffX > 10) {
                 isSwiping = true;
-                // Предотвращаем вертикальный скролл при горизонтальном свайпе
                 e.preventDefault();
             }
         }, { passive: false });
         
-        // Обработчик окончания касания
         heroSection.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
             touchEndY = e.changedTouches[0].screenY;
@@ -1306,10 +1328,8 @@
             
             if (Math.abs(diffX) > swipeThreshold) {
                 if (diffX < 0) {
-                    // Свайп влево - следующий слайд
                     nextSlide();
                 } else {
-                    // Свайп вправо - предыдущий слайд
                     prevSlide();
                 }
                 resetAutoSlide();
