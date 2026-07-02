@@ -354,7 +354,6 @@
         
         /* Оверлей с подсказкой для мобильных */
         .pickup-map-hint {
-            display: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -362,13 +361,15 @@
             bottom: 0;
             background: rgba(7, 3, 149, 0.55);
             backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             z-index: 5;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            pointer-events: none;
+            opacity: 1;
             transition: opacity 0.4s ease;
         }
         .pickup-map-hint.visible {
@@ -916,7 +917,7 @@
                 <iframe 
                     class="pickup-map-iframe"
                     id="mapIframe"
-                    src="https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&l=map&pt=37.5314%2C55.7887%2Cpm2rdm"
+                    src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm"
                     allowfullscreen
                     loading="lazy">
                 </iframe>
@@ -1081,8 +1082,10 @@
         }
     };
 
+    // Координаты для Москвы: долгота 37.542858, широта 55.793510
+    // В Яндекс.Картах порядок: lon,lat
     const mapUrls = {
-        ru: 'https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&l=map&pt=37.5314%2C55.7887%2Cpm2rdm',
+        ru: 'https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm',
         en: 'https://maps.google.com/maps?q=Merano+Tower+Damac+Dubai&t=&z=16&ie=UTF8&iwloc=&output=embed'
     };
 
@@ -1090,6 +1093,7 @@
     let currentSlide = 0;
     const totalSlides = 3;
     let autoSlideInterval = null;
+    let hintDismissHandler = null; // Сохраняем ссылку на обработчик
 
     function trackGA4Event(eventName, params) {
         if (typeof gtag === 'function') gtag('event', eventName, params);
@@ -1168,25 +1172,40 @@
         
         // Показываем подсказку только на touch-устройствах
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        if (!isTouchDevice) return;
+        if (!isTouchDevice) {
+            mapHint.classList.remove('visible', 'fade-out');
+            return;
+        }
         
+        // Сбрасываем состояние подсказки
+        mapHint.classList.remove('fade-out');
         mapHint.classList.add('visible');
         
-        // Скрываем подсказку при первом взаимодействии с картой
-        const dismissHint = () => {
+        // Удаляем старый обработчик, если он был
+        if (hintDismissHandler) {
+            mapContainer.removeEventListener('touchstart', hintDismissHandler);
+            mapContainer.removeEventListener('click', hintDismissHandler);
+        }
+        
+        // Функция скрытия подсказки
+        hintDismissHandler = () => {
+            if (!mapHint.classList.contains('visible')) return;
             mapHint.classList.add('fade-out');
             setTimeout(() => {
                 mapHint.classList.remove('visible', 'fade-out');
             }, 400);
-            mapIframe.removeEventListener('touchstart', dismissHint);
-            mapIframe.removeEventListener('mousedown', dismissHint);
+            // Удаляем обработчики после срабатывания
+            mapContainer.removeEventListener('touchstart', hintDismissHandler);
+            mapContainer.removeEventListener('click', hintDismissHandler);
+            hintDismissHandler = null;
         };
         
-        // Небольшая задержка, чтобы подсказка успела отобразиться
+        // Добавляем обработчики на контейнер карты (не на iframe!)
+        // Это работает надёжнее, так как iframe может блокировать события
         setTimeout(() => {
-            mapIframe.addEventListener('touchstart', dismissHint, { once: true });
-            mapIframe.addEventListener('mousedown', dismissHint, { once: true });
-        }, 300);
+            mapContainer.addEventListener('touchstart', hintDismissHandler, { passive: true });
+            mapContainer.addEventListener('click', hintDismissHandler);
+        }, 100);
     }
 
     function applyLanguage(lang) {
