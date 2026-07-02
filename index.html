@@ -287,43 +287,42 @@
             border-right: none;
         }
         
-        /* Изображение в верхней части карточки */
+        /* Изображение в верхней части карточки — уменьшено на 30% */
         .team-mosaic-image {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 10 / 7; /* было 1/1, теперь высота = 70% ширины (уменьшено на 30%) */
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
             border-bottom: 2px solid #070395;
         }
         
-        /* Текстовый блок в нижней части карточки */
+        /* Текстовый блок в нижней части карточки — уже, отступы сокращены */
         .team-mosaic-text {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 30px;
+            padding: 25px 15px; /* было 40px 30px */
             text-align: center;
             background: white;
             flex: 1;
-            min-height: 280px;
         }
         
         .team-mosaic-text h3 {
             font-size: 22px;
             font-weight: 700;
             color: #070395;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .team-mosaic-text p {
-            font-size: 15px;
+            font-size: 14px;
             color: #555;
-            line-height: 1.7;
-            max-width: 350px;
+            line-height: 1.6;
+            max-width: 260px; /* было 350px */
         }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -640,9 +639,12 @@
             
             .team-section { padding: 50px 0; }
             .team-header h2 { font-size: 28px; }
-            .team-mosaic-text { padding: 30px 20px; min-height: 220px; }
-            .team-mosaic-text h3 { font-size: 20px; }
-            .team-mosaic-text p { font-size: 14px; }
+            
+            /* Мобильная: картинки уменьшены на 50%, блоки уже */
+            .team-mosaic-image { aspect-ratio: 2 / 1; } /* было 1/1, теперь высота = 50% ширины */
+            .team-mosaic-text { padding: 20px 12px; }
+            .team-mosaic-text h3 { font-size: 20px; margin-bottom: 10px; }
+            .team-mosaic-text p { font-size: 14px; max-width: 220px; }
             
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
@@ -665,9 +667,9 @@
         }
         
         @media (max-width: 480px) {
-            .team-mosaic-text { padding: 25px 16px; min-height: 200px; }
+            .team-mosaic-text { padding: 18px 10px; }
             .team-mosaic-text h3 { font-size: 18px; }
-            .team-mosaic-text p { font-size: 13px; }
+            .team-mosaic-text p { font-size: 13px; max-width: 200px; }
             
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
