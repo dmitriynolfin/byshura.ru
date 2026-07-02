@@ -162,6 +162,7 @@
             position: relative; height: 100vh; min-height: 700px; 
             overflow: hidden;
             margin-top: 46px;
+            touch-action: pan-y; /* Разрешаем вертикальный скролл, но перехватываем горизонтальный */
         }
         .hero-slider { 
             height: 100%; width: 100%; 
@@ -819,7 +820,7 @@
     </div>
 
     <!-- HERO со свайпом -->
-    <section class="hero">
+    <section class="hero" id="heroSection">
         <div class="hero-slider" id="heroSlider">
             <div class="hero-slide">
                 <div class="hero-image" 
@@ -1251,26 +1252,66 @@
         
         initMapHint();
         
-        const slider = document.getElementById('heroSlider');
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // ========================================
+        // ИНИЦИАЛИЗАЦИЯ СВАЙПА ДЛЯ HERO
+        // ========================================
+        const heroSection = document.getElementById('heroSection');
+        const heroSlider = document.getElementById('heroSlider');
         
-        slider.addEventListener('touchstart', e => {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        let isSwiping = false;
+        let swipeThreshold = 50;
+        
+        // Обработчик начала касания
+        heroSection.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+            isSwiping = false;
         }, { passive: true });
         
-        slider.addEventListener('touchend', e => {
+        // Обработчик движения пальца
+        heroSection.addEventListener('touchmove', function(e) {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            touchEndY = e.changedTouches[0].screenY;
+            
+            // Определяем, является ли движение горизонтальным свайпом
+            const diffX = Math.abs(touchEndX - touchStartX);
+            const diffY = Math.abs(touchEndY - touchStartY);
+            
+            // Если горизонтальное движение больше вертикального - это свайп
+            if (diffX > diffY && diffX > 10) {
+                isSwiping = true;
+                // Предотвращаем вертикальный скролл при горизонтальном свайпе
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Обработчик окончания касания
+        heroSection.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            
+            if (isSwiping) {
+                handleSwipe();
+            }
+            
+            isSwiping = false;
         }, { passive: true });
         
         function handleSwipe() {
-            const swipeThreshold = 50;
-            if (touchEndX < touchStartX - swipeThreshold) {
-                nextSlide();
-                resetAutoSlide();
-            } else if (touchEndX > touchStartX + swipeThreshold) {
-                prevSlide();
+            const diffX = touchEndX - touchStartX;
+            
+            if (Math.abs(diffX) > swipeThreshold) {
+                if (diffX < 0) {
+                    // Свайп влево - следующий слайд
+                    nextSlide();
+                } else {
+                    // Свайп вправо - предыдущий слайд
+                    prevSlide();
+                }
                 resetAutoSlide();
             }
         }
