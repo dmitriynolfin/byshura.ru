@@ -241,7 +241,7 @@
         }
         .dot.active { background: white; transform: scale(1.2); }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ (НОВЫЙ ДИЗАЙН) ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ (МОЗАИКА НА ВСЮ ШИРИНУ) ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
@@ -265,31 +265,41 @@
             margin: 0 auto;
         }
         
-        /* Grid контейнер для карточек */
+        /* Grid контейнер для карточек — на всю ширину экрана */
         .team-mosaic {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(3, auto);
             gap: 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            border: 2px solid #070395;
-            border-radius: 16px;
-            overflow: hidden;
+            width: 100%;
             background: white;
+            border-top: 2px solid #070395;
+            border-bottom: 2px solid #070395;
         }
         
         /* Элементы мозаики */
         .team-mosaic-item {
             position: relative;
             overflow: hidden;
+            border-right: 2px solid #070395;
+            border-bottom: 2px solid #070395;
+        }
+        
+        /* Убираем правую границу у правых элементов */
+        .team-mosaic-item:nth-child(even) {
+            border-right: none;
+        }
+        
+        /* Убираем нижнюю границу у последней строки */
+        .team-mosaic-item:nth-last-child(-n+2) {
+            border-bottom: none;
         }
         
         /* Изображения */
         .team-mosaic-image {
             width: 100%;
             height: 100%;
-            min-height: 300px;
+            min-height: 350px;
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
@@ -304,7 +314,7 @@
             padding: 40px 30px;
             text-align: center;
             background: white;
-            min-height: 300px;
+            min-height: 350px;
         }
         
         .team-mosaic-text h3 {
@@ -321,24 +331,6 @@
             color: #555;
             line-height: 1.7;
             max-width: 400px;
-        }
-        
-        /* Разделители между элементами */
-        .team-mosaic-item:nth-child(odd) {
-            border-right: 2px solid #070395;
-        }
-        
-        .team-mosaic-item:nth-child(-n+4) {
-            border-bottom: 2px solid #070395;
-        }
-        
-        /* Убираем лишние границы */
-        .team-mosaic-item:nth-child(2) {
-            border-right: none;
-        }
-        
-        .team-mosaic-item:nth-child(6) {
-            border-bottom: none;
         }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -634,9 +626,9 @@
             .container { padding: 0 20px; } 
             .nav-menu { display: none; }
             .team-mosaic { grid-template-columns: 1fr; }
-            .team-mosaic-item:nth-child(odd) { border-right: none; }
-            .team-mosaic-item { border-bottom: 2px solid #070395; }
-            .team-mosaic-item:last-child { border-bottom: none; }
+            .team-mosaic-item { border-right: none !important; border-bottom: 2px solid #070395; }
+            .team-mosaic-item:nth-last-child(-n+2) { border-bottom: 2px solid #070395; }
+            .team-mosaic-item:last-child { border-bottom: none !important; }
             .pickup-info-grid { grid-template-columns: repeat(2, 1fr); }
             .dinners-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         }
@@ -891,57 +883,57 @@
         </div>
     </section>
 
-    <!-- КАРТОЧКИ КОМАНДЫ (НОВЫЙ ДИЗАЙН) -->
+    <!-- КАРТОЧКИ КОМАНДЫ (МОЗАИКА НА ВСЮ ШИРИНУ) -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
                 <h2 data-i18n="teamTitle">О НАС</h2>
                 <p data-i18n="teamSubtitle">Мы создаём уникальные гастрономические впечатления с заботой и любовью</p>
             </div>
-            <div class="team-mosaic">
-                <!-- Row 1: Image 1 | Text 1 -->
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-image" 
-                         data-bg-desktop="images/team.webp"
-                         data-bg-mobile="images/team-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
+        </div>
+        <div class="team-mosaic">
+            <!-- Row 1: Image 1 | Text 1 -->
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-image" 
+                     data-bg-desktop="images/team.webp"
+                     data-bg-mobile="images/team-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
-                        <p data-i18n="card1Descr">Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше</p>
-                    </div>
+            </div>
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-text">
+                    <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
+                    <p data-i18n="card1Descr">Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше</p>
                 </div>
-                
-                <!-- Row 2: Text 2 | Image 2 -->
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
-                        <p data-i18n="card2Descr">Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей</p>
-                    </div>
+            </div>
+            
+            <!-- Row 2: Text 2 | Image 2 -->
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-text">
+                    <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
+                    <p data-i18n="card2Descr">Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей</p>
                 </div>
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-image" 
-                         data-bg-desktop="images/experience.webp"
-                         data-bg-mobile="images/experience-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
+            </div>
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-image" 
+                     data-bg-desktop="images/experience.webp"
+                     data-bg-mobile="images/experience-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
-                
-                <!-- Row 3: Image 3 | Text 3 -->
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-image" 
-                         data-bg-desktop="images/music.webp"
-                         data-bg-mobile="images/music-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
+            </div>
+            
+            <!-- Row 3: Image 3 | Text 3 -->
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-image" 
+                     data-bg-desktop="images/music.webp"
+                     data-bg-mobile="images/music-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
-                        <p data-i18n="card3Descr">Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке</p>
-                    </div>
+            </div>
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-text">
+                    <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
+                    <p data-i18n="card3Descr">Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке</p>
                 </div>
             </div>
         </div>
