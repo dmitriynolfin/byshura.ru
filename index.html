@@ -95,6 +95,7 @@
             font-size: 9px; font-weight: 700; 
             width: 16px; height: 16px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center;
+            line-height: 1;
         }
         .btn-shop { 
             border: 1.5px solid #070395; padding: 10px 25px; 
@@ -587,7 +588,7 @@
             transform: translateY(-4px);
         }
         
-        /* ===== FOOTER ===== */
+        /* ===== FOOTER (идентично boxes.html) ===== */
         .footer { 
             background: white; padding: 20px 0; 
             border-top: 1px solid rgba(7,3,149,0.2);
@@ -604,18 +605,23 @@
         .social-link { 
             width: 25px; height: 25px; 
             display: flex; align-items: center; justify-content: center;
+            color: #070395; transition: color 0.3s;
+            min-width: 25px; min-height: 25px;
         }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
+        
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
-        .legal-links-ru a { font-size: 12px; color: #666; }
+        .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
         .legal-divider { color: #ccc; }
-        html[lang="en"] .legal-links-ru { display: none; }
+        html[lang="en"] .legal-links-ru { display: none !important; }
+        
         .legal-links-en { display: none; gap: 15px; align-items: center; }
-        .legal-links-en a { font-size: 12px; color: #666; }
+        .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-en a:hover { color: #070395; }
-        html[lang="en"] .legal-links-en { display: flex; }
+        html[lang="en"] .legal-links-en { display: flex !important; }
+        html[lang="ru"] .legal-links-en { display: none !important; }
         
         /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 1024px) { 
@@ -689,6 +695,22 @@
             .custom-dinner-title { font-size: 22px; }
             .custom-dinner-descr { font-size: 14px; }
             .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
+            
+            /* FOOTER для мобильных (идентично boxes.html) */
+            .footer { padding: 18px 0; }
+            .social-links { gap: 12px; }
+            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
+            .social-link img { width: 28px; height: 28px; }
+            .footer-copyright { font-size: 12px; }
+            .header-right { gap: 8px; }
+            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            html[lang="en"] .legal-links-en { display: flex !important; }
+            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
         }
     </style>
 </head>
