@@ -60,44 +60,6 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* ===== БЕГУЩАЯ СТРОКА - ИДЕНТИЧНА index.html ===== */
-        .marquee-bar { 
-            position: fixed;
-            top: 75px;
-            left: 0;
-            width: 100%;
-            z-index: 999;
-            background: #FFD93D;
-            padding: 12px 0;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(7,3,149,0.1);
-        }
-        .marquee-track {
-            display: flex;
-            animation: marquee-scroll 30s linear infinite;
-            width: max-content;
-        }
-        .marquee-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 40px;
-            color: #070395;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .marquee-item svg {
-            width: 22px;
-            height: 22px;
-            flex-shrink: 0;
-        }
-        @keyframes marquee-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
@@ -127,7 +89,7 @@
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        .catalog { padding: 150px 0 60px; min-height: 100vh; }
+        .catalog { padding: 115px 0 60px; min-height: 100vh; }
         
         /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УЖЕ И КОМПАКТНЕЕ */
         .category-nav {
@@ -137,7 +99,7 @@
             padding: 18px 0 25px;
             flex-wrap: wrap;
             position: sticky;
-            top: 108px;
+            top: 75px;
             background: #f8f9fa;
             z-index: 500;
             margin-bottom: 10px;
@@ -172,9 +134,9 @@
             box-shadow: 0 4px 12px rgba(7,3,149,0.25);
         }
         
-        .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; scroll-margin-top: 180px; }
+        .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; scroll-margin-top: 150px; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
-        .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; scroll-margin-top: 180px; }
+        .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; scroll-margin-top: 150px; }
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
         .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
@@ -300,10 +262,7 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .marquee-bar { top: 66px; padding: 10px 0; }
-            .marquee-item { font-size: 12px; padding: 0 25px; }
-            .marquee-item svg { width: 18px; height: 18px; }
-            .catalog { padding-top: 130px; }
+            .catalog { padding-top: 100px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .header-icons { gap: 10px; }
@@ -338,7 +297,7 @@
             
             /* ✅ НАВИГАЦИЯ НА ПЛАНШЕТАХ — КОМПАКТНАЯ */
             .category-nav { 
-                top: 105px; 
+                top: 66px; 
                 gap: 8px; 
                 padding: 12px 0 20px; 
                 margin-bottom: 0;
@@ -354,7 +313,7 @@
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            .catalog { padding-top: 130px; }
+            .catalog { padding-top: 100px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
@@ -408,7 +367,7 @@
             
             /* ✅ НАВИГАЦИЯ НА ТЕЛЕФОНАХ — ОЧЕНЬ КОМПАКТНАЯ */
             .category-nav { 
-                top: 98px; 
+                top: 62px; 
                 gap: 6px; 
                 padding: 10px 0 16px;
                 margin-bottom: 0;
@@ -513,120 +472,6 @@
             </div>
         </div>
     </header>
-
-    <!-- БЕГУЩАЯ СТРОКА - ✅ ИДЕНТИЧНА index.html -->
-    <div class="marquee-bar">
-        <div class="marquee-track">
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                    <rect x="2" y="7" width="20" height="5"></rect>
-                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                </svg>
-                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                    <rect x="2" y="7" width="20" height="5"></rect>
-                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                </svg>
-                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                    <rect x="2" y="7" width="20" height="5"></rect>
-                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                </svg>
-                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                    <rect x="2" y="7" width="20" height="5"></rect>
-                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                </svg>
-                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                    <rect x="2" y="7" width="20" height="5"></rect>
-                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                </svg>
-                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                    <rect x="2" y="7" width="20" height="5"></rect>
-                    <line x1="12" y1="22" x2="12" y2="7"></line>
-                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
-                </svg>
-                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
-            </div>
-        </div>
-    </div>
 
     <section class="catalog">
         <div class="container">
@@ -827,7 +672,6 @@
         ru: {
             pageTitle: "Боксы - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            marquee1: "СВЕЖИЕ ПРОДУКТЫ", marquee2: "ПОДАРОЧНАЯ УПАКОВКА",
             catBoxes: "БОКСЫ", catSweets: "СЛАДКОЕ", catSavory: "СОЛЕНОЕ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ", sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
@@ -855,7 +699,6 @@
         en: {
             pageTitle: "Boxes - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee1: "FRESH PRODUCTS", marquee2: "GIFT PACKAGING",
             catBoxes: "BOXES", catSweets: "SWEETS", catSavory: "SAVORY",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
             sectionSweets: "CHOOSE YOUR SWEET", sectionSavory: "CHOOSE YOUR SAVORY",
@@ -1256,9 +1099,8 @@
         if (!target) return;
         
         const headerHeight = 75;
-        const marqueeHeight = 44;
         const navHeight = 60;
-        const offset = headerHeight + marqueeHeight + navHeight + 10;
+        const offset = headerHeight + navHeight + 10;
         
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
         
