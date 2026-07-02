@@ -60,10 +60,6 @@
             .suggestion-details { font-size: 11px; }
         }
         
-        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
@@ -88,7 +84,7 @@
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        .checkout-page { padding: 145px 0 60px; min-height: 100vh; background: #f8f9fa; }
+        .checkout-page { padding: 110px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .checkout-container { max-width: 900px; margin: 0 auto; }
         .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
         .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
@@ -191,8 +187,7 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
-            .checkout-page { padding-top: 112px; }
+            .checkout-page { padding-top: 90px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .header-icons { gap: 10px; }
@@ -216,8 +211,7 @@
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
-            .checkout-page { padding-top: 112px; }
+            .checkout-page { padding-top: 90px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
@@ -318,10 +312,6 @@
             </div>
         </div>
     </header>
-
-    <div class="marquee-bar">
-        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • 🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • Подарочная упаковка • </div>
-    </div>
 
     <section class="checkout-page">
         <div class="container checkout-container">
@@ -473,7 +463,6 @@
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт •  Подарочная упаковка • ",
             checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА", checkoutSubtitle: "Заполните данные для доставки вашего бокса",
             orderSummaryTitle: "Ваш заказ", orderTotal: "Итого:",
             sectionContactsText: "Контактные данные",
@@ -508,7 +497,6 @@
         en: {
             pageTitle: "Checkout - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
             checkoutTitle: "CHECKOUT", checkoutSubtitle: "Fill in your details for box delivery",
             orderSummaryTitle: "Your Order", orderTotal: "Total:",
             sectionContactsText: "Contact Details",
