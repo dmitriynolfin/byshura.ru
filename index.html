@@ -371,9 +371,8 @@
             color: white;
             opacity: 1;
             transition: opacity 0.4s ease;
-            /* ВАЖНО: pointer-events: auto, чтобы оверлей получал касания */
             pointer-events: auto;
-            touch-action: auto;
+            touch-action: none; /* КРИТИЧНО: предотвращает стандартное поведение браузера */
         }
         .pickup-map-hint.visible {
             display: flex;
@@ -1183,8 +1182,12 @@
         mapHint.classList.add('visible');
         
         // Функция скрытия подсказки
-        const dismissHint = () => {
+        const dismissHint = (e) => {
             if (!mapHint.classList.contains('visible')) return;
+            
+            // КРИТИЧНО: Предотвращаем стандартное поведение браузера (скролл, зум страницы)
+            e.preventDefault();
+            e.stopPropagation();
             
             // Добавляем класс fade-out для анимации
             mapHint.classList.add('fade-out');
@@ -1200,14 +1203,13 @@
             }, 400);
         };
         
-        // ВАЖНО: Добавляем обработчики на САМ ОВЕРЛЕЙ
-        // Так как pointer-events: auto, оверлей будет получать касания
-        mapHint.addEventListener('touchstart', dismissHint, { passive: true });
-        mapHint.addEventListener('touchend', dismissHint, { passive: true });
+        // ВАЖНО: Используем { passive: false } чтобы можно было вызвать preventDefault
+        mapHint.addEventListener('touchstart', dismissHint, { passive: false });
+        mapHint.addEventListener('touchend', dismissHint, { passive: false });
         mapHint.addEventListener('click', dismissHint);
         
         // Также добавляем на контейнер как fallback
-        mapContainer.addEventListener('touchstart', dismissHint, { passive: true });
+        mapContainer.addEventListener('touchstart', dismissHint, { passive: false });
     }
 
     function applyLanguage(lang) {
