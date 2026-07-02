@@ -62,6 +62,7 @@
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 24px; flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(255,217,61,0.3);
         }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
         .nav-link { 
@@ -79,13 +80,15 @@
         }
         .nav-link-cta::after { display: none; }
         .nav-link-cta:hover { background: #FFD93D; color: #070395; }
-        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+        .header-icons { display: flex; gap: 12px; }
         .icon-btn { 
             padding: 8px; color: #070395; position: relative; 
             display: flex; align-items: center; justify-content: center; 
             min-width: 44px; min-height: 44px;
+            transition: transform 0.3s; cursor: pointer;
         }
-        .icon-btn:hover { color: #FFD93D; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
         .cart-count { 
             position: absolute; top: -2px; right: -2px; 
             background: #FFD93D; color: #070395; 
@@ -105,6 +108,7 @@
             font-weight: 600; font-size: 13px; cursor: pointer; 
             position: relative; min-height: 44px; padding: 5px 10px; 
             border-radius: 20px; background: rgba(7,3,149,0.05);
+            white-space: nowrap;
         }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
         .lang-dropdown { 
@@ -290,7 +294,7 @@
         /* Изображение в верхней части карточки — уменьшено на 30% */
         .team-mosaic-image {
             width: 100%;
-            aspect-ratio: 10 / 7; /* было 1/1, теперь высота = 70% ширины (уменьшено на 30%) */
+            aspect-ratio: 10 / 7;
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
@@ -303,7 +307,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 25px 15px; /* было 40px 30px */
+            padding: 25px 15px;
             text-align: center;
             background: white;
             flex: 1;
@@ -322,7 +326,7 @@
             font-size: 14px;
             color: #555;
             line-height: 1.6;
-            max-width: 260px; /* было 350px */
+            max-width: 260px;
         }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -641,7 +645,7 @@
             .team-header h2 { font-size: 28px; }
             
             /* Мобильная: картинки уменьшены на 50%, блоки уже */
-            .team-mosaic-image { aspect-ratio: 2 / 1; } /* было 1/1, теперь высота = 50% ширины */
+            .team-mosaic-image { aspect-ratio: 2 / 1; }
             .team-mosaic-text { padding: 20px 12px; }
             .team-mosaic-text h3 { font-size: 20px; margin-bottom: 10px; }
             .team-mosaic-text p { font-size: 14px; max-width: 220px; }
@@ -701,14 +705,16 @@
                 </nav>
             </div>
             <div class="header-right">
-                <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
                 <a href="boxes.html" class="btn-shop" id="shopBtn" data-i18n="btnOrder">ЗАКАЗАТЬ</a>
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
