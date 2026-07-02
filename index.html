@@ -119,13 +119,13 @@
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
         
-        /* ===== БЕГУЩАЯ СТРОКА — прикреплена к нижней части шапки ===== */
+        /* ===== БЕГУЩАЯ СТРОКА ===== */
         .marquee-bar { 
             position: fixed;
-            top: 75px; /* сразу под шапкой */
+            top: 75px;
             left: 0;
             width: 100%;
-            z-index: 999; /* под шапкой (1000), над контентом */
+            z-index: 999;
             background: #FFD93D;
             padding: 12px 0;
             overflow: hidden;
@@ -161,7 +161,7 @@
         .hero { 
             position: relative; height: 100vh; min-height: 700px; 
             overflow: hidden;
-            margin-top: 46px; /* сдвигаем вниз, чтобы бегущая строка не перекрывала */
+            margin-top: 46px;
         }
         .hero-slider { 
             height: 100%; width: 100%; 
@@ -182,7 +182,6 @@
             transform: translateX(-50%); z-index: 10; text-align: center;
         }
         
-        /* Стрелки (только на десктопе) */
         .hero-nav-zone {
             position: absolute;
             top: 50%;
@@ -241,7 +240,7 @@
         }
         .dot.active { background: white; transform: scale(1.2); }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ (в стиле pauline-cake) ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
@@ -264,7 +263,6 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        /* Сетка в стиле pauline-cake: 3 карточки в ряд */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -313,14 +311,14 @@
             line-height: 1.6;
         }
         
-        /* ===== БЛОК САМОВЫВОЗА ===== */
+        /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
             padding: 80px 0;
             background: white;
         }
         .pickup-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         .pickup-header h2 {
             font-size: 36px;
@@ -336,9 +334,53 @@
             max-width: 500px;
             margin: 0 auto;
         }
-        .pickup-map-btn {
+        
+        /* Контейнер карты */
+        .pickup-map-container {
+            max-width: 1100px;
+            margin: 0 auto 50px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(7,3,149,0.15);
+            position: relative;
+            background: #f0f0f0;
+        }
+        .pickup-map-container.hidden {
+            display: none;
+        }
+        .pickup-map-iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
             display: block;
-            margin: 30px auto 50px;
+        }
+        .pickup-map-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #070395;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #070395;
+            transition: all 0.3s;
+        }
+        .pickup-map-close:hover {
+            background: #070395;
+            color: white;
+        }
+        
+        /* Кнопка показать карту */
+        .pickup-map-show {
+            display: none;
+            margin: 0 auto 50px;
             background: transparent;
             color: #070395;
             border: 2px solid #070395;
@@ -349,12 +391,15 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s;
-            text-align: center;
         }
-        .pickup-map-btn:hover {
+        .pickup-map-show.visible {
+            display: block;
+        }
+        .pickup-map-show:hover {
             background: #070395;
             color: white;
         }
+        
         .pickup-info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -398,57 +443,6 @@
         }
         .pickup-info-text a:hover {
             color: #FFD93D;
-        }
-        
-        /* ===== МОДАЛЬНОЕ ОКНО С КАРТОЙ (как в pauline-cake) ===== */
-        .map-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 3000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .map-modal.active {
-            display: flex;
-        }
-        .map-modal-content {
-            width: 100%;
-            max-width: 1100px;
-            height: 85vh;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        .map-modal-close {
-            position: absolute;
-            top: 15px; right: 15px;
-            z-index: 10;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid #070395;
-            font-size: 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #070395;
-            transition: all 0.3s;
-        }
-        .map-modal-close:hover {
-            background: #070395;
-            color: white;
-        }
-        .map-modal iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
         }
         
         /* ===== СЕКЦИЯ: НАШИ УЖИНЫ ===== */
@@ -629,21 +623,18 @@
             .slider-dots { bottom: 25px; }
             .dot { width: 14px; height: 14px; border-width: 2.5px; }
             
-            /* Скрыть стрелки на мобильных */
             .hero-nav-zone { display: none; }
             
-            /* Карточки команды */
             .team-section { padding: 50px 0; }
             .team-header h2 { font-size: 28px; }
             .team-card-content { padding: 25px 20px; }
             .team-card-content h3 { font-size: 18px; }
             
-            /* Блок самовывоза */
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
+            .pickup-map-iframe { height: 400px; }
             .pickup-info-grid { grid-template-columns: 1fr; gap: 30px; }
             
-            /* Наши ужины */
             .dinners { padding: 50px 0; }
             .dinners-title { font-size: 28px; margin-bottom: 30px; }
             .dinners-grid { grid-template-columns: 1fr; gap: 25px; }
@@ -657,10 +648,6 @@
             .custom-dinner-descr { font-size: 15px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
-            
-            /* Модальное окно карты */
-            .map-modal-content { height: 75vh; border-radius: 12px; }
-            .map-modal-close { width: 40px; height: 40px; top: 10px; right: 10px; }
         }
         
         @media (max-width: 480px) {
@@ -670,6 +657,7 @@
             
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
+            .pickup-map-iframe { height: 350px; }
             .pickup-info-title { font-size: 16px; }
             .pickup-info-text { font-size: 13px; }
             
@@ -718,7 +706,7 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА — прикреплена к нижней части шапки -->
+    <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
         <div class="marquee-track">
             <div class="marquee-item">
@@ -775,7 +763,6 @@
                 </svg>
                 <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
             </div>
-            <!-- Дубликаты для бесшовной прокрутки -->
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="9" cy="21" r="1"></circle>
@@ -859,7 +846,6 @@
             </div>
         </div>
         
-        <!-- Стрелки (только на десктопе) -->
         <div class="hero-nav-zone prev" id="heroNavPrev">❮</div>
         <div class="hero-nav-zone next" id="heroNavNext">❯</div>
         
@@ -873,7 +859,7 @@
         </div>
     </section>
 
-    <!-- КАРТОЧКИ КОМАНДЫ (в стиле pauline-cake) -->
+    <!-- КАРТОЧКИ КОМАНДЫ -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
@@ -918,14 +904,29 @@
         </div>
     </section>
 
-    <!-- БЛОК САМОВЫВОЗА -->
+    <!-- БЛОК САМОВЫВОЗА С КАРТОЙ -->
     <section class="pickup-section" id="contacts">
         <div class="container">
             <div class="pickup-header">
                 <h2 data-i18n="pickupTitle">САМОВЫВОЗ</h2>
                 <p data-i18n="pickupDescr">Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично</p>
             </div>
-            <a href="#" class="pickup-map-btn" id="pickupMapBtn" data-i18n="pickupMapBtn">ОТКРЫТЬ КАРТУ</a>
+            
+            <!-- Карта с возможностью приближения и просмотра окрестностей -->
+            <div class="pickup-map-container" id="mapContainer">
+                <button class="pickup-map-close" id="mapClose" aria-label="Закрыть карту">&times;</button>
+                <iframe 
+                    class="pickup-map-iframe"
+                    id="mapIframe"
+                    src="https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&l=map&pt=37.5314%2C55.7887%2Cpm2rdm"
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+            </div>
+            
+            <!-- Кнопка показать карту (появляется после закрытия) -->
+            <button class="pickup-map-show" id="mapShow" data-i18n="pickupMapShow">ПОКАЗАТЬ КАРТУ</button>
+            
             <div class="pickup-info-grid">
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
@@ -966,14 +967,6 @@
             </div>
         </div>
     </section>
-
-    <!-- МОДАЛЬНОЕ ОКНО С КАРТОЙ (как в pauline-cake) -->
-    <div class="map-modal" id="mapModal">
-        <div class="map-modal-content">
-            <button class="map-modal-close" id="mapModalClose">&times;</button>
-            <iframe id="mapIframe" src="" allowfullscreen loading="lazy"></iframe>
-        </div>
-    </div>
 
     <!-- НАШИ УЖИНЫ -->
     <section class="dinners">
@@ -1051,7 +1044,7 @@
             card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей",
             card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
             pickupTitle: "САМОВЫВОЗ", pickupDescr: "Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично",
-            pickupMapBtn: "ОТКРЫТЬ КАРТУ",
+            pickupMapShow: "ПОКАЗАТЬ КАРТУ",
             pickupSchedule: "ЧАСЫ РАБОТЫ", pickupDays: "Пт-Сб-Вс", pickupTime: "17:00 – 23:00",
             pickupAddressTitle: "АДРЕС", pickupAddressText: "ЖК Prime Park<br>Ленинградский проспект 37/7",
             pickupContactTitle: "СВЯЗЬ",
@@ -1076,7 +1069,7 @@
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
             card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
             pickupTitle: "PICKUP", pickupDescr: "Our home restaurant currently delivers only, but we're always happy to hand over your order in person",
-            pickupMapBtn: "OPEN MAP",
+            pickupMapShow: "SHOW MAP",
             pickupSchedule: "WORKING HOURS", pickupDays: "Fri-Sat-Sun", pickupTime: "17:00 – 23:00",
             pickupAddressTitle: "ADDRESS", pickupAddressText: "Merano Tower Damac<br>Dubai",
             pickupContactTitle: "CONTACT",
@@ -1094,7 +1087,7 @@
     };
 
     const mapUrls = {
-        ru: 'https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&pt=37.5314%2C55.7887&l=map',
+        ru: 'https://yandex.ru/map-widget/v1/?ll=37.5314%2C55.7887&z=16&l=map&pt=37.5314%2C55.7887%2Cpm2rdm',
         en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d55.2!3d25.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzAwLjAiTiA1NcKwMTInMDAuMCJF!5e0!3m2!1sen!2sae!4v1'
     };
 
@@ -1188,21 +1181,19 @@
         localStorage.setItem('hedonism_lang', lang);
     }
 
-    // Модальное окно с картой
-    function openMapModal() {
-        const modal = document.getElementById('mapModal');
-        const iframe = document.getElementById('mapIframe');
-        iframe.src = mapUrls[currentLang];
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    // Управление картой
+    function hideMap() {
+        const mapContainer = document.getElementById('mapContainer');
+        const mapShow = document.getElementById('mapShow');
+        mapContainer.classList.add('hidden');
+        mapShow.classList.add('visible');
     }
 
-    function closeMapModal() {
-        const modal = document.getElementById('mapModal');
-        const iframe = document.getElementById('mapIframe');
-        modal.classList.remove('active');
-        iframe.src = '';
-        document.body.style.overflow = '';
+    function showMap() {
+        const mapContainer = document.getElementById('mapContainer');
+        const mapShow = document.getElementById('mapShow');
+        mapContainer.classList.remove('hidden');
+        mapShow.classList.remove('visible');
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1295,23 +1286,9 @@
             window.location.href = 'checkout.html';
         });
         
-        // Кнопка карты — открывает модальное окно с iframe
-        document.getElementById('pickupMapBtn')?.addEventListener('click', e => {
-            e.preventDefault();
-            openMapModal();
-        });
-        
-        // Закрытие модального окна карты
-        document.getElementById('mapModalClose')?.addEventListener('click', closeMapModal);
-        document.getElementById('mapModal')?.addEventListener('click', e => {
-            if (e.target.id === 'mapModal') closeMapModal();
-        });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                const mapModal = document.getElementById('mapModal');
-                if (mapModal && mapModal.classList.contains('active')) closeMapModal();
-            }
-        });
+        // Управление картой
+        document.getElementById('mapClose')?.addEventListener('click', hideMap);
+        document.getElementById('mapShow')?.addEventListener('click', showMap);
         
         // Кнопки "ПОДРОБНЕЕ"
         document.querySelectorAll('.dinner-card-btn').forEach(btn => {
