@@ -53,10 +53,43 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* БЕГУЩАЯ СТРОКА - ✅ КАК НА index.html */
-        .marquee-bar { position: fixed; top: 70px; left: 0; width: 100%; background: #e0e0e0; color: #070395; padding: 8px 0; z-index: 999; overflow: hidden; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        /* ===== БЕГУЩАЯ СТРОКА - ИДЕНТИЧНА index.html ===== */
+        .marquee-bar { 
+            position: fixed;
+            top: 75px;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            background: #FFD93D;
+            padding: 12px 0;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(7,3,149,0.1);
+        }
+        .marquee-track {
+            display: flex;
+            animation: marquee-scroll 30s linear infinite;
+            width: max-content;
+        }
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 40px;
+            color: #070395;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .marquee-item svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
         
         /* ШАПКА - ✅ КАК НА index.html */
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
@@ -88,7 +121,7 @@
         .lang-descr { color: #666; font-size: 12px; }
         
         /* ИСТОРИЯ */
-        .history-page { padding: 140px 0 60px; min-height: 100vh; }
+        .history-page { padding: 150px 0 60px; min-height: 100vh; }
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 700px; margin: 0 auto 60px; }
         .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; }
@@ -110,7 +143,6 @@
         /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        /* ✅ УБРАЛИ footer-logo (кнопку с лимоном) */
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
@@ -146,7 +178,9 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .marquee-bar { top: 72px; font-size: 11px; padding: 6px 0; }
+            .marquee-bar { top: 66px; padding: 10px 0; }
+            .marquee-item { font-size: 12px; padding: 0 25px; }
+            .marquee-item svg { width: 18px; height: 18px; }
             .history-page { padding-top: 130px; }
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
@@ -169,13 +203,11 @@
             .philosophy-card p { font-size: 13px; }
             .header-right { gap: 10px; }
             
-            /* ✅ FOOTER КАК НА index.html */
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            .marquee-bar { top: 72px; font-size: 10px; padding: 5px 0; letter-spacing: 0.5px; }
             .history-page { padding-top: 125px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             
@@ -287,9 +319,118 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА - ✅ КАК НА index.html -->
+    <!-- БЕГУЩАЯ СТРОКА - ✅ ИДЕНТИЧНА index.html -->
     <div class="marquee-bar">
-        <div class="marquee-content" data-i18n="marquee">🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • </div>
+        <div class="marquee-track">
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                </svg>
+                <span data-i18n="marquee2">ПОДАРОЧНАЯ УПАКОВКА</span>
+            </div>
+        </div>
     </div>
 
     <!-- ИСТОРИЯ -->
@@ -348,7 +489,6 @@
     <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
     <footer class="footer">
         <div class="container footer-container">
-            <!-- ✅ УБРАЛИ footer-logo (кнопку с лимоном) -->
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
@@ -382,7 +522,7 @@
         ru: {
             pageTitle: "История боксов - Вестник Гедонизма",
             navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            marquee: "🚚 Доставка в день заказа • 🍋 Свежие продукты • ✨ Уникальный опыт • 🎁 Подарочная упаковка • ",
+            marquee1: "СВЕЖИЕ ПРОДУКТЫ", marquee2: "ПОДАРОЧНАЯ УПАКОВКА",
             historyTitle: "ИСТОРИЯ БОКСОВ", historySubtitle: "Каждый бокс «Вестника Гедонизма» — это не просто еда, а путешествие во времени, философия наслаждения и любовь к деталям",
             tl1Title: "Рождение идеи", tl1Descr: "Всё началось с простого вопроса: «А что, если еда может рассказывать истории?». Так появился первый бокс «Лимонный» — вдохновлённый античной философией гедонизма и любовью к цитрусовым нотам.",
             tl2Title: "Первые клиенты", tl2Descr: "Мы доставили первые 10 боксов друзьям и знакомым. Их отзывы стали для нас самым ценным подарком и мотивацией развиваться дальше.",
@@ -397,7 +537,7 @@
         en: {
             pageTitle: "Box History - Hedonism Dispatch",
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            marquee: "🚚 Same-day delivery • 🍋 Fresh ingredients • ✨ Unique experience • 🎁 Gift packaging • ",
+            marquee1: "FRESH PRODUCTS", marquee2: "GIFT PACKAGING",
             historyTitle: "BOX HISTORY", historySubtitle: "Each Hedonism Dispatch box is more than food — it's a journey through time, a philosophy of pleasure, and love for details",
             tl1Title: "The Idea is Born", tl1Descr: "It all started with a simple question: 'What if food could tell stories?'. Thus, the first 'Lemon Box' was born — inspired by ancient hedonistic philosophy and a love for citrus notes.",
             tl2Title: "First Customers", tl2Descr: "We delivered the first 10 boxes to friends and acquaintances. Their feedback became our most valuable gift and motivation to grow.",
