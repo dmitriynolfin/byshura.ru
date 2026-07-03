@@ -36,31 +36,108 @@
         }
         a { color: #070395; text-decoration: none; transition: color 0.3s; }
         a:hover { color: #FFD93D; }
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 40px; }
         
-        /* HEADER */
+        /* HEADER - ✅ КАК НА history.html И index.html */
         .header { 
-            background: rgba(255,255,255,0.98); padding: 15px 0; 
-            border-bottom: 1px solid rgba(7,3,149,0.2); 
-            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            padding: 15px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(7,3,149,0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
-        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .header-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 30px;
+        }
         .logo { 
-            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; font-size: 24px;
+            width: 45px; 
+            height: 45px; 
+            background: #FFD93D; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 24px;
+            box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+            flex-shrink: 0;
+        }
+        .header-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+            justify-content: flex-end; 
+        }
+        .header-icons { 
+            display: flex; 
+            gap: 12px; 
+        }
+        .icon-btn { 
+            padding: 8px; 
+            color: #070395; 
+            transition: transform 0.3s; 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            min-width: 44px; 
+            min-height: 44px;
+        }
+        .icon-btn:hover { 
+            color: #FFD93D; 
+            transform: scale(1.1); 
+        }
+        .cart-count { 
+            position: absolute; 
+            top: -2px; 
+            right: -2px; 
+            background: #FFD93D; 
+            color: #070395; 
+            font-size: 9px; 
+            font-weight: 700; 
+            width: 16px; 
+            height: 16px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            line-height: 1;
         }
         .btn-back { 
-            border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; 
-            font-weight: 600; font-size: 13px; transition: all 0.3s;
+            border: 1.5px solid #070395; 
+            padding: 10px 25px; 
+            border-radius: 25px; 
+            font-weight: 600; 
+            font-size: 13px; 
+            transition: all 0.3s;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
         }
-        .btn-back:hover { background: #070395; color: white; }
+        .btn-back:hover { 
+            background: #070395; 
+            color: white; 
+        }
         
         /* CONTENT */
         .policy-card {
             background: white;
             border-radius: 24px;
             padding: 40px;
-            margin: 40px auto;
+            margin: 110px auto 40px;
             box-shadow: 0 20px 60px rgba(7,3,149,0.15);
         }
         .policy-title {
@@ -110,15 +187,39 @@
         }
         
         /* MOBILE */
-        @media (max-width: 768px) {
-            .policy-card { padding: 30px 25px; margin: 30px 15px; }
-            .policy-title { font-size: 24px; }
-            .header { padding: 12px 0; }
+        @media (max-width: 1024px) { 
+            .container { padding: 0 20px; } 
         }
-        @media (max-width: 480px) {
-            .policy-card { padding: 25px 20px; }
+        
+        @media (max-width: 768px) { 
+            .header { padding: 12px 0; }
+            .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .policy-card { padding: 30px 25px; margin: 100px 15px 30px; }
+            .policy-title { font-size: 24px; }
+            .header-right { gap: 10px; }
+        }
+        
+        @media (max-width: 480px) { 
+            .header { padding: 10px 0; }
+            .logo { width: 40px; height: 40px; font-size: 20px; }
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .policy-card { padding: 25px 20px; margin: 95px 10px 25px; }
             .policy-title { font-size: 20px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; }
+            .header-right { gap: 8px; }
+        }
+        
+        @media (max-width: 360px) {
+            .logo { width: 38px; height: 38px; font-size: 18px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
         }
     </style>
     
@@ -142,11 +243,25 @@
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER - ✅ КАК НА history.html И index.html -->
     <header class="header">
         <div class="container header-container">
-            <a href="index.html" class="logo" aria-label="Главная">🍋</a>
-            <a href="index.html" class="btn-back" id="btnBack">← НАЗАД</a>
+            <div class="header-left">
+                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+            </div>
+            <div class="header-right">
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn" title="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                <a href="index.html" class="btn-back" id="btnBack">← НАЗАД</a>
+            </div>
         </div>
     </header>
 
@@ -290,6 +405,17 @@
 
     <!-- JAVASCRIPT -->
     <script>
+    // ===== CART FUNCTIONALITY =====
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+    
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            cartCount.textContent = totalQty > 0 ? totalQty : '0';
+        }
+    }
+    
     // ===== GA4 HELPER =====
     function trackGA4Event(eventName, params) {
         if (typeof gtag === 'function') {
@@ -307,6 +433,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize cart count
+        updateCartCount();
+        
         // 📊 GA4: просмотр страницы оферты
         trackGA4Event('page_view', {
             page_title: document.title,
@@ -318,6 +447,17 @@
         
         // 🎯 Метрика: страница оферты (RU) загружена
         ymTrack('offer_viewed', { page: 'public_offer', lang: 'ru' });
+        
+        // 🛒 Cart button click
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            trackGA4Event('cart_click', { 
+                page: 'offer-ru', 
+                cart_items: cart.length, 
+                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) 
+            });
+            ymTrack('cart_click_offer', { cart_items: cart.length });
+            window.location.href = 'checkout.html';
+        });
         
         // 🎯 Метрика + GA4: клик по кнопке "НАЗАД"
         document.getElementById('btnBack')?.addEventListener('click', function() {
@@ -424,6 +564,14 @@
         }, 60000);
         
         console.log('✅ offer.html ready! GA4: G-L8704SB9ZW, Language: RU');
+    });
+    
+    // Listen for cart updates from other pages
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            cart = JSON.parse(e.newValue) || [];
+            updateCartCount();
+        }
     });
     </script>
 </body>
