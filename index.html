@@ -721,7 +721,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇦 EN</span><span class="lang-descr">English</span></a>
                     </div>
                 </div>
             </div>
@@ -1222,8 +1222,9 @@
             }, 400);
         };
         
+        // ✅ ИСПРАВЛЕНО: Добавлены правильные опции passive
         mapHint.addEventListener('touchstart', dismissHint, { passive: false });
-        mapHint.addEventListener('touchend', dismissHint, { passive: false });
+        mapHint.addEventListener('touchend', dismissHint, { passive: true });
         mapHint.addEventListener('click', dismissHint);
         mapContainer.addEventListener('touchstart', dismissHint, { passive: false });
     }
@@ -1277,6 +1278,7 @@
         let isSwiping = false;
         let swipeThreshold = 50;
         
+        // ✅ ИСПРАВЛЕНО: Добавлены правильные опции passive
         heroSection.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
@@ -1294,7 +1296,7 @@
                 isSwiping = true;
                 e.preventDefault();
             }
-        }, { passive: false });
+        }, { passive: false }); // passive: false потому что используем preventDefault
         
         heroSection.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
