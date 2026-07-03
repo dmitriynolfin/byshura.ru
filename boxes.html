@@ -91,7 +91,7 @@
         
         .catalog { padding: 115px 0 60px; min-height: 100vh; }
         
-        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УВЕЛИЧЕН ОТСТУП ОТ ШАПКИ */
+        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УБРАН ОТСТУП ОТ ШАПКИ */
         .category-nav {
             display: flex;
             justify-content: center;
@@ -99,10 +99,10 @@
             padding: 18px 0 25px;
             flex-wrap: wrap;
             position: sticky;
-            top: 85px; /* УВЕЛИЧЕНО с 75px */
+            top: 75px; /* ИСПРАВЛЕНО: теперь без зазора с шапкой */
             background: #f8f9fa;
             z-index: 500;
-            margin-bottom: 20px; /* ДОБАВЛЕНО */
+            margin-bottom: 20px;
         }
         .category-btn {
             background: white;
@@ -283,9 +283,9 @@
             .box-title { font-size: 14px; }
             .box-price { font-size: 16px; }
             
-            /* ✅ УВЕЛИЧЕН ОТСТУП НАВИГАЦИИ ОТ ШАПКИ */
+            /* ✅ НА МОБИЛЬНЫХ ОСТАВЛЯЕМ ОТСТУП */
             .category-nav { 
-                top: 76px; /* УВЕЛИЧЕНО с 66px */
+                top: 76px;
                 gap: 8px; 
                 padding: 12px 0 20px; 
                 margin-bottom: 15px;
@@ -599,7 +599,7 @@
                 
                 <!-- ✅ СОСТАВ С ГРАММОВКАМИ -->
                 <div class="modal-section" id="compositionSection" style="display: none;">
-                    <div class="modal-section-title" data-i18n="modalComposition">Состав бокса</div>
+                    <div class="modal-section-title" data-i18n="modalComposition">Состав и вес</div>
                     <ul class="composition-list" id="compositionList"></ul>
                 </div>
                 
@@ -650,7 +650,7 @@
             oatCookiesTitle: "Овсяное печенье с орехами и изюмом",
             rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Состав бокса",
+            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Состав и вес",
             allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
             allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
@@ -675,6 +675,19 @@
                 { name: "Бульон", weight2: "300 мл", weight4: "600 мл", weight6: "900 мл" },
                 { name: "Горячее из птицы", weight2: "250 г", weight4: "500 г", weight6: "750 г" },
                 { name: "Пирожное", weight2: "150 г", weight4: "300 г", weight6: "450 г" }
+            ],
+            // ✅ СОСТАВ СЛАДКИХ ИЗДЕЛИЙ
+            cakeComposition: [
+                { name: "Лимонный кекс", weight: "~ 1000 г" }
+            ],
+            lemonCookiesComposition: [
+                { name: "Печенье с лимонным курдом", weight4: "4 шт (~ 400 г)", weight8: "8 шт (~ 800 г)" }
+            ],
+            oatCookiesComposition: [
+                { name: "Овсяное печенье", weight4: "4 шт (~ 320 г)", weight8: "8 шт (~ 640 г)" }
+            ],
+            rasstegaiComposition: [
+                { name: "Расстегаи с рыбой", weight4: "4 шт (~ 480 г)", weight8: "8 шт (~ 960 г)" }
             ]
         },
         en: {
@@ -690,7 +703,7 @@
             oatCookiesTitle: "Oat Cookies with Nuts and Raisins",
             rasstegaiTitle: "Rasstegai with Red Fish and Rice",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Box Contents",
+            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Contents & Weight",
             allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
             allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
@@ -714,6 +727,18 @@
                 { name: "Broth", weight2: "300 ml", weight4: "600 ml", weight6: "900 ml" },
                 { name: "Poultry main", weight2: "250 g", weight4: "500 g", weight6: "750 g" },
                 { name: "Pastry", weight2: "150 g", weight4: "300 g", weight6: "450 g" }
+            ],
+            cakeComposition: [
+                { name: "Lemon cake", weight: "~ 1000 g" }
+            ],
+            lemonCookiesComposition: [
+                { name: "Cookies with lemon curd", weight4: "4 pcs (~ 400 g)", weight8: "8 pcs (~ 800 g)" }
+            ],
+            oatCookiesComposition: [
+                { name: "Oat cookies", weight4: "4 pcs (~ 320 g)", weight8: "8 pcs (~ 640 g)" }
+            ],
+            rasstegaiComposition: [
+                { name: "Rasstegai with fish", weight4: "4 pcs (~ 480 g)", weight8: "8 pcs (~ 960 g)" }
             ]
         }
     };
@@ -818,6 +843,14 @@
             composition = translations[currentLang].nicholasComposition;
         } else if (productId === 'box2') {
             composition = translations[currentLang].tchaikovskyComposition;
+        } else if (productId === 'cake1') {
+            composition = translations[currentLang].cakeComposition;
+        } else if (productId === 'lemon-cookies') {
+            composition = translations[currentLang].lemonCookiesComposition;
+        } else if (productId === 'oat-cookies') {
+            composition = translations[currentLang].oatCookiesComposition;
+        } else if (productId === 'rasstegai') {
+            composition = translations[currentLang].rasstegaiComposition;
         }
         
         if (composition.length === 0) {
@@ -840,15 +873,32 @@
             composition = translations[currentLang][productId === 'box1' ? 'nicholasComposition' : 'tchaikovskyComposition'];
             const selectedPerson = document.querySelector('input[name="modalPersons"]:checked');
             if (selectedPerson) selectedPersons = selectedPerson.value;
-        } else {
+        } else if (productId === 'cake1') {
+            composition = translations[currentLang].cakeComposition;
+        } else if (productId === 'lemon-cookies') {
+            composition = translations[currentLang].lemonCookiesComposition;
             const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
             if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
-            return; // Для quantity items пока не обновляем
+        } else if (productId === 'oat-cookies') {
+            composition = translations[currentLang].oatCookiesComposition;
+            const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
+            if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
+        } else if (productId === 'rasstegai') {
+            composition = translations[currentLang].rasstegaiComposition;
+            const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
+            if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
         }
         
         let html = '';
         composition.forEach(item => {
-            const weight = item[`weight${selectedPersons}`] || item.weight2;
+            let weight = '';
+            if (item.weight) {
+                weight = item.weight;
+            } else if (productId === 'box1' || productId === 'box2') {
+                weight = item[`weight${selectedPersons}`] || item.weight2;
+            } else {
+                weight = item[`weight${selectedQuantity}`] || item.weight4;
+            }
             html += `<li class="composition-item"><span class="composition-name">${item.name}</span><span class="composition-weight">${weight}</span></li>`;
         });
         container.innerHTML = html;
@@ -994,18 +1044,20 @@
             personsSection.style.display = 'none';
             quantitySection.style.display = 'none';
             allergensSection.style.display = 'none';
-            compositionSection.style.display = 'none';
+            compositionSection.style.display = 'block';
             modalDescription.style.display = 'block';
             modalDescription.innerHTML = translations[currentLang].cakeFullDescr.replace(/\n/g, '<br>');
+            renderComposition(productId);
         } else if (productType === 'quantity-item') {
             personsSection.style.display = 'none';
             quantitySection.style.display = 'block';
             allergensSection.style.display = 'none';
-            compositionSection.style.display = 'none';
+            compositionSection.style.display = 'block';
             modalDescription.style.display = 'block';
             const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : productId === 'oat-cookies' ? 'oatCookiesFullDescr' : 'rasstegaiFullDescr';
             modalDescription.innerHTML = translations[currentLang][descrKey].replace(/\n/g, '<br>');
             renderQuantityOptions(productId);
+            renderComposition(productId);
         }
     }
 
