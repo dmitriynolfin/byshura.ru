@@ -1146,7 +1146,8 @@
             customDinnerTitle: "ИНДИВИДУАЛЬНЫЙ УЖИН",
             customDinnerDescr: "Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.",
             customDinnerBtn: "НАПИСАТЬ НАМ",
-            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025"
+            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            cartAlert: "Добавьте товары в корзину на странице боксов"
         },
         en: {
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY",
@@ -1171,7 +1172,8 @@
             customDinnerTitle: "CUSTOM DINNER",
             customDinnerDescr: "Want a unique gastronomic experience created just for you? We'll develop a personalized menu based on your preferences, occasion, and mood. Contact us, and we'll create the dinner of your dreams.",
             customDinnerBtn: "CONTACT US",
-            footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025"
+            footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
+            cartAlert: "Add items to cart on the Boxes page first"
         }
     };
 
@@ -1184,9 +1186,22 @@
     let currentSlide = 0;
     const totalSlides = 3;
     let autoSlideInterval = null;
+    
+    // ✅ ИСПРАВЛЕНО: Инициализация корзины из localStorage
+    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
     function trackGA4Event(eventName, params) {
         if (typeof gtag === 'function') gtag('event', eventName, params);
+    }
+
+    // ✅ ИСПРАВЛЕНО: Функция обновления счётчика корзины
+    function updateCartCount() {
+        const cartCount = document.getElementById('cartCount');
+        if (cartCount) {
+            const totalQty = Array.isArray(cart) ? 
+                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            cartCount.textContent = totalQty > 0 ? totalQty : '0';
+        }
     }
 
     function updateSliderPosition() {
@@ -1283,7 +1298,6 @@
             }, 400);
         };
         
-        // ✅ ИСПРАВЛЕНО: Добавлены правильные опции passive
         mapHint.addEventListener('touchstart', dismissHint, { passive: false });
         mapHint.addEventListener('touchend', dismissHint, { passive: true });
         mapHint.addEventListener('click', dismissHint);
@@ -1317,6 +1331,7 @@
         
         updateMap();
         initMapHint();
+        updateCartCount(); // ✅ ИСПРАВЛЕНО: Обновление счётчика при смене языка
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1329,6 +1344,9 @@
         
         initMapHint();
         
+        // ✅ ИСПРАВЛЕНО: Вызов обновления счётчика корзины при загрузке
+        updateCartCount();
+        
         const heroSection = document.getElementById('heroSection');
         const heroSlider = document.getElementById('heroSlider');
         
@@ -1339,7 +1357,6 @@
         let isSwiping = false;
         let swipeThreshold = 50;
         
-        // ✅ ИСПРАВЛЕНО: Добавлены правильные опции passive
         heroSection.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
@@ -1357,7 +1374,7 @@
                 isSwiping = true;
                 e.preventDefault();
             }
-        }, { passive: false }); // passive: false потому что используем preventDefault
+        }, { passive: false });
         
         heroSection.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
@@ -1430,7 +1447,21 @@
             window.location.href = 'boxes.html';
         });
         
-        document.getElementById('cartBtn')?.addEventListener('click', () => {
+        // ✅ ИСПРАВЛЕНО: Обработка клика на корзину с проверкой наличия товаров
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            trackGA4Event('cart_click', { 
+                page: 'index', 
+                cart_items: cart.length, 
+                cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) 
+            });
+            
+            if (cart.length === 0) {
+                const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
+                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) {
+                    window.location.href = 'boxes.html';
+                    return;
+                }
+            }
             window.location.href = 'checkout.html';
         });
         
@@ -1445,6 +1476,14 @@
         });
         
         trackGA4Event('page_view', { page_path: '/index.html', language: currentLang });
+    });
+    
+    // ✅ ИСПРАВЛЕНО: Синхронизация корзины между вкладками/страницами
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            cart = JSON.parse(e.newValue) || [];
+            updateCartCount();
+        }
     });
     </script>
 </body>
