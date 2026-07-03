@@ -91,7 +91,7 @@
         
         .catalog { padding: 115px 0 60px; min-height: 100vh; }
         
-        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УЖЕ И КОМПАКТНЕЕ */
+        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УВЕЛИЧЕН ОТСТУП ОТ ШАПКИ */
         .category-nav {
             display: flex;
             justify-content: center;
@@ -99,10 +99,10 @@
             padding: 18px 0 25px;
             flex-wrap: wrap;
             position: sticky;
-            top: 75px;
+            top: 85px; /* УВЕЛИЧЕНО с 75px */
             background: #f8f9fa;
             z-index: 500;
-            margin-bottom: 10px;
+            margin-bottom: 20px; /* ДОБАВЛЕНО */
         }
         .category-btn {
             background: white;
@@ -137,52 +137,59 @@
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; scroll-margin-top: 150px; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
         .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; scroll-margin-top: 150px; }
+        
+        /* ✅ СЕТКА: 2 КОЛОНКИ НА МОБИЛЬНЫХ */
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; }
+        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
-        .box-image { width: 100%; height: 280px; background-size: cover; background-position: center; position: relative; cursor: pointer; }
+        
+        /* ✅ КВАДРАТНЫЕ КАРТОЧКИ */
+        .box-image { width: 100%; aspect-ratio: 1/1; background-size: cover; background-position: center; position: relative; }
         .box-image:hover { opacity: 0.95; }
-        .box-badge { position: absolute; top: 15px; left: 15px; background: #FFD93D; color: #070395; padding: 8px 15px; border-radius: 20px; font-weight: 600; font-size: 12px; text-transform: uppercase; }
-        .box-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
-        .box-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #070395; }
-        .box-description { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.6; }
-        .box-features { margin-bottom: 20px; }
-        .box-feature { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
-        .box-feature::before { content: "✓"; color: #FFD93D; font-weight: bold; font-size: 16px; }
-        .box-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #eee; margin-top: auto; }
-        .box-price { font-size: 16px; font-weight: 600; color: #070395; display: flex; align-items: baseline; gap: 4px; }
-        .box-price .price-value { font-weight: 600; }
-        .box-price .currency { font-size: 14px; color: #999; font-weight: 400; }
+        
+        .box-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+        .box-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; color: #070395; text-align: center; }
+        
+        /* ✅ УБРАНЫ ОПИСАНИЯ И ФИЧИ, ОСТАВЛЕНА ТОЛЬКО ЦЕНА */
+        .box-footer { display: flex; justify-content: center; align-items: center; padding-top: 15px; border-top: 1px solid #eee; margin-top: auto; }
+        .box-price { font-size: 20px; font-weight: 700; color: #070395; display: flex; align-items: baseline; gap: 4px; }
+        .box-price .price-value { font-weight: 700; }
+        .box-price .currency { font-size: 16px; color: #999; font-weight: 400; }
         
         html[lang="en"] .box-price .price-from { order: 1; }
         html[lang="en"] .box-price .currency { order: 2; }
         html[lang="en"] .box-price .price-value { order: 3; }
         
-        .btn-select { background: #070395; color: white; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 14px; transition: all 0.3s; }
-        .btn-select:hover { background: #FFD93D; color: #070395; transform: scale(1.05); }
-        
-        .gallery-slider { position: relative; width: 100%; height: 250px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: #f8f9fa; }
-        .gallery-track { display: flex; transition: transform 0.3s ease; height: 100%; }
-        .gallery-slide { min-width: 100%; height: 100%; background-size: cover; background-position: center; }
-        .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; color: #070395; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: all 0.3s; }
-        .gallery-nav:hover { background: #FFD93D; color: #070395; }
-        .gallery-nav.prev { left: 10px; }
-        .gallery-nav.next { right: 10px; }
-        .gallery-dots { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
-        .gallery-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; border: none; cursor: pointer; transition: all 0.3s; }
-        .gallery-dot.active { background: #070395; transform: scale(1.2); }
-        
+        /* ✅ МОДАЛЬНОЕ ОКНО С ГАЛЕРЕЕЙ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
-        .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 550px; max-height: 90vh; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
+        .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 600px; max-height: 90vh; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
         .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
         .modal-close { background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .modal-close:hover { background: #f5f5f5; color: #070395; }
         .modal-body { padding: 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
+        
+        /* ✅ ГАЛЕРЕЯ: ГЛАВНОЕ ФОТО + МИНИАТЮРЫ */
+        .modal-gallery { margin-bottom: 25px; }
+        .modal-main-image { width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center; border-radius: 12px; margin-bottom: 15px; }
+        .modal-thumbnails { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .modal-thumb { aspect-ratio: 1/1; background-size: cover; background-position: center; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; }
+        .modal-thumb:hover, .modal-thumb.active { border-color: #070395; transform: scale(1.05); }
+        
         .modal-section { margin-bottom: 25px; }
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
+        
+        /* ✅ ОПИСАНИЕ ПРОДУКТА */
+        .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
+        
+        /* ✅ СОСТАВ С ГРАММОВКАМИ */
+        .composition-list { list-style: none; }
+        .composition-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .composition-item:last-child { border-bottom: none; }
+        .composition-name { color: #070395; font-weight: 500; }
+        .composition-weight { color: #666; font-weight: 600; }
         
         .persons-select { display: flex; gap: 12px; flex-wrap: wrap; }
         .person-option { flex: 1; min-width: 70px; }
@@ -204,8 +211,6 @@
         .quantity-count { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
         .quantity-price { font-size: 14px; font-weight: 600; color: #FFD93D; background: #070395; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
         .quantity-radio:checked + .quantity-label .quantity-price { background: #FFD93D; color: #070395; }
-        
-        .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
         
         .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .allergen-option { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fafafa; }
@@ -258,8 +263,9 @@
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } .boxes-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
+        @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         
+        /* ✅ МОБИЛЬНАЯ ВЕРСИЯ: 2 КАРТОЧКИ В РЯД */
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
             .catalog { padding-top: 100px; }
@@ -269,21 +275,32 @@
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .btn-select { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .page-title { font-size: 32px; }
-            .section-title { font-size: 32px; margin: 40px 0 30px; }
-            .boxes-grid { grid-template-columns: 1fr; }
-            .box-image { height: 240px; }
-            .box-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 11px; }
-            .box-content { padding: 20px; }
-            .box-title { font-size: 20px; margin-bottom: 8px; }
-            .box-description { font-size: 13px; margin-bottom: 15px; }
-            .box-feature { font-size: 12px; gap: 8px; margin-bottom: 6px; }
-            .box-feature::before { font-size: 14px; }
+            .page-title { font-size: 28px; }
+            .section-title { font-size: 28px; margin: 40px 0 30px; }
+            
+            /* ✅ 2 КОЛОНКИ НА МОБИЛЬНЫХ */
+            .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .box-title { font-size: 14px; }
             .box-price { font-size: 16px; }
+            
+            /* ✅ УВЕЛИЧЕН ОТСТУП НАВИГАЦИИ ОТ ШАПКИ */
+            .category-nav { 
+                top: 76px; /* УВЕЛИЧЕНО с 66px */
+                gap: 8px; 
+                padding: 12px 0 20px; 
+                margin-bottom: 15px;
+            }
+            .category-btn { 
+                padding: 8px 14px; 
+                font-size: 11px; 
+                min-height: 36px;
+                border-radius: 18px;
+            }
+            
             .header-right { gap: 10px; }
             .product-modal { width: 95%; max-width: none; max-height: 95vh; }
-            .gallery-slider { height: 200px; }
+            .modal-main-image { aspect-ratio: 1/1; }
+            .modal-thumbnails { grid-template-columns: repeat(4, 1fr); gap: 8px; }
             .allergens-grid { grid-template-columns: 1fr; }
             .persons-select { flex-direction: row; flex-wrap: wrap; }
             .person-label { padding: 12px 8px; }
@@ -291,51 +308,46 @@
             .quantity-option { min-width: 100px; }
             .cart-prompt { width: 95%; max-width: none; padding: 20px; }
             .cart-prompt-actions { flex-direction: column; }
-            .btn-order { animation: none !important; }
-            .box-card:hover { transform: none !important; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
-            
-            /* ✅ НАВИГАЦИЯ НА ПЛАНШЕТАХ — КОМПАКТНАЯ */
-            .category-nav { 
-                top: 66px; 
-                gap: 8px; 
-                padding: 12px 0 20px; 
-                margin-bottom: 0;
-            }
-            .category-btn { 
-                padding: 9px 18px; 
-                font-size: 11px; 
-                min-height: 38px;
-                border-radius: 20px;
-                letter-spacing: 0.3px;
-            }
         }
         
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
-            .catalog { padding-top: 100px; }
+            .catalog { padding-top: 95px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .btn-select { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .page-title { font-size: 28px; }
+            .page-title { font-size: 24px; }
             .page-subtitle { font-size: 14px; }
-            .section-title { font-size: 28px; letter-spacing: 1px; }
-            .box-image { height: 200px; }
-            .box-badge { padding: 5px 10px; font-size: 10px; }
-            .box-content { padding: 16px; }
-            .box-title { font-size: 18px; }
-            .box-description { font-size: 12px; }
-            .box-feature { font-size: 11px; }
-            .box-price { font-size: 16px; }
-            .box-price .currency { font-size: 13px; }
+            .section-title { font-size: 24px; letter-spacing: 1px; }
+            
+            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ: ТОЖЕ 2 КОЛОНКИ */
+            .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .box-title { font-size: 12px; margin-bottom: 10px; }
+            .box-price { font-size: 14px; }
+            .box-price .currency { font-size: 12px; }
+            
+            .category-nav { 
+                top: 72px;
+                gap: 6px; 
+                padding: 10px 0 16px;
+                margin-bottom: 12px;
+            }
+            .category-btn { 
+                padding: 7px 10px; 
+                font-size: 9px; 
+                letter-spacing: 0.3px;
+                min-height: 32px;
+                border-radius: 16px;
+                border-width: 1.5px;
+            }
+            
             .header-right { gap: 8px; }
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            .gallery-slider { height: 180px; }
-            .gallery-nav { width: 32px; height: 32px; font-size: 16px; }
+            .modal-thumbnails { gap: 6px; }
             .allergen-option { padding: 8px 10px; }
             .allergen-label { font-size: 13px; }
             .persons-select { gap: 4px; justify-content: center; }
@@ -364,22 +376,6 @@
             html[lang="en"] .legal-links-en { display: flex !important; }
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-links-en a:hover { color: #070395; }
-            
-            /* ✅ НАВИГАЦИЯ НА ТЕЛЕФОНАХ — ОЧЕНЬ КОМПАКТНАЯ */
-            .category-nav { 
-                top: 62px; 
-                gap: 6px; 
-                padding: 10px 0 16px;
-                margin-bottom: 0;
-            }
-            .category-btn { 
-                padding: 8px 14px; 
-                font-size: 10px; 
-                letter-spacing: 0.3px;
-                min-height: 34px;
-                border-radius: 18px;
-                border-width: 1.5px;
-            }
         }
         
         @media (max-width: 414px) {
@@ -399,12 +395,9 @@
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            .page-title { font-size: 24px; }
-            .section-title { font-size: 24px; }
-            .box-image { height: 180px; }
-            .box-title { font-size: 17px; }
-            .box-description { font-size: 11px; }
-            .gallery-slider { height: 160px; }
+            .page-title { font-size: 22px; }
+            .section-title { font-size: 22px; }
+            .category-btn { padding: 6px 8px; font-size: 8px; min-height: 30px; }
             .person-option { flex: 1 1 27%; max-width: 29%; }
             .person-label { padding: 4px 1px; min-height: 46px; }
             .person-icon { font-size: 12px; }
@@ -414,14 +407,6 @@
             .quantity-count { font-size: 14px; }
             .quantity-price { font-size: 11px !important; padding: 2px 6px; }
             .modal-body { max-height: calc(90vh - 130px); }
-            
-            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ — МИНИМАЛЬНАЯ НАВИГАЦИЯ */
-            .category-btn { 
-                padding: 7px 12px; 
-                font-size: 9px; 
-                min-height: 30px;
-                border-radius: 16px;
-            }
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -475,7 +460,7 @@
 
     <section class="catalog">
         <div class="container">
-            <!-- ✅ НАВИГАЦИЯ: КНОПКИ КАТЕГОРИЙ (УЖЕ И КОМПАКТНЕЕ) -->
+            <!-- ✅ НАВИГАЦИЯ: КНОПКИ КАТЕГОРИЙ -->
             <nav class="category-nav" id="categoryNav" aria-label="Навигация по категориям">
                 <button class="category-btn active" data-target="section-boxes" data-i18n="catBoxes">БОКСЫ</button>
                 <button class="category-btn" data-target="section-sweets" data-i18n="catSweets">СЛАДКОЕ</button>
@@ -485,48 +470,31 @@
             <h1 class="page-title" id="section-boxes" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
             <div class="boxes-grid">
-                <div class="box-card" data-product-type="nicholas">
-                    <div class="box-image" data-bg-desktop="images/boxes-nicholas.webp" data-bg-mobile="images/boxes-nicholas-mobile.webp" data-gallery='["images/boxes-nicholas.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp"]' data-bg-loaded="false">
-                        <span class="box-badge" data-i18n="badgePremium">PREMIUM</span>
-                    </div>
+                <!-- ✅ УБРАН BADGE, ОСТАВЛЕНА ТОЛЬКО КАРТИНКА, НАЗВАНИЕ И ЦЕНА -->
+                <div class="box-card" data-product-type="nicholas" data-product-id="box1" data-product-name="Бокс «Ужин Николая II»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
+                    <div class="box-image" data-bg-desktop="images/boxes-nicholas.webp" data-bg-mobile="images/boxes-nicholas-mobile.webp" data-gallery='["images/boxes-nicholas.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box1Title">Бокс «Ужин Николая II»</h3>
-                        <p class="box-description" data-i18n="box1Descr">Так питался Великий Император. Погружение в эпоху царской России через изысканные блюда.</p>
-                        <div class="box-features">
-                            <div class="box-feature" data-i18n="featNicholas1">5 блюд от шефа</div>
-                            <div class="box-feature" data-i18n="featNicholas2">На 2-4-6 персон</div>
-                            <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
-                        </div>
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" data-product-id="box1" data-product-name="Бокс «Ужин Николая II»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="box-card" data-product-type="tchaikovsky">
-                    <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky.webp" data-bg-mobile="images/boxes-tchaikovsky-mobile.webp" data-gallery='["images/boxes-tchaikovsky.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp"]' data-bg-loaded="false">
-                        <span class="box-badge" data-i18n="badgePremium">PREMIUM</span>
-                    </div>
+                <div class="box-card" data-product-type="tchaikovsky" data-product-id="box2" data-product-name="Бокс «Ужин Чайковского»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
+                    <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky.webp" data-bg-mobile="images/boxes-tchaikovsky-mobile.webp" data-gallery='["images/boxes-tchaikovsky.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
-                        <h3 class="box-title" data-i18n="box2Title">Бокс «Ужин Чайковского»</h3>
-                        <p class="box-description" data-i18n="box2Descr">Так питался Великий композитор. Погружение в эпоху царской России через изысканные блюда.</p>
-                        <div class="box-features">
-                            <div class="box-feature" data-i18n="featNicholas1">5 блюд от шефа</div>
-                            <div class="box-feature" data-i18n="featNicholas2">На 2-4-6 персон</div>
-                            <div class="box-feature" data-i18n="featNicholas3">Музыкальное сопровождение того времени</div>
-                        </div>
+                        <h3 class="box-title" data-i18n="box2Title">Бокс «Ужин Чайковского</h3>
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value">8 000</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" data-product-id="box2" data-product-name="Бокс «Ужин Чайковского»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
@@ -534,46 +502,40 @@
             
             <h2 class="section-title" id="section-sweets" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
             <div class="boxes-grid">
-                <div class="box-card" data-product-type="cake">
+                <div class="box-card" data-product-type="cake" data-product-id="cake1" data-product-name="Сливочный лимонный кекс" data-product-price="3000" data-product-price-en="150">
                     <div class="box-image" data-bg-desktop="images/boxes-lemoncake.webp" data-bg-mobile="images/boxes-lemoncake-mobile.webp" data-gallery='["images/boxes-lemoncake.webp","images/boxes-lemoncake.webp","images/boxes-lemoncake.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="cakeTitle">Сливочный лимонный кекс</h3>
-                        <p class="box-description" data-i18n="cakeDescr">Невероятно нежный лимонный кекс на основе сливочного масла и сливок.</p>
                         <div class="box-footer">
                             <div class="box-price"><span class="price-value cake-price-ru">3 000</span> <span class="currency">₽</span></div>
-                            <button class="btn-select" data-product-id="cake1" data-product-name="Сливочный лимонный кекс" data-product-price="3000" data-product-price-en="150" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="box-card" data-product-type="lemon-cookies">
+                <div class="box-card" data-product-type="lemon-cookies" data-product-id="lemon-cookies" data-product-name="Нежное печенье с лимонным курдом" data-product-price="1000" data-product-price-en="50">
                     <div class="box-image" data-bg-desktop="images/boxes-lemoncookies.webp" data-bg-mobile="images/boxes-lemoncookies-mobile.webp" data-gallery='["images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp","images/boxes-lemoncookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="lemonCookiesTitle">Нежное печенье с лимонным курдом</h3>
-                        <p class="box-description" data-i18n="lemonCookiesDescr">Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.</p>
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value lemon-cookies-price-ru">1 000</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" data-product-id="lemon-cookies" data-product-name="Нежное печенье с лимонным курдом" data-product-price="1000" data-product-price-en="50" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="box-card" data-product-type="oat-cookies">
+                <div class="box-card" data-product-type="oat-cookies" data-product-id="oat-cookies" data-product-name="Овсяное печенье с орехами и изюмом" data-product-price="800" data-product-price-en="40">
                     <div class="box-image" data-bg-desktop="images/boxes-oatcookies.webp" data-bg-mobile="images/boxes-oatcookies-mobile.webp" data-gallery='["images/boxes-oatcookies.webp","images/boxes-oatcookies.webp","images/boxes-oatcookies.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="oatCookiesTitle">Овсяное печенье с орехами и изюмом</h3>
-                        <p class="box-description" data-i18n="oatCookiesDescr">Овсяные хлопья, изюм, фундук и ничего лишнего.</p>
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value oat-cookies-price-ru">800</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" data-product-id="oat-cookies" data-product-name="Овсяное печенье с орехами и изюмом" data-product-price="800" data-product-price-en="40" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
@@ -581,18 +543,16 @@
             
             <h2 class="section-title" id="section-savory" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
             <div class="boxes-grid">
-                <div class="box-card" data-product-type="rasstegai">
+                <div class="box-card" data-product-type="rasstegai" data-product-id="rasstegai" data-product-name="Расстегаи с красной рыбой и рисом" data-product-price="1000" data-product-price-en="50">
                     <div class="box-image" data-bg-desktop="images/boxes-rasstegai.webp" data-bg-mobile="images/boxes-rasstegai-mobile.webp" data-gallery='["images/boxes-rasstegai.webp","images/boxes-rasstegai.webp","images/boxes-rasstegai.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="rasstegaiTitle">Расстегаи с красной рыбой и рисом</h3>
-                        <p class="box-description" data-i18n="rasstegaiDescr">Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.</p>
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value rasstegai-price-ru">1 000</span> 
                                 <span class="currency">₽</span>
                             </div>
-                            <button class="btn-select" data-product-id="rasstegai" data-product-name="Расстегаи с красной рыбой и рисом" data-product-price="1000" data-product-price-en="50" data-i18n="btnSelect">ВЫБРАТЬ</button>
                         </div>
                     </div>
                 </div>
@@ -628,13 +588,21 @@
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="gallery-slider" id="gallerySlider" style="display: none;">
-                    <div class="gallery-track" id="galleryTrack"></div>
-                    <button class="gallery-nav prev" id="galleryPrev">❮</button>
-                    <button class="gallery-nav next" id="galleryNext">❯</button>
-                    <div class="gallery-dots" id="galleryDots"></div>
+                <!-- ✅ ГАЛЕРЕЯ: ГЛАВНОЕ ФОТО + МИНИАТЮРЫ -->
+                <div class="modal-gallery" id="modalGallery" style="display: none;">
+                    <div class="modal-main-image" id="modalMainImage"></div>
+                    <div class="modal-thumbnails" id="modalThumbnails"></div>
                 </div>
+                
+                <!-- ✅ ОПИСАНИЕ ПРОДУКТА -->
                 <div class="modal-description" id="modalDescription" style="display: none;"></div>
+                
+                <!-- ✅ СОСТАВ С ГРАММОВКАМИ -->
+                <div class="modal-section" id="compositionSection" style="display: none;">
+                    <div class="modal-section-title" data-i18n="modalComposition">Состав бокса</div>
+                    <ul class="composition-list" id="compositionList"></ul>
+                </div>
+                
                 <div class="modal-section" id="personsSection">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
                     <div class="persons-select" id="personsSelect"></div>
@@ -675,16 +643,14 @@
             catBoxes: "БОКСЫ", catSweets: "СЛАДКОЕ", catSavory: "СОЛЕНОЕ",
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ", sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
-            badgeHit: "ХИТ", badgePremium: "PREMIUM", badgeNew: "NEW",
-            box1Title: "Бокс «Ужин Николая II»", box1Descr: "Так питался Великий Император. Погружение в эпоху царской России через изысканные блюда.",
-            box2Title: "Бокс «Ужин Чайковского»", box2Descr: "Так питался Великий композитор. Погружение в эпоху царской России через изысканные блюда.",
-            cakeTitle: "Сливочный лимонный кекс", cakeDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.",
-            lemonCookiesTitle: "Нежное печенье с лимонным курдом", lemonCookiesDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда.",
-            oatCookiesTitle: "Овсяное печенье с орехами и изюмом", oatCookiesDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
-            rasstegaiTitle: "Расстегаи с красной рыбой и рисом", rasstegaiDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
-            featNicholas1: "5 блюд от шефа", featNicholas2: "На 2-4-6 персон", featNicholas3: "Музыкальное сопровождение того времени",
+            box1Title: "Бокс «Ужин Николая II»",
+            box2Title: "Бокс «Ужин Чайковского",
+            cakeTitle: "Сливочный лимонный кекс",
+            lemonCookiesTitle: "Нежное печенье с лимонным курдом",
+            oatCookiesTitle: "Овсяное печенье с орехами и изюмом",
+            rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество",
+            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Состав бокса",
             allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
             allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
@@ -694,7 +660,22 @@
             cakeFullDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.\nИдеальный вариант для тех, кто предпочитает не слишком сладкие цитрусовые десерты с богатым сливочным вкусом.\nВес ~ 1 кг",
             lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
             oatCookiesFullDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
-            rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам."
+            rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
+            // ✅ СОСТАВ БОКСОВ С ГРАММОВКАМИ
+            nicholasComposition: [
+                { name: "Закуска холодная", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
+                { name: "Салат авторский", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
+                { name: "Суп фирменный", weight2: "300 мл", weight4: "600 мл", weight6: "900 мл" },
+                { name: "Горячее основное", weight2: "250 г", weight4: "500 г", weight6: "750 г" },
+                { name: "Десерт", weight2: "150 г", weight4: "300 г", weight6: "450 г" }
+            ],
+            tchaikovskyComposition: [
+                { name: "Закуска рыбная", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
+                { name: "Салат мясной", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
+                { name: "Бульон", weight2: "300 мл", weight4: "600 мл", weight6: "900 мл" },
+                { name: "Горячее из птицы", weight2: "250 г", weight4: "500 г", weight6: "750 г" },
+                { name: "Пирожное", weight2: "150 г", weight4: "300 г", weight6: "450 г" }
+            ]
         },
         en: {
             pageTitle: "Boxes - Hedonism Dispatch",
@@ -702,16 +683,14 @@
             catBoxes: "BOXES", catSweets: "SWEETS", catSavory: "SAVORY",
             catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
             sectionSweets: "CHOOSE YOUR SWEET", sectionSavory: "CHOOSE YOUR SAVORY",
-            badgeHit: "HIT", badgePremium: "PREMIUM", badgeNew: "NEW",
-            box1Title: "Nicholas II Dinner Box", box1Descr: "As the Great Emperor dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
-            box2Title: "Tchaikovsky Dinner Box", box2Descr: "As the Great Composer dined. Immerse yourself in the era of Imperial Russia through exquisite dishes.",
-            cakeTitle: "Creamy Lemon Cake", cakeDescr: "Incredibly tender lemon cake based on butter and cream.",
-            lemonCookiesTitle: "Tender Cookies with Lemon Curd", lemonCookiesDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center.",
-            oatCookiesTitle: "Oat Cookies with Nuts and Raisins", oatCookiesDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
-            rasstegaiTitle: "Rasstegai with Red Fish and Rice", rasstegaiDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
-            featNicholas1: "5 chef's dishes", featNicholas2: "For 2-4-6 people", featNicholas3: "Period music accompaniment",
+            box1Title: "Nicholas II Dinner Box",
+            box2Title: "Tchaikovsky Dinner Box",
+            cakeTitle: "Creamy Lemon Cake",
+            lemonCookiesTitle: "Tender Cookies with Lemon Curd",
+            oatCookiesTitle: "Oat Cookies with Nuts and Raisins",
+            rasstegaiTitle: "Rasstegai with Red Fish and Rice",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity",
+            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Box Contents",
             allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
             allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
@@ -721,7 +700,21 @@
             cakeFullDescr: "Incredibly tender lemon cake based on butter and cream.\nPerfect for those who prefer not too sweet citrus desserts with a rich creamy taste.\nWeight ~ 1 kg",
             lemonCookiesFullDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center. Perfect with warm drinks for those tired of classic cakes.",
             oatCookiesFullDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
-            rasstegaiFullDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks."
+            rasstegaiFullDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
+            nicholasComposition: [
+                { name: "Cold appetizer", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
+                { name: "Author's salad", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
+                { name: "Signature soup", weight2: "300 ml", weight4: "600 ml", weight6: "900 ml" },
+                { name: "Main hot dish", weight2: "250 g", weight4: "500 g", weight6: "750 g" },
+                { name: "Dessert", weight2: "150 g", weight4: "300 g", weight6: "450 g" }
+            ],
+            tchaikovskyComposition: [
+                { name: "Fish appetizer", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
+                { name: "Meat salad", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
+                { name: "Broth", weight2: "300 ml", weight4: "600 ml", weight6: "900 ml" },
+                { name: "Poultry main", weight2: "250 g", weight4: "500 g", weight6: "750 g" },
+                { name: "Pastry", weight2: "150 g", weight4: "300 g", weight6: "450 g" }
+            ]
         }
     };
 
@@ -729,7 +722,7 @@
     let currentLang = 'ru';
     let currentProduct = null;
     let currentGalleryImages = [];
-    let currentGalleryIndex = 0;
+    let currentMainImageIndex = 0;
     const isProduction = window.location.hostname !== 'localhost';
 
     const productImages = {
@@ -788,6 +781,11 @@
             html += `<label class="person-option"><input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}><span class="person-label"><span class="person-icon">${icons[index]}</span><span class="person-price ${priceClass}">${price}</span></span></label>`;
         });
         container.innerHTML = html;
+        
+        // ✅ ДОБАВЛЯЕМ ОБРАБОТЧИК ДЛЯ ОБНОВЛЕНИЯ ВЕСОВ
+        container.querySelectorAll('.person-radio').forEach(radio => {
+            radio.addEventListener('change', () => updateCompositionWeights());
+        });
     }
 
     function renderQuantityOptions(productId) {
@@ -803,6 +801,55 @@
                 label = `${count} pieces`;
             }
             html += `<label class="quantity-option"><input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" data-price="${prices[count]}" ${index === 0 ? 'checked' : ''}><span class="quantity-label"><span class="quantity-count">${label}</span><span class="quantity-price">${price}</span></span></label>`;
+        });
+        container.innerHTML = html;
+        
+        // ✅ ДОБАВЛЯЕМ ОБРАБОТЧИК ДЛЯ ОБНОВЛЕНИЯ ВЕСОВ
+        container.querySelectorAll('.quantity-radio').forEach(radio => {
+            radio.addEventListener('change', () => updateCompositionWeights());
+        });
+    }
+
+    function renderComposition(productId) {
+        const container = document.getElementById('compositionList');
+        let composition = [];
+        
+        if (productId === 'box1') {
+            composition = translations[currentLang].nicholasComposition;
+        } else if (productId === 'box2') {
+            composition = translations[currentLang].tchaikovskyComposition;
+        }
+        
+        if (composition.length === 0) {
+            document.getElementById('compositionSection').style.display = 'none';
+            return;
+        }
+        
+        document.getElementById('compositionSection').style.display = 'block';
+        updateCompositionWeights();
+    }
+
+    function updateCompositionWeights() {
+        const container = document.getElementById('compositionList');
+        const productId = currentProduct?.id;
+        let composition = [];
+        let selectedPersons = '2';
+        let selectedQuantity = 4;
+        
+        if (productId === 'box1' || productId === 'box2') {
+            composition = translations[currentLang][productId === 'box1' ? 'nicholasComposition' : 'tchaikovskyComposition'];
+            const selectedPerson = document.querySelector('input[name="modalPersons"]:checked');
+            if (selectedPerson) selectedPersons = selectedPerson.value;
+        } else {
+            const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
+            if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
+            return; // Для quantity items пока не обновляем
+        }
+        
+        let html = '';
+        composition.forEach(item => {
+            const weight = item[`weight${selectedPersons}`] || item.weight2;
+            html += `<li class="composition-item"><span class="composition-name">${item.name}</span><span class="composition-weight">${weight}</span></li>`;
         });
         container.innerHTML = html;
     }
@@ -911,13 +958,16 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
+            if (lang === 'ru') { langFlag.textContent = '🇷'; langCurrent.textContent = 'RU'; }
             else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
         }
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
-        if (currentProduct) renderModalContent(currentProduct.id);
+        if (currentProduct) {
+            renderModalContent(currentProduct.id);
+            updateCompositionWeights();
+        }
         updateBoxPrices();
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
@@ -929,24 +979,29 @@
         const quantitySection = document.getElementById('quantitySection');
         const allergensSection = document.getElementById('allergensSection');
         const modalDescription = document.getElementById('modalDescription');
+        const compositionSection = document.getElementById('compositionSection');
         
         if (productType === 'box') {
             personsSection.style.display = 'block';
             quantitySection.style.display = 'none';
             allergensSection.style.display = 'block';
             modalDescription.style.display = 'none';
+            compositionSection.style.display = 'block';
             renderPersonOptions(productId);
+            renderComposition(productId);
             renderAllergens(productId);
         } else if (productType === 'cake') {
             personsSection.style.display = 'none';
             quantitySection.style.display = 'none';
             allergensSection.style.display = 'none';
+            compositionSection.style.display = 'none';
             modalDescription.style.display = 'block';
             modalDescription.innerHTML = translations[currentLang].cakeFullDescr.replace(/\n/g, '<br>');
         } else if (productType === 'quantity-item') {
             personsSection.style.display = 'none';
             quantitySection.style.display = 'block';
             allergensSection.style.display = 'none';
+            compositionSection.style.display = 'none';
             modalDescription.style.display = 'block';
             const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : productId === 'oat-cookies' ? 'oatCookiesFullDescr' : 'rasstegaiFullDescr';
             modalDescription.innerHTML = translations[currentLang][descrKey].replace(/\n/g, '<br>');
@@ -955,28 +1010,27 @@
     }
 
     function initGallery(images) {
-        const track = document.getElementById('galleryTrack');
-        const dots = document.getElementById('galleryDots');
-        const prevBtn = document.getElementById('galleryPrev');
-        const nextBtn = document.getElementById('galleryNext');
+        const mainImage = document.getElementById('modalMainImage');
+        const thumbnails = document.getElementById('modalThumbnails');
         currentGalleryImages = images;
-        currentGalleryIndex = 0;
-        track.innerHTML = images.map((img, i) => `<div class="gallery-slide" style="background-image: url('${img}')"></div>`).join('');
-        dots.innerHTML = images.map((_, i) => `<button class="gallery-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></button>`).join('');
-        function goToSlide(index) {
-            currentGalleryIndex = index;
-            track.style.transform = `translateX(-${index * 100}%)`;
-            dots.querySelectorAll('.gallery-dot').forEach((dot, i) => dot.classList.toggle('active', i === index));
-        }
-        prevBtn.onclick = () => goToSlide((currentGalleryIndex - 1 + images.length) % images.length);
-        nextBtn.onclick = () => goToSlide((currentGalleryIndex + 1) % images.length);
-        dots.querySelectorAll('.gallery-dot').forEach(dot => dot.onclick = () => goToSlide(parseInt(dot.dataset.index)));
-        let startX = 0;
-        track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-        track.addEventListener('touchend', e => {
-            const diff = startX - e.changedTouches[0].clientX;
-            if (diff > 50) nextBtn.click();
-            else if (diff < -50) prevBtn.click();
+        currentMainImageIndex = 0;
+        
+        // Главное изображение
+        mainImage.style.backgroundImage = `url('${images[0]}')`;
+        
+        // Миниатюры
+        thumbnails.innerHTML = images.map((img, i) => 
+            `<div class="modal-thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`
+        ).join('');
+        
+        // Клик по миниатюре
+        thumbnails.querySelectorAll('.modal-thumb').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                currentMainImageIndex = index;
+                mainImage.style.backgroundImage = `url('${images[index]}')`;
+                thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === index));
+            });
         });
     }
 
@@ -985,8 +1039,12 @@
         document.getElementById('modalProductTitle').textContent = productData.name;
         renderModalContent(productData.id);
         document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
-        if (galleryImages && galleryImages.length > 0) { initGallery(galleryImages); document.getElementById('gallerySlider').style.display = 'block'; }
-        else { document.getElementById('gallerySlider').style.display = 'none'; }
+        if (galleryImages && galleryImages.length > 0) { 
+            initGallery(galleryImages); 
+            document.getElementById('modalGallery').style.display = 'block'; 
+        } else { 
+            document.getElementById('modalGallery').style.display = 'none'; 
+        }
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
         trackGA4Event('view_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, currency: currentLang === 'en' ? 'AED' : 'RUB', item_category: 'gastronomic_box' }] });
@@ -1182,10 +1240,15 @@
             }
         });
         
-        document.querySelectorAll('.btn-select').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
-                const galleryImages = JSON.parse(this.closest('.box-card').querySelector('.box-image').dataset.gallery || '[]');
+        // ✅ ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ПРИ КЛИКЕ НА КАРТОЧКУ
+        document.querySelectorAll('.box-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const productData = { 
+                    id: this.dataset.productId, 
+                    name: this.dataset.productName, 
+                    price: parseInt(this.dataset.productPrice) 
+                };
+                const galleryImages = JSON.parse(this.querySelector('.box-image').dataset.gallery || '[]');
                 trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
                 ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
                 openProductModal(productData, galleryImages);
