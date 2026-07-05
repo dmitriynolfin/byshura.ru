@@ -146,7 +146,7 @@
         }
         .marquee-track {
             display: flex;
-            animation: marquee-scroll 30s linear infinite;
+            animation: marquee-scroll 40s linear infinite;
             width: max-content;
         }
         .marquee-item {
@@ -253,6 +253,55 @@
             cursor: pointer; transition: all 0.3s;
         }
         .dot.active { background: white; transform: scale(1.2); }
+        
+        /* Секция "Индивидуальный ужин" */
+        .custom-dinner {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
+            color: white;
+            text-align: center;
+        }
+        .custom-dinner-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .custom-dinner-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+        }
+        .custom-dinner-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .custom-dinner-descr {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            opacity: 0.95;
+        }
+        .custom-dinner-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFD93D;
+            color: #070395;
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .custom-dinner-btn:hover {
+            background: white;
+            color: #070395;
+            transform: translateY(-4px);
+        }
         
         /* ===== КАРТОЧКИ КОМАНДЫ (ГОРИЗОНТАЛЬНАЯ МОЗАИКА) ===== */
         .team-section {
@@ -425,175 +474,59 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
         
-        .pickup-info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 900px;
+        /* ✅ НОВЫЙ ДИЗАЙН КОНТАКТНОЙ ИНФОРМАЦИИ В ОДИН РЯД */
+        .pickup-info-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            max-width: 1100px;
             margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px 30px;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.08);
         }
         .pickup-info-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
-            gap: 15px;
+            gap: 12px;
+            padding: 0 30px;
+            flex: 1;
+            justify-content: center;
+        }
+        .pickup-info-item:not(:last-child) {
+            border-right: 2px solid #e0e0e0;
         }
         .pickup-info-icon {
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 3px 10px rgba(7,3,149,0.1);
         }
         .pickup-info-icon svg {
-            width: 100%;
-            height: 100%;
-            color: #666;
-        }
-        .pickup-info-title {
-            font-size: 18px;
-            font-weight: 700;
+            width: 22px;
+            height: 22px;
             color: #070395;
-            text-transform: uppercase;
         }
         .pickup-info-text {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
+            font-size: 15px;
+            color: #070395;
+            font-weight: 600;
+            line-height: 1.5;
         }
         .pickup-info-text a {
             color: #070395;
-            text-decoration: underline;
+            text-decoration: none;
+            transition: color 0.3s;
         }
         .pickup-info-text a:hover {
             color: #FFD93D;
-        }
-        
-        /* ===== СЕКЦИЯ: НАШИ УЖИНЫ ===== */
-        .dinners {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-        .dinners-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 50px;
-            color: #070395;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .dinners-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .dinner-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 25px rgba(7,3,149,0.1);
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-        }
-        .dinner-card-image {
-            width: 100%;
-            height: 320px;
-            background-size: cover;
-            background-position: center;
-            background-color: #f0f0f0;
-        }
-        .dinner-card-content {
-            padding: 30px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .dinner-card-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #070395;
-        }
-        .dinner-card-descr {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-        .dinner-card-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #070395;
-            color: white;
-            padding: 14px 30px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            align-self: flex-start;
-            transition: all 0.3s ease;
-        }
-        .dinner-card-btn:hover {
-            background: #FFD93D;
-            color: #070395;
-        }
-        
-        /* Секция "Индивидуальный ужин" */
-        .custom-dinner {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
-            color: white;
-            text-align: center;
-        }
-        .custom-dinner-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .custom-dinner-icon {
-            font-size: 64px;
-            margin-bottom: 25px;
-        }
-        .custom-dinner-title {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .custom-dinner-descr {
-            font-size: 17px;
-            line-height: 1.8;
-            margin-bottom: 35px;
-            opacity: 0.95;
-        }
-        .custom-dinner-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #FFD93D;
-            color: #070395;
-            padding: 18px 45px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        .custom-dinner-btn:hover {
-            background: white;
-            color: #070395;
-            transform: translateY(-4px);
         }
         
         /* ===== FOOTER ===== */
@@ -638,8 +571,15 @@
             .team-mosaic { grid-template-columns: 1fr; }
             .team-mosaic-item { border-right: none !important; border-bottom: 2px solid #070395; }
             .team-mosaic-item:last-child { border-bottom: none !important; }
-            .pickup-info-grid { grid-template-columns: repeat(2, 1fr); }
-            .dinners-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .pickup-info-bar { flex-direction: column; gap: 20px; padding: 25px 20px; }
+            .pickup-info-item { 
+                padding: 15px 0; 
+                border-right: none !important; 
+                border-bottom: 1px solid #e0e0e0;
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .pickup-info-item:last-child { border-bottom: none; }
         }
         
         @media (max-width: 768px) { 
@@ -663,6 +603,10 @@
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
+            .custom-dinner { padding: 50px 0; }
+            .custom-dinner-title { font-size: 26px; }
+            .custom-dinner-descr { font-size: 15px; }
+            
             .team-section { padding: 50px 0; }
             .team-header h2 { font-size: 28px; }
             
@@ -675,19 +619,6 @@
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
             .pickup-map-iframe { height: 400px; }
-            .pickup-info-grid { grid-template-columns: 1fr; gap: 30px; }
-            
-            .dinners { padding: 50px 0; }
-            .dinners-title { font-size: 28px; margin-bottom: 30px; }
-            .dinners-grid { grid-template-columns: 1fr; gap: 25px; }
-            .dinner-card-image { height: 240px; }
-            .dinner-card-content { padding: 20px; }
-            .dinner-card-title { font-size: 20px; }
-            .dinner-card-btn { align-self: stretch; text-align: center; }
-            
-            .custom-dinner { padding: 50px 0; }
-            .custom-dinner-title { font-size: 26px; }
-            .custom-dinner-descr { font-size: 15px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             .header-right { gap: 10px; }
@@ -703,6 +634,10 @@
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             
+            .custom-dinner-title { font-size: 22px; }
+            .custom-dinner-descr { font-size: 14px; }
+            .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
+            
             .team-mosaic-text { padding: 18px 10px; }
             .team-mosaic-text h3 { font-size: 18px; }
             .team-mosaic-text p { font-size: 13px; max-width: 200px; }
@@ -710,17 +645,10 @@
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
             .pickup-map-iframe { height: 350px; }
-            .pickup-info-title { font-size: 16px; }
-            .pickup-info-text { font-size: 13px; }
-            
-            .dinners-title { font-size: 24px; }
-            .dinner-card-image { height: 200px; }
-            .dinner-card-title { font-size: 18px; }
-            .dinner-card-descr { font-size: 14px; }
-            
-            .custom-dinner-title { font-size: 22px; }
-            .custom-dinner-descr { font-size: 14px; }
-            .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
+            .pickup-info-bar { padding: 20px 15px; }
+            .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
+            .pickup-info-icon svg { width: 20px; height: 20px; }
+            .pickup-info-text { font-size: 14px; }
             
             .footer { padding: 18px 0; }
             .social-links { gap: 12px; }
@@ -789,7 +717,7 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
+    <!-- БЕГУЩАЯ СТРОКА — ✅ С ТРЕМЯ ТЕКСТОВКАМИ -->
     <div class="marquee-bar">
         <div class="marquee-track">
             <div class="marquee-item">
@@ -808,17 +736,9 @@
             </div>
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <span data-i18n="marquee2">УНИКАЛЬНЫЙ ОПЫТ</span>
+                <span data-i18n="marquee3">ИНДИВИДУАЛЬНЫЙ ПОДХОД</span>
             </div>
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -836,17 +756,9 @@
             </div>
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
-                <span data-i18n="marquee1">СВЕЖИЕ ПРОДУКТЫ</span>
-            </div>
-            <div class="marquee-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <span data-i18n="marquee2">УНИКАЛЬНЫЙ ОПЫТ</span>
+                <span data-i18n="marquee3">ИНДИВИДУАЛЬНЫЙ ПОДХОД</span>
             </div>
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -864,6 +776,12 @@
             </div>
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span data-i18n="marquee3">ИНДИВИДУАЛЬНЫЙ ПОДХОД</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="9" cy="21" r="1"></circle>
                     <circle cx="20" cy="21" r="1"></circle>
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -875,6 +793,12 @@
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                 </svg>
                 <span data-i18n="marquee2">УНИКАЛЬНЫЙ ОПЫТ</span>
+            </div>
+            <div class="marquee-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span data-i18n="marquee3">ИНДИВИДУАЛЬНЫЙ ПОДХОД</span>
             </div>
         </div>
     </div>
@@ -915,6 +839,18 @@
             <span class="dot active" data-slide="0"></span>
             <span class="dot" data-slide="1"></span>
             <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+
+    <!-- ✅ ИНДИВИДУАЛЬНЫЙ УЖИН — ПЕРЕМЕЩЁН ВВЕРХ (СРАЗУ ПОСЛЕ HERO) -->
+    <section class="custom-dinner">
+        <div class="container custom-dinner-container">
+            <div class="custom-dinner-icon">✨</div>
+            <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН</h2>
+            <p class="custom-dinner-descr" data-i18n="customDinnerDescr">Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.</p>
+            <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer" class="custom-dinner-btn" id="customDinnerBtn">
+                <span data-i18n="customDinnerBtn">НАПИСАТЬ НАМ</span>
+            </a>
         </div>
     </section>
 
@@ -992,7 +928,8 @@
                 </iframe>
             </div>
             
-            <div class="pickup-info-grid">
+            <!-- ✅ НОВЫЙ ДИЗАЙН: КОНТАКТНАЯ ИНФОРМАЦИЯ В ОДИН РЯД БЕЗ ПОДПИСЕЙ -->
+            <div class="pickup-info-bar">
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1000,10 +937,8 @@
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
                     </div>
-                    <div class="pickup-info-title" data-i18n="pickupSchedule">ЧАСЫ РАБОТЫ</div>
                     <div class="pickup-info-text">
-                        <div><strong data-i18n="pickupDays">Пт-Сб-Вс</strong></div>
-                        <div data-i18n="pickupTime">17:00 – 23:00</div>
+                        <span data-i18n="pickupDays">Пт-Сб-Вс</span> · <span data-i18n="pickupTime">17:00 – 23:00</span>
                     </div>
                 </div>
                 <div class="pickup-info-item">
@@ -1013,9 +948,8 @@
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
                     </div>
-                    <div class="pickup-info-title" data-i18n="pickupAddressTitle">АДРЕС</div>
                     <div class="pickup-info-text" data-i18n="pickupAddressText">
-                        ЖК Prime Park<br>Ленинградский проспект 37/7
+                        ЖК Prime Park, Ленинградский проспект 37/7
                     </div>
                 </div>
                 <div class="pickup-info-item">
@@ -1024,49 +958,11 @@
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                         </svg>
                     </div>
-                    <div class="pickup-info-title" data-i18n="pickupContactTitle">СВЯЗЬ</div>
                     <div class="pickup-info-text">
-                        <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer">Telegram: @sash_shura</a>
+                        <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer">@sash_shura</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- НАШИ УЖИНЫ -->
-    <section class="dinners">
-        <div class="container">
-            <h2 class="dinners-title" data-i18n="dinnersTitle">НАШИ УЖИНЫ</h2>
-            <div class="dinners-grid">
-                <a href="boxes.html#box1" class="dinner-card" id="dinnerCardNicholas">
-                    <div class="dinner-card-image" style="background-image: url('images/boxes-nicholas.webp');"></div>
-                    <div class="dinner-card-content">
-                        <h3 class="dinner-card-title" data-i18n="dinnerNicholasTitle">Ужин Николая II</h3>
-                        <p class="dinner-card-descr" data-i18n="dinnerNicholasDescr">Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.</p>
-                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn">ПОДРОБНЕЕ →</span>
-                    </div>
-                </a>
-                <a href="boxes.html#box2" class="dinner-card" id="dinnerCardTchaikovsky">
-                    <div class="dinner-card-image" style="background-image: url('images/boxes-tchaikovsky.webp');"></div>
-                    <div class="dinner-card-content">
-                        <h3 class="dinner-card-title" data-i18n="dinnerTchaikovskyTitle">Ужин Чайковского</h3>
-                        <p class="dinner-card-descr" data-i18n="dinnerTchaikovskyDescr">Откройте для себя вкусы, которые вдохновляли великого композитора. 5 уникальных блюд, созданных по историческим рецептам, с музыкальным сопровождением произведений Чайковского.</p>
-                        <span class="dinner-card-btn" data-i18n="dinnerCardBtn">ПОДРОБНЕЕ →</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ИНДИВИДУАЛЬНЫЙ УЖИН -->
-    <section class="custom-dinner">
-        <div class="container custom-dinner-container">
-            <div class="custom-dinner-icon">✨</div>
-            <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН</h2>
-            <p class="custom-dinner-descr" data-i18n="customDinnerDescr">Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.</p>
-            <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer" class="custom-dinner-btn" id="customDinnerBtn">
-                <span data-i18n="customDinnerBtn">НАПИСАТЬ НАМ</span>
-            </a>
         </div>
     </section>
 
@@ -1101,53 +997,39 @@
     const translations = {
         ru: {
             navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ",
-            marquee1: "СВЕЖИЕ ПРОДУКТЫ", marquee2: "УНИКАЛЬНЫЙ ОПЫТ",
+            marquee1: "СВЕЖИЕ ПРОДУКТЫ", marquee2: "УНИКАЛЬНЫЙ ОПЫТ", marquee3: "ИНДИВИДУАЛЬНЫЙ ПОДХОД",
             heroBtn: "ЗАКАЗАТЬ", btnOrder: "ЗАКАЗАТЬ",
+            customDinnerTitle: "ИНДИВИДУАЛЬНЫЙ УЖИН",
+            customDinnerDescr: "Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.",
+            customDinnerBtn: "НАПИСАТЬ НАМ",
             teamTitle: "О НАС",
             teamSubtitle: "МЫ РАЗРАБАТЫВАЕМ уникальные гастрономические впечатления с заботой и любовью",
             card1Title: "НАША КОМАНДА", card1Descr: "Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше",
             card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей",
             card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
             pickupTitle: "САМОВЫВОЗ", pickupDescr: "Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично",
-            pickupSchedule: "ЧАСЫ РАБОТЫ", pickupDays: "Пт-Сб-Вс", pickupTime: "17:00 – 23:00",
-            pickupAddressTitle: "АДРЕС", pickupAddressText: "ЖК Prime Park<br>Ленинградский проспект 37/7",
-            pickupContactTitle: "СВЯЗЬ",
+            pickupDays: "Пт-Сб-Вс", pickupTime: "17:00 – 23:00",
+            pickupAddressText: "ЖК Prime Park, Ленинградский проспект 37/7",
             mapHintText: "Нажмите, чтобы увеличить масштаб и перемещать карту",
-            dinnersTitle: "НАШИ УЖИНЫ",
-            dinnerNicholasTitle: "Ужин Николая II",
-            dinnerNicholasDescr: "Погрузитесь в эпоху царской России через изысканные блюда, которыми наслаждался последний император. 5 авторских блюд с историческими фактами и музыкальным сопровождением того времени.",
-            dinnerTchaikovskyTitle: "Ужин Чайковского",
-            dinnerTchaikovskyDescr: "Откройте для себя вкусы, которые вдохновляли великого композитора. 5 уникальных блюд, созданных по историческим рецептам, с музыкальным сопровождением произведений Чайковского.",
-            dinnerCardBtn: "ПОДРОБНЕЕ →",
-            customDinnerTitle: "ИНДИВИДУАЛЬНЫЙ УЖИН",
-            customDinnerDescr: "Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.",
-            customDinnerBtn: "НАПИСАТЬ НАМ",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartAlert: "Добавьте товары в корзину на странице боксов"
         },
         en: {
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY",
-            marquee1: "FRESH PRODUCTS", marquee2: "UNIQUE EXPERIENCE",
+            marquee1: "FRESH PRODUCTS", marquee2: "UNIQUE EXPERIENCE", marquee3: "PERSONAL APPROACH",
             heroBtn: "ORDER BOX", btnOrder: "PLACE ORDER",
+            customDinnerTitle: "CUSTOM DINNER",
+            customDinnerDescr: "Want a unique gastronomic experience created just for you? We'll develop a personalized menu based on your preferences, occasion, and mood. Contact us, and we'll create the dinner of your dreams.",
+            customDinnerBtn: "CONTACT US",
             teamTitle: "ABOUT US",
             teamSubtitle: "We create unique gastronomic experiences with care and love",
             card1Title: "OUR TEAM", card1Descr: "Our family consists of two people. But we're sure there will be more of us soon",
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
             card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
             pickupTitle: "PICKUP", pickupDescr: "Our home restaurant currently delivers only, but we're always happy to hand over your order in person",
-            pickupSchedule: "WORKING HOURS", pickupDays: "Fri-Sat-Sun", pickupTime: "17:00 – 23:00",
-            pickupAddressTitle: "ADDRESS", pickupAddressText: "Merano Tower Damac<br>Dubai",
-            pickupContactTitle: "CONTACT",
+            pickupDays: "Fri-Sat-Sun", pickupTime: "17:00 – 23:00",
+            pickupAddressText: "Merano Tower Damac, Dubai",
             mapHintText: "Tap to zoom in and move the map",
-            dinnersTitle: "OUR DINNERS",
-            dinnerNicholasTitle: "Nicholas II Dinner",
-            dinnerNicholasDescr: "Immerse yourself in the era of Imperial Russia through exquisite dishes enjoyed by the last emperor. 5 signature dishes with historical facts and period music accompaniment.",
-            dinnerTchaikovskyTitle: "Tchaikovsky Dinner",
-            dinnerTchaikovskyDescr: "Discover the flavors that inspired the great composer. 5 unique dishes created from historical recipes, accompanied by Tchaikovsky's musical masterpieces.",
-            dinnerCardBtn: "LEARN MORE →",
-            customDinnerTitle: "CUSTOM DINNER",
-            customDinnerDescr: "Want a unique gastronomic experience created just for you? We'll develop a personalized menu based on your preferences, occasion, and mood. Contact us, and we'll create the dinner of your dreams.",
-            customDinnerBtn: "CONTACT US",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first"
         }
@@ -1439,16 +1321,6 @@
                 }
             }
             window.location.href = 'checkout.html';
-        });
-        
-        document.querySelectorAll('.dinner-card-btn').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.preventDefault();
-                const card = btn.closest('.dinner-card');
-                if (card && card.href) {
-                    window.location.href = card.href;
-                }
-            });
         });
         
         trackGA4Event('page_view', { page_path: '/index.html', language: currentLang });
