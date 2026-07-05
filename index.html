@@ -303,7 +303,7 @@
             transform: translateY(-4px);
         }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ (ГОРИЗОНТАЛЬНАЯ МОЗАИКА) ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ — КУБИКИ ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
@@ -323,56 +323,57 @@
         .team-header p {
             font-size: 16px;
             color: #555;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.7;
         }
         
-        /* Grid контейнер — 3 колонки на всю ширину экрана */
+        /* ✅ НОВЫЙ ДИЗАЙН: КУБИКИ (квадратное фото + текст под ним) */
         .team-mosaic {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            width: 100%;
-            background: white;
-            border-top: 2px solid #070395;
-            border-bottom: 2px solid #070395;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        /* Каждая карточка — колонка с изображением сверху и текстом снизу */
         .team-mosaic-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(7,3,149,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
-            border-right: 2px solid #070395;
         }
         
-        .team-mosaic-item:last-child {
-            border-right: none;
+        .team-mosaic-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(7,3,149,0.18);
         }
         
-        /* Изображение в верхней части карточки — уменьшено на 30% */
+        /* ✅ Квадратное изображение */
         .team-mosaic-image {
             width: 100%;
-            aspect-ratio: 10 / 7;
+            aspect-ratio: 1 / 1;
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
-            border-bottom: 2px solid #070395;
         }
         
-        /* Текстовый блок в нижней части карточки — уже, отступы сокращены */
+        /* ✅ Текстовый блок под фото */
         .team-mosaic-text {
+            padding: 25px 25px 30px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 25px 15px;
-            text-align: center;
-            background: white;
             flex: 1;
         }
         
         .team-mosaic-text h3 {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 700;
             color: #070395;
             margin-bottom: 12px;
@@ -383,8 +384,8 @@
         .team-mosaic-text p {
             font-size: 14px;
             color: #555;
-            line-height: 1.6;
-            max-width: 260px;
+            line-height: 1.7;
+            max-width: 320px;
         }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -568,9 +569,7 @@
         @media (max-width: 1024px) { 
             .container { padding: 0 20px; } 
             .nav-menu { display: none; }
-            .team-mosaic { grid-template-columns: 1fr; }
-            .team-mosaic-item { border-right: none !important; border-bottom: 2px solid #070395; }
-            .team-mosaic-item:last-child { border-bottom: none !important; }
+            .team-mosaic { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .pickup-info-bar { flex-direction: column; gap: 20px; padding: 25px 20px; }
             .pickup-info-item { 
                 padding: 15px 0; 
@@ -608,13 +607,15 @@
             .custom-dinner-descr { font-size: 15px; }
             
             .team-section { padding: 50px 0; }
+            .team-header { margin-bottom: 40px; }
             .team-header h2 { font-size: 28px; }
+            .team-header p { font-size: 15px; }
             
-            /* Мобильная: картинки уменьшены на 50%, блоки уже */
-            .team-mosaic-image { aspect-ratio: 2 / 1; }
-            .team-mosaic-text { padding: 20px 12px; }
-            .team-mosaic-text h3 { font-size: 20px; margin-bottom: 10px; }
-            .team-mosaic-text p { font-size: 14px; max-width: 220px; }
+            /* ✅ На планшетах — 2 кубика в ряд */
+            .team-mosaic { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .team-mosaic-text { padding: 20px 18px 25px; }
+            .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
+            .team-mosaic-text p { font-size: 13px; max-width: 280px; }
             
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
@@ -638,9 +639,14 @@
             .custom-dinner-descr { font-size: 14px; }
             .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
             
-            .team-mosaic-text { padding: 18px 10px; }
-            .team-mosaic-text h3 { font-size: 18px; }
-            .team-mosaic-text p { font-size: 13px; max-width: 200px; }
+            .team-header h2 { font-size: 24px; }
+            .team-header p { font-size: 14px; }
+            
+            /* ✅ На телефонах — 1 кубик в ряд */
+            .team-mosaic { grid-template-columns: 1fr; gap: 20px; max-width: 400px; }
+            .team-mosaic-text { padding: 18px 18px 22px; }
+            .team-mosaic-text h3 { font-size: 16px; }
+            .team-mosaic-text p { font-size: 13px; max-width: 320px; }
             
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
@@ -842,63 +848,65 @@
         </div>
     </section>
 
-    <!-- ✅ ИНДИВИДУАЛЬНЫЙ УЖИН — ПЕРЕМЕЩЁН ВВЕРХ (СРАЗУ ПОСЛЕ HERO) -->
+    <!-- ✅ ИНДИВИДУАЛЬНЫЙ УЖИН (ЗВАНЫЙ) — ПЕРЕМЕЩЁН ВВЕРХ -->
     <section class="custom-dinner">
         <div class="container custom-dinner-container">
             <div class="custom-dinner-icon">✨</div>
-            <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН</h2>
-            <p class="custom-dinner-descr" data-i18n="customDinnerDescr">Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.</p>
+            <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН (ЗВАНЫЙ)</h2>
+            <p class="custom-dinner-descr" data-i18n="customDinnerDescr">Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваше событие. От проработки меню до советов по сервировке и декору вечера.</p>
             <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer" class="custom-dinner-btn" id="customDinnerBtn">
                 <span data-i18n="customDinnerBtn">НАПИСАТЬ НАМ</span>
             </a>
         </div>
     </section>
 
-    <!-- КАРТОЧКИ КОМАНДЫ (ГОРИЗОНТАЛЬНАЯ МОЗАИКА) -->
+    <!-- ✅ КАРТОЧКИ КОМАНДЫ — КУБИКИ -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
                 <h2 data-i18n="teamTitle">О НАС</h2>
-                <p data-i18n="teamSubtitle">МЫ РАЗРАБАТЫВАЕМ уникальные гастрономические впечатления с заботой и любовью</p>
+                <p data-i18n="teamSubtitle">Вестник Гедонизма — уникальный гастрономический эксперимент, разработанный с заботой и любовью</p>
             </div>
         </div>
-        <div class="team-mosaic">
-            <!-- Колонка 1: НАША КОМАНДА -->
-            <div class="team-mosaic-item">
-                <div class="team-mosaic-image" 
-                     data-bg-desktop="images/team.webp"
-                     data-bg-mobile="images/team-mobile.webp"
-                     data-bg-loaded="false">
+        <div class="container">
+            <div class="team-mosaic">
+                <!-- ✅ Кубик 1: НАША КОМАНДА -->
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-image" 
+                         data-bg-desktop="images/team.webp"
+                         data-bg-mobile="images/team-mobile.webp"
+                         data-bg-loaded="false">
+                    </div>
+                    <div class="team-mosaic-text">
+                        <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
+                        <p data-i18n="card1Descr">Пока нас двое, поэтому наши ресурсы ограничены. Но мы уверены, что скоро нас станет больше</p>
+                    </div>
                 </div>
-                <div class="team-mosaic-text">
-                    <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
-                    <p data-i18n="card1Descr">Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше</p>
+                
+                <!-- ✅ Кубик 2: УНИКАЛЬНЫЙ ОПЫТ -->
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-image" 
+                         data-bg-desktop="images/experience.webp"
+                         data-bg-mobile="images/experience-mobile.webp"
+                         data-bg-loaded="false">
+                    </div>
+                    <div class="team-mosaic-text">
+                        <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
+                        <p data-i18n="card2Descr">Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей</p>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Колонка 2: УНИКАЛЬНЫЙ ОПЫТ -->
-            <div class="team-mosaic-item">
-                <div class="team-mosaic-image" 
-                     data-bg-desktop="images/experience.webp"
-                     data-bg-mobile="images/experience-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
-                <div class="team-mosaic-text">
-                    <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
-                    <p data-i18n="card2Descr">Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей</p>
-                </div>
-            </div>
-            
-            <!-- Колонка 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ -->
-            <div class="team-mosaic-item">
-                <div class="team-mosaic-image" 
-                     data-bg-desktop="images/music.webp"
-                     data-bg-mobile="images/music-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
-                <div class="team-mosaic-text">
-                    <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
-                    <p data-i18n="card3Descr">Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке</p>
+                
+                <!-- ✅ Кубик 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ -->
+                <div class="team-mosaic-item">
+                    <div class="team-mosaic-image" 
+                         data-bg-desktop="images/music.webp"
+                         data-bg-mobile="images/music-mobile.webp"
+                         data-bg-loaded="false">
+                    </div>
+                    <div class="team-mosaic-text">
+                        <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
+                        <p data-i18n="card3Descr">Наши ужины — не просто заказ готовой еды, а возможность принять участие в сервировке, познакомиться с культурой через страну или историческую личность, а также создать для гостей нужную атмосферу, благодаря музыкальному сопровождению</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -999,14 +1007,14 @@
             navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ",
             marquee1: "СВЕЖИЕ ПРОДУКТЫ", marquee2: "УНИКАЛЬНЫЙ ОПЫТ", marquee3: "ИНДИВИДУАЛЬНЫЙ ПОДХОД",
             heroBtn: "ЗАКАЗАТЬ", btnOrder: "ЗАКАЗАТЬ",
-            customDinnerTitle: "ИНДИВИДУАЛЬНЫЙ УЖИН",
-            customDinnerDescr: "Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваши предпочтения, повод и настроение. Свяжитесь с нами, и мы создадим ужин вашей мечты.",
+            customDinnerTitle: "ИНДИВИДУАЛЬНЫЙ УЖИН (ЗВАНЫЙ)",
+            customDinnerDescr: "Хотите уникальный гастрономический опыт, созданный специально для вас? Мы разработаем персональное меню под ваше событие. От проработки меню до советов по сервировке и декору вечера.",
             customDinnerBtn: "НАПИСАТЬ НАМ",
             teamTitle: "О НАС",
-            teamSubtitle: "МЫ РАЗРАБАТЫВАЕМ уникальные гастрономические впечатления с заботой и любовью",
-            card1Title: "НАША КОМАНДА", card1Descr: "Наша семья состоит из двух человек. Но мы уверены, что скоро нас станет больше",
-            card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма - это возможность узнать чуть больше про еду через факты и исторических личностей",
-            card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Знакомство с историей, музыкальное сопровождение, а также возможность поучаствовать в сервировке",
+            teamSubtitle: "Вестник Гедонизма — уникальный гастрономический эксперимент, разработанный с заботой и любовью",
+            card1Title: "НАША КОМАНДА", card1Descr: "Пока нас двое, поэтому наши ресурсы ограничены. Но мы уверены, что скоро нас станет больше",
+            card2Title: "УНИКАЛЬНЫЙ ОПЫТ", card2Descr: "Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей",
+            card3Title: "НЕ ПРОСТО ЗАКАЗ ЕДЫ", card3Descr: "Наши ужины — не просто заказ готовой еды, а возможность принять участие в сервировке, познакомиться с культурой через страну или историческую личность, а также создать для гостей нужную атмосферу, благодаря музыкальному сопровождению",
             pickupTitle: "САМОВЫВОЗ", pickupDescr: "Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично",
             pickupDays: "Пт-Сб-Вс", pickupTime: "17:00 – 23:00",
             pickupAddressText: "ЖК Prime Park, Ленинградский проспект 37/7",
@@ -1018,14 +1026,14 @@
             navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY",
             marquee1: "FRESH PRODUCTS", marquee2: "UNIQUE EXPERIENCE", marquee3: "PERSONAL APPROACH",
             heroBtn: "ORDER BOX", btnOrder: "PLACE ORDER",
-            customDinnerTitle: "CUSTOM DINNER",
-            customDinnerDescr: "Want a unique gastronomic experience created just for you? We'll develop a personalized menu based on your preferences, occasion, and mood. Contact us, and we'll create the dinner of your dreams.",
+            customDinnerTitle: "PRIVATE DINNER EVENT",
+            customDinnerDescr: "Want a unique gastronomic experience created just for you? We'll develop a personalized menu for your event. From menu planning to advice on serving and evening decor.",
             customDinnerBtn: "CONTACT US",
             teamTitle: "ABOUT US",
-            teamSubtitle: "We create unique gastronomic experiences with care and love",
-            card1Title: "OUR TEAM", card1Descr: "Our family consists of two people. But we're sure there will be more of us soon",
+            teamSubtitle: "Hedonism Dispatch is a unique gastronomic experiment, crafted with care and love",
+            card1Title: "OUR TEAM", card1Descr: "For now there are just two of us, so our resources are limited. But we're sure there will be more of us soon",
             card2Title: "UNIQUE EXPERIENCE", card2Descr: "Hedonism Boxes are a chance to learn more about food through facts and historical figures",
-            card3Title: "MORE THAN FOOD", card3Descr: "Discover history, enjoy curated music, and participate in the art of table setting",
+            card3Title: "MORE THAN FOOD", card3Descr: "Our dinners are not just a ready-made meal order, but a chance to take part in table setting, discover culture through a country or historical figure, and create the right atmosphere for guests with musical accompaniment",
             pickupTitle: "PICKUP", pickupDescr: "Our home restaurant currently delivers only, but we're always happy to hand over your order in person",
             pickupDays: "Fri-Sat-Sun", pickupTime: "17:00 – 23:00",
             pickupAddressText: "Merano Tower Damac, Dubai",
