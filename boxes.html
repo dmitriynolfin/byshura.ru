@@ -99,7 +99,7 @@
             padding: 18px 0 25px;
             flex-wrap: wrap;
             position: sticky;
-            top: 75px; /* ИСПРАВЛЕНО: теперь без зазора с шапкой */
+            top: 75px;
             background: #f8f9fa;
             z-index: 500;
             margin-bottom: 20px;
@@ -140,7 +140,8 @@
         
         /* ✅ СЕТКА: 2 КОЛОНКИ НА МОБИЛЬНЫХ */
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .box-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer; }
+        /* ✅ ПРЯМЫЕ УГЛЫ У КАРТОЧЕК ПРОДУКТОВ */
+        .box-card { background: white; border-radius: 0; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
         
         /* ✅ КВАДРАТНЫЕ КАРТОЧКИ */
@@ -488,7 +489,7 @@
                 <div class="box-card" data-product-type="tchaikovsky" data-product-id="box2" data-product-name="Бокс «Ужин Чайковского»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
                     <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky.webp" data-bg-mobile="images/boxes-tchaikovsky-mobile.webp" data-gallery='["images/boxes-tchaikovsky.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
-                        <h3 class="box-title" data-i18n="box2Title">Бокс «Ужин Чайковского</h3>
+                        <h3 class="box-title" data-i18n="box2Title">Бокс «Ужин Чайковского»</h3>
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
@@ -644,7 +645,7 @@
             catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ", sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
             box1Title: "Бокс «Ужин Николая II»",
-            box2Title: "Бокс «Ужин Чайковского",
+            box2Title: "Бокс «Ужин Чайковского»",
             cakeTitle: "Сливочный лимонный кекс",
             lemonCookiesTitle: "Нежное печенье с лимонным курдом",
             oatCookiesTitle: "Овсяное печенье с орехами и изюмом",
@@ -661,7 +662,6 @@
             lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
             oatCookiesFullDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
             rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
-            // ✅ СОСТАВ БОКСОВ С ГРАММОВКАМИ
             nicholasComposition: [
                 { name: "Закуска холодная", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
                 { name: "Салат авторский", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
@@ -676,7 +676,6 @@
                 { name: "Горячее из птицы", weight2: "250 г", weight4: "500 г", weight6: "750 г" },
                 { name: "Пирожное", weight2: "150 г", weight4: "300 г", weight6: "450 г" }
             ],
-            // ✅ СОСТАВ СЛАДКИХ ИЗДЕЛИЙ
             cakeComposition: [
                 { name: "Лимонный кекс", weight: "~ 1000 г" }
             ],
@@ -807,7 +806,6 @@
         });
         container.innerHTML = html;
         
-        // ✅ ДОБАВЛЯЕМ ОБРАБОТЧИК ДЛЯ ОБНОВЛЕНИЯ ВЕСОВ
         container.querySelectorAll('.person-radio').forEach(radio => {
             radio.addEventListener('change', () => updateCompositionWeights());
         });
@@ -829,7 +827,6 @@
         });
         container.innerHTML = html;
         
-        // ✅ ДОБАВЛЯЕМ ОБРАБОТЧИК ДЛЯ ОБНОВЛЕНИЯ ВЕСОВ
         container.querySelectorAll('.quantity-radio').forEach(radio => {
             radio.addEventListener('change', () => updateCompositionWeights());
         });
@@ -1067,15 +1064,12 @@
         currentGalleryImages = images;
         currentMainImageIndex = 0;
         
-        // Главное изображение
         mainImage.style.backgroundImage = `url('${images[0]}')`;
         
-        // Миниатюры
         thumbnails.innerHTML = images.map((img, i) => 
             `<div class="modal-thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`
         ).join('');
         
-        // Клик по миниатюре
         thumbnails.querySelectorAll('.modal-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {
                 const index = parseInt(this.dataset.index);
@@ -1292,7 +1286,6 @@
             }
         });
         
-        // ✅ ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ПРИ КЛИКЕ НА КАРТОЧКУ
         document.querySelectorAll('.box-card').forEach(card => {
             card.addEventListener('click', function() {
                 const productData = { 
