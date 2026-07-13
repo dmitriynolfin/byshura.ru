@@ -171,12 +171,53 @@
         .modal-close:hover { background: #f5f5f5; color: #070395; }
         .modal-body { padding: 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
         
-        /* ✅ ГАЛЕРЕЯ: ГЛАВНОЕ ФОТО + МИНИАТЮРЫ */
+        /* ✅ ГАЛЕРЕЯ: ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ КАК НА СКРИНШОТЕ */
         .modal-gallery { margin-bottom: 25px; }
-        .modal-main-image { width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center; border-radius: 12px; margin-bottom: 15px; }
-        .modal-thumbnails { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .modal-thumb { aspect-ratio: 1/1; background-size: cover; background-position: center; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; }
-        .modal-thumb:hover, .modal-thumb.active { border-color: #070395; transform: scale(1.05); }
+        .modal-main-slider { 
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-main-slider::-webkit-scrollbar { display: none; }
+        .modal-main-image { 
+            min-width: 100%; 
+            aspect-ratio: 4/3; 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 12px; 
+            scroll-snap-align: center;
+            flex-shrink: 0;
+        }
+        .modal-thumbnails { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 10px; 
+            padding: 5px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .modal-thumbnails::-webkit-scrollbar { display: none; }
+        .modal-thumb { 
+            min-width: 80px; 
+            height: 80px; 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            border: 2px solid transparent; 
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .modal-thumb:hover, .modal-thumb.active { 
+            border-color: #070395; 
+            transform: scale(1.05); 
+        }
         
         .modal-section { margin-bottom: 25px; }
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
@@ -301,7 +342,7 @@
             .header-right { gap: 10px; }
             .product-modal { width: 95%; max-width: none; max-height: 95vh; }
             .modal-main-image { aspect-ratio: 1/1; }
-            .modal-thumbnails { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .modal-thumb { min-width: 70px; height: 70px; }
             .allergens-grid { grid-template-columns: 1fr; }
             .persons-select { flex-direction: row; flex-wrap: wrap; }
             .person-label { padding: 12px 8px; }
@@ -348,7 +389,7 @@
             
             .header-right { gap: 8px; }
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            .modal-thumbnails { gap: 6px; }
+            .modal-thumb { min-width: 60px; height: 60px; }
             .allergen-option { padding: 8px 10px; }
             .allergen-label { font-size: 13px; }
             .persons-select { gap: 4px; justify-content: center; }
@@ -589,9 +630,9 @@
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
             <div class="modal-body">
-                <!-- ✅ ГАЛЕРЕЯ: ГЛАВНОЕ ФОТО + МИНИАТЮРЫ -->
+                <!-- ✅ ГАЛЕРЕЯ: ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ КАК НА СКРИНШОТЕ -->
                 <div class="modal-gallery" id="modalGallery" style="display: none;">
-                    <div class="modal-main-image" id="modalMainImage"></div>
+                    <div class="modal-main-slider" id="modalMainSlider"></div>
                     <div class="modal-thumbnails" id="modalThumbnails"></div>
                 </div>
                 
@@ -626,7 +667,7 @@
 
     <div class="cart-prompt-overlay" id="cartPromptOverlay">
         <div class="cart-prompt">
-            <div class="cart-prompt-icon">🛒</div>
+            <div class="cart-prompt-icon"></div>
             <h3 class="cart-prompt-title" data-i18n="cartPromptTitle">Товар добавлен!</h3>
             <p class="cart-prompt-text" data-i18n="cartPromptText">Перейти в корзину или продолжать выбирать?</p>
             <div class="cart-prompt-actions">
@@ -798,7 +839,7 @@
         const isNicholas = productId === 'box1' || productId === 'box2';
         let html = '';
         const persons = [2, 4, 6];
-        const icons = ['👥', '👥👥', '👥👥👥'];
+        const icons = ['👥', '👥', '👥👥'];
         persons.forEach((count, index) => {
             const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
             const priceClass = isNicholas ? '' : 'hidden';
@@ -918,7 +959,7 @@
                 { value: 'Грибы', icon: '🍄', key: 'allergen1' },
                 { value: 'Горчица', icon: '🟡', key: 'allergen2' },
                 { value: 'Лактоза', icon: '🥛', key: 'allergen3' },
-                { value: 'Яйца', icon: '🥚', key: 'allergen4' },
+                { value: 'Яйца', icon: '', key: 'allergen4' },
                 { value: 'Глютен', icon: '🌾', key: 'allergen5' },
                 { value: 'Красная рыба', icon: '🐟', key: 'allergen6' },
                 { value: 'Орехи', icon: '🥜', key: 'allergen7' }
@@ -1059,24 +1100,52 @@
     }
 
     function initGallery(images) {
-        const mainImage = document.getElementById('modalMainImage');
+        const slider = document.getElementById('modalMainSlider');
         const thumbnails = document.getElementById('modalThumbnails');
         currentGalleryImages = images;
         currentMainImageIndex = 0;
         
-        mainImage.style.backgroundImage = `url('${images[0]}')`;
+        // Создаем основное изображение для слайдера
+        slider.innerHTML = images.map((img, i) => 
+            `<div class="modal-main-image" style="background-image: url('${img}')" data-index="${i}"></div>`
+        ).join('');
         
+        // Создаем миниатюры
         thumbnails.innerHTML = images.map((img, i) => 
             `<div class="modal-thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`
         ).join('');
         
+        // Обработчик для миниатюр
         thumbnails.querySelectorAll('.modal-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {
                 const index = parseInt(this.dataset.index);
                 currentMainImageIndex = index;
-                mainImage.style.backgroundImage = `url('${images[index]}')`;
+                
+                // Обновляем активную миниатюру
                 thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === index));
+                
+                // Скроллим к нужному слайду
+                const slide = slider.querySelector(`[data-index="${index}"]`);
+                if (slide) {
+                    slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
             });
+        });
+        
+        // Отслеживаем скролл основного слайдера
+        let scrollTimeout;
+        slider.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const slideWidth = slider.offsetWidth;
+                const scrollLeft = slider.scrollLeft;
+                const newIndex = Math.round(scrollLeft / slideWidth);
+                
+                if (newIndex !== currentMainImageIndex && newIndex >= 0 && newIndex < images.length) {
+                    currentMainImageIndex = newIndex;
+                    thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === newIndex));
+                }
+            }, 100);
         });
     }
 
