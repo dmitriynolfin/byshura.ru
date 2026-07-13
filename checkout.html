@@ -282,7 +282,7 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="index.html" class="logo" aria-label="Главная"></a>
+                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
                     <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
@@ -455,7 +455,6 @@
     </footer>
 
     <script>
-    // ✅ URL ВАШЕГО APPS SCRIPT WEB APP
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJGn5RAB4nJnGu1f8ibfF5rSuTViiegHaCANS6DPygqolK1WoYESXEGH-9x5eSix51/exec';
 
     const translations = {
@@ -555,6 +554,16 @@
         'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
         'oat-cookies': { ru: { 4: 800, 8: 1400 }, en: { 4: 40, 8: 70 } },
         'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
+    };
+
+    // ✅ ИСПРАВЛЕНИЕ: Добавлен объект с путями к изображениям для надежного фолбэка
+    const productImages = {
+        'box1': 'images/boxes-nicholas-1.webp',
+        'box2': 'images/boxes-tchaikovsky.webp',
+        'cake1': 'images/boxes-lemoncake.webp',
+        'lemon-cookies': 'images/boxes-lemoncookies-1.webp',
+        'oat-cookies': 'images/boxes-oatcookies.webp',
+        'rasstegai': 'images/boxes-rasstegai-1.webp'
     };
 
     let currentLang = 'ru';
@@ -678,7 +687,10 @@
             const itemTotal = itemPrice * item.quantity;
             total += itemTotal;
             
-            const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
+            // ✅ ИСПРАВЛЕНИЕ: Улучшенная логика получения URL изображения
+            // Приоритет: 1) item.image из корзины, 2) productImages по productId, 3) placeholder
+            const thumbUrl = item.image || productImages[item.productId] || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
+            
             const itemName = getItemName(item, lang);
             const productType = item.productType || getProductTypeById(item.productId);
             
@@ -781,22 +793,16 @@
         }
     }
 
-    // ✅ ОПТИМИЗИРОВАННАЯ ОТПРАВКА ЗАКАЗА
-    // Используем fetch БЕЗ await - запуск в фоне, не блокирует UI
-    // redirect: 'follow' обязателен для Apps Script (он делает редирект)
-    // keepalive: true - запрос продолжит выполняться даже после перехода на другую страницу
     function sendToAppsScript(orderData) {
         console.log('📤 Отправка заказа #' + orderData.orderNumber + ' в Apps Script...');
-        
         const jsonStr = JSON.stringify(orderData);
         
-        // Запускаем fetch в фоне БЕЗ await - не блокируем UI
         fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: jsonStr,
-            redirect: 'follow',  // ВАЖНО: Apps Script делает редирект
-            keepalive: true      // Запрос продолжится даже после перехода на другую страницу
+            redirect: 'follow',
+            keepalive: true
         })
         .then(response => {
             console.log('✅ Fetch ответ, статус:', response.status);
@@ -808,10 +814,9 @@
         })
         .catch(error => {
             console.error('❌ Ошибка отправки в Apps Script:', error);
-            // Сохраняем в localStorage для повторной отправки на thank-you.html
             try {
                 localStorage.setItem('hedonism_pending_order', jsonStr);
-                console.log(' Заказ сохранён в localStorage для повторной отправки на thank-you.html');
+                console.log('💾 Заказ сохранён в localStorage для повторной отправки на thank-you.html');
             } catch (e) {
                 console.error('Не удалось сохранить в localStorage:', e);
             }
@@ -1110,7 +1115,6 @@
                     return;
                 }
                 
-                // Блокируем кнопку сразу
                 submitBtn.disabled = true;
                 const btnText = submitBtn.querySelector('.btn-text');
                 const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1121,7 +1125,6 @@
                 const courierCost = currentLang === 'en' ? 40 : 800;
                 const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                 
-                // Пересчитываем цены для всех товаров
                 const orderItems = cart.map(item => ({
                     id: item.id, productId: item.productId, name: item.name,
                     image: item.image, productType: item.productType,
@@ -1131,7 +1134,6 @@
                     options: item.options
                 }));
                 
-                // Формируем данные заказа
                 const orderData = {
                     orderNumber: orderNumber,
                     createdAt: new Date().toISOString(),
@@ -1151,7 +1153,6 @@
                     consentTimestamp: new Date().toISOString()
                 };
                 
-                // Трекинг ДО отправки (чтобы успел отправиться)
                 trackGA4Event('begin_checkout', {
                     currency: orderData.currency, value: orderData.total,
                     items: orderData.items.map(item => ({
@@ -1161,15 +1162,9 @@
                 });
                 ymTrack('checkout_start');
                 
-                // ✅ ОТПРАВКА ЗАКАЗА — НЕБЛОКИРУЮЩАЯ
-                // Fetch запускается в фоне, не ждём ответа
-                // keepalive: true гарантирует что запрос дойдёт даже после перехода
                 sendToAppsScript(orderData);
-                
-                // Сохраняем заказ в sessionStorage для страницы thank-you
                 sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
                 
-                // Трекинг покупки
                 trackGA4Event('purchase', {
                     transaction_id: orderData.orderNumber, currency: orderData.currency,
                     value: orderData.total,
@@ -1195,11 +1190,7 @@
                     });
                 }
                 
-                // Очищаем корзину
                 cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                
-                // ✅ МГНОВЕННЫЙ ПЕРЕХОД — не ждём ответа от сервера
-                // Заказ уже отправляется в фоне через fetch с keepalive
                 window.location.href = 'thank-you.html';
             });
         }
