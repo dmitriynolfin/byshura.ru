@@ -224,12 +224,12 @@
         /* ✅ ОПИСАНИЕ ПРОДУКТА */
         .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
         
-        /* ✅ СОСТАВ С ГРАММОВКАМИ */
+        /* ✅ МЕНЮ (бывший СОСТАВ С ГРАММОВКАМИ) */
         .composition-list { list-style: none; }
-        .composition-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .composition-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; }
         .composition-item:last-child { border-bottom: none; }
-        .composition-name { color: #070395; font-weight: 500; }
-        .composition-weight { color: #666; font-weight: 600; }
+        .composition-name { color: #070395; font-weight: 500; flex: 1; }
+        .composition-weight { color: #666; font-weight: 600; white-space: nowrap; margin-left: 10px; }
         
         .persons-select { display: flex; gap: 12px; flex-wrap: wrap; }
         .person-option { flex: 1; min-width: 70px; }
@@ -410,7 +410,6 @@
             .footer-copyright { font-size: 12px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-links-ru a:hover { color: #070395; }
             .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             html[lang="en"] .legal-links-en { display: flex !important; }
@@ -623,9 +622,9 @@
                 <!-- ✅ ОПИСАНИЕ ПРОДУКТА -->
                 <div class="modal-description" id="modalDescription" style="display: none;"></div>
                 
-                <!-- ✅ СОСТАВ С ГРАММОВКАМИ -->
+                <!-- ✅ МЕНЮ (бывший СОСТАВ С ГРАММОВКАМИ) -->
                 <div class="modal-section" id="compositionSection" style="display: none;">
-                    <div class="modal-section-title" data-i18n="modalComposition">Состав и вес</div>
+                    <div class="modal-section-title" data-i18n="modalComposition">Меню</div>
                     <ul class="composition-list" id="compositionList"></ul>
                 </div>
                 
@@ -675,7 +674,7 @@
             lemonCookiesTitle: "Нежное печенье с лимонным курдом",
             rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Состав и вес",
+            modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Меню",
             allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
             allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
@@ -686,18 +685,16 @@
             lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
             rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
             nicholasComposition: [
-                { name: "Закуска холодная", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
-                { name: "Салат авторский", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
-                { name: "Суп фирменный", weight2: "300 мл", weight4: "600 мл", weight6: "900 мл" },
-                { name: "Горячее основное", weight2: "250 г", weight4: "500 г", weight6: "750 г" },
-                { name: "Десерт", weight2: "150 г", weight4: "300 г", weight6: "450 г" }
+                { name: "Закуски: Расстегаи с красной рыбой", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
+                { name: "Салаты: Винегрет с нутом и солеными грибами", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
+                { name: "Основной курс: Жареные пельмени с говядиной и Драгомировская каша", weight2: "300 г", weight4: "600 г", weight6: "900 г" },
+                { name: "Десерты: Овсяное печенье", weight2: "250 г", weight4: "500 г", weight6: "750 г" }
             ],
             tchaikovskyComposition: [
-                { name: "Закуска рыбная", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
-                { name: "Салат мясной", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
-                { name: "Бульон", weight2: "300 мл", weight4: "600 мл", weight6: "900 мл" },
-                { name: "Горячее из птицы", weight2: "250 г", weight4: "500 г", weight6: "750 г" },
-                { name: "Пирожное", weight2: "150 г", weight4: "300 г", weight6: "450 г" }
+                { name: "Взбитое масло с солью и перцем\nДомашний хлеб\nСоленые огурчики с медом\nШампиньоны в пивном кляре", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
+                { name: "Салаты: Салат из зелени с ароматным маслом", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
+                { name: "Основной курс: Телятина в сливочном соусе\nЖареный картофель со сливочными грибами", weight2: "300 г", weight4: "600 г", weight6: "900 г" },
+                { name: "Десерты: Заливной пирог с лимонным курдом", weight2: "250 г", weight4: "500 г", weight6: "750 г" }
             ],
             cakeComposition: [
                 { name: "Лимонный кекс", weight: "~ 1000 г" }
@@ -721,7 +718,7 @@
             lemonCookiesTitle: "Tender Cookies with Lemon Curd",
             rasstegaiTitle: "Rasstegai with Red Fish and Rice",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Contents & Weight",
+            modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Menu",
             allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
             allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
@@ -732,18 +729,16 @@
             lemonCookiesFullDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center. Perfect with warm drinks for those tired of classic cakes.",
             rasstegaiFullDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
             nicholasComposition: [
-                { name: "Cold appetizer", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
-                { name: "Author's salad", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
-                { name: "Signature soup", weight2: "300 ml", weight4: "600 ml", weight6: "900 ml" },
-                { name: "Main hot dish", weight2: "250 g", weight4: "500 g", weight6: "750 g" },
-                { name: "Dessert", weight2: "150 g", weight4: "300 g", weight6: "450 g" }
+                { name: "Appetizers: Rasstegai with red fish", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
+                { name: "Salads: Vinaigrette with chickpeas and pickled mushrooms", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
+                { name: "Main course: Fried beef dumplings and Dragomirovskaya porridge", weight2: "300 g", weight4: "600 g", weight6: "900 g" },
+                { name: "Desserts: Oatmeal cookies", weight2: "250 g", weight4: "500 g", weight6: "750 g" }
             ],
             tchaikovskyComposition: [
-                { name: "Fish appetizer", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
-                { name: "Meat salad", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
-                { name: "Broth", weight2: "300 ml", weight4: "600 ml", weight6: "900 ml" },
-                { name: "Poultry main", weight2: "250 g", weight4: "500 g", weight6: "750 g" },
-                { name: "Pastry", weight2: "150 g", weight4: "300 g", weight6: "450 g" }
+                { name: "Whipped butter with salt and pepper\nHomemade bread\nPickled cucumbers with honey\nBeer-battered champignons", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
+                { name: "Salads: Herb salad with aromatic oil", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
+                { name: "Main course: Veal in cream sauce\nFried potatoes with creamy mushrooms", weight2: "300 g", weight4: "600 g", weight6: "900 g" },
+                { name: "Desserts: Lemon curd pie", weight2: "250 g", weight4: "500 g", weight6: "750 g" }
             ],
             cakeComposition: [
                 { name: "Lemon cake", weight: "~ 1000 g" }
@@ -903,7 +898,8 @@
             } else {
                 weight = item[`weight${selectedQuantity}`] || item.weight4;
             }
-            html += `<li class="composition-item"><span class="composition-name">${item.name}</span><span class="composition-weight">${weight}</span></li>`;
+            // ✅ ДОБАВЛЕНА ПОДДЕРЖКА ПЕРЕНОСА СТРОК (\n) ДЛЯ МНОГОСТРОЧНЫХ НАЗВАНИЙ БЛЮД
+            html += `<li class="composition-item"><span class="composition-name">${item.name.replace(/\n/g, '<br>')}</span><span class="composition-weight">${weight}</span></li>`;
         });
         container.innerHTML = html;
     }
@@ -1067,26 +1063,19 @@
         currentGalleryImages = images;
         currentMainImageIndex = 0;
         
-        // Создаем основное изображение для слайдера
         slider.innerHTML = images.map((img, i) => 
             `<div class="modal-main-image" style="background-image: url('${img}')" data-index="${i}"></div>`
         ).join('');
         
-        // Создаем миниатюры
         thumbnails.innerHTML = images.map((img, i) => 
             `<div class="modal-thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`
         ).join('');
         
-        // Обработчик для миниатюр
         thumbnails.querySelectorAll('.modal-thumb').forEach(thumb => {
             thumb.addEventListener('click', function() {
                 const index = parseInt(this.dataset.index);
                 currentMainImageIndex = index;
-                
-                // Обновляем активную миниатюру
                 thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === index));
-                
-                // Скроллим к нужному слайду
                 const slide = slider.querySelector(`[data-index="${index}"]`);
                 if (slide) {
                     slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -1094,7 +1083,6 @@
             });
         });
         
-        // Отслеживаем скролл основного слайдера
         let scrollTimeout;
         slider.addEventListener('scroll', function() {
             clearTimeout(scrollTimeout);
@@ -1102,7 +1090,6 @@
                 const slideWidth = slider.offsetWidth;
                 const scrollLeft = slider.scrollLeft;
                 const newIndex = Math.round(scrollLeft / slideWidth);
-                
                 if (newIndex !== currentMainImageIndex && newIndex >= 0 && newIndex < images.length) {
                     currentMainImageIndex = newIndex;
                     thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === newIndex));
@@ -1139,10 +1126,8 @@
             console.error('❌ currentProduct is null в getModalOptions');
             return { persons: null, quantity: null, allergens: [] };
         }
-        
         const productType = getProductType(currentProduct.id);
         let options = { persons: null, quantity: null, allergens: [] };
-        
         if (productType === 'box') {
             options.persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
             options.allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
@@ -1159,9 +1144,7 @@
             alert('Ошибка: товар не выбран. Попробуйте ещё раз.');
             return;
         }
-        
         const productType = getProductType(currentProduct.id);
-        
         const allergensTranslated = options.allergens.map(allergen => {
             const allergenMap = { 
                 'Грибы': translations[currentLang].allergen1, 'Мед': translations[currentLang].allergen2, 
@@ -1174,7 +1157,6 @@
         
         let finalPrice = currentProduct.price;
         let variantLabel = '';
-        
         if (productType === 'box') {
             finalPrice = getNicholasPrice(options.persons, currentLang);
             variantLabel = `${options.persons} persons`;
@@ -1188,19 +1170,10 @@
         }
         
         const cartItem = { 
-            id: Date.now(), 
-            productId: currentProduct.id, 
-            name: currentProduct.name, 
-            image: productImages[currentProduct.id] || '',
-            productType: productType,
-            basePrice: currentProduct.price, 
-            price: finalPrice, 
-            quantity: 1, 
-            options: { 
-                persons: options.persons, 
-                quantity: options.quantity,
-                allergens: allergensTranslated 
-            } 
+            id: Date.now(), productId: currentProduct.id, name: currentProduct.name, 
+            image: productImages[currentProduct.id] || '', productType: productType,
+            basePrice: currentProduct.price, price: finalPrice, quantity: 1, 
+            options: { persons: options.persons, quantity: options.quantity, allergens: allergensTranslated } 
         };
         
         cart.push(cartItem); 
@@ -1232,17 +1205,11 @@
     function scrollToSection(targetId) {
         const target = document.getElementById(targetId);
         if (!target) return;
-        
         const headerHeight = 75;
         const navHeight = 60;
         const offset = headerHeight + navHeight + 10;
-        
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-        
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
     }
 
     function updateActiveCategoryBtn() {
@@ -1251,17 +1218,12 @@
             { id: 'section-sweets', btn: 'section-sweets' },
             { id: 'section-savory', btn: 'section-savory' }
         ];
-        
         const scrollPos = window.pageYOffset + 250;
         let activeId = sections[0].id;
-        
         sections.forEach(section => {
             const el = document.getElementById(section.id);
-            if (el && el.offsetTop <= scrollPos) {
-                activeId = section.id;
-            }
+            if (el && el.offsetTop <= scrollPos) activeId = section.id;
         });
-        
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.target === activeId);
         });
@@ -1295,13 +1257,10 @@
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const targetId = this.dataset.target;
-                
                 trackGA4Event('category_nav_click', { category: targetId, page: 'boxes' });
                 ymTrack('category_nav_click', { category: targetId });
-                
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                
                 scrollToSection(targetId);
             });
         });
@@ -1309,31 +1268,17 @@
         let scrollTicking = false;
         window.addEventListener('scroll', function() {
             if (!scrollTicking) {
-                window.requestAnimationFrame(function() {
-                    updateActiveCategoryBtn();
-                    scrollTicking = false;
-                });
+                window.requestAnimationFrame(function() { updateActiveCategoryBtn(); scrollTicking = false; });
                 scrollTicking = true;
             }
         });
         
         document.querySelectorAll('.box-card').forEach(card => {
             card.addEventListener('click', function() {
-                const productData = { 
-                    id: this.dataset.productId, 
-                    name: this.dataset.productName, 
-                    price: parseInt(this.dataset.productPrice) 
-                };
+                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
                 const boxImage = this.querySelector('.box-image');
                 const isMobile = window.innerWidth <= 768;
-                let galleryImages = [];
-                
-                if (isMobile && boxImage.dataset.galleryMobile) {
-                    galleryImages = JSON.parse(boxImage.dataset.galleryMobile || '[]');
-                } else {
-                    galleryImages = JSON.parse(boxImage.dataset.gallery || '[]');
-                }
-                
+                let galleryImages = isMobile && boxImage.dataset.galleryMobile ? JSON.parse(boxImage.dataset.galleryMobile || '[]') : JSON.parse(boxImage.dataset.gallery || '[]');
                 trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
                 ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
                 openProductModal(productData, galleryImages);
@@ -1343,17 +1288,10 @@
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
         document.getElementById('modalCancel')?.addEventListener('click', closeProductModal);
         document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
-        
         document.getElementById('modalAddToCart')?.addEventListener('click', () => {
-            try {
-                const options = getModalOptions();
-                addToCartWithOptions(options);
-            } catch (error) {
-                console.error(' Ошибка при добавлении в корзину:', error);
-                alert('Произошла ошибка. Попробуйте ещё раз.');
-            }
+            try { addToCartWithOptions(getModalOptions()); } 
+            catch (error) { console.error(' Ошибка при добавлении в корзину:', error); alert('Произошла ошибка. Попробуйте ещё раз.'); }
         });
-        
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
             ymTrack('cart_click_boxes', { cart_items: cart.length });
@@ -1368,13 +1306,8 @@
                 else if (href?.includes('index.html') && !href.includes('#')) ymTrack('nav_home_click');
             });
         });
-        
         document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const platform = this.getAttribute('aria-label') || 'social';
-                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
-                ymTrack(goalId);
-            });
+            link.addEventListener('click', function() { ymTrack('click_' + (this.getAttribute('aria-label') || 'social').toLowerCase().replace(/\s+/g, '_')); });
         });
         
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
@@ -1384,19 +1317,16 @@
         
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' || e.code === 'Escape') {
-                const productModal = document.getElementById('productModalOverlay');
-                const cartPrompt = document.getElementById('cartPromptOverlay');
-                if (productModal && productModal.classList.contains('open')) closeProductModal();
-                else if (cartPrompt && cartPrompt.classList.contains('open')) closeCartPrompt();
+                if (document.getElementById('productModalOverlay')?.classList.contains('open')) closeProductModal();
+                else if (document.getElementById('cartPromptOverlay')?.classList.contains('open')) closeCartPrompt();
             }
         });
         
         let footerViewed = false;
         const checkFooterScroll = debounce(function() {
             const footer = document.querySelector('.footer');
-            if (footer && !footerViewed) {
-                const rect = footer.getBoundingClientRect();
-                if (rect.top < window.innerHeight) { ymTrack('boxes_footer_viewed'); footerViewed = true; }
+            if (footer && !footerViewed && footer.getBoundingClientRect().top < window.innerHeight) { 
+                ymTrack('boxes_footer_viewed'); footerViewed = true; 
             }
         }, 200);
         window.addEventListener('scroll', checkFooterScroll);
