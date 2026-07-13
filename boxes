@@ -21,14 +21,12 @@
     
     <link rel="preload" as="image" href="images/boxes-nicholas-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-nicholas-1.webp" media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-tchaikovsky-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-tchaikovsky.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" href="images/boxes-tchaikovsky-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="images/boxes-tchaikovsky-1.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-lemoncake-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-lemoncake.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-lemoncookies-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-lemoncookies-1.webp" media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-oatcookies-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-oatcookies.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-rasstegai-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-rasstegai-1.webp" media="(min-width: 769px)" fetchpriority="high">
     
@@ -528,7 +526,7 @@
                 </div>
                 
                 <div class="box-card" data-product-type="tchaikovsky" data-product-id="box2" data-product-name="Бокс «Ужин Чайковского»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
-                    <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky.webp" data-bg-mobile="images/boxes-tchaikovsky-mobile.webp" data-gallery='["images/boxes-tchaikovsky.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp"]' data-bg-loaded="false"></div>
+                    <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky-1.webp" data-bg-mobile="images/boxes-tchaikovsky-1-mobile.webp" data-gallery='["images/boxes-tchaikovsky-1.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp","images/boxes-tchaikovsky-4.webp","images/boxes-tchaikovsky-5.webp","images/boxes-tchaikovsky-6.webp","images/boxes-tchaikovsky-7.webp","images/boxes-tchaikovsky-8.webp","images/boxes-tchaikovsky-9.webp","images/boxes-tchaikovsky-10.webp","images/boxes-tchaikovsky-11.webp","images/boxes-tchaikovsky-12.webp","images/boxes-tchaikovsky-13.webp","images/boxes-tchaikovsky-14.webp","images/boxes-tchaikovsky-15.webp","images/boxes-tchaikovsky-16.webp"]' data-gallery-mobile='["images/boxes-tchaikovsky-1-mobile.webp","images/boxes-tchaikovsky-2-mobile.webp","images/boxes-tchaikovsky-3-mobile.webp","images/boxes-tchaikovsky-4-mobile.webp","images/boxes-tchaikovsky-5-mobile.webp","images/boxes-tchaikovsky-6-mobile.webp","images/boxes-tchaikovsky-7-mobile.webp","images/boxes-tchaikovsky-8-mobile.webp","images/boxes-tchaikovsky-9-mobile.webp","images/boxes-tchaikovsky-10-mobile.webp","images/boxes-tchaikovsky-11-mobile.webp","images/boxes-tchaikovsky-12-mobile.webp","images/boxes-tchaikovsky-13-mobile.webp","images/boxes-tchaikovsky-14-mobile.webp","images/boxes-tchaikovsky-15-mobile.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box2Title">Бокс «Ужин Чайковского»</h3>
                         <div class="box-footer">
@@ -562,20 +560,6 @@
                             <div class="box-price">
                                 <span class="price-from" data-i18n="priceFrom">от </span>
                                 <span class="price-value lemon-cookies-price-ru">1 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="box-card" data-product-type="oat-cookies" data-product-id="oat-cookies" data-product-name="Овсяное печенье с орехами и изюмом" data-product-price="800" data-product-price-en="40">
-                    <div class="box-image" data-bg-desktop="images/boxes-oatcookies.webp" data-bg-mobile="images/boxes-oatcookies-mobile.webp" data-gallery='["images/boxes-oatcookies.webp","images/boxes-oatcookies.webp","images/boxes-oatcookies.webp"]' data-bg-loaded="false"></div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="oatCookiesTitle">Овсяное печенье с орехами и изюмом</h3>
-                        <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-from" data-i18n="priceFrom">от </span>
-                                <span class="price-value oat-cookies-price-ru">800</span> 
                                 <span class="currency">₽</span>
                             </div>
                         </div>
@@ -689,7 +673,6 @@
             box2Title: "Бокс «Ужин Чайковского»",
             cakeTitle: "Сливочный лимонный кекс",
             lemonCookiesTitle: "Нежное печенье с лимонным курдом",
-            oatCookiesTitle: "Овсяное печенье с орехами и изюмом",
             rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
             btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Состав и вес",
@@ -701,7 +684,6 @@
             priceFrom: "от ",
             cakeFullDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.\nИдеальный вариант для тех, кто предпочитает не слишком сладкие цитрусовые десерты с богатым сливочным вкусом.\nВес ~ 1 кг",
             lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
-            oatCookiesFullDescr: "Овсяные хлопья, изюм, фундук и ничего лишнего.",
             rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
             nicholasComposition: [
                 { name: "Закуска холодная", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
@@ -723,9 +705,6 @@
             lemonCookiesComposition: [
                 { name: "Печенье с лимонным курдом", weight4: "4 шт (~ 400 г)", weight8: "8 шт (~ 800 г)" }
             ],
-            oatCookiesComposition: [
-                { name: "Овсяное печенье", weight4: "4 шт (~ 320 г)", weight8: "8 шт (~ 640 г)" }
-            ],
             rasstegaiComposition: [
                 { name: "Расстегаи с рыбой", weight4: "4 шт (~ 480 г)", weight8: "8 шт (~ 960 г)" }
             ]
@@ -740,7 +719,6 @@
             box2Title: "Tchaikovsky Dinner Box",
             cakeTitle: "Creamy Lemon Cake",
             lemonCookiesTitle: "Tender Cookies with Lemon Curd",
-            oatCookiesTitle: "Oat Cookies with Nuts and Raisins",
             rasstegaiTitle: "Rasstegai with Red Fish and Rice",
             btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Contents & Weight",
@@ -752,7 +730,6 @@
             priceFrom: "from ",
             cakeFullDescr: "Incredibly tender lemon cake based on butter and cream.\nPerfect for those who prefer not too sweet citrus desserts with a rich creamy taste.\nWeight ~ 1 kg",
             lemonCookiesFullDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center. Perfect with warm drinks for those tired of classic cakes.",
-            oatCookiesFullDescr: "Oat flakes, raisins, hazelnuts and nothing extra.",
             rasstegaiFullDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
             nicholasComposition: [
                 { name: "Cold appetizer", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
@@ -774,9 +751,6 @@
             lemonCookiesComposition: [
                 { name: "Cookies with lemon curd", weight4: "4 pcs (~ 400 g)", weight8: "8 pcs (~ 800 g)" }
             ],
-            oatCookiesComposition: [
-                { name: "Oat cookies", weight4: "4 pcs (~ 320 g)", weight8: "8 pcs (~ 640 g)" }
-            ],
             rasstegaiComposition: [
                 { name: "Rasstegai with fish", weight4: "4 pcs (~ 480 g)", weight8: "8 pcs (~ 960 g)" }
             ]
@@ -795,7 +769,6 @@
         'box2': 'images/boxes-tchaikovsky.webp',
         'cake1': 'images/boxes-lemoncake.webp',
         'lemon-cookies': 'images/boxes-lemoncookies.webp',
-        'oat-cookies': 'images/boxes-oatcookies.webp',
         'rasstegai': 'images/boxes-rasstegai-1.webp'
     };
 
@@ -821,14 +794,13 @@
     function getProductType(productId) {
         if (productId === 'box1' || productId === 'box2') return 'box';
         if (productId === 'cake1') return 'cake';
-        if (productId === 'lemon-cookies' || productId === 'oat-cookies' || productId === 'rasstegai') return 'quantity-item';
+        if (productId === 'lemon-cookies' || productId === 'rasstegai') return 'quantity-item';
         return 'other';
     }
 
     function getQuantityPrices(productId, lang) {
         const prices = {
             'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
-            'oat-cookies': { ru: { 4: 800, 8: 1400 }, en: { 4: 40, 8: 70 } },
             'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
         };
         return prices[productId]?.[lang] || { 4: 0, 8: 0 };
@@ -885,8 +857,6 @@
             composition = translations[currentLang].cakeComposition;
         } else if (productId === 'lemon-cookies') {
             composition = translations[currentLang].lemonCookiesComposition;
-        } else if (productId === 'oat-cookies') {
-            composition = translations[currentLang].oatCookiesComposition;
         } else if (productId === 'rasstegai') {
             composition = translations[currentLang].rasstegaiComposition;
         }
@@ -915,10 +885,6 @@
             composition = translations[currentLang].cakeComposition;
         } else if (productId === 'lemon-cookies') {
             composition = translations[currentLang].lemonCookiesComposition;
-            const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
-            if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
-        } else if (productId === 'oat-cookies') {
-            composition = translations[currentLang].oatCookiesComposition;
             const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
             if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
         } else if (productId === 'rasstegai') {
@@ -1021,10 +987,6 @@
             el.textContent = currentLang === 'en' ? '50' : '1 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
         });
-        document.querySelectorAll('.oat-cookies-price-ru').forEach(el => {
-            el.textContent = currentLang === 'en' ? '40' : '800';
-            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
-        });
         document.querySelectorAll('.rasstegai-price-ru').forEach(el => {
             el.textContent = currentLang === 'en' ? '50' : '1 000';
             el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
@@ -1038,7 +1000,7 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'cakeFullDescr' || key === 'lemonCookiesFullDescr' || key === 'oatCookiesFullDescr' || key === 'rasstegaiFullDescr') { 
+                if (key === 'cakeFullDescr' || key === 'lemonCookiesFullDescr' || key === 'rasstegaiFullDescr') { 
                     el.innerHTML = translations[lang][key].replace(/\n/g, '<br>'); 
                 } else { el.textContent = translations[lang][key]; }
             }
@@ -1092,7 +1054,7 @@
             allergensSection.style.display = 'none';
             compositionSection.style.display = 'block';
             modalDescription.style.display = 'block';
-            const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : productId === 'oat-cookies' ? 'oatCookiesFullDescr' : 'rasstegaiFullDescr';
+            const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : 'rasstegaiFullDescr';
             modalDescription.innerHTML = translations[currentLang][descrKey].replace(/\n/g, '<br>');
             renderQuantityOptions(productId);
             renderComposition(productId);
@@ -1313,7 +1275,7 @@
         lazyLoadBackgrounds();
         updateCartCount();
         setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes.html', language: currentLang }); }, 1000);
-        ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 6 });
+        ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 5 });
         
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
