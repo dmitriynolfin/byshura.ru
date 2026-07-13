@@ -811,7 +811,7 @@
         const isNicholas = productId === 'box1' || productId === 'box2';
         let html = '';
         const persons = [2, 4, 6];
-        const icons = ['', '👥', '👥👥'];
+        const icons = ['👥', '👥👥', '👥👥👥'];
         persons.forEach((count, index) => {
             const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
             const priceClass = isNicholas ? '' : 'hidden';
