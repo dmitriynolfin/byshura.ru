@@ -899,8 +899,7 @@
                 weight = item[`weight${selectedQuantity}`] || item.weight4;
             }
             // ✅ ДОБАВЛЕНА ПОДДЕРЖКА ПЕРЕНОСА СТРОК (\n) ДЛЯ МНОГОСТРОЧНЫХ НАЗВАНИЙ БЛЮД
-            html += `<li class="composition-item"><span class="composition-name">${item.name.replace(/\n/g, '<br>')}</span><span class="composition-weight">${weight}</span></li>`;
-        });
+                html += `<li class="composition-item"><span class="composition-name">${item.name.replace(/^(.*?:)/, '<strong>$1</strong>').replace(/\n/g, '<br>')}</span><span class="composition-weight">${weight}</span></li>`;        });
         container.innerHTML = html;
     }
 
