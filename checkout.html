@@ -316,7 +316,7 @@
     <section class="checkout-page">
         <div class="container checkout-container">
             <h1 class="checkout-title" data-i18n="checkoutTitle">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
-            <p class="checkout-subtitle" data-i18n="checkoutSubtitle">Заполните данные для доставки вашего бокса</p>
+            <p class="checkout-subtitle" data-i18n="checkoutSubtitle">Заполните данные для доставки вашего заказа</p>
             
             <div class="order-summary">
                 <h2 class="order-summary-title" data-i18n="orderSummaryTitle">Ваш заказ</h2>
@@ -565,6 +565,18 @@
         'rasstegai': 'images/boxes-rasstegai-1.webp'
     };
 
+    // ✅ ДОБАВЛЕНО: Словарь для перевода аллергенов в зависимости от языка
+    const allergenKeys = {
+        'Грибы': 'allergen1', 'Mushrooms': 'allergen1',
+        'Горчица': 'allergen2', 'Mustard': 'allergen2',
+        'Мед': 'allergen2', 'Honey': 'allergen2', // Для совместимости со старыми версиями
+        'Лактоза': 'allergen3', 'Lactose': 'allergen3',
+        'Яйца': 'allergen4', 'Eggs': 'allergen4',
+        'Глютен': 'allergen5', 'Gluten': 'allergen5',
+        'Красная рыба': 'allergen6', 'Red Fish': 'allergen6',
+        'Орехи': 'allergen7', 'Nuts': 'allergen7'
+    };
+
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     const isProduction = window.location.hostname !== 'localhost';
@@ -686,10 +698,7 @@
             const itemTotal = itemPrice * item.quantity;
             total += itemTotal;
             
-            // ✅ ДОБАВЛЕН КОНСОЛЬ-ЛОГ ДЛЯ ОТЛАДКИ:
-            // Откройте F12 -> Console, чтобы увидеть, какой путь пытается загрузить браузер
             const thumbUrl = item.image || productImages[item.productId] || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
-            console.log(`Товар: ${item.productId} | Загружаемый путь:`, thumbUrl);
             
             const itemName = getItemName(item, lang);
             const productType = item.productType || getProductTypeById(item.productId);
@@ -707,7 +716,12 @@
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
                 
                 if (item.options?.allergens?.length > 0) {
-                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
+                    // ✅ ИСПРАВЛЕНИЕ: Переводим названия аллергенов на текущий язык
+                    const translatedAllergens = item.options.allergens.map(a => {
+                        const key = allergenKeys[a];
+                        return key ? translations[lang][key] : a;
+                    });
+                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${translatedAllergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
