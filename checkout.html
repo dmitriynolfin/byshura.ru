@@ -305,7 +305,7 @@
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="ru"><span class="lang-code">🇷 RU</span><span class="lang-descr">Русский (Москва)</span></a>
                         <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
                     </div>
                 </div>
@@ -556,12 +556,12 @@
         'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
     };
 
-    // ✅ ИСПРАВЛЕНИЕ: Добавлен объект с путями к изображениям для надежного фолбэка
+    // ✅ ИСПРАВЛЕНИЕ: Обновлены пути к изображениям
     const productImages = {
         'box1': 'images/boxes-nicholas-1.webp',
-        'box2': 'images/boxes-tchaikovsky.webp',
+        'box2': 'images/boxes-tchaikovsky-1.webp',  // ✅ ИСПРАВЛЕНО: было boxes-tchaikovsky.webp
         'cake1': 'images/boxes-lemoncake.webp',
-        'lemon-cookies': 'images/boxes-lemoncookies-1.webp',
+        'lemon-cookies': 'images/boxes-lemoncookies-1.webp',  // ✅ Уже было правильно
         'oat-cookies': 'images/boxes-oatcookies.webp',
         'rasstegai': 'images/boxes-rasstegai-1.webp'
     };
@@ -809,7 +809,7 @@
             if (response.ok) {
                 console.log('✅ Заказ успешно сохранён в Apps Script');
             } else {
-                console.warn('⚠️ Apps Script вернул статус:', response.status);
+                console.warn('️ Apps Script вернул статус:', response.status);
             }
         })
         .catch(error => {
