@@ -303,7 +303,7 @@
             transform: translateY(-4px);
         }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ — ОДНА КОЛОНКА ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
@@ -328,12 +328,12 @@
             line-height: 1.7;
         }
         
-        /* ✅ ШАХМАТНЫЙ ПОРЯДОК: 2 колонки с чередованием */
+        /* ✅ ВСЕ ТРИ БЛОКА В ОДНУ КОЛОНКУ */
         .team-mosaic {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
             gap: 40px;
-            max-width: 1200px;
+            max-width: 600px;
             margin: 0 auto;
         }
         
@@ -387,11 +387,6 @@
             color: #555;
             line-height: 1.7;
             max-width: 320px;
-        }
-        
-        /* ✅ Второй элемент смещен вниз для шахматного порядка */
-        .team-mosaic-item:nth-child(2) {
-            margin-top: 60px;
         }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -575,8 +570,7 @@
         @media (max-width: 1024px) { 
             .container { padding: 0 20px; } 
             .nav-menu { display: none; }
-            .team-mosaic { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-            .team-mosaic-item:nth-child(2) { margin-top: 40px; }
+            .team-mosaic { max-width: 500px; }
             .pickup-info-bar { flex-direction: column; gap: 20px; padding: 25px 20px; }
             .pickup-info-item { 
                 padding: 15px 0; 
@@ -618,9 +612,8 @@
             .team-header h2 { font-size: 28px; }
             .team-header p { font-size: 15px; }
             
-            /* ✅ На планшетах — шахматный порядок сохраняется */
-            .team-mosaic { grid-template-columns: repeat(2, 1fr); gap: 25px; }
-            .team-mosaic-item:nth-child(2) { margin-top: 30px; }
+            /* ✅ На планшетах — одна колонка */
+            .team-mosaic { gap: 30px; max-width: 450px; }
             .team-mosaic-text { padding: 20px 18px 25px; }
             .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
             .team-mosaic-text p { font-size: 13px; max-width: 280px; }
@@ -650,9 +643,8 @@
             .team-header h2 { font-size: 24px; }
             .team-header p { font-size: 14px; }
             
-            /* ✅ На телефонах — 1 колонка, без смещения */
-            .team-mosaic { grid-template-columns: 1fr; gap: 25px; max-width: 400px; }
-            .team-mosaic-item:nth-child(2) { margin-top: 0; }
+            /* ✅ На телефонах — одна колонка */
+            .team-mosaic { gap: 25px; max-width: 400px; }
             .team-mosaic-text { padding: 18px 18px 22px; }
             .team-mosaic-text h3 { font-size: 16px; }
             .team-mosaic-text p { font-size: 13px; max-width: 320px; }
@@ -719,7 +711,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷 RU</span>
+                            <span class="lang-code"> RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
@@ -827,7 +819,7 @@
         </div>
         
         <div class="hero-nav-zone prev" id="heroNavPrev">❮</div>
-        <div class="hero-nav-zone next" id="heroNavNext">❯</div>
+        <div class="hero-nav-zone next" id="heroNavNext"></div>
         
         <div class="hero-content">
             <button class="btn-order" id="orderBtn" data-i18n="heroBtn">ЗАКАЗАТЬ</button>
@@ -853,7 +845,7 @@
         </div>
     </section>
 
-    <!-- ✅ КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК -->
+    <!-- ✅ КАРТОЧКИ КОМАНДЫ — ОДНА КОЛОНКА -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
@@ -876,7 +868,7 @@
                     </div>
                 </div>
                 
-                <!-- ✅ Кубик 2: УНИКАЛЬНЫЙ ОПЫТ (смещен вниз) -->
+                <!-- ✅ Кубик 2: УНИКАЛЬНЫЙ ОПЫТ -->
                 <div class="team-mosaic-item">
                     <div class="team-mosaic-image" 
                          data-bg-desktop="images/experience.webp"
