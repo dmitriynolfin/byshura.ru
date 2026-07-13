@@ -19,8 +19,8 @@
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
     <link rel="canonical" href="https://byshura.ru/boxes.html">
     
-    <link rel="preload" as="image" href="images/boxes-nicholas-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-nicholas.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" href="images/boxes-nicholas-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="images/boxes-nicholas-1.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-tchaikovsky-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-tchaikovsky.webp" media="(min-width: 769px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-lemoncake-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
@@ -473,7 +473,7 @@
             <div class="boxes-grid">
                 <!-- ✅ УБРАН BADGE, ОСТАВЛЕНА ТОЛЬКО КАРТИНКА, НАЗВАНИЕ И ЦЕНА -->
                 <div class="box-card" data-product-type="nicholas" data-product-id="box1" data-product-name="Бокс «Ужин Николая II»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
-                    <div class="box-image" data-bg-desktop="images/boxes-nicholas.webp" data-bg-mobile="images/boxes-nicholas-mobile.webp" data-gallery='["images/boxes-nicholas.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp"]' data-bg-loaded="false"></div>
+                    <div class="box-image" data-bg-desktop="images/boxes-nicholas-1.webp" data-bg-mobile="images/boxes-nicholas-1-mobile.webp" data-gallery='["images/boxes-nicholas-1.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp","images/boxes-nicholas-4.webp","images/boxes-nicholas-5.webp","images/boxes-nicholas-6.webp","images/boxes-nicholas-7.webp","images/boxes-nicholas-8.webp","images/boxes-nicholas-9.webp"]' data-gallery-mobile='["images/boxes-nicholas-1-mobile.webp","images/boxes-nicholas-2-mobile.webp","images/boxes-nicholas-3-mobile.webp","images/boxes-nicholas-4-mobile.webp","images/boxes-nicholas-5-mobile.webp","images/boxes-nicholas-6-mobile.webp","images/boxes-nicholas-7-mobile.webp","images/boxes-nicholas-8-mobile.webp","images/boxes-nicholas-9-mobile.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title" data-i18n="box1Title">Бокс «Ужин Николая II»</h3>
                         <div class="box-footer">
@@ -750,7 +750,7 @@
     const isProduction = window.location.hostname !== 'localhost';
 
     const productImages = {
-        'box1': 'images/boxes-nicholas.webp',
+        'box1': 'images/boxes-nicholas-1.webp',
         'box2': 'images/boxes-tchaikovsky.webp',
         'cake1': 'images/boxes-lemoncake.webp',
         'lemon-cookies': 'images/boxes-lemoncookies.webp',
@@ -1293,7 +1293,16 @@
                     name: this.dataset.productName, 
                     price: parseInt(this.dataset.productPrice) 
                 };
-                const galleryImages = JSON.parse(this.querySelector('.box-image').dataset.gallery || '[]');
+                const boxImage = this.querySelector('.box-image');
+                const isMobile = window.innerWidth <= 768;
+                let galleryImages = [];
+                
+                if (isMobile && boxImage.dataset.galleryMobile) {
+                    galleryImages = JSON.parse(boxImage.dataset.galleryMobile || '[]');
+                } else {
+                    galleryImages = JSON.parse(boxImage.dataset.gallery || '[]');
+                }
+                
                 trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
                 ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
                 openProductModal(productData, galleryImages);
