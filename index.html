@@ -357,18 +357,18 @@
             box-shadow: 0 15px 40px rgba(7,3,149,0.18);
         }
         
-        /* ✅ Квадратное изображение */
+        /* ✅ ✅ УМЕНЬШЕНО НА 50%: aspect-ratio 2/1 вместо 1/1 */
         .team-mosaic-image {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 2 / 1;
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
         }
         
-        /* ✅ Текстовый блок */
+        /* ✅ УМЕНЬШЕНО: padding уменьшен */
         .team-mosaic-text {
-            padding: 25px 25px 30px;
+            padding: 15px 20px 18px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -377,19 +377,21 @@
             flex: 1;
         }
         
+        /* ✅ УМЕНЬШЕНО: размер шрифта заголовка */
         .team-mosaic-text h3 {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: #070395;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
+        /* ✅ УМЕНЬШЕНО: размер шрифта текста */
         .team-mosaic-text p {
-            font-size: 14px;
+            font-size: 12px;
             color: #555;
-            line-height: 1.7;
+            line-height: 1.5;
             max-width: 320px;
         }
         
@@ -643,9 +645,9 @@
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
             .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .team-mosaic-text { padding: 20px 18px 25px; }
-            .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
-            .team-mosaic-text p { font-size: 13px; max-width: 280px; }
+            .team-mosaic-text { padding: 12px 15px 15px; }
+            .team-mosaic-text h3 { font-size: 14px; margin-bottom: 6px; }
+            .team-mosaic-text p { font-size: 11px; max-width: 280px; }
             
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
@@ -683,9 +685,9 @@
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
             .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .team-mosaic-text { padding: 18px 18px 22px; }
-            .team-mosaic-text h3 { font-size: 16px; }
-            .team-mosaic-text p { font-size: 13px; max-width: 320px; }
+            .team-mosaic-text { padding: 10px 12px 12px; }
+            .team-mosaic-text h3 { font-size: 13px; }
+            .team-mosaic-text p { font-size: 11px; max-width: 320px; }
             
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
@@ -749,7 +751,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇺 RU</span>
+                            <span class="lang-code">🇷🇺 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
@@ -1209,7 +1211,7 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇪';
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
         
