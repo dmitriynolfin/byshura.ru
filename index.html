@@ -334,7 +334,9 @@
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, 1fr);
             gap: 30px;
-            max-width: 100%;
+            width: calc(100% + 80px);
+            margin-left: -40px;
+            margin-right: -40px;
         }
         
         /* ✅ Элементы сетки */
@@ -346,6 +348,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
         
         .team-mosaic-item:hover {
@@ -392,7 +395,7 @@
         /* ✅ Позиционирование для шахматного порядка */
         /* Row 1: Image 1, Text 2, Image 3 */
         .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
-        .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 2; }
+        .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 1; }
         .team-mosaic-item:nth-child(3) { grid-column: 3; grid-row: 1; }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
@@ -579,6 +582,9 @@
             .team-mosaic { 
                 grid-template-columns: repeat(2, 1fr);
                 grid-template-rows: auto;
+                width: calc(100% + 40px);
+                margin-left: -20px;
+                margin-right: -20px;
             }
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 1; }
@@ -624,10 +630,13 @@
             .team-header h2 { font-size: 28px; }
             .team-header p { font-size: 15px; }
             
-            /* ✅ На планшетах — 2 колонки */
+            /* ✅ На планшетах — 1 колонка */
             .team-mosaic { 
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
+                width: calc(100% + 40px);
+                margin-left: -20px;
+                margin-right: -20px;
                 gap: 25px;
             }
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
@@ -665,6 +674,9 @@
             /* ✅ На телефонах — 1 колонка */
             .team-mosaic { 
                 grid-template-columns: 1fr;
+                width: calc(100% + 40px);
+                margin-left: -20px;
+                margin-right: -20px;
                 gap: 25px;
             }
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
@@ -878,45 +890,43 @@
                 <p data-i18n="teamSubtitle">Вестник Гедонизма — уникальный гастрономический эксперимент, разработанный с заботой и любовью</p>
             </div>
         </div>
-        <div class="container">
-            <div class="team-mosaic">
-                <!-- ✅ Блок 1: НАША КОМАНДА (Фото в 1 ряду, 1 колонка) -->
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-image" 
-                         data-bg-desktop="images/team.webp"
-                         data-bg-mobile="images/team-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
-                        <p data-i18n="card1Descr">Пока нас двое, поэтому наши ресурсы ограничены. Но мы уверены, что скоро нас станет больше</p>
-                    </div>
+        <div class="team-mosaic">
+            <!-- ✅ Блок 1: НАША КОМАНДА (1-я колонка, 1-й ряд, фото сверху) -->
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-image" 
+                     data-bg-desktop="images/team.webp"
+                     data-bg-mobile="images/team-mobile.webp"
+                     data-bg-loaded="false">
                 </div>
-                
-                <!-- ✅ Блок 2: УНИКАЛЬНЫЙ ОПЫТ (Текст во 2 ряду, 2 колонка) -->
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
-                        <p data-i18n="card2Descr">Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей</p>
-                    </div>
-                    <div class="team-mosaic-image" 
-                         data-bg-desktop="images/experience.webp"
-                         data-bg-mobile="images/experience-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
+                <div class="team-mosaic-text">
+                    <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
+                    <p data-i18n="card1Descr">Пока нас двое, поэтому наши ресурсы ограничены. Но мы уверены, что скоро нас станет больше</p>
                 </div>
-                
-                <!-- ✅ Блок 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ (Фото в 1 ряду, 3 колонка) -->
-                <div class="team-mosaic-item">
-                    <div class="team-mosaic-image" 
-                         data-bg-desktop="images/music.webp"
-                         data-bg-mobile="images/music-mobile.webp"
-                         data-bg-loaded="false">
-                    </div>
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
-                        <p data-i18n="card3Descr">Наши ужины — не просто заказ готовой еды, а возможность принять участие в сервировке, познакомиться с культурой через страну или историческую личность, а также создать для гостей нужную атмосферу, благодаря музыкальному сопровождению</p>
-                    </div>
+            </div>
+            
+            <!-- ✅ Блок 2: УНИКАЛЬНЫЙ ОПЫТ (2-я колонка, 1-й ряд, текст сверху) -->
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-text">
+                    <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
+                    <p data-i18n="card2Descr">Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей</p>
+                </div>
+                <div class="team-mosaic-image" 
+                     data-bg-desktop="images/experience.webp"
+                     data-bg-mobile="images/experience-mobile.webp"
+                     data-bg-loaded="false">
+                </div>
+            </div>
+            
+            <!-- ✅ Блок 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ (3-я колонка, 1-й ряд, фото сверху) -->
+            <div class="team-mosaic-item">
+                <div class="team-mosaic-image" 
+                     data-bg-desktop="images/music.webp"
+                     data-bg-mobile="images/music-mobile.webp"
+                     data-bg-loaded="false">
+                </div>
+                <div class="team-mosaic-text">
+                    <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
+                    <p data-i18n="card3Descr">Наши ужины — не просто заказ готовой еды, а возможность принять участие в сервировке, познакомиться с культурой через страну или историческую личность, а также создать для гостей нужную атмосферу, благодаря музыкальному сопровождению</p>
                 </div>
             </div>
         </div>
@@ -934,7 +944,7 @@
             <div class="pickup-map-container" id="mapContainer">
                 <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
-                    <div class="pickup-map-hint-icon"></div>
+                    <div class="pickup-map-hint-icon">🤏</div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <iframe 
