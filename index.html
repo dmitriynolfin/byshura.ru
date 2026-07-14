@@ -305,13 +305,13 @@
         
         /* ===== КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК ===== */
         .team-section {
-            padding: 0; /* ✅ Убраны все отступы для плотного прилегания к следующему блоку */
+            padding: 0;
             background: #f8f9fa;
         }
         .team-header {
             text-align: center;
-            margin-bottom: 5px;
-            padding-top: 10px; /* Небольшой отступ сверху для заголовка */
+            margin-bottom: 0;
+            padding-top: 10px;
         }
         .team-header h2 {
             font-size: 32px;
@@ -397,13 +397,14 @@
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            padding: 0 0 40px; /* ✅ Убран верхний отступ, блок начинается сразу после предыдущего */
+            padding: 0 0 40px;
             background: white;
+            margin-top: -1px; /* ✅ Убираем 1px для идеального стыка */
         }
         .pickup-header {
             text-align: center;
-            margin-bottom: 20px; /* ✅ Уменьшен отступ под заголовком */
-            padding-top: 10px; /* Небольшой отступ сверху для визуального разделения фона */
+            margin-bottom: 20px;
+            padding-top: 0; /* ✅ Убран верхний отступ */
         }
         .pickup-header h2 {
             font-size: 32px;
@@ -624,7 +625,7 @@
             .custom-dinner-descr { font-size: 15px; }
             
             .team-section { padding: 0; }
-            .team-header { margin-bottom: 5px; padding-top: 10px; }
+            .team-header { margin-bottom: 0; padding-top: 10px; }
             .team-header h2 { font-size: 24px; }
             .team-header p { font-size: 14px; }
             
@@ -645,8 +646,8 @@
             .team-mosaic-text h3 { font-size: 14px; margin-bottom: 6px; }
             .team-mosaic-text p { font-size: 12px; max-width: 280px; }
             
-            .pickup-section { padding: 0 0 30px; }
-            .pickup-header { padding-top: 10px; margin-bottom: 15px; }
+            .pickup-section { padding: 0 0 30px; margin-top: -1px; }
+            .pickup-header { padding-top: 0; margin-bottom: 15px; }
             .pickup-header h2 { font-size: 24px; }
             .pickup-map-iframe { height: 350px; }
             
@@ -687,8 +688,8 @@
             .team-mosaic-text h3 { font-size: 13px; }
             .team-mosaic-text p { font-size: 11px; max-width: 320px; }
             
-            .pickup-section { padding: 0 0 20px; }
-            .pickup-header { padding-top: 10px; margin-bottom: 15px; }
+            .pickup-section { padding: 0 0 20px; margin-top: -1px; }
+            .pickup-header { padding-top: 0; margin-bottom: 15px; }
             .pickup-header h2 { font-size: 22px; }
             .pickup-header p { font-size: 13px; }
             .pickup-map-iframe { height: 300px; }
@@ -727,7 +728,7 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+                <a href="index.html" class="logo" aria-label="Главная"></a>
                 <nav class="nav-menu">
                     <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
@@ -1211,7 +1212,7 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
         
