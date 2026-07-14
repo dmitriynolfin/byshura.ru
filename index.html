@@ -303,7 +303,7 @@
             transform: translateY(-4px);
         }
         
-        /* ===== КАРТОЧКИ КОМАНДЫ — ОДНА КОЛОНКА ===== */
+        /* ===== КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК ===== */
         .team-section {
             padding: 80px 0;
             background: #f8f9fa;
@@ -328,16 +328,16 @@
             line-height: 1.7;
         }
         
-        /* ✅ ВСЕ ТРИ БЛОКА В ОДНУ КОЛОНКУ */
+        /* ✅ ШАХМАТНЫЙ ПОРЯДОК: 3 колонки × 2 ряда */
         .team-mosaic {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            max-width: 600px;
-            margin: 0 auto;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 100%;
         }
         
-        /* ✅ ПРЯМЫЕ УГЛЫ У КУБИКОВ */
+        /* ✅ Элементы сетки */
         .team-mosaic-item {
             background: white;
             border-radius: 0;
@@ -362,7 +362,7 @@
             background-color: #f0f0f0;
         }
         
-        /* ✅ Текстовый блок под фото */
+        /* ✅ Текстовый блок */
         .team-mosaic-text {
             padding: 25px 25px 30px;
             text-align: center;
@@ -388,6 +388,12 @@
             line-height: 1.7;
             max-width: 320px;
         }
+        
+        /* ✅ Позиционирование для шахматного порядка */
+        /* Row 1: Image 1, Text 2, Image 3 */
+        .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+        .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 2; }
+        .team-mosaic-item:nth-child(3) { grid-column: 3; grid-row: 1; }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
@@ -570,7 +576,13 @@
         @media (max-width: 1024px) { 
             .container { padding: 0 20px; } 
             .nav-menu { display: none; }
-            .team-mosaic { max-width: 500px; }
+            .team-mosaic { 
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+            .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+            .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 1; }
+            .team-mosaic-item:nth-child(3) { grid-column: 1 / span 2; grid-row: 2; }
             .pickup-info-bar { flex-direction: column; gap: 20px; padding: 25px 20px; }
             .pickup-info-item { 
                 padding: 15px 0; 
@@ -612,8 +624,15 @@
             .team-header h2 { font-size: 28px; }
             .team-header p { font-size: 15px; }
             
-            /* ✅ На планшетах — одна колонка */
-            .team-mosaic { gap: 30px; max-width: 450px; }
+            /* ✅ На планшетах — 2 колонки */
+            .team-mosaic { 
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 25px;
+            }
+            .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+            .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
             .team-mosaic-text { padding: 20px 18px 25px; }
             .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
             .team-mosaic-text p { font-size: 13px; max-width: 280px; }
@@ -643,8 +662,14 @@
             .team-header h2 { font-size: 24px; }
             .team-header p { font-size: 14px; }
             
-            /* ✅ На телефонах — одна колонка */
-            .team-mosaic { gap: 25px; max-width: 400px; }
+            /* ✅ На телефонах — 1 колонка */
+            .team-mosaic { 
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+            .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
             .team-mosaic-text { padding: 18px 18px 22px; }
             .team-mosaic-text h3 { font-size: 16px; }
             .team-mosaic-text p { font-size: 13px; max-width: 320px; }
@@ -819,7 +844,7 @@
         </div>
         
         <div class="hero-nav-zone prev" id="heroNavPrev">❮</div>
-        <div class="hero-nav-zone next" id="heroNavNext"></div>
+        <div class="hero-nav-zone next" id="heroNavNext">❯</div>
         
         <div class="hero-content">
             <button class="btn-order" id="orderBtn" data-i18n="heroBtn">ЗАКАЗАТЬ</button>
@@ -845,7 +870,7 @@
         </div>
     </section>
 
-    <!-- ✅ КАРТОЧКИ КОМАНДЫ — ОДНА КОЛОНКА -->
+    <!-- ✅ КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
@@ -855,7 +880,7 @@
         </div>
         <div class="container">
             <div class="team-mosaic">
-                <!-- ✅ Кубик 1: НАША КОМАНДА -->
+                <!-- ✅ Блок 1: НАША КОМАНДА (Фото в 1 ряду, 1 колонка) -->
                 <div class="team-mosaic-item">
                     <div class="team-mosaic-image" 
                          data-bg-desktop="images/team.webp"
@@ -868,20 +893,20 @@
                     </div>
                 </div>
                 
-                <!-- ✅ Кубик 2: УНИКАЛЬНЫЙ ОПЫТ -->
+                <!-- ✅ Блок 2: УНИКАЛЬНЫЙ ОПЫТ (Текст во 2 ряду, 2 колонка) -->
                 <div class="team-mosaic-item">
+                    <div class="team-mosaic-text">
+                        <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
+                        <p data-i18n="card2Descr">Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей</p>
+                    </div>
                     <div class="team-mosaic-image" 
                          data-bg-desktop="images/experience.webp"
                          data-bg-mobile="images/experience-mobile.webp"
                          data-bg-loaded="false">
                     </div>
-                    <div class="team-mosaic-text">
-                        <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
-                        <p data-i18n="card2Descr">Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей</p>
-                    </div>
                 </div>
                 
-                <!-- ✅ Кубик 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ -->
+                <!-- ✅ Блок 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ (Фото в 1 ряду, 3 колонка) -->
                 <div class="team-mosaic-item">
                     <div class="team-mosaic-image" 
                          data-bg-desktop="images/music.webp"
@@ -909,7 +934,7 @@
             <div class="pickup-map-container" id="mapContainer">
                 <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
-                    <div class="pickup-map-hint-icon">🤏</div>
+                    <div class="pickup-map-hint-icon"></div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <iframe 
