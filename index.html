@@ -305,12 +305,12 @@
         
         /* ===== КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК ===== */
         .team-section {
-            padding: 20px 0;
+            padding: 10px 0 0;
             background: #f8f9fa;
         }
         .team-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .team-header h2 {
             font-size: 36px;
@@ -394,7 +394,7 @@
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            padding: 40px 0;
+            padding: 20px 0;
             background: white;
         }
         .pickup-header {
@@ -619,8 +619,8 @@
             .custom-dinner-title { font-size: 26px; }
             .custom-dinner-descr { font-size: 15px; }
             
-            .team-section { padding: 20px 0; }
-            .team-header { margin-bottom: 20px; }
+            .team-section { padding: 10px 0 0; }
+            .team-header { margin-bottom: 10px; }
             .team-header h2 { font-size: 28px; }
             .team-header p { font-size: 15px; }
             
@@ -640,7 +640,7 @@
             .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
             .team-mosaic-text p { font-size: 13px; max-width: 280px; }
             
-            .pickup-section { padding: 30px 0; }
+            .pickup-section { padding: 15px 0; }
             .pickup-header h2 { font-size: 28px; }
             .pickup-map-iframe { height: 400px; }
             
@@ -738,7 +738,7 @@
                 </div>
                 <a href="boxes.html" class="btn-back" id="shopBtn" data-i18n="btnOrder">ЗАКАЗАТЬ</a>
                 <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇺</span>
+                    <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
@@ -849,7 +849,7 @@
             </div>
         </div>
         
-        <div class="hero-nav-zone prev" id="heroNavPrev">❮</div>
+        <div class="hero-nav-zone prev" id="heroNavPrev"></div>
         <div class="hero-nav-zone next" id="heroNavNext">❯</div>
         
         <div class="hero-content">
@@ -1202,7 +1202,7 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
         
