@@ -305,27 +305,27 @@
         
         /* ===== КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК ===== */
         .team-section {
-            padding: 10px 0 0;
+            padding: 5px 0 0;
             background: #f8f9fa;
         }
         .team-header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .team-header h2 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             color: #070395;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .team-header p {
-            font-size: 16px;
+            font-size: 15px;
             color: #555;
             max-width: 700px;
             margin: 0 auto;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         /* ✅ ШАХМАТНЫЙ ПОРЯДОК: 3 колонки × 2 ряда */
@@ -351,18 +351,18 @@
             height: 100%;
         }
         
-        /* ✅ Квадратное изображение */
+        /* ✅ УМЕНЬШЕНО: aspect-ratio с 2/1 до 1.3/1 */
         .team-mosaic-image {
             width: 100%;
-            aspect-ratio: 2 / 1;
+            aspect-ratio: 1.3 / 1;
             background-size: cover;
             background-position: center;
             background-color: #f0f0f0;
         }
         
-        /* ✅ Текстовый блок */
+        /* ✅ УМЕНЬШЕНО: padding текста */
         .team-mosaic-text {
-            padding: 25px 25px 30px;
+            padding: 12px 15px 15px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -371,20 +371,22 @@
             flex: 1;
         }
         
+        /* ✅ УМЕНЬШЕНО: размер заголовка */
         .team-mosaic-text h3 {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: #070395;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
+        /* ✅ УМЕНЬШЕНО: размер текста */
         .team-mosaic-text p {
-            font-size: 14px;
+            font-size: 12px;
             color: #555;
-            line-height: 1.7;
-            max-width: 320px;
+            line-height: 1.5;
+            max-width: 280px;
         }
         
         /* ✅ Позиционирование для шахматного порядка */
@@ -394,23 +396,23 @@
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            padding: 20px 0;
+            padding: 10px 0;
             background: white;
         }
         .pickup-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .pickup-header h2 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             color: #070395;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .pickup-header p {
-            font-size: 15px;
+            font-size: 14px;
             color: #555;
             max-width: 500px;
             margin: 0 auto;
@@ -419,7 +421,7 @@
         /* ✅ ПРЯМЫЕ УГЛЫ У КОНТЕЙНЕРА КАРТЫ */
         .pickup-map-container {
             max-width: 1100px;
-            margin: 0 auto 50px;
+            margin: 0 auto 40px;
             border-radius: 0;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(7,3,149,0.15);
@@ -428,7 +430,7 @@
         }
         .pickup-map-iframe {
             width: 100%;
-            height: 500px;
+            height: 450px;
             border: none;
             display: block;
         }
@@ -489,7 +491,7 @@
             margin: 0 auto;
             background: #f8f9fa;
             border-radius: 0;
-            padding: 25px 30px;
+            padding: 20px 30px;
             box-shadow: 0 5px 20px rgba(7,3,149,0.08);
         }
         .pickup-info-item {
@@ -619,10 +621,10 @@
             .custom-dinner-title { font-size: 26px; }
             .custom-dinner-descr { font-size: 15px; }
             
-            .team-section { padding: 10px 0 0; }
-            .team-header { margin-bottom: 10px; }
-            .team-header h2 { font-size: 28px; }
-            .team-header p { font-size: 15px; }
+            .team-section { padding: 5px 0 0; }
+            .team-header { margin-bottom: 5px; }
+            .team-header h2 { font-size: 24px; }
+            .team-header p { font-size: 14px; }
             
             /* ✅ На планшетах — 1 колонка */
             .team-mosaic { 
@@ -636,13 +638,14 @@
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
             .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .team-mosaic-text { padding: 20px 18px 25px; }
-            .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
-            .team-mosaic-text p { font-size: 13px; max-width: 280px; }
+            .team-mosaic-image { aspect-ratio: 1.5 / 1; }
+            .team-mosaic-text { padding: 12px 15px 15px; }
+            .team-mosaic-text h3 { font-size: 14px; margin-bottom: 6px; }
+            .team-mosaic-text p { font-size: 12px; max-width: 280px; }
             
-            .pickup-section { padding: 15px 0; }
-            .pickup-header h2 { font-size: 28px; }
-            .pickup-map-iframe { height: 400px; }
+            .pickup-section { padding: 10px 0; }
+            .pickup-header h2 { font-size: 24px; }
+            .pickup-map-iframe { height: 350px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
             .header-right { gap: 10px; padding-right: 15px; }
@@ -662,8 +665,8 @@
             .custom-dinner-descr { font-size: 14px; }
             .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
             
-            .team-header h2 { font-size: 24px; }
-            .team-header p { font-size: 14px; }
+            .team-header h2 { font-size: 22px; }
+            .team-header p { font-size: 13px; }
             
             /* ✅ На телефонах — 1 колонка */
             .team-mosaic { 
@@ -676,14 +679,15 @@
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
             .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .team-mosaic-text { padding: 18px 18px 22px; }
-            .team-mosaic-text h3 { font-size: 16px; }
-            .team-mosaic-text p { font-size: 13px; max-width: 320px; }
+            .team-mosaic-image { aspect-ratio: 1.5 / 1; }
+            .team-mosaic-text { padding: 10px 12px 12px; }
+            .team-mosaic-text h3 { font-size: 13px; }
+            .team-mosaic-text p { font-size: 11px; max-width: 320px; }
             
-            .pickup-header h2 { font-size: 24px; }
-            .pickup-header p { font-size: 14px; }
-            .pickup-map-iframe { height: 350px; }
-            .pickup-info-bar { padding: 20px 15px; }
+            .pickup-header h2 { font-size: 22px; }
+            .pickup-header p { font-size: 13px; }
+            .pickup-map-iframe { height: 300px; }
+            .pickup-info-bar { padding: 15px 15px; }
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
             .pickup-info-icon svg { width: 20px; height: 20px; }
             .pickup-info-text { font-size: 14px; }
@@ -718,7 +722,7 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+                <a href="index.html" class="logo" aria-label="Главная"></a>
                 <nav class="nav-menu">
                     <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
@@ -746,7 +750,7 @@
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-code">🇪 EN</span>
                             <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
@@ -938,7 +942,7 @@
             <div class="pickup-map-container" id="mapContainer">
                 <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
-                    <div class="pickup-map-hint-icon">🤏</div>
+                    <div class="pickup-map-hint-icon"></div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <iframe 
@@ -1202,7 +1206,7 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇪';
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
         
