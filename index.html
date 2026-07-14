@@ -333,7 +333,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, 1fr);
-            gap: 30px;
+            gap: 0;
             width: calc(100% + 80px);
             margin-left: -40px;
             margin-right: -40px;
@@ -342,6 +342,7 @@
         /* ✅ Элементы сетки */
         .team-mosaic-item {
             background: white;
+            border: 1px solid #070395;
             border-radius: 0;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(7,3,149,0.1);
@@ -637,7 +638,7 @@
                 width: calc(100% + 40px);
                 margin-left: -20px;
                 margin-right: -20px;
-                gap: 25px;
+                gap: 0;
             }
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
@@ -677,7 +678,7 @@
                 width: calc(100% + 40px);
                 margin-left: -20px;
                 margin-right: -20px;
-                gap: 25px;
+                gap: 0;
             }
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
@@ -724,7 +725,7 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+                <a href="index.html" class="logo" aria-label="Главная"></a>
                 <nav class="nav-menu">
                     <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
@@ -748,7 +749,7 @@
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
                         <a href="#" data-lang="ru">
-                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-code">🇺 RU</span>
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
@@ -856,7 +857,7 @@
         </div>
         
         <div class="hero-nav-zone prev" id="heroNavPrev">❮</div>
-        <div class="hero-nav-zone next" id="heroNavNext">❯</div>
+        <div class="hero-nav-zone next" id="heroNavNext"></div>
         
         <div class="hero-content">
             <button class="btn-order" id="orderBtn" data-i18n="heroBtn">ЗАКАЗАТЬ</button>
@@ -944,7 +945,7 @@
             <div class="pickup-map-container" id="mapContainer">
                 <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
-                    <div class="pickup-map-hint-icon">🤏</div>
+                    <div class="pickup-map-hint-icon"></div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <iframe 
@@ -1208,7 +1209,7 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
         
