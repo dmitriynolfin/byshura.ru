@@ -305,12 +305,12 @@
         
         /* ===== КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК ===== */
         .team-section {
-            padding: 80px 0;
+            padding: 40px 0;
             background: #f8f9fa;
         }
         .team-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
         .team-header h2 {
             font-size: 36px;
@@ -339,25 +339,19 @@
             margin-right: -40px;
         }
         
-        /* ✅ Элементы сетки */
+        /* ✅ Элементы сетки — СТАТИЧНЫЕ, БЕЗ ПОДНИМАНИЯ */
         .team-mosaic-item {
             background: white;
             border: 1px solid #070395;
             border-radius: 0;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(7,3,149,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
         
-        .team-mosaic-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(7,3,149,0.18);
-        }
-        
-        /* ✅ ✅ УМЕНЬШЕНО НА 50%: aspect-ratio 2/1 вместо 1/1 */
+        /* ✅ Квадратное изображение */
         .team-mosaic-image {
             width: 100%;
             aspect-ratio: 2 / 1;
@@ -366,9 +360,9 @@
             background-color: #f0f0f0;
         }
         
-        /* ✅ УМЕНЬШЕНО: padding уменьшен */
+        /* ✅ Текстовый блок */
         .team-mosaic-text {
-            padding: 15px 20px 18px;
+            padding: 25px 25px 30px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -377,26 +371,23 @@
             flex: 1;
         }
         
-        /* ✅ УМЕНЬШЕНО: размер шрифта заголовка */
         .team-mosaic-text h3 {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 700;
             color: #070395;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
-        /* ✅ УМЕНЬШЕНО: размер шрифта текста */
         .team-mosaic-text p {
-            font-size: 12px;
+            font-size: 14px;
             color: #555;
-            line-height: 1.5;
+            line-height: 1.7;
             max-width: 320px;
         }
         
         /* ✅ Позиционирование для шахматного порядка */
-        /* Row 1: Image 1, Text 2, Image 3 */
         .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
         .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 1; }
         .team-mosaic-item:nth-child(3) { grid-column: 3; grid-row: 1; }
@@ -628,8 +619,8 @@
             .custom-dinner-title { font-size: 26px; }
             .custom-dinner-descr { font-size: 15px; }
             
-            .team-section { padding: 50px 0; }
-            .team-header { margin-bottom: 40px; }
+            .team-section { padding: 30px 0; }
+            .team-header { margin-bottom: 30px; }
             .team-header h2 { font-size: 28px; }
             .team-header p { font-size: 15px; }
             
@@ -645,9 +636,9 @@
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
             .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .team-mosaic-text { padding: 12px 15px 15px; }
-            .team-mosaic-text h3 { font-size: 14px; margin-bottom: 6px; }
-            .team-mosaic-text p { font-size: 11px; max-width: 280px; }
+            .team-mosaic-text { padding: 20px 18px 25px; }
+            .team-mosaic-text h3 { font-size: 17px; margin-bottom: 10px; }
+            .team-mosaic-text p { font-size: 13px; max-width: 280px; }
             
             .pickup-section { padding: 50px 0; }
             .pickup-header h2 { font-size: 28px; }
@@ -685,9 +676,9 @@
             .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
             .team-mosaic-item:nth-child(2) { grid-column: 1; grid-row: 2; }
             .team-mosaic-item:nth-child(3) { grid-column: 1; grid-row: 3; }
-            .team-mosaic-text { padding: 10px 12px 12px; }
-            .team-mosaic-text h3 { font-size: 13px; }
-            .team-mosaic-text p { font-size: 11px; max-width: 320px; }
+            .team-mosaic-text { padding: 18px 18px 22px; }
+            .team-mosaic-text h3 { font-size: 16px; }
+            .team-mosaic-text p { font-size: 13px; max-width: 320px; }
             
             .pickup-header h2 { font-size: 24px; }
             .pickup-header p { font-size: 14px; }
@@ -755,7 +746,7 @@
                             <span class="lang-descr">Русский (Москва)</span>
                         </a>
                         <a href="#" data-lang="en">
-                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-code">🇪 EN</span>
                             <span class="lang-descr">English (Dubai)</span>
                         </a>
                     </div>
@@ -859,7 +850,7 @@
         </div>
         
         <div class="hero-nav-zone prev" id="heroNavPrev">❮</div>
-        <div class="hero-nav-zone next" id="heroNavNext"></div>
+        <div class="hero-nav-zone next" id="heroNavNext">❯</div>
         
         <div class="hero-content">
             <button class="btn-order" id="orderBtn" data-i18n="heroBtn">ЗАКАЗАТЬ</button>
@@ -947,7 +938,7 @@
             <div class="pickup-map-container" id="mapContainer">
                 <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
-                    <div class="pickup-map-hint-icon"></div>
+                    <div class="pickup-map-hint-icon">🤏</div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <iframe 
