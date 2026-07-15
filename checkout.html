@@ -60,23 +60,89 @@
             .suggestion-details { font-size: 11px; }
         }
         
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); }
+        /* ===== ШАПКА (Синхронизировано с index.html) ===== */
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; /* ✅ Гарантирует прилегание к краям */
+            width: 100%; 
+            background: rgba(255,255,255,0.98); 
+            padding: 15px 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(7,3,149,0.2); 
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
+        .logo { 
+            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+        }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
-        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-link { 
+            font-weight: 600; font-size: 14px; text-transform: uppercase; 
+            letter-spacing: 0.5px; position: relative; padding: 5px 0;
+        }
+        .nav-link::after { 
+            content: ''; position: absolute; bottom: -5px; left: 0; 
+            width: 0; height: 2px; background: #FFD93D; transition: width 0.3s;
+        }
+        .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: #FFD93D; }
-        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; }
+        .nav-link-cta { 
+            background: #070395; color: white !important; 
+            padding: 10px 25px !important; border-radius: 25px;
+            transition: all 0.3s !important;
+        }
+        .nav-link-cta::after { display: none !important; }
+        .nav-link-cta:hover { 
+            background: #FFD93D !important; color: #070395 !important; 
+            transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3);
+        }
+        
+        /* ✅ Полная синхронизация с index.html для идентичных отступов и размеров */
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
+        .icon-btn { 
+            padding: 8px; color: #070395; 
+            transition: transform 0.3s; 
+            position: relative; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; 
+            min-width: 44px; min-height: 44px;
+        }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
+        .cart-count { 
+            position: absolute; top: -2px; right: -2px; 
+            background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; 
+            width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            line-height: 1;
+        }
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            transition: all 0.3s; min-height: 44px; 
+            display: flex; align-items: center;
+        }
         .btn-back:hover { background: #070395; color: white; }
-        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
+        
+        /* ✅ Синхронизировано с index.html для идеального выравнивания */
+        .lang-selector { 
+            display: flex; align-items: center; gap: 6px; 
+            font-weight: 600; font-size: 13px; cursor: pointer; 
+            position: relative; white-space: nowrap; 
+            min-height: 44px; padding: 5px 10px; 
+            border-radius: 20px; background: rgba(7,3,149,0.05);
+            transition: background 0.3s;
+        }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
+        
         .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
         .lang-dropdown.show { display: block; }
         .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
@@ -501,7 +567,7 @@
             labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
             messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
             sectionDeliveryText: "Delivery",
-            deliveryPickup: "Pickup in Prime Park", deliveryCourier: "Courier",
+            deliveryPickup: "Pickup in Merano Tower", deliveryCourier: "Courier",
             labelAddress: "Delivery Address *",
             addressHint: "Enter street, building or area (Dubai)",
             labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
