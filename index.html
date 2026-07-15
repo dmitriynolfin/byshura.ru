@@ -127,14 +127,18 @@
             display: flex; align-items: center;
         }
         .btn-back:hover { background: #070395; color: white; }
+        
+        /* ✅ Синхронизировано с boxes.html для идеального выравнивания */
         .lang-selector { 
             display: flex; align-items: center; gap: 6px; 
             font-weight: 600; font-size: 13px; cursor: pointer; 
             position: relative; white-space: nowrap; 
             min-height: 44px; padding: 5px 10px; 
             border-radius: 20px; background: rgba(7,3,149,0.05);
+            transition: background 0.3s;
         }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
+        
         .lang-dropdown { 
             position: absolute; top: 100%; right: 0; 
             background: white; border: 1px solid #eee; 
@@ -321,14 +325,14 @@
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            padding: 0 0 20px;
+            /* ✅ Увеличено до значений блока "Индивидуальный ужин" (было: 0 0 20px) */
+            padding: 80px 0 120px;
             background: white;
-            margin-top: -1px;
         }
         .pickup-header {
             text-align: center;
-            margin-bottom: 20px;
-            padding-top: 0;
+            /* ✅ Увеличен отступ после текста, как в custom-dinner-descr (было: 20px) */
+            margin-bottom: 35px;
         }
         .pickup-header h2 {
             font-size: 32px;
@@ -336,12 +340,14 @@
             color: #070395;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 12px;
+            /* ✅ Увеличен отступ до описания, как в custom-dinner-title (было: 12px) */
+            margin-bottom: 20px;
         }
         .pickup-header p {
-            font-size: 14px;
+            font-size: 16px;
+            line-height: 1.7;
             color: #555;
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
         }
         
@@ -533,9 +539,10 @@
             
             .custom-dinner { padding: 50px 0 80px; }
             
-            .pickup-section { padding: 0 0 20px; margin-top: -1px; }
-            .pickup-header { padding-top: 0; margin-bottom: 15px; }
-            .pickup-header h2 { font-size: 24px; }
+            /* ✅ Адаптивные отступы для блока самовывоза (синхронизировано с custom-dinner) */
+            .pickup-section { padding: 50px 0 80px; }
+            .pickup-header { margin-bottom: 25px; }
+            .pickup-header h2 { font-size: 24px; margin-bottom: 15px; }
             .pickup-map-iframe { height: 350px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
@@ -554,10 +561,11 @@
             
             .custom-dinner { padding: 40px 0 60px; }
             
-            .pickup-section { padding: 0 0 15px; margin-top: -1px; }
-            .pickup-header { padding-top: 0; margin-bottom: 15px; }
-            .pickup-header h2 { font-size: 22px; }
-            .pickup-header p { font-size: 13px; max-width: 100%; }
+            /* ✅ Адаптивные отступы для мобильных (синхронизировано с custom-dinner) */
+            .pickup-section { padding: 40px 0 60px; }
+            .pickup-header { margin-bottom: 20px; }
+            .pickup-header h2 { font-size: 22px; margin-bottom: 12px; }
+            .pickup-header p { font-size: 14px; max-width: 100%; }
             .pickup-map-iframe { height: 300px; }
             .pickup-info-bar { padding: 15px 15px; }
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
@@ -571,6 +579,7 @@
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; padding-right: 15px; }
             
+            /* ✅ Синхронизировано с boxes.html для мобильных */
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
