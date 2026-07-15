@@ -274,7 +274,7 @@
         }
         .dot.active { background: white; transform: scale(1.2); }
         
-        /* Секция "Индивидуальный ужин" */
+        /* ===== СЕКЦИЯ "ИНДИВИДУАЛЬНЫЙ УЖИН" ===== */
         .custom-dinner {
             padding: 80px 0 120px;
             background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
@@ -284,6 +284,7 @@
         .custom-dinner-container {
             max-width: 800px;
             margin: 0 auto;
+            padding: 0 20px; /* ✅ Защита от прилипания к краям на мобильных */
         }
         .custom-dinner-icon {
             font-size: 64px;
@@ -295,12 +296,17 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            line-height: 1.3;
+            word-wrap: break-word; /* ✅ Предотвращает обрезание длинных слов */
+            overflow-wrap: break-word;
         }
         .custom-dinner-descr {
             font-size: 17px;
             line-height: 1.8;
             margin-bottom: 35px;
             opacity: 0.95;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .custom-dinner-btn {
             display: inline-flex;
@@ -325,13 +331,11 @@
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            /* ✅ Увеличено до значений блока "Индивидуальный ужин" (было: 0 0 20px) */
             padding: 80px 0 120px;
             background: white;
         }
         .pickup-header {
             text-align: center;
-            /* ✅ Увеличен отступ после текста, как в custom-dinner-descr (было: 20px) */
             margin-bottom: 35px;
         }
         .pickup-header h2 {
@@ -340,8 +344,9 @@
             color: #070395;
             text-transform: uppercase;
             letter-spacing: 1px;
-            /* ✅ Увеличен отступ до описания, как в custom-dinner-title (было: 12px) */
             margin-bottom: 20px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .pickup-header p {
             font-size: 16px;
@@ -349,6 +354,8 @@
             color: #555;
             max-width: 600px;
             margin: 0 auto;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .pickup-map-container {
@@ -503,7 +510,7 @@
         
         /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 1024px) { 
-            .container { padding: 0 20px; } /* ✅ Четкие отступы на планшетах */
+            .container { padding: 0 20px; }
             .nav-menu { display: none; }
             .pickup-info-bar { flex-direction: column; gap: 20px; padding: 25px 20px; }
             .pickup-info-item { 
@@ -537,12 +544,17 @@
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
+            /* ✅ Адаптивная типографика для "Индивидуальный ужин" */
             .custom-dinner { padding: 50px 0 80px; }
+            .custom-dinner-title { font-size: 26px; letter-spacing: 0.5px; }
+            .custom-dinner-descr { font-size: 15px; line-height: 1.6; }
+            .custom-dinner-btn { padding: 16px 30px; font-size: 14px; width: 100%; max-width: 320px; }
             
-            /* ✅ Адаптивные отступы для блока самовывоза (синхронизировано с custom-dinner) */
+            /* ✅ Адаптивная типографика для "Самовывоз" */
             .pickup-section { padding: 50px 0 80px; }
             .pickup-header { margin-bottom: 25px; }
-            .pickup-header h2 { font-size: 24px; margin-bottom: 15px; }
+            .pickup-header h2 { font-size: 26px; margin-bottom: 15px; }
+            .pickup-header p { font-size: 15px; }
             .pickup-map-iframe { height: 350px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
@@ -550,6 +562,7 @@
         }
         
         @media (max-width: 480px) {
+            .container { padding: 0 15px; } /* ✅ Дополнительная защита от прилипания к краям */
             .header { padding: 10px 0; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             
@@ -559,9 +572,12 @@
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             
+            /* ✅ Максимальная адаптация для узких экранов */
             .custom-dinner { padding: 40px 0 60px; }
+            .custom-dinner-title { font-size: 22px; letter-spacing: 0; line-height: 1.3; }
+            .custom-dinner-descr { font-size: 14px; line-height: 1.5; }
+            .custom-dinner-btn { padding: 14px 20px; font-size: 13px; width: 100%; max-width: 100%; }
             
-            /* ✅ Адаптивные отступы для мобильных (синхронизировано с custom-dinner) */
             .pickup-section { padding: 40px 0 60px; }
             .pickup-header { margin-bottom: 20px; }
             .pickup-header h2 { font-size: 22px; margin-bottom: 12px; }
@@ -579,7 +595,6 @@
             .footer-copyright { font-size: 12px; }
             .header-right { gap: 8px; padding-right: 15px; }
             
-            /* ✅ Синхронизировано с boxes.html для мобильных */
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
@@ -595,6 +610,8 @@
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .custom-dinner-title { font-size: 20px; }
+            .pickup-header h2 { font-size: 20px; }
         }
     </style>
 </head>
