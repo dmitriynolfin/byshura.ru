@@ -101,6 +101,8 @@
             background: #FFD93D !important; color: #070395 !important; 
             transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3);
         }
+        
+        /* ✅ Полная синхронизация с boxes.html для идентичных отступов */
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
         .icon-btn { 
@@ -558,7 +560,8 @@
             .pickup-map-iframe { height: 350px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
-            .header-right { gap: 10px; padding-right: 15px; }
+            /* ✅ Синхронизировано с boxes.html (убран лишний padding-right) */
+            .header-right { gap: 10px; }
         }
         
         @media (max-width: 480px) {
@@ -593,7 +596,8 @@
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
-            .header-right { gap: 8px; padding-right: 15px; }
+            /* ✅ Синхронизировано с boxes.html (убран лишний padding-right) */
+            .header-right { gap: 8px; }
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
