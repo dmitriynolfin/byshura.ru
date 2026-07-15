@@ -31,13 +31,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ✅ ЗАПРЕТ ГОРИЗОНТАЛЬНОГО СКРОЛЛА НА ВСЕМ ДОКУМЕНТЕ */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #070395; 
             line-height: 1.6; 
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
         
@@ -46,13 +51,23 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         ul { list-style: none; }
         img { max-width: 100%; height: auto; display: block; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 0 40px; /* ✅ Четкие одинаковые отступы на десктопе */
+        }
         
         /* ===== ШАПКА ===== */
         .header { 
-            position: fixed; top: 0; left: 0; width: 100%; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; /* ✅ Гарантирует прилегание к краям */
+            width: 100%; 
             background: rgba(255,255,255,0.98); 
-            padding: 15px 0; z-index: 1000; 
+            padding: 15px 0; 
+            z-index: 1000; 
             border-bottom: 1px solid rgba(7,3,149,0.2); 
             backdrop-filter: blur(10px);
             transition: all 0.3s;
@@ -137,11 +152,12 @@
             position: fixed;
             top: 75px;
             left: 0;
+            right: 0; /* ✅ Гарантирует прилегание к краям */
             width: 100%;
             z-index: 999;
             background: #FFD93D;
             padding: 12px 0;
-            overflow: hidden;
+            overflow: hidden; /* ✅ Предотвращает вылезание контента */
             border-bottom: 1px solid rgba(7,3,149,0.1);
         }
         .marquee-track {
@@ -256,7 +272,7 @@
         
         /* Секция "Индивидуальный ужин" */
         .custom-dinner {
-            padding: 80px 0 120px; /* ✅ Увеличен нижний отступ для большего расстояния до "О НАС" */
+            padding: 80px 0 120px;
             background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
             color: white;
             text-align: center;
@@ -310,7 +326,7 @@
         }
         .team-header {
             text-align: center;
-            margin-bottom: 50px; /* ✅ Увеличен отступ между текстом и карточками */
+            margin-bottom: 50px;
             padding-top: 10px;
         }
         .team-header h2 {
@@ -352,7 +368,6 @@
             height: 100%;
         }
         
-        /* ✅ УМЕНЬШЕНО: aspect-ratio с 2/1 до 1.3/1 */
         .team-mosaic-image {
             width: 100%;
             aspect-ratio: 1.3 / 1;
@@ -361,7 +376,6 @@
             background-color: #f0f0f0;
         }
         
-        /* ✅ УМЕНЬШЕНО: padding текста */
         .team-mosaic-text {
             padding: 12px 15px 15px;
             text-align: center;
@@ -372,7 +386,6 @@
             flex: 1;
         }
         
-        /* ✅ УМЕНЬШЕНО: размер заголовка */
         .team-mosaic-text h3 {
             font-size: 15px;
             font-weight: 700;
@@ -382,7 +395,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* ✅ УМЕНЬШЕНО: размер текста */
         .team-mosaic-text p {
             font-size: 12px;
             color: #555;
@@ -390,21 +402,20 @@
             max-width: 280px;
         }
         
-        /* ✅ Позиционирование для шахматного порядка */
         .team-mosaic-item:nth-child(1) { grid-column: 1; grid-row: 1; }
         .team-mosaic-item:nth-child(2) { grid-column: 2; grid-row: 1; }
         .team-mosaic-item:nth-child(3) { grid-column: 3; grid-row: 1; }
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            padding: 0 0 20px; /* ✅ Уменьшен нижний отступ для сближения с карточками */
+            padding: 0 0 20px;
             background: white;
-            margin-top: -1px; /* ✅ Убираем 1px для идеального стыка */
+            margin-top: -1px;
         }
         .pickup-header {
             text-align: center;
             margin-bottom: 20px;
-            padding-top: 0; /* ✅ Убран верхний отступ */
+            padding-top: 0;
         }
         .pickup-header h2 {
             font-size: 32px;
@@ -421,7 +432,6 @@
             margin: 0 auto;
         }
         
-        /* ✅ ПРЯМЫЕ УГЛЫ У КОНТЕЙНЕРА КАРТЫ */
         .pickup-map-container {
             max-width: 1100px;
             margin: 0 auto 40px;
@@ -438,7 +448,6 @@
             display: block;
         }
         
-        /* Оверлей с подсказкой для мобильных */
         .pickup-map-hint {
             position: absolute;
             top: 0;
@@ -484,7 +493,6 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
         
-        /* ✅ ПРЯМЫЕ УГЛЫ У ПАНЕЛИ КОНТАКТНОЙ ИНФОРМАЦИИ */
         .pickup-info-bar {
             display: flex;
             justify-content: center;
@@ -576,7 +584,7 @@
         
         /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 1024px) { 
-            .container { padding: 0 20px; } 
+            .container { padding: 0 20px; } /* ✅ Четкие отступы на планшетах */
             .nav-menu { display: none; }
             .team-mosaic { 
                 grid-template-columns: repeat(2, 1fr);
@@ -620,14 +628,17 @@
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
-            .custom-dinner { padding: 50px 0 80px; } /* ✅ Адаптация отступа */
+            .custom-dinner { padding: 50px 0 80px; }
             
             .team-section { padding: 0; }
-            .team-header { margin-bottom: 30px; padding-top: 10px; } /* ✅ Адаптация отступа */
+            .team-header { margin-bottom: 30px; padding-top: 10px; }
             .team-header h2 { font-size: 24px; }
-            .team-header p { font-size: 14px; }
+            /* ✅ УВЕЛИЧЕНА ШИРИНА ТЕКСТА "О НАС" НА МОБИЛЬНЫХ */
+            .team-header p { 
+                font-size: 14px; 
+                max-width: 100%; /* Занимает всю доступную ширину внутри padding контейнера */
+            }
             
-            /* ✅ На планшетах — 1 колонка */
             .team-mosaic { 
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
@@ -642,9 +653,9 @@
             .team-mosaic-image { aspect-ratio: 1.5 / 1; }
             .team-mosaic-text { padding: 12px 15px 15px; }
             .team-mosaic-text h3 { font-size: 14px; margin-bottom: 6px; }
-            .team-mosaic-text p { font-size: 12px; max-width: 280px; }
+            .team-mosaic-text p { font-size: 12px; max-width: 100%; }
             
-            .pickup-section { padding: 0 0 20px; margin-top: -1px; } /* ✅ Адаптация отступа */
+            .pickup-section { padding: 0 0 20px; margin-top: -1px; }
             .pickup-header { padding-top: 0; margin-bottom: 15px; }
             .pickup-header h2 { font-size: 24px; }
             .pickup-map-iframe { height: 350px; }
@@ -663,12 +674,15 @@
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             
-            .custom-dinner { padding: 40px 0 60px; } /* ✅ Адаптация отступа */
+            .custom-dinner { padding: 40px 0 60px; }
             
             .team-header h2 { font-size: 22px; }
-            .team-header p { font-size: 13px; }
+            /* ✅ Четкие отступы и ширина на маленьких экранах */
+            .team-header p { 
+                font-size: 13px; 
+                max-width: 100%; 
+            }
             
-            /* ✅ На телефонах — 1 колонка */
             .team-mosaic { 
                 grid-template-columns: 1fr;
                 width: calc(100% + 40px);
@@ -682,12 +696,12 @@
             .team-mosaic-image { aspect-ratio: 1.5 / 1; }
             .team-mosaic-text { padding: 10px 12px 12px; }
             .team-mosaic-text h3 { font-size: 13px; }
-            .team-mosaic-text p { font-size: 11px; max-width: 320px; }
+            .team-mosaic-text p { font-size: 11px; max-width: 100%; }
             
-            .pickup-section { padding: 0 0 15px; margin-top: -1px; } /* ✅ Адаптация отступа */
+            .pickup-section { padding: 0 0 15px; margin-top: -1px; }
             .pickup-header { padding-top: 0; margin-bottom: 15px; }
             .pickup-header h2 { font-size: 22px; }
-            .pickup-header p { font-size: 13px; }
+            .pickup-header p { font-size: 13px; max-width: 100%; }
             .pickup-map-iframe { height: 300px; }
             .pickup-info-bar { padding: 15px 15px; }
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
@@ -724,7 +738,6 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <!-- ✅ Возвращен эмодзи лимона в логотип -->
                 <a href="index.html" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
                     <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
@@ -762,7 +775,6 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
         <div class="marquee-track">
             <div class="marquee-item">
@@ -785,7 +797,6 @@
                 </svg>
                 <span data-i18n="marquee3">ИНДИВИДУАЛЬНЫЙ ПОДХОД</span>
             </div>
-            <!-- Повтор для бесконечной прокрутки -->
             <div class="marquee-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="9" cy="21" r="1"></circle>
@@ -809,50 +820,25 @@
         </div>
     </div>
 
-    <!-- HERO со свайпом -->
     <section class="hero" id="heroSection">
         <div class="hero-slider" id="heroSlider">
             <div class="hero-slide">
-                <div class="hero-image" 
-                     data-bg-desktop="images/main-1.webp"
-                     data-bg-mobile="images/main-1-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="hero-image" data-bg-desktop="images/main-1.webp" data-bg-mobile="images/main-1-mobile.webp" data-bg-loaded="false"></div>
             </div>
             <div class="hero-slide">
-                <div class="hero-image" 
-                     data-bg-desktop="images/main-2.webp"
-                     data-bg-mobile="images/main-2-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="hero-image" data-bg-desktop="images/main-2.webp" data-bg-mobile="images/main-2-mobile.webp" data-bg-loaded="false"></div>
             </div>
             <div class="hero-slide">
-                <div class="hero-image" 
-                     data-bg-desktop="images/main-3.webp"
-                     data-bg-mobile="images/main-3-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="hero-image" data-bg-desktop="images/main-3.webp" data-bg-mobile="images/main-3-mobile.webp" data-bg-loaded="false"></div>
             </div>
             <div class="hero-slide">
-                <div class="hero-image" 
-                     data-bg-desktop="images/main-4.webp"
-                     data-bg-mobile="images/main-4-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="hero-image" data-bg-desktop="images/main-4.webp" data-bg-mobile="images/main-4-mobile.webp" data-bg-loaded="false"></div>
             </div>
             <div class="hero-slide">
-                <div class="hero-image" 
-                     data-bg-desktop="images/main-5.webp"
-                     data-bg-mobile="images/main-5-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="hero-image" data-bg-desktop="images/main-5.webp" data-bg-mobile="images/main-5-mobile.webp" data-bg-loaded="false"></div>
             </div>
             <div class="hero-slide">
-                <div class="hero-image" 
-                     data-bg-desktop="images/main-6.webp"
-                     data-bg-mobile="images/main-6-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="hero-image" data-bg-desktop="images/main-6.webp" data-bg-mobile="images/main-6-mobile.webp" data-bg-loaded="false"></div>
             </div>
         </div>
         
@@ -872,7 +858,6 @@
         </div>
     </section>
 
-    <!-- ИНДИВИДУАЛЬНЫЙ УЖИН -->
     <section class="custom-dinner">
         <div class="container custom-dinner-container">
             <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН (ЗВАНЫЙ)</h2>
@@ -883,7 +868,6 @@
         </div>
     </section>
 
-    <!-- ✅ КАРТОЧКИ КОМАНДЫ — ШАХМАТНЫЙ ПОРЯДОК -->
     <section class="team-section">
         <div class="container">
             <div class="team-header">
@@ -892,39 +876,24 @@
             </div>
         </div>
         <div class="team-mosaic">
-            <!-- ✅ Блок 1: НАША КОМАНДА (1-я колонка, 1-й ряд, фото сверху) -->
             <div class="team-mosaic-item">
-                <div class="team-mosaic-image" 
-                     data-bg-desktop="images/team.webp"
-                     data-bg-mobile="images/team-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="team-mosaic-image" data-bg-desktop="images/team.webp" data-bg-mobile="images/team-mobile.webp" data-bg-loaded="false"></div>
                 <div class="team-mosaic-text">
                     <h3 data-i18n="card1Title">НАША КОМАНДА</h3>
                     <p data-i18n="card1Descr">Пока нас двое, поэтому наши ресурсы ограничены. Но мы уверены, что скоро нас станет больше</p>
                 </div>
             </div>
             
-            <!-- ✅ Блок 2: УНИКАЛЬНЫЙ ОПЫТ (2-я колонка, 1-й ряд, текст сверху) -->
             <div class="team-mosaic-item">
                 <div class="team-mosaic-text">
                     <h3 data-i18n="card2Title">УНИКАЛЬНЫЙ ОПЫТ</h3>
                     <p data-i18n="card2Descr">Боксы Гедонизма — это возможность узнать чуть больше про еду через факты и исторических личностей</p>
                 </div>
-                <div class="team-mosaic-image" 
-                     data-bg-desktop="images/experience.webp"
-                     data-bg-mobile="images/experience-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="team-mosaic-image" data-bg-desktop="images/experience.webp" data-bg-mobile="images/experience-mobile.webp" data-bg-loaded="false"></div>
             </div>
             
-            <!-- ✅ Блок 3: НЕ ПРОСТО ЗАКАЗ ЕДЫ (3-я колонка, 1-й ряд, фото сверху) -->
             <div class="team-mosaic-item">
-                <div class="team-mosaic-image" 
-                     data-bg-desktop="images/music.webp"
-                     data-bg-mobile="images/music-mobile.webp"
-                     data-bg-loaded="false">
-                </div>
+                <div class="team-mosaic-image" data-bg-desktop="images/music.webp" data-bg-mobile="images/music-mobile.webp" data-bg-loaded="false"></div>
                 <div class="team-mosaic-text">
                     <h3 data-i18n="card3Title">НЕ ПРОСТО ЗАКАЗ ЕДЫ</h3>
                     <p data-i18n="card3Descr">Наши ужины — не просто заказ готовой еды, а возможность принять участие в сервировке, познакомиться с культурой через страну или историческую личность, а также создать для гостей нужную атмосферу, благодаря музыкальному сопровождению</p>
@@ -933,7 +902,6 @@
         </div>
     </section>
 
-    <!-- БЛОК САМОВЫВОЗА С КАРТОЙ -->
     <section class="pickup-section" id="contacts">
         <div class="container">
             <div class="pickup-header">
@@ -941,23 +909,14 @@
                 <p data-i18n="pickupDescr">Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично</p>
             </div>
             
-            <!-- Карта с возможностью приближения и просмотра окрестностей -->
             <div class="pickup-map-container" id="mapContainer">
-                <!-- Оверлей с подсказкой для мобильных -->
                 <div class="pickup-map-hint" id="mapHint">
                     <div class="pickup-map-hint-icon">🤏</div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
-                <iframe 
-                    class="pickup-map-iframe"
-                    id="mapIframe"
-                    src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm"
-                    allowfullscreen
-                    loading="lazy">
-                </iframe>
+                <iframe class="pickup-map-iframe" id="mapIframe" src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" allowfullscreen loading="lazy"></iframe>
             </div>
             
-            <!-- КОНТАКТНАЯ ИНФОРМАЦИЯ -->
             <div class="pickup-info-bar">
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
@@ -977,9 +936,7 @@
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
                     </div>
-                    <div class="pickup-info-text" data-i18n="pickupAddressText">
-                        ЖК Prime Park, Ленинградский проспект 37/7
-                    </div>
+                    <div class="pickup-info-text" data-i18n="pickupAddressText">ЖК Prime Park, Ленинградский проспект 37/7</div>
                 </div>
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
@@ -999,15 +956,9 @@
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.webp" alt="Telegram" loading="lazy">
-                </a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.webp" alt="MAX" loading="lazy">
-                </a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.webp" alt="Instagram" loading="lazy">
-                </a>
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <div class="legal-links-ru">
                 <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
@@ -1073,20 +1024,14 @@
     let currentSlide = 0;
     const totalSlides = 6;
     let autoSlideInterval = null;
-    
-    // Инициализация корзины из localStorage
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
 
-    function trackGA4Event(eventName, params) {
-        if (typeof gtag === 'function') gtag('event', eventName, params);
-    }
+    function trackGA4Event(eventName, params) { if (typeof gtag === 'function') gtag('event', eventName, params); }
 
-    // Функция обновления счётчика корзины
     function updateCartCount() {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
-            const totalQty = Array.isArray(cart) ? 
-                cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
             cartCount.textContent = totalQty > 0 ? totalQty : '0';
         }
     }
@@ -1105,25 +1050,10 @@
         });
     }
 
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSliderPosition();
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateSliderPosition();
-    }
-
-    function goToSlide(index) {
-        currentSlide = index;
-        updateSliderPosition();
-    }
-
-    function resetAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
+    function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateSliderPosition(); }
+    function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; updateSliderPosition(); }
+    function goToSlide(index) { currentSlide = index; updateSliderPosition(); }
+    function resetAutoSlide() { if (autoSlideInterval) clearInterval(autoSlideInterval); autoSlideInterval = setInterval(nextSlide, 5000); }
 
     function lazyLoadBackgrounds() {
         const images = document.querySelectorAll('[data-bg-desktop]');
@@ -1134,10 +1064,7 @@
                     if (el.dataset.bgLoaded === 'false') {
                         const isMobile = window.innerWidth <= 768;
                         const src = isMobile ? el.dataset.bgMobile : el.dataset.bgDesktop;
-                        if (src) {
-                            el.style.backgroundImage = `url('${src}')`;
-                            el.dataset.bgLoaded = 'true';
-                        }
+                        if (src) { el.style.backgroundImage = `url('${src}')`; el.dataset.bgLoaded = 'true'; }
                         observer.unobserve(el);
                     }
                 }
@@ -1148,34 +1075,21 @@
 
     function updateMap() {
         const mapIframe = document.getElementById('mapIframe');
-        if (mapIframe) {
-            mapIframe.src = mapUrls[currentLang];
-        }
+        if (mapIframe) mapIframe.src = mapUrls[currentLang];
     }
 
     function initMapHint() {
         const mapHint = document.getElementById('mapHint');
         const mapContainer = document.getElementById('mapContainer');
-        
         if (!mapHint || !mapContainer) return;
-        
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        if (!isTouchDevice) {
-            mapHint.classList.remove('visible', 'fade-out');
-            return;
-        }
-        
+        if (!isTouchDevice) { mapHint.classList.remove('visible', 'fade-out'); return; }
         mapHint.classList.remove('fade-out');
         mapHint.classList.add('visible');
-        
         const dismissHint = (e) => {
             if (!mapHint.classList.contains('visible')) return;
-            
-            e.preventDefault();
-            e.stopPropagation();
-            
+            e.preventDefault(); e.stopPropagation();
             mapHint.classList.add('fade-out');
-            
             setTimeout(() => {
                 mapHint.classList.remove('visible', 'fade-out');
                 mapHint.removeEventListener('touchstart', dismissHint);
@@ -1184,7 +1098,6 @@
                 mapContainer.removeEventListener('touchstart', dismissHint);
             }, 400);
         };
-        
         mapHint.addEventListener('touchstart', dismissHint, { passive: false });
         mapHint.addEventListener('touchend', dismissHint, { passive: true });
         mapHint.addEventListener('click', dismissHint);
@@ -1194,28 +1107,21 @@
     function applyLanguage(lang) {
         if (!translations[lang]) lang = 'ru';
         currentLang = lang;
-        
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang][key]) {
-                if (key === 'pickupAddressText') {
-                    el.innerHTML = translations[lang][key];
-                } else {
-                    el.textContent = translations[lang][key];
-                }
+                if (key === 'pickupAddressText') el.innerHTML = translations[lang][key];
+                else el.textContent = translations[lang][key];
             }
         });
-        
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
             langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
-        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
-        
         updateMap();
         initMapHint();
         updateCartCount();
@@ -1225,142 +1131,72 @@
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
         lazyLoadBackgrounds();
-        
         updateSliderPosition();
         resetAutoSlide();
-        
         initMapHint();
-        
-        // Вызов обновления счётчика корзины при загрузке
         updateCartCount();
         
         const heroSection = document.getElementById('heroSection');
-        const heroSlider = document.getElementById('heroSlider');
-        
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let touchEndX = 0;
-        let touchEndY = 0;
-        let isSwiping = false;
-        let swipeThreshold = 50;
+        let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0, isSwiping = false;
         
         heroSection.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-            isSwiping = false;
+            touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; isSwiping = false;
         }, { passive: true });
         
         heroSection.addEventListener('touchmove', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
-            
-            const diffX = Math.abs(touchEndX - touchStartX);
-            const diffY = Math.abs(touchEndY - touchStartY);
-            
-            if (diffX > diffY && diffX > 10) {
-                isSwiping = true;
-                e.preventDefault();
+            touchEndX = e.changedTouches[0].screenX; touchEndY = e.changedTouches[0].screenY;
+            if (Math.abs(touchEndX - touchStartX) > Math.abs(touchEndY - touchStartY) && Math.abs(touchEndX - touchStartX) > 10) {
+                isSwiping = true; e.preventDefault();
             }
         }, { passive: false });
         
         heroSection.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
-            
             if (isSwiping) {
-                handleSwipe();
+                const diffX = touchEndX - touchStartX;
+                if (Math.abs(diffX) > 50) { diffX < 0 ? nextSlide() : prevSlide(); resetAutoSlide(); }
             }
-            
             isSwiping = false;
         }, { passive: true });
         
-        function handleSwipe() {
-            const diffX = touchEndX - touchStartX;
-            
-            if (Math.abs(diffX) > swipeThreshold) {
-                if (diffX < 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-                resetAutoSlide();
-            }
-        }
-        
-        document.getElementById('heroNavPrev')?.addEventListener('click', () => {
-            prevSlide();
-            resetAutoSlide();
-        });
-        
-        document.getElementById('heroNavNext')?.addEventListener('click', () => {
-            nextSlide();
-            resetAutoSlide();
-        });
+        document.getElementById('heroNavPrev')?.addEventListener('click', () => { prevSlide(); resetAutoSlide(); });
+        document.getElementById('heroNavNext')?.addEventListener('click', () => { nextSlide(); resetAutoSlide(); });
         
         document.querySelectorAll('.dot').forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                goToSlide(i);
-                resetAutoSlide();
-            });
+            dot.addEventListener('click', () => { goToSlide(i); resetAutoSlide(); });
         });
         
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
         if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', e => {
-                e.stopPropagation();
-                langDropdown.classList.toggle('show');
-            });
+            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', e => {
-                    e.preventDefault();
-                    e.stopPropagation();
+                    e.preventDefault(); e.stopPropagation();
                     applyLanguage(link.dataset.lang);
-                    langDropdown.classList.remove('show');
+                    setTimeout(() => langDropdown.classList.remove('show'), 100);
                 });
             });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target)) {
-                    langDropdown.classList.remove('show');
-                }
-            });
+            document.addEventListener('click', e => { if (!langBtn.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
-        document.getElementById('orderBtn')?.addEventListener('click', () => {
-            window.location.href = 'boxes.html';
-        });
+        document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = 'boxes.html'; });
+        document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = 'boxes.html'; });
         
-        document.getElementById('shopBtn')?.addEventListener('click', () => {
-            window.location.href = 'boxes.html';
-        });
-        
-        // Обработка клика на корзину с проверкой наличия товаров
         document.getElementById('cartBtn')?.addEventListener('click', function() {
-            trackGA4Event('cart_click', { 
-                page: 'index', 
-                cart_items: cart.length, 
-                cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) 
-            });
-            
+            trackGA4Event('cart_click', { page: 'index', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) });
             if (cart.length === 0) {
-                const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
-                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) {
-                    window.location.href = 'boxes.html';
-                    return;
-                }
+                if (confirm((translations[currentLang]?.cartAlert || translations.ru.cartAlert) + '\n\nПерейти на страницу боксов?')) window.location.href = 'boxes.html';
+            } else {
+                window.location.href = 'checkout.html';
             }
-            window.location.href = 'checkout.html';
         });
         
         trackGA4Event('page_view', { page_path: '/index.html', language: currentLang });
     });
     
-    // Синхронизация корзины между вкладками/страницами
     window.addEventListener('storage', function(e) {
-        if (e.key === 'hedonism_cart') {
-            cart = JSON.parse(e.newValue) || [];
-            updateCartCount();
-        }
+        if (e.key === 'hedonism_cart') { cart = JSON.parse(e.newValue) || []; updateCartCount(); }
     });
     </script>
 </body>
