@@ -256,7 +256,7 @@
         
         /* Секция "Индивидуальный ужин" */
         .custom-dinner {
-            padding: 80px 0;
+            padding: 80px 0 120px; /* ✅ Увеличен нижний отступ для большего расстояния до "О НАС" */
             background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
             color: white;
             text-align: center;
@@ -310,7 +310,7 @@
         }
         .team-header {
             text-align: center;
-            margin-bottom: 0;
+            margin-bottom: 50px; /* ✅ Увеличен отступ между текстом и карточками */
             padding-top: 10px;
         }
         .team-header h2 {
@@ -397,7 +397,7 @@
         
         /* ===== БЛОК САМОВЫВОЗА С КАРТОЙ ===== */
         .pickup-section {
-            padding: 0 0 40px;
+            padding: 0 0 20px; /* ✅ Уменьшен нижний отступ для сближения с карточками */
             background: white;
             margin-top: -1px; /* ✅ Убираем 1px для идеального стыка */
         }
@@ -620,12 +620,10 @@
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
-            .custom-dinner { padding: 50px 0; }
-            .custom-dinner-title { font-size: 26px; }
-            .custom-dinner-descr { font-size: 15px; }
+            .custom-dinner { padding: 50px 0 80px; } /* ✅ Адаптация отступа */
             
             .team-section { padding: 0; }
-            .team-header { margin-bottom: 0; padding-top: 10px; }
+            .team-header { margin-bottom: 30px; padding-top: 10px; } /* ✅ Адаптация отступа */
             .team-header h2 { font-size: 24px; }
             .team-header p { font-size: 14px; }
             
@@ -646,7 +644,7 @@
             .team-mosaic-text h3 { font-size: 14px; margin-bottom: 6px; }
             .team-mosaic-text p { font-size: 12px; max-width: 280px; }
             
-            .pickup-section { padding: 0 0 30px; margin-top: -1px; }
+            .pickup-section { padding: 0 0 20px; margin-top: -1px; } /* ✅ Адаптация отступа */
             .pickup-header { padding-top: 0; margin-bottom: 15px; }
             .pickup-header h2 { font-size: 24px; }
             .pickup-map-iframe { height: 350px; }
@@ -665,9 +663,7 @@
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             
-            .custom-dinner-title { font-size: 22px; }
-            .custom-dinner-descr { font-size: 14px; }
-            .custom-dinner-btn { padding: 15px 35px; font-size: 14px; }
+            .custom-dinner { padding: 40px 0 60px; } /* ✅ Адаптация отступа */
             
             .team-header h2 { font-size: 22px; }
             .team-header p { font-size: 13px; }
@@ -688,7 +684,7 @@
             .team-mosaic-text h3 { font-size: 13px; }
             .team-mosaic-text p { font-size: 11px; max-width: 320px; }
             
-            .pickup-section { padding: 0 0 20px; margin-top: -1px; }
+            .pickup-section { padding: 0 0 15px; margin-top: -1px; } /* ✅ Адаптация отступа */
             .pickup-header { padding-top: 0; margin-bottom: 15px; }
             .pickup-header h2 { font-size: 22px; }
             .pickup-header p { font-size: 13px; }
@@ -728,7 +724,8 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="index.html" class="logo" aria-label="Главная"></a>
+                <!-- ✅ Возвращен эмодзи лимона в логотип -->
+                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
                     <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
@@ -1212,7 +1209,7 @@
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇪';
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
             langCurrent.textContent = lang.toUpperCase();
         }
         
