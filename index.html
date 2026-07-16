@@ -158,19 +158,19 @@
             position: fixed;
             top: 75px;
             left: 0;
-            right: 0; /* ✅ Гарантирует прилегание к краям */
+            right: 0;
             width: 100%;
             z-index: 999;
             background: #FFD93D;
-            display: flex; /* ✅ Добавлено для точного центрирования */
-            align-items: center; /* ✅ Добавлено для точного центрирования */
-            height: 48px; /* ✅ Заменяет padding для строгого контроля высоты и идеального центрирования */
-            overflow: hidden; /* ✅ Предотвращает вылезание контента */
+            display: flex;
+            align-items: center;
+            height: 48px; /* ✅ Фиксированная высота для идеального вертикального центрирования */
+            overflow: hidden;
             border-bottom: 1px solid rgba(7,3,149,0.1);
         }
         .marquee-track {
             display: flex;
-            align-items: center; /* ✅ Гарантирует строгое вертикальное центрирование элементов */
+            align-items: center;
             animation: marquee-scroll 40s linear infinite;
             width: max-content;
         }
@@ -184,7 +184,8 @@
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            line-height: 1; /* ✅ Устраняет влияние внутренней высоты строки шрифта на центрирование */
+            line-height: 1;
+            white-space: nowrap; /* ✅ Строгий запрет переноса текста на новую строку */
         }
         .marquee-item svg {
             width: 22px;
@@ -532,7 +533,7 @@
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
             .marquee-bar { top: 66px; height: 42px; } /* ✅ Адаптивная высота с сохранением идеального центрирования */
-            .marquee-item { font-size: 12px; padding: 0 25px; line-height: 1; }
+            .marquee-item { font-size: 12px; padding: 0 25px; line-height: 1; white-space: nowrap; }
             .marquee-item svg { width: 18px; height: 18px; }
             .hero { min-height: 500px; margin-top: 40px; }
             .hero-content { bottom: 80px; }
