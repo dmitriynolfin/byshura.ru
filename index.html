@@ -247,7 +247,7 @@
             color: #070395;
         }
         
-        /* ✅ FIX 1: Размеры кнопки "Заказать" синхронизированы с кнопкой "Написать нам" (.custom-dinner-btn) */
+        /* ✅ FIX 1: Размеры кнопки "Заказать" полностью синхронизированы с "Написать нам" (.custom-dinner-btn) */
         .btn-order {
             background: linear-gradient(135deg, #FFD93D 0%, #ffb800 100%);
             color: #070395;
@@ -263,6 +263,8 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            border: none;
+            cursor: pointer;
         }
         .btn-order:hover {
             transform: translateY(-4px);
@@ -538,7 +540,7 @@
             .hero { height: 525px; min-height: 525px; margin-top: 40px; }
             .hero-content { bottom: 60px; }
             
-            /* ✅ FIX 1: Синхронизировано с .custom-dinner-btn */
+            /* ✅ FIX 1: Полная синхронизация размеров с .custom-dinner-btn */
             .btn-order { padding: 16px 30px; font-size: 14px; width: 100%; max-width: 320px; }
             
             .slider-dots { bottom: 15px; }
@@ -578,7 +580,7 @@
             .hero-content { bottom: 45px; }
             .slider-dots { bottom: 10px; }
             
-            /* ✅ FIX 1: Синхронизировано с .custom-dinner-btn для узких экранов */
+            /* ✅ FIX 1: Полная синхронизация размеров с .custom-dinner-btn для узких экранов */
             .btn-order { padding: 14px 20px; font-size: 13px; width: 100%; max-width: 100%; }
             
             .header-icons { gap: 8px; }
@@ -878,8 +880,8 @@
 
     const mapUrls = {
         ru: 'https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm',
-        // ✅ FIX 2: Явная красная метка (pm2rdm) точно на координатах Merano Tower, DAMAC (Business Bay, Dubai)
-        en: 'https://yandex.ru/map-widget/v1/?ll=55.263824%2C25.186855&z=16&l=map&pt=55.263824%2C25.186855%2Cpm2rdm'
+        // ✅ FIX 2: Параметр 'q' гарантирует установку крупной красной метки (пина) точно на Merano Tower
+        en: 'https://maps.google.com/maps?q=Merano+Tower+DAMAC+Dubai&z=16&output=embed'
     };
 
     let currentLang = 'ru';
