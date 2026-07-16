@@ -164,7 +164,7 @@
             background: #FFD93D;
             display: flex;
             align-items: center;
-            height: 48px; /* ✅ Фиксированная высота для идеального вертикального центрирования */
+            height: 34px; /* ✅ Высота сокращена на ~30% (было 48px), текст остается идеально по центру */
             overflow: hidden;
             border-bottom: 1px solid rgba(7,3,149,0.1);
         }
@@ -532,7 +532,7 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .marquee-bar { top: 66px; height: 42px; } /* ✅ Адаптивная высота с сохранением идеального центрирования */
+            .marquee-bar { top: 66px; height: 29px; } /* ✅ Высота сокращена на ~30% (было 42px) */
             .marquee-item { font-size: 12px; padding: 0 25px; line-height: 1; white-space: nowrap; }
             .marquee-item svg { width: 18px; height: 18px; }
             .hero { min-height: 500px; margin-top: 40px; }
