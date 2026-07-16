@@ -247,7 +247,7 @@
             color: #070395;
         }
         
-        /* ✅ FIX: Оригинальный крупный размер кнопки "Заказать" */
+        /* ✅ Базовые стили кнопки "Заказать" */
         .btn-order {
             background: linear-gradient(135deg, #FFD93D 0%, #ffb800 100%);
             color: #070395;
@@ -267,6 +267,7 @@
             text-decoration: none;
             border: none;
             cursor: pointer;
+            box-sizing: border-box;
         }
         .btn-order:hover {
             transform: translateY(-4px);
@@ -319,7 +320,7 @@
             overflow-wrap: break-word;
         }
         
-        /* ✅ FIX: Кнопка "Написать нам" теперь имеет точно такие же размеры, как "Заказать" */
+        /* ✅ Базовые стили кнопки "Написать нам" (идентичны "Заказать") */
         .custom-dinner-btn {
             display: inline-flex;
             align-items: center;
@@ -336,6 +337,9 @@
             text-decoration: none;
             min-height: 64px;
             min-width: 280px;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
         }
         .custom-dinner-btn:hover {
             background: white;
@@ -546,9 +550,16 @@
             .hero { height: 525px; min-height: 525px; margin-top: 40px; }
             .hero-content { bottom: 60px; }
             
-            /* ✅ FIX: Синхронизированные мобильные размеры для обеих кнопок */
-            .btn-order { padding: 18px 40px; font-size: 14px; min-width: 220px; width: 100%; max-width: 320px; }
-            .custom-dinner-btn { padding: 18px 40px; font-size: 14px; min-width: 220px; width: 100%; max-width: 320px; }
+            /* ✅ FIX: Абсолютно идентичные размеры для кнопок "Заказать" и "Написать нам" на мобильных */
+            .btn-order, .custom-dinner-btn { 
+                padding: 18px 40px !important; 
+                font-size: 14px !important; 
+                min-width: 220px !important; 
+                width: 100% !important; 
+                max-width: 320px !important; 
+                min-height: 56px !important;
+                box-sizing: border-box !important;
+            }
             
             .slider-dots { bottom: 15px; }
             .dot { width: 14px; height: 14px; border-width: 2.5px; }
@@ -586,9 +597,15 @@
             .hero-content { bottom: 45px; }
             .slider-dots { bottom: 10px; }
             
-            /* ✅ FIX: Синхронизированные мобильные размеры для узких экранов */
-            .btn-order { padding: 16px 30px; font-size: 13px; width: 100%; max-width: 100%; }
-            .custom-dinner-btn { padding: 16px 30px; font-size: 13px; width: 100%; max-width: 100%; }
+            /* ✅ FIX: Абсолютно идентичные размеры для узких экранов */
+            .btn-order, .custom-dinner-btn { 
+                padding: 16px 30px !important; 
+                font-size: 13px !important; 
+                width: 100% !important; 
+                max-width: 100% !important; 
+                min-height: 52px !important;
+                box-sizing: border-box !important;
+            }
             
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
