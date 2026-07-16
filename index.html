@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Добавлен meta tag для предотвращения кэширования устаревших JS-скриптов карт -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     
     <title data-i18n="pageTitle">Вестник Гедонизма — Доставка гастрономических боксов в Москве | Пт-Вс 17:00-23:00</title>
     <meta name="description" content="Домашний ресторан «Вестник Гедонизма» — авторские гастрономические боксы с историей. Доставка по Москве и самовывоз в ЖК Prime Park. Работаем Пт-Вс 17:00-23:00.">
@@ -768,7 +770,8 @@
                     <div class="pickup-map-hint-icon">🤏</div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
-                <iframe class="pickup-map-iframe" id="mapIframe" src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" allowfullscreen loading="lazy"></iframe>
+                <!-- ✅ Добавлен referrerpolicy для стабильной загрузки виджета -->
+                <iframe class="pickup-map-iframe" id="mapIframe" src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта самовывоза ЖК Prime Park"></iframe>
             </div>
             
             <div class="pickup-info-bar">
@@ -861,7 +864,8 @@
 
     const mapUrls = {
         ru: 'https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm',
-        en: 'https://maps.google.com/maps?q=Merano+Tower+Damac+Dubai&t=&z=16&ie=UTF8&iwloc=&output=embed'
+        // ✅ Обновлен на более стабильный формат embed для Google Maps
+        en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.5!2d55.2134!3d25.0765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f682829c85c07%3A0xa5eda9fb3c8c8b!2sMerano%20Tower%20-%20DAMAC!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae'
     };
 
     let currentLang = 'ru';
@@ -926,26 +930,40 @@
         const mapHint = document.getElementById('mapHint');
         const mapContainer = document.getElementById('mapContainer');
         if (!mapHint || !mapContainer) return;
+        
         const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        if (!isTouchDevice) { mapHint.classList.remove('visible', 'fade-out'); return; }
+        if (!isTouchDevice) { 
+            mapHint.classList.remove('visible', 'fade-out'); 
+            return; 
+        }
+        
         mapHint.classList.remove('fade-out');
         mapHint.classList.add('visible');
+        
         const dismissHint = (e) => {
             if (!mapHint.classList.contains('visible')) return;
-            e.preventDefault(); e.stopPropagation();
+            
+            // ✅ ИСПРАВЛЕНИЕ: Убран e.preventDefault(), который вызывал ошибку 
+            // "Unable to preventDefault inside passive event listener"
+            e.stopPropagation(); 
+            
             mapHint.classList.add('fade-out');
             setTimeout(() => {
                 mapHint.classList.remove('visible', 'fade-out');
+                // Очистка слушателей
                 mapHint.removeEventListener('touchstart', dismissHint);
                 mapHint.removeEventListener('touchend', dismissHint);
                 mapHint.removeEventListener('click', dismissHint);
                 mapContainer.removeEventListener('touchstart', dismissHint);
             }, 400);
         };
-        mapHint.addEventListener('touchstart', dismissHint, { passive: false });
+        
+        // ✅ ИСПРАВЛЕНИЕ: Все слушатели теперь явно passive: true, 
+        // так как preventDefault больше не вызывается внутри функции
+        mapHint.addEventListener('touchstart', dismissHint, { passive: true });
         mapHint.addEventListener('touchend', dismissHint, { passive: true });
-        mapHint.addEventListener('click', dismissHint);
-        mapContainer.addEventListener('touchstart', dismissHint, { passive: false });
+        mapHint.addEventListener('click', dismissHint, { passive: true });
+        mapContainer.addEventListener('touchstart', dismissHint, { passive: true });
     }
 
     function applyLanguage(lang) {
