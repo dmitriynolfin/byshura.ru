@@ -771,8 +771,14 @@
                     <div class="pickup-map-hint-icon">🤏</div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
-                <iframe class="pickup-map-iframe" id="mapIframe" src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" allowfullscreen loading="lazy"></iframe>
-            </div>
+<iframe 
+    class="pickup-map-iframe" 
+    id="mapIframe" 
+    src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" 
+    allowfullscreen 
+    loading="lazy"
+    sandbox="allow-scripts allow-same-origin allow-popups"
+></iframe>            </div>
             
             <div class="pickup-info-bar">
                 <div class="pickup-info-item">
