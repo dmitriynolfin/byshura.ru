@@ -89,7 +89,6 @@
         
         .catalog { padding: 115px 0 60px; min-height: 100vh; }
         
-        /* ✅ НАВИГАЦИОННЫЕ КНОПКИ — УБРАН ОТСТУП ОТ ШАПКИ */
         .category-nav {
             display: flex;
             justify-content: center;
@@ -136,20 +135,21 @@
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
         .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; scroll-margin-top: 150px; }
         
-        /* ✅ СЕТКА: 2 КОЛОНКИ НА МОБИЛЬНЫХ */
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        /* ✅ ПРЯМЫЕ УГЛЫ У КАРТОЧЕК ПРОДУКТОВ */
+        /* ✅ FIX 2: Расстояние до футера уменьшено в 2 раза (было 60px, стало 30px) */
+        .boxes-grid:last-of-type { margin-bottom: 30px; }
+        
         .box-card { background: white; border-radius: 0; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
         
-        /* ✅ КВАДРАТНЫЕ КАРТОЧКИ */
         .box-image { width: 100%; aspect-ratio: 1/1; background-size: cover; background-position: center; position: relative; }
         .box-image:hover { opacity: 0.95; }
         
         .box-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-        .box-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; color: #070395; text-align: center; }
         
-        /* ✅ УБРАНЫ ОПИСАНИЯ И ФИЧИ, ОСТАВЛЕНА ТОЛЬКО ЦЕНА */
+        /* ✅ FIX 3: Шрифт в карточках чуть больше, убран жирный шрифт (font-weight: 500 вместо 700) */
+        .box-title { font-size: 20px; font-weight: 500; margin-bottom: 15px; color: #070395; text-align: center; }
+        
         .box-footer { display: flex; justify-content: center; align-items: center; padding-top: 15px; border-top: 1px solid #eee; margin-top: auto; }
         .box-price { font-size: 20px; font-weight: 700; color: #070395; display: flex; align-items: baseline; gap: 4px; }
         .box-price .price-value { font-weight: 700; }
@@ -159,7 +159,6 @@
         html[lang="en"] .box-price .currency { order: 2; }
         html[lang="en"] .box-price .price-value { order: 3; }
         
-        /* ✅ МОДАЛЬНОЕ ОКНО С ГАЛЕРЕЕЙ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
         .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 600px; max-height: 90vh; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
@@ -169,7 +168,6 @@
         .modal-close:hover { background: #f5f5f5; color: #070395; }
         .modal-body { padding: 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
         
-        /* ✅ ГАЛЕРЕЯ: ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ КАК НА СКРИНШОТЕ */
         .modal-gallery { margin-bottom: 25px; }
         .modal-main-slider { 
             display: flex; 
@@ -221,10 +219,8 @@
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
         
-        /* ✅ ОПИСАНИЕ ПРОДУКТА */
         .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
         
-        /* ✅ МЕНЮ (бывший СОСТАВ С ГРАММОВКАМИ) */
         .composition-list { list-style: none; }
         .composition-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; }
         .composition-item:last-child { border-bottom: none; }
@@ -305,7 +301,6 @@
         
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         
-        /* ✅ МОБИЛЬНАЯ ВЕРСИЯ: 2 КАРТОЧКИ В РЯД */
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
             .catalog { padding-top: 100px; }
@@ -318,12 +313,13 @@
             .page-title { font-size: 28px; }
             .section-title { font-size: 28px; margin: 40px 0 30px; }
             
-            /* ✅ 2 КОЛОНКИ НА МОБИЛЬНЫХ */
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .box-title { font-size: 14px; }
+            
+            /* ✅ FIX 3: Шрифт в карточках чуть больше, убран жирный шрифт */
+            .box-title { font-size: 16px; font-weight: 500; }
             .box-price { font-size: 16px; }
             
-            /* ✅ НА МОБИЛЬНЫХ ОСТАВЛЯЕМ ОТСТУП */
+            /* ✅ FIX 1: Кнопки категорий увеличены на ~50% для планшетов/мобильных */
             .category-nav { 
                 top: 76px;
                 gap: 8px; 
@@ -331,10 +327,10 @@
                 margin-bottom: 15px;
             }
             .category-btn { 
-                padding: 8px 14px; 
-                font-size: 11px; 
-                min-height: 36px;
-                border-radius: 18px;
+                padding: 12px 20px; 
+                font-size: 16px; 
+                min-height: 54px;
+                border-radius: 27px;
             }
             
             .header-right { gap: 10px; }
@@ -364,12 +360,14 @@
             .page-subtitle { font-size: 14px; }
             .section-title { font-size: 24px; letter-spacing: 1px; }
             
-            /* ✅ ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ: ТОЖЕ 2 КОЛОНКИ */
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .box-title { font-size: 12px; margin-bottom: 10px; }
+            
+            /* ✅ FIX 3: Шрифт в карточках чуть больше, убран жирный шрифт для узких экранов */
+            .box-title { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
             .box-price { font-size: 14px; }
             .box-price .currency { font-size: 12px; }
             
+            /* ✅ FIX 1: Кнопки категорий увеличены на ~50% для узких экранов */
             .category-nav { 
                 top: 72px;
                 gap: 6px; 
@@ -377,11 +375,11 @@
                 margin-bottom: 12px;
             }
             .category-btn { 
-                padding: 7px 10px; 
-                font-size: 9px; 
+                padding: 10px 15px; 
+                font-size: 13px; 
                 letter-spacing: 0.3px;
-                min-height: 32px;
-                border-radius: 16px;
+                min-height: 48px;
+                border-radius: 24px;
                 border-width: 1.5px;
             }
             
@@ -436,7 +434,9 @@
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .page-title { font-size: 22px; }
             .section-title { font-size: 22px; }
-            .category-btn { padding: 6px 8px; font-size: 8px; min-height: 30px; }
+            
+            .category-btn { padding: 8px 12px; font-size: 11px; min-height: 42px; }
+            
             .person-option { flex: 1 1 27%; max-width: 29%; }
             .person-label { padding: 4px 1px; min-height: 46px; }
             .person-icon { font-size: 12px; }
@@ -499,7 +499,6 @@
 
     <section class="catalog">
         <div class="container">
-            <!-- ✅ НАВИГАЦИЯ: КНОПКИ КАТЕГОРИЙ -->
             <nav class="category-nav" id="categoryNav" aria-label="Навигация по категориям">
                 <button class="category-btn active" data-target="section-boxes" data-i18n="catBoxes">БОКСЫ</button>
                 <button class="category-btn" data-target="section-sweets" data-i18n="catSweets">СЛАДКОЕ</button>
@@ -509,7 +508,6 @@
             <h1 class="page-title" id="section-boxes" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
             <div class="boxes-grid">
-                <!-- ✅ УБРАН BADGE, ОСТАВЛЕНА ТОЛЬКО КАРТИНКА, НАЗВАНИЕ И ЦЕНА -->
                 <div class="box-card" data-product-type="nicholas" data-product-id="box1" data-product-name="Бокс «Ужин Николая II»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
                     <div class="box-image" data-bg-desktop="images/boxes-nicholas-1.webp" data-bg-mobile="images/boxes-nicholas-1-mobile.webp" data-gallery='["images/boxes-nicholas-1.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp","images/boxes-nicholas-4.webp","images/boxes-nicholas-5.webp","images/boxes-nicholas-6.webp","images/boxes-nicholas-7.webp","images/boxes-nicholas-8.webp","images/boxes-nicholas-9.webp"]' data-gallery-mobile='["images/boxes-nicholas-1-mobile.webp","images/boxes-nicholas-2-mobile.webp","images/boxes-nicholas-3-mobile.webp","images/boxes-nicholas-4-mobile.webp","images/boxes-nicholas-5-mobile.webp","images/boxes-nicholas-6-mobile.webp","images/boxes-nicholas-7-mobile.webp","images/boxes-nicholas-8-mobile.webp","images/boxes-nicholas-9-mobile.webp"]' data-bg-loaded="false"></div>
                     <div class="box-content">
@@ -613,16 +611,13 @@
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
             <div class="modal-body">
-                <!-- ✅ ГАЛЕРЕЯ: ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ КАК НА СКРИНШОТЕ -->
                 <div class="modal-gallery" id="modalGallery" style="display: none;">
                     <div class="modal-main-slider" id="modalMainSlider"></div>
                     <div class="modal-thumbnails" id="modalThumbnails"></div>
                 </div>
                 
-                <!-- ✅ ОПИСАНИЕ ПРОДУКТА -->
                 <div class="modal-description" id="modalDescription" style="display: none;"></div>
                 
-                <!-- ✅ МЕНЮ (бывший СОСТАВ С ГРАММОВКАМИ) -->
                 <div class="modal-section" id="compositionSection" style="display: none;">
                     <div class="modal-section-title" data-i18n="modalComposition">Меню</div>
                     <ul class="composition-list" id="compositionList"></ul>
@@ -898,8 +893,8 @@
             } else {
                 weight = item[`weight${selectedQuantity}`] || item.weight4;
             }
-            // ✅ ДОБАВЛЕНА ПОДДЕРЖКА ПЕРЕНОСА СТРОК (\n) ДЛЯ МНОГОСТРОЧНЫХ НАЗВАНИЙ БЛЮД
-                html += `<li class="composition-item"><span class="composition-name">${item.name.replace(/^(.*?:)/, '<strong>$1</strong>').replace(/\n/g, '<br>')}</span><span class="composition-weight">${weight}</span></li>`;        });
+            html += `<li class="composition-item"><span class="composition-name">${item.name.replace(/^(.*?:)/, '<strong>$1</strong>').replace(/\n/g, '<br>')}</span><span class="composition-weight">${weight}</span></li>`;
+        });
         container.innerHTML = html;
     }
 
