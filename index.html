@@ -162,44 +162,35 @@
             width: 100%;
             z-index: 999;
             background: #FFD93D;
-            height: 34px;
+            display: flex;
+            align-items: center;
+            height: 48px; /* ✅ Фиксированная высота для идеального вертикального центрирования */
             overflow: hidden;
             border-bottom: 1px solid rgba(7,3,149,0.1);
-            display: flex;
-            align-items: center; /* ✅ Центрирование по вертикали */
         }
         .marquee-track {
             display: flex;
-            align-items: center; /* ✅ Центрирование по вертикали */
-            height: 100%; /* ✅ Растягиваем на всю высоту родителя */
+            align-items: center;
             animation: marquee-scroll 40s linear infinite;
             width: max-content;
         }
         .marquee-item {
             display: inline-flex;
-            align-items: center; /* ✅ Центрирование содержимого (SVG + текст) */
-            justify-content: center;
+            align-items: center;
             gap: 12px;
             padding: 0 40px;
-            height: 100%; /* ✅ Растягиваем на всю высоту родителя */
             color: #070395;
             font-weight: 700;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            white-space: nowrap; /* ✅ Запрет переноса */
+            line-height: 1;
+            white-space: nowrap; /* ✅ Строгий запрет переноса текста на новую строку */
         }
         .marquee-item svg {
             width: 22px;
             height: 22px;
             flex-shrink: 0;
-            display: block; /* ✅ Убирает лишние отступы у SVG */
-        }
-        .marquee-item span {
-            line-height: 1; /* ✅ Убирает влияние метрик шрифта на центрирование */
-            display: inline-flex;
-            align-items: center;
-            height: 100%;
         }
         @keyframes marquee-scroll {
             0% { transform: translateX(0); }
@@ -541,8 +532,8 @@
         
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .marquee-bar { top: 66px; height: 29px; } /* ✅ Адаптивная высота (сокращена на ~30%) с сохранением идеального центрирования */
-            .marquee-item { font-size: 12px; padding: 0 25px; white-space: nowrap; }
+            .marquee-bar { top: 66px; height: 42px; } /* ✅ Адаптивная высота с сохранением идеального центрирования */
+            .marquee-item { font-size: 12px; padding: 0 25px; line-height: 1; white-space: nowrap; }
             .marquee-item svg { width: 18px; height: 18px; }
             .hero { min-height: 500px; margin-top: 40px; }
             .hero-content { bottom: 80px; }
