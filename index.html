@@ -535,9 +535,9 @@
             .marquee-item { font-size: 12px; padding: 0 25px; line-height: 1; }
             .marquee-item svg { width: 18px; height: 18px; }
             
-            /* ✅ FIX 1: Уменьшена высота карусели на мобильных, чтобы кнопка "Заказать" поднялась выше */
-            .hero { height: 350px; min-height: 350px; margin-top: 40px; }
-            .hero-content { bottom: 40px; }
+            /* ✅ FIX 1: Увеличена высота карусели в 1.5 раза на мобильных (350px * 1.5 = 525px) */
+            .hero { height: 525px; min-height: 525px; margin-top: 40px; }
+            .hero-content { bottom: 60px; }
             
             .btn-order { padding: 18px 40px; font-size: 14px; min-width: 220px; }
             .slider-dots { bottom: 15px; }
@@ -567,7 +567,6 @@
             .pickup-map-iframe { height: 350px; }
             
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
-            /* ✅ Синхронизировано с boxes.html (убран лишний padding-right) */
             .header-right { gap: 10px; }
         }
         
@@ -576,9 +575,9 @@
             .header { padding: 10px 0; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             
-            /* ✅ FIX 1: Дополнительное уменьшение высоты карусели для узких экранов */
-            .hero { height: 300px; min-height: 300px; }
-            .hero-content { bottom: 30px; }
+            /* ✅ FIX 1: Увеличена высота карусели в 1.5 раза для узких экранов (300px * 1.5 = 450px) */
+            .hero { height: 450px; min-height: 450px; }
+            .hero-content { bottom: 45px; }
             .slider-dots { bottom: 10px; }
             
             .header-icons { gap: 8px; }
@@ -608,7 +607,6 @@
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
             .social-link img { width: 28px; height: 28px; }
             .footer-copyright { font-size: 12px; }
-            /* ✅ Синхронизировано с boxes.html (убран лишний padding-right) */
             .header-right { gap: 8px; }
             
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
@@ -778,7 +776,6 @@
                     <div class="pickup-map-hint-icon">🤏</div>
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
-                <!-- ✅ Добавлен referrerpolicy для стабильной загрузки виджета -->
                 <iframe 
                     class="pickup-map-iframe" 
                     id="mapIframe" 
@@ -881,7 +878,7 @@
 
     const mapUrls = {
         ru: 'https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm',
-        // ✅ FIX 2: Обновлены координаты на реальные координаты Merano Tower, Business Bay, Dubai (Marasi Dr)
+        // ✅ FIX 2: Точка на карте для EN языка указывает на Merano Tower, DAMAC (Business Bay, Dubai)
         en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.5!2d55.2635!3d25.1865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f682829c85c07%3A0xa5eda9fb3c8c8b!2sMerano%20Tower%20-%20DAMAC!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae'
     };
 
@@ -959,15 +956,11 @@
         
         const dismissHint = (e) => {
             if (!mapHint.classList.contains('visible')) return;
-            
-            // ✅ ИСПРАВЛЕНИЕ: Убран e.preventDefault(), который вызывал ошибку 
-            // "Unable to preventDefault inside passive event listener"
             e.stopPropagation(); 
             
             mapHint.classList.add('fade-out');
             setTimeout(() => {
                 mapHint.classList.remove('visible', 'fade-out');
-                // Очистка слушателей
                 mapHint.removeEventListener('touchstart', dismissHint);
                 mapHint.removeEventListener('touchend', dismissHint);
                 mapHint.removeEventListener('click', dismissHint);
@@ -975,8 +968,6 @@
             }, 400);
         };
         
-        // ✅ ИСПРАВЛЕНИЕ: Все слушатели теперь явно passive: true, 
-        // так как preventDefault больше не вызывается внутри функции
         mapHint.addEventListener('touchstart', dismissHint, { passive: true });
         mapHint.addEventListener('touchend', dismissHint, { passive: true });
         mapHint.addEventListener('click', dismissHint, { passive: true });
