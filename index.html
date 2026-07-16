@@ -534,10 +534,13 @@
             .marquee-bar { top: 66px; padding: 10px 0; }
             .marquee-item { font-size: 12px; padding: 0 25px; line-height: 1; }
             .marquee-item svg { width: 18px; height: 18px; }
-            .hero { min-height: 500px; margin-top: 40px; }
-            .hero-content { bottom: 80px; }
+            
+            /* ✅ FIX 1: Уменьшена высота карусели на мобильных, чтобы кнопка "Заказать" поднялась выше */
+            .hero { height: 350px; min-height: 350px; margin-top: 40px; }
+            .hero-content { bottom: 40px; }
+            
             .btn-order { padding: 18px 40px; font-size: 14px; min-width: 220px; }
-            .slider-dots { bottom: 25px; }
+            .slider-dots { bottom: 15px; }
             .dot { width: 14px; height: 14px; border-width: 2.5px; }
             
             .hero-nav-zone { display: none; }
@@ -572,6 +575,11 @@
             .container { padding: 0 15px; } /* ✅ Дополнительная защита от прилипания к краям */
             .header { padding: 10px 0; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
+            
+            /* ✅ FIX 1: Дополнительное уменьшение высоты карусели для узких экранов */
+            .hero { height: 300px; min-height: 300px; }
+            .hero-content { bottom: 30px; }
+            .slider-dots { bottom: 10px; }
             
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
@@ -771,16 +779,17 @@
                     <div class="pickup-map-hint-text" data-i18n="mapHintText">Нажмите, чтобы увеличить масштаб и перемещать карту</div>
                 </div>
                 <!-- ✅ Добавлен referrerpolicy для стабильной загрузки виджета -->
-<iframe 
-    class="pickup-map-iframe" 
-    id="mapIframe" 
-    src="https://yandex.ru/map-widget/v1/-/CDU~3Z~i" 
-    allowfullscreen 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade"
-    title="Карта самовывоза ЖК Prime Park"
-    style="background-color: #f0f0f0;">
-</iframe>            </div>
+                <iframe 
+                    class="pickup-map-iframe" 
+                    id="mapIframe" 
+                    src="https://yandex.ru/map-widget/v1/-/CDU~3Z~i" 
+                    allowfullscreen 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Карта самовывоза ЖК Prime Park"
+                    style="background-color: #f0f0f0;">
+                </iframe>
+            </div>
             
             <div class="pickup-info-bar">
                 <div class="pickup-info-item">
@@ -872,8 +881,8 @@
 
     const mapUrls = {
         ru: 'https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm',
-        // ✅ Обновлен на более стабильный формат embed для Google Maps
-        en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.5!2d55.2134!3d25.0765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f682829c85c07%3A0xa5eda9fb3c8c8b!2sMerano%20Tower%20-%20DAMAC!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae'
+        // ✅ FIX 2: Обновлены координаты на реальные координаты Merano Tower, Business Bay, Dubai (Marasi Dr)
+        en: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.5!2d55.2635!3d25.1865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f682829c85c07%3A0xa5eda9fb3c8c8b!2sMerano%20Tower%20-%20DAMAC!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae'
     };
 
     let currentLang = 'ru';
