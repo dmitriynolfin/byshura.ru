@@ -1,10 +1,11 @@
 RewriteEngine On
+RewriteBase /
 
-# 1. Принудительный редирект с .html на чистый URL (без расширения)
+# Убираем .html из URL (принудительный редирект 301)
 RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L,NE]
 
-# 2. Внутреннее перенаправление: если запрошен чистый URL, сервер ищет файл .html
+# Внутренняя обработка запросов
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
 RewriteRule ^(.+?)/?$ $1.html [L]
