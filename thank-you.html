@@ -41,12 +41,12 @@
         img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* ===== ШАПКА (Синхронизировано с index.html) ===== */
+        /* ===== ШАПКА ===== */
         .header { 
             position: fixed; 
             top: 0; 
             left: 0; 
-            right: 0; /* ✅ Гарантирует прилегание к краям */
+            right: 0; 
             width: 100%; 
             background: rgba(255,255,255,0.98); 
             padding: 15px 0; 
@@ -84,52 +84,6 @@
             background: #FFD93D !important; color: #070395 !important; 
             transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3);
         }
-        
-        /* ✅ Полная синхронизация с index.html для идентичных отступов и размеров */
-        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
-        .header-icons { display: flex; gap: 12px; }
-        .icon-btn { 
-            padding: 8px; color: #070395; 
-            transition: transform 0.3s; 
-            position: relative; 
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; 
-            min-width: 44px; min-height: 44px;
-        }
-        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { 
-            position: absolute; top: -2px; right: -2px; 
-            background: #FFD93D; color: #070395; 
-            font-size: 9px; font-weight: 700; 
-            width: 16px; height: 16px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            line-height: 1;
-        }
-        .btn-back { 
-            border: 1.5px solid #070395; padding: 10px 25px; 
-            border-radius: 25px; font-weight: 600; font-size: 13px; 
-            transition: all 0.3s; min-height: 44px; 
-            display: flex; align-items: center;
-        }
-        .btn-back:hover { background: #070395; color: white; }
-        
-        /* ✅ Синхронизировано с index.html для идеального выравнивания */
-        .lang-selector { 
-            display: flex; align-items: center; gap: 6px; 
-            font-weight: 600; font-size: 13px; cursor: pointer; 
-            position: relative; white-space: nowrap; 
-            min-height: 44px; padding: 5px 10px; 
-            border-radius: 20px; background: rgba(7,3,149,0.05);
-            transition: background 0.3s;
-        }
-        .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        
-        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
-        .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; }
-        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
-        .lang-code { font-weight: 600; margin-right: 5px; }
-        .lang-descr { color: #666; font-size: 12px; }
         
         /* ✅ УВЕЛИЧЕН ОТСТУП СВЕРХУ, ТАК КАК БЕГУЩАЯ СТРОКА УБРАНА */
         .thankyou-page { padding: 100px 0 60px; min-height: 100vh; background: #f8f9fa; }
@@ -275,13 +229,6 @@
             .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
             
-            .header-icons { gap: 10px; }
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
-            .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            
-            .header-right { gap: 10px; }
-            
             .thankyou-hero { padding: 28px 20px; margin-bottom: 15px; }
             .thankyou-icon { width: 64px; height: 64px; font-size: 34px; margin-bottom: 12px; }
             .thankyou-title { font-size: 24px; margin-bottom: 8px; }
@@ -306,15 +253,6 @@
             .header { padding: 10px 0; }
             .thankyou-page { padding-top: 85px; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
-            
-            .header-icons { gap: 8px; }
-            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
-            .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; }
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            
-            .header-right { gap: 8px; }
-            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
             .thankyou-hero { padding: 22px 16px; border-radius: 18px; }
             .thankyou-icon { width: 56px; height: 56px; font-size: 28px; margin-bottom: 10px; }
@@ -354,7 +292,6 @@
         
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
-            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
             .thankyou-title { font-size: 19px; }
             .thankyou-hero { padding: 18px 14px; }
             .thankyou-details { padding: 14px; }
@@ -383,16 +320,6 @@
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
                     <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
-            </div>
-            <div class="header-right">
-                <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷🇺</span>
-                    <span id="langCurrent">RU</span>
-                    <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
-                    </div>
-                </div>
             </div>
         </div>
     </header>
@@ -504,7 +431,6 @@
         }
     };
 
-    // ✅ СЛОВАРЬ ПЕРЕВОДА АЛЛЕРГЕНОВ
     const allergenTranslations = {
         'Грибы': { ru: 'Грибы', en: 'Mushrooms' },
         'Горчица': { ru: 'Горчица', en: 'Mustard' },
@@ -587,17 +513,6 @@
         return item.price;
     }
 
-    function recalculateOrderTotal(lang) {
-        if (!orderData) return 0;
-        let itemsTotal = 0;
-        orderData.items.forEach(item => {
-            const itemPrice = recalculateItemPrice(item, lang);
-            itemsTotal += itemPrice * item.quantity;
-        });
-        const deliveryCost = orderData.delivery === 'courier' ? (lang === 'en' ? 40 : 800) : 0;
-        return itemsTotal + deliveryCost;
-    }
-
     function getItemName(item, lang) {
         return productNames[lang]?.[item.productId] || item.name || item.productId;
     }
@@ -632,13 +547,6 @@
                 el.textContent = translations[lang][key];
             }
         });
-        
-        const langFlag = document.getElementById('langFlag');
-        const langCurrent = document.getElementById('langCurrent');
-        if (langFlag && langCurrent) {
-            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
-            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
-        }
         
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
@@ -850,23 +758,6 @@
                 order_number: orderData.orderNumber, 
                 total: orderData.total, 
                 currency: orderData.currency 
-            });
-        }
-        
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
-            langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault(); e.stopPropagation();
-                    const selectedLink = e.target.closest('a');
-                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
-                    setTimeout(() => langDropdown.classList.remove('show'), 100);
-                });
-            });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
             });
         }
         
