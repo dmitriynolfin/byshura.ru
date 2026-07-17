@@ -130,7 +130,6 @@
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
         
-        /* ✅ font-size 16px предотвращает зум на iOS */
         .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; color: #070395; background: white; transition: all 0.3s; max-width: 100%; box-sizing: border-box; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); }
         .form-input::placeholder { color: #999; }
@@ -198,7 +197,6 @@
         body { -ms-overflow-style: none; }
         
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
-        
         @media (max-width: 768px) { 
             .header { padding: 12px 0; }
             .checkout-page { padding-top: 95px; }
@@ -215,16 +213,13 @@
             .delivery-options { flex-direction: column; }
             .checkout-actions { flex-direction: column; }
             .header-right { gap: 10px; }
-            
             .order-item { flex-direction: row; gap: 12px; }
             .order-item-thumb { width: 60px; height: 60px; }
             .order-item-info { min-width: 0; }
             .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
             .order-item-price { text-align: left; }
-            
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
-        
         @media (max-width: 480px) { 
             .header { padding: 10px 0; }
             .checkout-page { padding-top: 90px; }
@@ -238,9 +233,7 @@
             .checkout-title { font-size: 24px; }
             .checkout-form { padding: 18px; }
             .form-title { font-size: 16px; }
-            
             .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 16px; }
-            
             .contact-input-wrapper .form-input { padding-left: 44px; }
             .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
             .delivery-label { padding: 12px 16px; font-size: 13px; }
@@ -262,9 +255,7 @@
             .datetime-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; align-items: flex-start; }
             .datetime-grid .form-group { flex: 0 0 auto; margin-bottom: 0; }
             .datetime-grid .form-label { font-size: 12px; margin-bottom: 4px; }
-            
             .datetime-grid input[type="date"], .datetime-grid input[type="time"] { width: auto !important; min-width: fit-content; padding: 6px 10px !important; font-size: 16px !important; min-height: auto !important; height: 40px !important; border-radius: 8px !important; border-width: 1.5px !important; display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 40px; box-sizing: border-box; }
-            
             .order-item { flex-direction: column; }
             .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
             .order-item-name { font-size: 16px; }
@@ -272,11 +263,9 @@
             .quantity-control { gap: 3px; }
             .quantity-btn { width: 22px; height: 22px; font-size: 13px; }
             .order-item-price { font-size: 18px; }
-            
             .remove-text { display: none; }
             .order-item-remove-btn { padding: 10px; }
         }
-        
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
@@ -285,9 +274,7 @@
             .order-item-thumb { height: 100px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
             .icon-btn svg { width: 22px; height: 22px; }
-            
             .datetime-grid input[type="date"], .datetime-grid input[type="time"] { padding: 5px 8px !important; font-size: 16px !important; height: 40px !important; line-height: 40px; }
-            
             .datetime-grid .form-label { font-size: 11px; }
         }
     </style>
@@ -480,90 +467,50 @@
     </footer>
 
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuS6lxPbDIbS6QfdPLQpdOS9Qh9hyxczGy6A_uelK1yRFcaA3wyIsE9HG4jWuWjJDt/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw3f0ihpXfowTm8ed_Vg3qFH3818LhuLqDUcf4JpYCjQjibRf58awl1Pfl8L2EDeTRq/exec';
 
     const translations = {
         ru: {
-            pageTitle: "Оформление заказа - Вестник Гедонизма",
-            navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА", checkoutSubtitle: "Заполните данные для доставки вашего бокса",
-            orderSummaryTitle: "Ваш заказ", orderTotal: "Итого:",
-            sectionContactsText: "Контактные данные",
-            labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
-            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
-            sectionDeliveryText: "Доставка",
-            deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер",
-            labelAddress: "Адрес доставки *", 
-            addressHint: "Введите улицу, дом или метро — подсказки появятся автоматически",
-            labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
-            sectionPaymentText: "Оплата",
-            payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфу",
-            labelComment: "Комментарий к заказу",
-            btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ",
-            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            validationError: "Пожалуйста, заполните все обязательные поля",
-            consentError: "Необходимо дать согласие на обработку персональных данных",
+            pageTitle: "Оформление заказа - Вестник Гедонизма", navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
+            checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА", checkoutSubtitle: "Заполните данные для доставки вашего бокса", orderSummaryTitle: "Ваш заказ", orderTotal: "Итого:",
+            sectionContactsText: "Контактные данные", labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
+            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS", sectionDeliveryText: "Доставка",
+            deliveryPickup: "Самовывоз в Prime Park", deliveryCourier: "Курьер", labelAddress: "Адрес доставки *", 
+            addressHint: "Введите улицу, дом или метро — подсказки появятся автоматически", labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
+            sectionPaymentText: "Оплата", payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфу", labelComment: "Комментарий к заказу",
+            btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            validationError: "Пожалуйста, заполните все обязательные поля", consentError: "Необходимо дать согласие на обработку персональных данных",
             networkError: "Ошибка сети. Проверьте подключение и попробуйте снова.",
             consentText: "Я даю согласие на обработку <a href='/privacy-policy' target='_blank'>персональных данных</a> и принимаю условия <a href='/offer' target='_blank'>публичной оферты</a>",
             emptyCart: "Корзина пуста.<br><a href='boxes.html' class='add-items-link'>🛒 Добавьте товары</a>",
-            itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:",
-            itemWeight: "Вес:",
-            btnRemove: "Удалить",
-            courierPrice: "(+800 ₽)",
-            allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", 
-            allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
-            dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.",
-            dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)",
-            personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон",
-            qtyWord4: "штуки", qtyWord8: "штук",
-            weightLabel: "Вес ~1 кг"
+            itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:", itemWeight: "Вес:", btnRemove: "Удалить", courierPrice: "(+800 ₽)",
+            allergen1: "Грибы", allergen2: "Горчица", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен", allergen6: "Красная рыба", allergen7: "Орехи",
+            dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.", dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)",
+            personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон", qtyWord4: "штуки", qtyWord8: "штук", weightLabel: "Вес ~1 кг"
         },
         en: {
-            pageTitle: "Checkout - Hedonism Dispatch",
-            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            checkoutTitle: "CHECKOUT", checkoutSubtitle: "Fill in your details for box delivery",
-            orderSummaryTitle: "Your Order", orderTotal: "Total:",
-            sectionContactsText: "Contact Details",
-            labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
-            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS",
-            sectionDeliveryText: "Delivery",
-            deliveryPickup: "Pickup in Merano Tower", deliveryCourier: "Courier",
-            labelAddress: "Delivery Address *",
-            addressHint: "Enter street, building or area (Dubai)",
-            labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
-            sectionPaymentText: "Payment",
-            payment1: "Transfer to Sber", payment2: "Transfer to T-Bank", payment3: "Transfer to Alfa",
-            labelComment: "Order comment",
-            btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER",
-            footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            validationError: "Please fill in all required fields",
-            consentError: "Consent to data processing is required",
+            pageTitle: "Checkout - Hedonism Dispatch", navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
+            checkoutTitle: "CHECKOUT", checkoutSubtitle: "Fill in your details for box delivery", orderSummaryTitle: "Your Order", orderTotal: "Total:",
+            sectionContactsText: "Contact Details", labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
+            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS", sectionDeliveryText: "Delivery",
+            deliveryPickup: "Pickup in Merano Tower", deliveryCourier: "Courier", labelAddress: "Delivery Address *", 
+            addressHint: "Enter street, building or area (Dubai)", labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
+            sectionPaymentText: "Payment", payment1: "Transfer to Sber", payment2: "Transfer to T-Bank", payment3: "Transfer to Alfa", labelComment: "Order comment",
+            btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
+            validationError: "Please fill in all required fields", consentError: "Consent to data processing is required",
             networkError: "Network error. Please check your connection and try again.",
             consentText: "I consent to the processing of <a href='/privacy-policy-en' target='_blank'>personal data</a> and accept the terms of the <a href='/offer-en' target='_blank'>public offer</a>",
             emptyCart: "Cart is empty.<br><a href='boxes.html' class='add-items-link'>🛒 Add items</a>",
-            itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:",
-            itemWeight: "Weight:",
-            btnRemove: "Remove",
-            courierPrice: "+ AED 40",
-            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", 
-            allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
-            dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.",
-            dateDisabled: "Select an available date (Fri, Sat or Sun)",
-            personsWord1: "person", personsWord2: "people", personsWord5: "people",
-            qtyWord4: "pieces", qtyWord8: "pieces",
-            weightLabel: "Weight ~1 kg"
+            itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:", itemWeight: "Weight:", btnRemove: "Remove", courierPrice: "+ AED 40",
+            allergen1: "Mushrooms", allergen2: "Mustard", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten", allergen6: "Red Fish", allergen7: "Nuts",
+            dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.", dateDisabled: "Select an available date (Fri, Sat or Sun)",
+            personsWord1: "person", personsWord2: "people", personsWord5: "people", qtyWord4: "pieces", qtyWord8: "pieces", weightLabel: "Weight ~1 kg"
         }
     };
 
     const productNames = {
-        ru: {
-            'box1': 'Бокс «Ужин Николая II»', 'box2': 'Бокс «Ужин Чайковского»', 'cake1': 'Сливочный лимонный кекс',
-            'lemon-cookies': 'Нежное печенье с лимонным курдом', 'oat-cookies': 'Овсяное печенье с орехами и изюмом', 'rasstegai': 'Расстегаи с красной рыбой и рисом'
-        },
-        en: {
-            'box1': 'Nicholas II Dinner Box', 'box2': 'Tchaikovsky Dinner Box', 'cake1': 'Creamy Lemon Cake',
-            'lemon-cookies': 'Tender Cookies with Lemon Curd', 'oat-cookies': 'Oat Cookies with Nuts and Raisins', 'rasstegai': 'Rasstegai with Red Fish and Rice'
-        }
+        ru: { 'box1': 'Бокс «Ужин Николая II»', 'box2': 'Бокс «Ужин Чайковского»', 'cake1': 'Сливочный лимонный кекс', 'lemon-cookies': 'Нежное печенье с лимонным курдом', 'oat-cookies': 'Овсяное печенье с орехами и изюмом', 'rasstegai': 'Расстегаи с красной рыбой и рисом' },
+        en: { 'box1': 'Nicholas II Dinner Box', 'box2': 'Tchaikovsky Dinner Box', 'cake1': 'Creamy Lemon Cake', 'lemon-cookies': 'Tender Cookies with Lemon Curd', 'oat-cookies': 'Oat Cookies with Nuts and Raisins', 'rasstegai': 'Rasstegai with Red Fish and Rice' }
     };
 
     const priceTable = {
@@ -581,9 +528,8 @@
     };
 
     const allergenKeys = {
-        'Грибы': 'allergen1', 'Mushrooms': 'allergen1', 'Горчица': 'allergen2', 'Mustard': 'allergen2',
-        'Мед': 'allergen2', 'Honey': 'allergen2', 'Лактоза': 'allergen3', 'Lactose': 'allergen3',
-        'Яйца': 'allergen4', 'Eggs': 'allergen4', 'Глютен': 'allergen5', 'Gluten': 'allergen5',
+        'Грибы': 'allergen1', 'Mushrooms': 'allergen1', 'Горчица': 'allergen2', 'Mustard': 'allergen2', 'Мед': 'allergen2', 'Honey': 'allergen2',
+        'Лактоза': 'allergen3', 'Lactose': 'allergen3', 'Яйца': 'allergen4', 'Eggs': 'allergen4', 'Глютен': 'allergen5', 'Gluten': 'allergen5',
         'Красная рыба': 'allergen6', 'Red Fish': 'allergen6', 'Орехи': 'allergen7', 'Nuts': 'allergen7'
     };
 
@@ -639,7 +585,6 @@
         if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
         currentLang = lang;
-        
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
@@ -647,17 +592,13 @@
                 else el.textContent = translations[lang][key];
             }
         });
-        
         document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
             const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
             if (el.dataset[key]) el.placeholder = el.dataset[key];
         });
-        
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
-        document.querySelectorAll('.courier-price').forEach(el => {
-            el.textContent = lang === 'en' ? '+ AED 40' : '(+800 ₽)';
-        });
+        document.querySelectorAll('.courier-price').forEach(el => { el.textContent = lang === 'en' ? '+ AED 40' : '(+800 ₽)'; });
         
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
@@ -665,7 +606,6 @@
             if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
             else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
         }
-        
         document.documentElement.lang = lang;
         const dateInput = document.getElementById('date');
         if (dateInput) {
@@ -673,7 +613,6 @@
             dateInput.setAttribute('lang', lang);
             if (currentValue) { dateInput.value = ''; setTimeout(() => { dateInput.value = currentValue; }, 10); }
         }
-        
         localStorage.setItem('hedonism_lang', lang);
         renderOrderSummary();
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
@@ -688,24 +627,20 @@
         const lang = currentLang;
         const t = translations[lang];
         const currency = lang === 'en' ? 'AED' : '₽';
-        
         if (cart.length === 0) {
             container.innerHTML = `<div class="empty-cart-message">${t.emptyCart}</div>`;
             if (totalEl) totalEl.innerHTML = `<span class="price-value">0</span> <span class="currency">${currency}</span>`;
             return;
         }
-        
         let html = '', total = 0;
         cart.forEach(item => {
             const itemPrice = recalculateItemPrice(item, lang);
             const itemTotal = itemPrice * item.quantity;
             total += itemTotal;
-            
             const thumbUrl = item.image || productImages[item.productId] || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
             const itemName = getItemName(item, lang);
             const productType = item.productType || getProductTypeById(item.productId);
             let optionsHtml = '';
-            
             if (productType === 'box') {
                 const persons = item.options?.persons || 2;
                 let personsLabel = lang === 'ru' ? `${persons} ${getPersonsWordRu(persons)}` : (persons === 1 ? '1 person' : `${persons} people`);
@@ -721,7 +656,6 @@
                 let qtyLabel = lang === 'ru' ? `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}` : `${qty} pieces`;
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemQuantity}</span><span class="order-item-option-value">${qtyLabel}</span></div>`;
             }
-            
             html += `
                 <div class="order-item" data-item-id="${item.id}">
                     <div class="order-item-thumb" style="background-image: url('${thumbUrl}')"></div>
@@ -744,13 +678,11 @@
                 </div>
             `;
         });
-        
         container.innerHTML = html;
         if (totalEl) {
             if (lang === 'en') totalEl.innerHTML = `<span class="currency">${currency}</span> <span class="price-value">${total.toLocaleString('ru-RU')}</span>`;
             else totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
         }
-        
         container.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function() { updateCartItemQuantity(parseInt(this.dataset.itemId), this.dataset.action); });
         });
@@ -782,45 +714,35 @@
         }
     }
 
-    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Двухуровневая отправка для мобильных
-    async function sendToAppsScript(orderData) {
+    // ✅ МГНОВЕННАЯ ФОНОВАЯ ОТПРАВКА (решает проблему долгой загрузки и обрыва на мобильном)
+    function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📦 Payload:', jsonStr);
+        console.log('📦 Отправка заказа в фоне (размер: ' + jsonStr.length + ' байт)');
 
-        // Попытка 1: Стандартный fetch с ожиданием.
-        // Это критически важно для Google Apps Script, так как он делает 302 редирект.
-        // На мобильных браузерах keepalive + 302 редирект часто обрывается при уходе со страницы.
-        // Поэтому мы ждем ответа, не используя keepalive.
-        try {
-            const response = await fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8' // Обязательно для GAS, чтобы избежать CORS preflight
-                },
-                body: jsonStr
-            });
-
-            if (response.ok || response.redirected) {
-                console.log('✅ Заказ успешно отправлен через fetch');
+        // 1. Приоритетный метод для мобильных: sendBeacon. Он не блокирует UI и гарантирует доставку при смене страницы.
+        if (navigator.sendBeacon) {
+            try {
+                const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+                const isQueued = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                console.log('📡 sendBeacon поставлен в очередь:', isQueued);
                 return true;
-            } else {
-                console.warn('⚠️ Fetch вернул статус:', response.status);
-                throw new Error('Fetch status ' + response.status);
+            } catch (e) {
+                console.warn('⚠️ sendBeacon ошибка, используем fallback:', e);
             }
-        } catch (error) {
-            console.error('❌ Ошибка fetch, пробуем sendBeacon:', error);
-            // Попытка 2: Fallback на sendBeacon, если fetch не сработал (например, обрыв связи)
-            if (navigator.sendBeacon) {
-                try {
-                    const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                    const sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                    console.log('📡 sendBeacon queued:', sent);
-                    return sent;
-                } catch (beaconError) {
-                    console.error('❌ Ошибка sendBeacon:', beaconError);
-                    return false;
-                }
-            }
+        }
+
+        // 2. Fallback: fetch с keepalive. Также не блокирует переход на другую страницу.
+        try {
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: jsonStr,
+                keepalive: true 
+            });
+            console.log('📡 Fetch (keepalive) отправлен в фоне');
+            return true;
+        } catch (e) {
+            console.error('❌ Ошибка отправки:', e);
             return false;
         }
     }
@@ -840,13 +762,11 @@
         const suggestionsList = document.getElementById('addressSuggestions');
         const loadingIndicator = document.getElementById('addressLoading');
         if (!addressInput) return;
-
         if (!isAllowedDomain()) {
             addressInput.disabled = true;
             addressInput.placeholder = 'Автодополнение доступно только на byshura.ru';
             return;
         }
-
         const fetchSuggestions = debounce(async function(query) {
             if (query.length < 2) { suggestionsList.classList.remove('show'); suggestionsList.innerHTML = ''; return; }
             loadingIndicator.classList.add('show');
@@ -965,25 +885,19 @@
         const dateInput = document.getElementById('date');
         const timeInput = document.getElementById('time');
         if (!dateInput || !timeInput) return;
-        
         const availableDays = [5, 6, 0];
         const now = new Date();
         const currentHour = now.getHours();
-        
         let minDate = new Date(now);
         if (currentHour >= 18) minDate.setDate(minDate.getDate() + 2);
         else minDate.setDate(minDate.getDate() + 1);
-        
         while (!availableDays.includes(minDate.getDay())) minDate.setDate(minDate.getDate() + 1);
-        
         const minDateString = minDate.toISOString().split('T')[0];
         dateInput.min = minDateString;
         if (!dateInput.value || dateInput.value < minDateString) dateInput.value = minDateString;
-        
         timeInput.min = '17:00';
         timeInput.max = '23:00';
         timeInput.value = '18:00';
-        
         dateInput.addEventListener('change', function() {
             const selectedDate = new Date(this.value + 'T00:00:00');
             const dayOfWeek = selectedDate.getDay();
@@ -997,7 +911,6 @@
                 this.value = minDateString;
             }
         });
-        
         timeInput.addEventListener('change', function() {
             const time = this.value;
             if (time < '17:00' || time > '23:00') {
@@ -1010,7 +923,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
-        
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title, page_location: window.location.href,
@@ -1019,7 +931,6 @@
                 cart_value: cart.reduce((sum, item) => sum + recalculateItemPrice(item, currentLang) * item.quantity, 0)
             });
         }, 1000);
-        
         ymTrack('checkout_viewed', { lang: currentLang, cart_items: cart.length });
         
         const langBtn = document.getElementById('langBtn');
@@ -1038,81 +949,61 @@
                 if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
             });
         }
-        
         renderOrderSummary();
         updateCartCount();
-        
         document.getElementById('cancelBtn')?.addEventListener('click', function() {
             ymTrack('checkout_cancelled', { cart_items: cart.length });
             window.location.href = '/boxes';
         });
-        
         initDateRestrictions();
         initAddressAutocomplete();
         
         const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
-            // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Обработчик теперь async, мы ждем ответа от сервера
-            checkoutForm.addEventListener('submit', async function(e) {
+            checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
                 try {
                     const submitBtn = document.getElementById('submitBtn');
                     const name = document.getElementById('name').value.trim();
                     const phone = document.getElementById('phone').value.trim();
-                    
                     if (!name || !phone) { alert(translations[currentLang].validationError); return; }
-                    
                     const consentCheckbox = document.getElementById('consentCheckbox');
-                    if (consentCheckbox && !consentCheckbox.checked) {
-                        alert(translations[currentLang].consentError);
-                        return;
-                    }
-                    
-                    if (cart.length === 0) {
-                        alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!');
-                        return;
-                    }
-                    
+                    if (consentCheckbox && !consentCheckbox.checked) { alert(translations[currentLang].consentError); return; }
+                    if (cart.length === 0) { alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!'); return; }
                     const date = document.getElementById('date').value;
                     const time = document.getElementById('time').value;
-                    if (!date || !time) {
-                        alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.');
-                        return;
-                    }
+                    if (!date || !time) { alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.'); return; }
                     
+                    // Блокируем кнопку визуально, но НЕ ждем ответа (мгновенная реакция)
                     submitBtn.disabled = true;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
-                    if (btnText) btnText.style.display = 'none';
+                    if (btnText) btnText.textContent = currentLang === 'ru' ? 'ОТПРАВКА...' : 'SENDING...';
                     if (btnLoading) btnLoading.style.display = 'inline';
                     
                     const orderNumber = generateOrderNumber();
                     const courierCost = currentLang === 'en' ? 40 : 800;
                     const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                     
-const orderItems = cart.map(item => {
-    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Глубокое копирование и перевод аллергенов перед отправкой
-    let finalOptions = { ...item.options };
-    if (finalOptions.allergens && Array.isArray(finalOptions.allergens)) {
-        finalOptions.allergens = finalOptions.allergens.map(a => {
-            const key = allergenKeys[a];
-            return key ? translations[currentLang][key] : a; // Переводим на лету в зависимости от языка
-        });
-    }
-    
-    return {
-        id: item.id, 
-        productId: item.productId, 
-        name: item.name || getItemName(item, currentLang),
-        image: item.image, 
-        productType: item.productType,
-        basePrice: Number(item.basePrice) || 0, 
-        price: Number(recalculateItemPrice(item, currentLang)) || 0, // Гарантируем число
-        quantity: Number(item.quantity) || 1, // Гарантируем число
-        options: finalOptions
-    };
-});
+                    const orderItems = cart.map(item => {
+                        let finalOptions = { ...item.options };
+                        if (finalOptions.allergens && Array.isArray(finalOptions.allergens)) {
+                            finalOptions.allergens = finalOptions.allergens.map(a => {
+                                const key = allergenKeys[a];
+                                return key ? translations[currentLang][key] : a;
+                            });
+                        }
+                        return {
+                            id: item.id, productId: item.productId, 
+                            name: item.name || getItemName(item, currentLang),
+                            image: item.image, productType: item.productType,
+                            basePrice: Number(item.basePrice) || 0, 
+                            price: Number(recalculateItemPrice(item, currentLang)) || 0,
+                            quantity: Number(item.quantity) || 1,
+                            options: finalOptions
+                        };
+                    });
+                    
                     let addressStructured = null;
                     const structuredData = document.getElementById('address')?.dataset.structured;
                     if (structuredData && structuredData !== 'undefined' && structuredData.trim() !== '') {
@@ -1123,50 +1014,32 @@ const orderItems = cart.map(item => {
                     const finalTotal = calculatedTotal + (delivery === 'courier' ? courierCost : 0);
 
                     const orderData = {
-                        orderNumber: orderNumber,
-                        createdAt: new Date().toISOString(),
-                        name, phone, 
-                        messenger: document.getElementById('messenger').value,
-                        delivery: delivery,
-                        address: document.getElementById('address').value,
-                        addressStructured: addressStructured,
-                        date: date, time: time,
-                        payment: document.querySelector('input[name="payment"]:checked')?.value,
-                        comment: document.getElementById('comment').value,
-                        items: orderItems,
-                        total: Number(finalTotal) || 0,
-                        currency: currentLang === 'en' ? 'AED' : '₽',
-                        lang: currentLang,
-                        consentGiven: consentCheckbox.checked,
-                        consentTimestamp: new Date().toISOString()
+                        orderNumber: orderNumber, createdAt: new Date().toISOString(), name, phone, 
+                        messenger: document.getElementById('messenger').value, delivery: delivery,
+                        address: document.getElementById('address').value, addressStructured: addressStructured,
+                        date: date, time: time, payment: document.querySelector('input[name="payment"]:checked')?.value,
+                        comment: document.getElementById('comment').value, items: orderItems,
+                        total: Number(finalTotal) || 0, currency: currentLang === 'en' ? 'AED' : '₽',
+                        lang: currentLang, consentGiven: consentCheckbox.checked, consentTimestamp: new Date().toISOString()
                     };
                     
                     trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
                     ymTrack('checkout_start');
                     
-                    // ✅ ЖДЕМ ответа от Google Apps Script. Страница не закроется, пока запрос не завершится.
-                    const success = await sendToAppsScript(orderData);
+                    // ✅ МГНОВЕННАЯ ФОНОВАЯ ОТПРАВКА (без await!)
+                    sendToAppsScript(orderData);
+                    sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
                     
-                    if (success) {
-                        sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
-                        
-                        trackGA4Event('purchase', {
-                            transaction_id: orderData.orderNumber, currency: orderData.currency, value: orderData.total,
-                            shipping: delivery === 'courier' ? courierCost : 0
-                        });
-                        ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
-                        
-                        cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                        
-                        // Переходим только после успешной отправки
-                        window.location.href = '/thank-you';
-                    } else {
-                        // Если отправка провалилась, показываем ошибку и разблокируем кнопку
-                        alert(translations[currentLang].networkError);
-                        submitBtn.disabled = false;
-                        if (btnText) btnText.style.display = 'inline';
-                        if (btnLoading) btnLoading.style.display = 'none';
-                    }
+                    trackGA4Event('purchase', {
+                        transaction_id: orderData.orderNumber, currency: orderData.currency, value: orderData.total,
+                        shipping: delivery === 'courier' ? courierCost : 0
+                    });
+                    ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
+                    
+                    cart = []; saveCart(); updateCartCount(); renderOrderSummary();
+                    
+                    // Мгновенный переход. Браузер завершит отправку в фоне благодаря sendBeacon/keepalive.
+                    window.location.href = '/thank-you';
                     
                 } catch (error) {
                     console.error('Критическая ошибка при оформлении заказа:', error);
@@ -1175,12 +1048,11 @@ const orderItems = cart.map(item => {
                     submitBtn.disabled = false;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
-                    if (btnText) btnText.style.display = 'inline';
+                    if (btnText) btnText.textContent = currentLang === 'ru' ? 'ПОДТВЕРДИТЬ ЗАКАЗ' : 'CONFIRM ORDER';
                     if (btnLoading) btnLoading.style.display = 'none';
                 }
             });
         }
-        
         console.log(`✅ checkout.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
     });
     
