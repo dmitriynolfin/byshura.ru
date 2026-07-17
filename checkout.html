@@ -480,7 +480,7 @@
     </footer>
 
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJGn5RAB4nJnGu1f8ibfF5rSuTViiegHaCANS6DPygqolK1WoYESXEGH-9x5eSix51/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuS6lxPbDIbS6QfdPLQpdOS9Qh9hyxczGy6A_uelK1yRFcaA3wyIsE9HG4jWuWjJDt/exec';
 
     const translations = {
         ru: {
@@ -1091,16 +1091,28 @@
                     const courierCost = currentLang === 'en' ? 40 : 800;
                     const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                     
-                    const orderItems = cart.map(item => ({
-                        id: item.id, productId: item.productId, 
-                        name: item.name || getItemName(item, currentLang),
-                        image: item.image, productType: item.productType,
-                        basePrice: Number(item.basePrice) || 0, 
-                        price: Number(recalculateItemPrice(item, currentLang)) || 0,
-                        quantity: Number(item.quantity) || 1,
-                        options: item.options || {}
-                    }));
-                    
+const orderItems = cart.map(item => {
+    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Глубокое копирование и перевод аллергенов перед отправкой
+    let finalOptions = { ...item.options };
+    if (finalOptions.allergens && Array.isArray(finalOptions.allergens)) {
+        finalOptions.allergens = finalOptions.allergens.map(a => {
+            const key = allergenKeys[a];
+            return key ? translations[currentLang][key] : a; // Переводим на лету в зависимости от языка
+        });
+    }
+    
+    return {
+        id: item.id, 
+        productId: item.productId, 
+        name: item.name || getItemName(item, currentLang),
+        image: item.image, 
+        productType: item.productType,
+        basePrice: Number(item.basePrice) || 0, 
+        price: Number(recalculateItemPrice(item, currentLang)) || 0, // Гарантируем число
+        quantity: Number(item.quantity) || 1, // Гарантируем число
+        options: finalOptions
+    };
+});
                     let addressStructured = null;
                     const structuredData = document.getElementById('address')?.dataset.structured;
                     if (structuredData && structuredData !== 'undefined' && structuredData.trim() !== '') {
