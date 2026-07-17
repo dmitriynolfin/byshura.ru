@@ -412,7 +412,7 @@
     </footer>
 
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxTh-LB6hHnhzKZYb1P-xxVqZhyOWRYbUnaE1v14djj6VGDHV0g8bFJDSfbGj5H0QpG/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1P8VFUTG8NPOzVkSjfruATklyJ7gJKHNm1CN_CEnNqLGjoED-YmPgXIINm0Jbbgbx/exec';
 
     // ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ JS ДО ФУНКЦИИ sendToAppsScript, ОН ВЕРНЫЙ) ...
     const translations = {
@@ -488,12 +488,10 @@
     function debounce(func, wait) { let timeout; return function(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
 
     function generateOrderNumber() {
-        const STORAGE_KEY = 'hedonism_last_order_id';
-        let currentId = parseInt(localStorage.getItem(STORAGE_KEY)) || 1000;
-        const nextId = currentId + 1;
-        localStorage.setItem(STORAGE_KEY, nextId);
-        return String(nextId);
-    }
+  // Номер заказа теперь генерируется на сервере (в Google Apps Script)
+  // Здесь возвращаем временный ID для отслеживания на клиенте
+  return 'TEMP-' + Date.now();
+}
 
     function getProductTypeById(productId) {
         if (productId === 'box1' || productId === 'box2') return 'box';
