@@ -467,7 +467,8 @@
     </footer>
 
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw3f0ihpXfowTm8ed_Vg3qFH3818LhuLqDUcf4JpYCjQjibRf58awl1Pfl8L2EDeTRq/exec';
+    // ✅ ОБНОВЛЕННЫЙ URL СКРИПТА
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzg5FYQttiXxdYCoFJ9G5P67kTD_yiIzVda4KZOdw_uC-VWJrIlopdXwxK9fRs7RO4/exec';
 
     const translations = {
         ru: {
@@ -571,9 +572,9 @@
         if (!table) return Number(item.price) || 0;
         if (productId === 'box1' || productId === 'box2') {
             const persons = parseInt(options.persons) || 2;
-            return Number(table[lang]?.[persons] || table[lang]?.[2] || item.price) || 0;
+            return Number((table[lang] && table[lang][persons]) || (table[lang] && table[lang][2]) || item.price) || 0;
         }
-        if (productId === 'cake1') return Number(table[lang] || item.price) || 0;
+        if (productId === 'cake1') return Number(table[lang]) || 0;
         if (table[lang] && typeof table[lang] === 'object') {
             const qty = parseInt(options.quantity) || 4;
             return Number(table[lang][qty] || table[lang][4] || item.price) || 0;
@@ -714,37 +715,41 @@
         }
     }
 
-    // ✅ МГНОВЕННАЯ ФОНОВАЯ ОТПРАВКА (решает проблему долгой загрузки и обрыва на мобильном)
+    // ✅ МГНОВЕННАЯ ФОНОВАЯ ОТПРАВКА С ЛОГИРОВАНИЕМ
     function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📦 Отправка заказа в фоне (размер: ' + jsonStr.length + ' байт)');
+        console.log('📦 [DEBUG] Отправка заказа в фоне (размер: ' + jsonStr.length + ' байт)');
 
-        // 1. Приоритетный метод для мобильных: sendBeacon. Он не блокирует UI и гарантирует доставку при смене страницы.
+        let sendSuccess = false;
+        
+        // 1. Приоритетный метод для мобильных: sendBeacon. Не блокирует UI.
         if (navigator.sendBeacon) {
             try {
                 const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                const isQueued = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                console.log('📡 sendBeacon поставлен в очередь:', isQueued);
-                return true;
+                sendSuccess = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                console.log('📡 [DEBUG] sendBeacon поставлен в очередь:', sendSuccess);
             } catch (e) {
-                console.warn('⚠️ sendBeacon ошибка, используем fallback:', e);
+                console.warn('⚠️ [DEBUG] sendBeacon ошибка:', e);
             }
         }
 
-        // 2. Fallback: fetch с keepalive. Также не блокирует переход на другую страницу.
-        try {
-            fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: jsonStr,
-                keepalive: true 
-            });
-            console.log('📡 Fetch (keepalive) отправлен в фоне');
-            return true;
-        } catch (e) {
-            console.error('❌ Ошибка отправки:', e);
-            return false;
+        // 2. Fallback: fetch с keepalive. Также не блокирует переход.
+        if (!sendSuccess) {
+            try {
+                fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: jsonStr,
+                    keepalive: true 
+                });
+                console.log('📡 [DEBUG] Fetch (keepalive) отправлен в фоне');
+                sendSuccess = true;
+            } catch (e) {
+                console.error('❌ [DEBUG] Ошибка fetch:', e);
+            }
         }
+        
+        return sendSuccess;
     }
 
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
@@ -962,19 +967,42 @@
         if (checkoutForm) {
             checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                console.log("🚀 [DEBUG 1] Форма отправлена");
+                
                 try {
                     const submitBtn = document.getElementById('submitBtn');
                     const name = document.getElementById('name').value.trim();
                     const phone = document.getElementById('phone').value.trim();
-                    if (!name || !phone) { alert(translations[currentLang].validationError); return; }
+                    
+                    if (!name || !phone) { 
+                        console.warn("[DEBUG] Ошибка валидации: нет имени или телефона");
+                        alert(translations[currentLang].validationError); 
+                        return; 
+                    }
+                    
                     const consentCheckbox = document.getElementById('consentCheckbox');
-                    if (consentCheckbox && !consentCheckbox.checked) { alert(translations[currentLang].consentError); return; }
-                    if (cart.length === 0) { alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!'); return; }
+                    if (consentCheckbox && !consentCheckbox.checked) {
+                        console.warn("[DEBUG] Ошибка валидации: нет согласия");
+                        alert(translations[currentLang].consentError);
+                        return;
+                    }
+                    
+                    if (cart.length === 0) {
+                        console.warn("[DEBUG] Ошибка валидации: корзина пуста");
+                        alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!');
+                        return;
+                    }
+                    
                     const date = document.getElementById('date').value;
                     const time = document.getElementById('time').value;
-                    if (!date || !time) { alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.'); return; }
+                    if (!date || !time) {
+                        console.warn("[DEBUG] Ошибка валидации: нет даты или времени");
+                        alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.');
+                        return;
+                    }
                     
-                    // Блокируем кнопку визуально, но НЕ ждем ответа (мгновенная реакция)
+                    console.log("🛒 [DEBUG 2] Состояние корзины:", cart);
+                    
                     submitBtn.disabled = true;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1023,33 +1051,41 @@
                         lang: currentLang, consentGiven: consentCheckbox.checked, consentTimestamp: new Date().toISOString()
                     };
                     
+                    console.log("📦 [DEBUG 3] Итоговый объект orderData:", orderData);
+                    
+                    const jsonStr = JSON.stringify(orderData);
+                    console.log("📝 [DEBUG 4] JSON строка (первые 200 символов):", jsonStr.substring(0, 200));
+                    
                     trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
                     ymTrack('checkout_start');
                     
-                    // ✅ МГНОВЕННАЯ ФОНОВАЯ ОТПРАВКА (без await!)
-                    sendToAppsScript(orderData);
-                    sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                    console.log("🌐 [DEBUG 5] Начало отправки к:", APPS_SCRIPT_URL);
                     
-                    trackGA4Event('purchase', {
-                        transaction_id: orderData.orderNumber, currency: orderData.currency, value: orderData.total,
-                        shipping: delivery === 'courier' ? courierCost : 0
-                    });
-                    ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
+                    const sendSuccess = sendToAppsScript(orderData);
                     
-                    cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                    
-                    // Мгновенный переход. Браузер завершит отправку в фоне благодаря sendBeacon/keepalive.
-                    window.location.href = '/thank-you';
+                    if (sendSuccess) {
+                        sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                        trackGA4Event('purchase', { transaction_id: orderData.orderNumber, currency: orderData.currency, value: orderData.total });
+                        ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
+                        
+                        cart = []; saveCart(); updateCartCount(); renderOrderSummary();
+                        console.log("🎉 [DEBUG 9] Успех! Переход на страницу благодарности.");
+                        window.location.href = '/thank-you';
+                    } else {
+                        console.error("❌ [DEBUG 10] Не удалось поставить запрос в очередь.");
+                        alert(translations[currentLang].networkError);
+                        submitBtn.disabled = false;
+                        if (btnText) btnText.textContent = currentLang === 'ru' ? 'ПОДТВЕРДИТЬ ЗАКАЗ' : 'CONFIRM ORDER';
+                        if (btnLoading) btnLoading.style.display = 'none';
+                    }
                     
                 } catch (error) {
-                    console.error('Критическая ошибка при оформлении заказа:', error);
+                    console.error("💥 [DEBUG 11] Неожиданная критическая ошибка в обработчике:", error);
                     alert(translations[currentLang].networkError);
                     const submitBtn = document.getElementById('submitBtn');
                     submitBtn.disabled = false;
                     const btnText = submitBtn.querySelector('.btn-text');
-                    const btnLoading = submitBtn.querySelector('.btn-loading');
                     if (btnText) btnText.textContent = currentLang === 'ru' ? 'ПОДТВЕРДИТЬ ЗАКАЗ' : 'CONFIRM ORDER';
-                    if (btnLoading) btnLoading.style.display = 'none';
                 }
             });
         }
