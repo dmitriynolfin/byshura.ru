@@ -282,11 +282,11 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="index.html" class="logo" aria-label="Главная">🍋</a>
+                <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <a href="/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="history.html" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/history" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -300,7 +300,7 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
-                <a href="index.html" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
+                <a href="/" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
@@ -633,7 +633,7 @@
             ymTrack('cart_click_history', { cart_items: cart.length });
             if (cart.length === 0) {
                 const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
-                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = 'boxes.html'; return; }
+                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = '/boxes'; return; }
             }
             window.location.href = 'checkout.html';
         });
