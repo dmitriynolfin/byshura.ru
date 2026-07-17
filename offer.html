@@ -459,7 +459,7 @@
                 cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) 
             });
             ymTrack('cart_click_offer', { cart_items: cart.length });
-            window.location.href = 'checkout.html';
+            window.location.href = '/checkout';
         });
         
         // 🎯 Метрика + GA4: клик по кнопке "НАЗАД"
