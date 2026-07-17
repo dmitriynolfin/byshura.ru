@@ -467,8 +467,7 @@
     </footer>
 
     <script>
-    // ✅ ОБНОВЛЕННЫЙ URL СКРИПТА
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzg5FYQttiXxdYCoFJ9G5P67kTD_yiIzVda4KZOdw_uC-VWJrIlopdXwxK9fRs7RO4/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzg-MbsED6JDExfMGjUKZOyS8wj-kGeYhNBhfApb39swIydd4WsfELGFDxWpw07bbA9/exec';
 
     const translations = {
         ru: {
@@ -715,41 +714,43 @@
         }
     }
 
-    // ✅ МГНОВЕННАЯ ФОНОВАЯ ОТПРАВКА С ЛОГИРОВАНИЕМ
-    function sendToAppsScript(orderData) {
+    // ✅ НАДЕЖНАЯ ОТПРАВКА С ПРОВЕРКОЙ ОТВЕТА СЕРВЕРА
+    async function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📦 [DEBUG] Отправка заказа в фоне (размер: ' + jsonStr.length + ' байт)');
+        console.log('📦 [DEBUG] Подготовка к отправке (размер: ' + jsonStr.length + ' байт)');
 
-        let sendSuccess = false;
-        
-        // 1. Приоритетный метод для мобильных: sendBeacon. Не блокирует UI.
-        if (navigator.sendBeacon) {
+        try {
+            // 1. Пробуем стандартный fetch с ожиданием ответа. Это гарантирует, что мы узнаем об ошибке сервера.
+            console.log('🌐 [DEBUG] Отправка через fetch...');
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: jsonStr,
+                keepalive: true // Помогает мобильным браузерам не обрывать соединение при переходе
+            });
+            
+            const responseText = await response.text();
+            console.log('📄 [DEBUG] Ответ сервера:', response.status, responseText);
+            
+            if (response.ok) {
+                return true;
+            } else {
+                throw new Error('Server returned status: ' + response.status);
+            }
+        } catch (error) {
+            console.warn('⚠️ [DEBUG] Fetch не сработал, используем sendBeacon как последний шанс:', error);
+            // 2. Fallback: если fetch упал (например, из-за строгой политики мобильного браузера), 
+            // используем sendBeacon. Он не вернет ответ, но попытается доставить данные в фоне.
             try {
                 const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                sendSuccess = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                console.log('📡 [DEBUG] sendBeacon поставлен в очередь:', sendSuccess);
-            } catch (e) {
-                console.warn('⚠️ [DEBUG] sendBeacon ошибка:', e);
+                const beaconSuccess = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                console.log('📡 [DEBUG] sendBeacon результат:', beaconSuccess);
+                return beaconSuccess;
+            } catch (beaconError) {
+                console.error('❌ [DEBUG] Полная неудача отправки:', beaconError);
+                return false;
             }
         }
-
-        // 2. Fallback: fetch с keepalive. Также не блокирует переход.
-        if (!sendSuccess) {
-            try {
-                fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: jsonStr,
-                    keepalive: true 
-                });
-                console.log('📡 [DEBUG] Fetch (keepalive) отправлен в фоне');
-                sendSuccess = true;
-            } catch (e) {
-                console.error('❌ [DEBUG] Ошибка fetch:', e);
-            }
-        }
-        
-        return sendSuccess;
     }
 
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
@@ -965,7 +966,7 @@
         
         const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
-            checkoutForm.addEventListener('submit', function(e) {
+            checkoutForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 console.log("🚀 [DEBUG 1] Форма отправлена");
                 
@@ -1003,6 +1004,7 @@
                     
                     console.log("🛒 [DEBUG 2] Состояние корзины:", cart);
                     
+                    // Блокируем кнопку, чтобы пользователь не нажал дважды
                     submitBtn.disabled = true;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1053,15 +1055,12 @@
                     
                     console.log("📦 [DEBUG 3] Итоговый объект orderData:", orderData);
                     
-                    const jsonStr = JSON.stringify(orderData);
-                    console.log("📝 [DEBUG 4] JSON строка (первые 200 символов):", jsonStr.substring(0, 200));
-                    
                     trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
                     ymTrack('checkout_start');
                     
-                    console.log("🌐 [DEBUG 5] Начало отправки к:", APPS_SCRIPT_URL);
+                    console.log("🌐 [DEBUG 4] Начало отправки к:", APPS_SCRIPT_URL);
                     
-                    const sendSuccess = sendToAppsScript(orderData);
+                    const sendSuccess = await sendToAppsScript(orderData);
                     
                     if (sendSuccess) {
                         sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
@@ -1069,10 +1068,14 @@
                         ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
                         
                         cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                        console.log("🎉 [DEBUG 9] Успех! Переход на страницу благодарности.");
-                        window.location.href = '/thank-you';
+                        console.log("🎉 [DEBUG 5] Успех! Переход на страницу благодарности.");
+                        
+                        // Небольшая задержка для гарантии завершения аналитики перед редиректом
+                        setTimeout(() => {
+                            window.location.href = '/thank-you';
+                        }, 300);
                     } else {
-                        console.error("❌ [DEBUG 10] Не удалось поставить запрос в очередь.");
+                        console.error("❌ [DEBUG 6] Не удалось отправить заказ.");
                         alert(translations[currentLang].networkError);
                         submitBtn.disabled = false;
                         if (btnText) btnText.textContent = currentLang === 'ru' ? 'ПОДТВЕРДИТЬ ЗАКАЗ' : 'CONFIRM ORDER';
@@ -1080,7 +1083,7 @@
                     }
                     
                 } catch (error) {
-                    console.error("💥 [DEBUG 11] Неожиданная критическая ошибка в обработчике:", error);
+                    console.error("💥 [DEBUG 7] Неожиданная критическая ошибка в обработчике:", error);
                     alert(translations[currentLang].networkError);
                     const submitBtn = document.getElementById('submitBtn');
                     submitBtn.disabled = false;
