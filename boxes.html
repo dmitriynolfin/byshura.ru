@@ -161,7 +161,8 @@
         
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
-        .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 600px; max-height: 90vh; background: white; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
+        /* ✅ FIX 1: Убраны скругления у открытой карточки (модального окна) */
+        .product-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; max-width: 600px; max-height: 90vh; background: white; border-radius: 0; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
         .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
         .modal-close { background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
@@ -180,12 +181,13 @@
             margin-bottom: 15px;
         }
         .modal-main-slider::-webkit-scrollbar { display: none; }
+        /* ✅ FIX 2: Убраны скругления у главного изображения в открытой карточке */
         .modal-main-image { 
             min-width: 100%; 
             aspect-ratio: 4/3; 
             background-size: cover; 
             background-position: center; 
-            border-radius: 12px; 
+            border-radius: 0; 
             scroll-snap-align: center;
             flex-shrink: 0;
         }
@@ -199,12 +201,13 @@
             -webkit-overflow-scrolling: touch;
         }
         .modal-thumbnails::-webkit-scrollbar { display: none; }
+        /* ✅ FIX 2: Убраны скругления у миниатюр фотографий в открытой карточке */
         .modal-thumb { 
             min-width: 80px; 
             height: 80px; 
             background-size: cover; 
             background-position: center; 
-            border-radius: 8px; 
+            border-radius: 0; 
             cursor: pointer; 
             border: 2px solid transparent; 
             transition: all 0.3s;
