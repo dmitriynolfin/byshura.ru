@@ -17,7 +17,7 @@
     <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача, доставка по Москве.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
-    <link rel="canonical" href="https://byshura.ru/boxes.html">
+    <link rel="canonical" href="https://byshura.ru/boxes">
     
     <link rel="preload" as="image" href="images/boxes-nicholas-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
     <link rel="preload" as="image" href="images/boxes-nicholas-1.webp" media="(min-width: 769px)" fetchpriority="high">
@@ -31,20 +31,20 @@
     <link rel="preload" as="image" href="images/boxes-rasstegai-1.webp" media="(min-width: 769px)" fetchpriority="high">
     
     <meta charset="UTF-8">
-    <meta name="viewport" contt="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
-    <meta http-equiv="Cache-Control" contt="public, max-age=3600">
+    <meta http-equiv="Cache-Control" content="public, max-age=3600">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(argumts);}
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-L8704SB9ZW', {
-        page_title: documt.title,
+        page_title: document.title,
         page_location: window.location.href,
         page_path: window.location.pathname,
-        sd_page_view: false
+        send_page_view: false
       });
     </script>
     
@@ -53,28 +53,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidd; background: #f8f9fa; }
+        body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
         a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
-        .header-container { display: flex; justify-contt: space-betwe; align-items: cter; }
-        .header-left { display: flex; align-items: cter; gap: 30px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: cter; justify-contt: cter; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
-        .nav-mu { display: flex; gap: 25px; align-items: cter; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
         .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding: 5px 0; }
-        .nav-link::after { contt: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #FFD93D; transition: width 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #FFD93D; transition: width 0.3s; }
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: #FFD93D; }
         .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
-        .header-right { display: flex; align-items: cter; gap: 20px; flex-wrap: wrap; justify-contt: flex-d; }
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: cter; justify-contt: cter; cursor: pointer; min-width: 44px; min-height: 44px; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: cter; justify-contt: center; line-height: 1; }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
         .btn-back:hover { background: #070395; color: white; }
         
@@ -136,7 +136,6 @@
         .section-title { text-align: center; font-size: 42px; font-weight: 700; margin: 60px 0 40px; color: #070395; text-transform: uppercase; letter-spacing: 2px; scroll-margin-top: 150px; }
         
         .boxes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        /* ✅ FIX 2: Расстояние до футера уменьшено в 2 раза (было 60px, стало 30px) */
         .boxes-grid:last-of-type { margin-bottom: 30px; }
         
         .box-card { background: white; border-radius: 0; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer; }
@@ -147,7 +146,6 @@
         
         .box-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
         
-        /* ✅ FIX 3: Шрифт в карточках чуть больше, убран жирный шрифт (font-weight: 500 вместо 700) */
         .box-title { font-size: 20px; font-weight: 500; margin-bottom: 15px; color: #070395; text-align: center; }
         
         .box-footer { display: flex; justify-content: center; align-items: center; padding-top: 15px; border-top: 1px solid #eee; margin-top: auto; }
@@ -162,7 +160,6 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
         
-        /* ✅ FIX: Поднял модальное окно выше (top: 10%), чтобы кнопки были видны */
         .product-modal { 
             position: fixed; 
             top: 10%; 
@@ -197,7 +194,6 @@
             margin-bottom: 15px;
         }
         .modal-main-slider::-webkit-scrollbar { display: none; }
-        /* ✅ FIX 2: Убраны скругления у главного изображения в открытой карточке */
         .modal-main-image { 
             min-width: 100%; 
             aspect-ratio: 4/3; 
@@ -217,7 +213,6 @@
             -webkit-overflow-scrolling: touch;
         }
         .modal-thumbnails::-webkit-scrollbar { display: none; }
-        /* ✅ FIX 2: Убраны скругления у миниатюр фотографий в открытой карточке */
         .modal-thumb { 
             min-width: 80px; 
             height: 80px; 
@@ -334,11 +329,9 @@
             
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             
-            /* ✅ FIX 3: Шрифт в карточках чуть больше, убран жирный шрифт */
             .box-title { font-size: 16px; font-weight: 500; }
             .box-price { font-size: 16px; }
             
-            /* ✅ FIX 1: Кнопки категорий увеличены на ~50% для планшетов/мобильных */
             .category-nav { 
                 top: 76px;
                 gap: 8px; 
@@ -354,7 +347,6 @@
             
             .header-right { gap: 10px; }
             
-            /* ✅ FIX: На мобильных также применяем безопасные отступы, чтобы кнопки не обрезались нижним баром браузера */
             .product-modal { width: 95%; max-width: none; max-height: 75vh; top: 5%; }
             
             .modal-main-image { aspect-ratio: 1/1; }
@@ -384,12 +376,10 @@
             
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             
-            /* ✅ FIX 3: Шрифт в карточках чуть больше, убран жирный шрифт для узких экранов */
             .box-title { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
             .box-price { font-size: 14px; }
             .box-price .currency { font-size: 12px; }
             
-            /* ✅ FIX 1: Кнопки категорий увеличены на ~50% для узких экранов */
             .category-nav { 
                 top: 72px;
                 gap: 6px; 
@@ -491,7 +481,7 @@
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
                     <a href="/boxes" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ</a>
-                    <a href="index.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
                     <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
@@ -614,14 +604,14 @@
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <div class="legal-links-ru">
-                <a href="privacy-policy.html" target="_blank">Политика конфиденциальности</a>
+                <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="offer.html" target="_blank">Публичная оферта</a>
+                <a href="/offer" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="privacy-policy-en.html" target="_blank">Privacy Policy</a>
+                <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="offer-en.html" target="_blank">Public Offer</a>
+                <a href="/offer-en" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -926,8 +916,8 @@
         let allergens = [];
         if (isTchaikovsky) {
             allergens = [
-                { value: 'Грибы', icon: '', key: 'allergen1' },
-                { value: 'Мед', icon: '', key: 'allergen2' },
+                { value: 'Грибы', icon: '🍄', key: 'allergen1' },
+                { value: 'Мед', icon: '🍯', key: 'allergen2' },
                 { value: 'Лактоза', icon: '🥛', key: 'allergen3' },
                 { value: 'Яйца', icon: '🥚', key: 'allergen4' },
                 { value: 'Глютен', icon: '🌾', key: 'allergen5' }
@@ -936,9 +926,9 @@
             allergens = [
                 { value: 'Грибы', icon: '', key: 'allergen1' },
                 { value: 'Горчица', icon: '🟡', key: 'allergen2' },
-                { value: 'Лактоза', icon: '', key: 'allergen3' },
+                { value: 'Лактоза', icon: '🥛', key: 'allergen3' },
                 { value: 'Яйца', icon: '', key: 'allergen4' },
-                { value: 'Глютен', icon: '', key: 'allergen5' },
+                { value: 'Глютен', icon: '🌾', key: 'allergen5' },
                 { value: 'Красная рыба', icon: '🐟', key: 'allergen6' },
                 { value: 'Орехи', icon: '', key: 'allergen7' }
             ];
@@ -1215,7 +1205,7 @@
         closeCartPrompt();
         trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0), items: cart.map(item => ({ item_id: item.productId, item_name: item.name, price: item.price, quantity: item.quantity })) });
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
-        window.location.href = 'checkout.html';
+        window.location.href = '/checkout';
     }
 
     function scrollToSection(targetId) {
@@ -1252,7 +1242,7 @@
         applyLanguage(langToUse);
         lazyLoadBackgrounds();
         updateCartCount();
-        setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes.html', language: currentLang }); }, 1000);
+        setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes', language: currentLang }); }, 1000);
         ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 5 });
         
         const langBtn = document.getElementById('langBtn');
@@ -1311,7 +1301,7 @@
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
             ymTrack('cart_click_boxes', { cart_items: cart.length });
-            window.location.href = 'checkout.html';
+            window.location.href = '/checkout';
         });
         
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -1319,7 +1309,7 @@
                 const href = this.getAttribute('href');
                 if (href?.includes('contacts')) ymTrack('nav_contacts_click');
                 else if (href?.includes('history')) ymTrack('nav_history_click');
-                else if (href?.includes('index.html') && !href.includes('#')) ymTrack('nav_home_click');
+                else if (href?.includes('/') && !href.includes('#')) ymTrack('nav_home_click');
             });
         });
         document.querySelectorAll('.social-link').forEach(link => {
