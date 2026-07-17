@@ -1045,7 +1045,7 @@
             if (cart.length === 0) {
                 if (confirm((translations[currentLang]?.cartAlert || translations.ru.cartAlert) + '\n\nПерейти на страницу боксов?')) window.location.href = '/boxes';
             } else {
-                window.location.href = 'checkout.html';
+                window.location.href = '/checkout';
             }
         });
         
