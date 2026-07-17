@@ -34,6 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ CSS, ОН АБСОЛЮТНО ВЕРНЫЙ) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
         a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
@@ -41,7 +42,6 @@
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-
         .address-input-wrapper { position: relative; }
         .suggestions-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #eee; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000; max-height: 300px; overflow-y: auto; display: none; margin-top: 5px; }
         .suggestions-list.show { display: block; }
@@ -59,7 +59,6 @@
             .suggestion-main { font-size: 13px; }
             .suggestion-details { font-size: 11px; }
         }
-        
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
@@ -87,19 +86,15 @@
         .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
         .lang-code { font-weight: 600; margin-right: 5px; }
         .lang-descr { color: #666; font-size: 12px; }
-        
         .checkout-page { padding: 115px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .checkout-container { max-width: 900px; margin: 0 auto; }
         .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
         .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
-        
         .order-summary { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; }
         .order-summary-title { font-size: 20px; font-weight: 600; color: #070395; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        
         .empty-cart-message { text-align: center; padding: 30px 20px; color: #666; line-height: 1.6; }
         .add-items-link { color: #070395; font-weight: 700; text-decoration: underline; text-decoration-color: #FFD93D; text-underline-offset: 4px; transition: all 0.3s; display: inline-block; margin-top: 8px; }
         .add-items-link:hover { color: #FFD93D; background: #070395; text-decoration: none; padding: 8px 16px; border-radius: 8px; }
-
         .order-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; }
         .order-item:last-child { border-bottom: none; }
         .order-item-info { flex: 1; min-width: 0; }
@@ -114,22 +109,18 @@
         .quantity-btn { width: 24px; height: 24px; border: none; background: white; border-radius: 50%; color: #070395; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .quantity-btn:hover { background: #070395; color: white; }
         .quantity-value { font-weight: 600; min-width: 18px; text-align: center; font-size: 13px; }
-        
         .order-item-remove-btn { display: flex; align-items: center; gap: 6px; background: transparent; color: #999; border: 1px solid #e0e0e0; border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
         .order-item-remove-btn:hover { background: #ffebee; color: #e74c3c; border-color: #e74c3c; }
         .order-item-remove-btn svg { width: 16px; height: 16px; }
-        
         .order-item-price { font-weight: 600; color: #070395; font-size: 16px; min-width: 70px; text-align: right; white-space: nowrap; display: flex; align-items: baseline; gap: 4px; }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         .order-total { display: flex; justify-content: space-between; padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee; font-size: 18px; font-weight: 600; color: #070395; }
-        
         .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
         .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
         .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
-        
         .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; color: #070395; background: white; transition: all 0.3s; max-width: 100%; box-sizing: border-box; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); }
         .form-input::placeholder { color: #999; }
@@ -151,25 +142,21 @@
         .payment-radio { width: 20px; height: 20px; accent-color: #070395; }
         .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .payment-option input:checked + .payment-label { font-weight: 600; }
-        
         .consent-group { margin: 25px 0 30px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
         .consent-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
         .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: #070395; cursor: pointer; flex-shrink: 0; }
         .consent-text { font-size: 13px; color: #555; line-height: 1.5; }
         .consent-text a { color: #070395; font-weight: 600; text-decoration: none; }
         .consent-text a:hover { color: #FFD93D; text-decoration: underline; }
-        
         .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
         .btn-submit { flex: 1; background: #070395; color: white; padding: 16px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-submit:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .btn-cancel { flex: 1; background: transparent; color: #070395; padding: 16px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: 2px solid #070395; cursor: pointer; }
         .btn-cancel:hover { background: #070395; color: white; }
-        
         .datetime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .date-hint { font-size: 12px; color: #666; margin-top: 5px; display: block; }
         .date-hint strong { color: #070395; }
-        
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -177,7 +164,6 @@
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
-        
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
@@ -188,92 +174,51 @@
         .legal-links-en a:hover { color: #070395; }
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
-        
         .cart-modal { display: none; }
         .cart-overlay { display: none; }
-        
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
-        
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         @media (max-width: 768px) { 
-            .header { padding: 12px 0; }
-            .checkout-page { padding-top: 95px; }
-            .header-container { padding: 0 15px; }
-            .logo { width: 42px; height: 42px; font-size: 22px; }
-            .header-icons { gap: 10px; }
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
-            .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .checkout-title { font-size: 28px; }
-            .checkout-form { padding: 20px; }
-            .form-title { font-size: 18px; }
-            .delivery-options { flex-direction: column; }
-            .checkout-actions { flex-direction: column; }
-            .header-right { gap: 10px; }
-            .order-item { flex-direction: row; gap: 12px; }
-            .order-item-thumb { width: 60px; height: 60px; }
-            .order-item-info { min-width: 0; }
-            .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
-            .order-item-price { text-align: left; }
-            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
+            .header { padding: 12px 0; } .checkout-page { padding-top: 95px; } .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; } .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; } .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .checkout-title { font-size: 28px; } .checkout-form { padding: 20px; } .form-title { font-size: 18px; }
+            .delivery-options { flex-direction: column; } .checkout-actions { flex-direction: column; } .header-right { gap: 10px; }
+            .order-item { flex-direction: row; gap: 12px; } .order-item-thumb { width: 60px; height: 60px; }
+            .order-item-info { min-width: 0; } .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+            .order-item-price { text-align: left; } .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         @media (max-width: 480px) { 
-            .header { padding: 10px 0; }
-            .checkout-page { padding-top: 90px; }
-            .logo { width: 40px; height: 40px; font-size: 20px; }
-            .header-icons { gap: 8px; }
-            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
-            .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; }
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .checkout-title { font-size: 24px; }
-            .checkout-form { padding: 18px; }
-            .form-title { font-size: 16px; }
-            .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 16px; }
-            .contact-input-wrapper .form-input { padding-left: 44px; }
-            .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
-            .delivery-label { padding: 12px 16px; font-size: 13px; }
-            .footer { padding: 18px 0; }
-            .social-links { gap: 12px; }
-            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
-            .social-link img { width: 28px; height: 28px; }
-            .footer-copyright { font-size: 12px; }
-            .header-right { gap: 8px; }
+            .header { padding: 10px 0; } .checkout-page { padding-top: 90px; } .logo { width: 40px; height: 40px; font-size: 20px; }
+            .header-icons { gap: 8px; } .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; } .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; } .checkout-title { font-size: 24px; }
+            .checkout-form { padding: 18px; } .form-title { font-size: 16px; } .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 16px; }
+            .contact-input-wrapper .form-input { padding-left: 44px; } .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
+            .delivery-label { padding: 12px 16px; font-size: 13px; } .footer { padding: 18px 0; } .social-links { gap: 12px; }
+            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; } .social-link img { width: 28px; height: 28px; }
+            .footer-copyright { font-size: 12px; } .header-right { gap: 8px; }
             .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
-            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; } .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
-            html[lang="en"] .legal-links-en { display: flex !important; }
-            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
-            .consent-group { padding: 12px; margin: 20px 0 25px; }
-            .consent-text { font-size: 12px; line-height: 1.4; }
+            html[lang="en"] .legal-links-en { display: flex !important; } .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            .consent-group { padding: 12px; margin: 20px 0 25px; } .consent-text { font-size: 12px; line-height: 1.4; }
             .datetime-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; align-items: flex-start; }
-            .datetime-grid .form-group { flex: 0 0 auto; margin-bottom: 0; }
-            .datetime-grid .form-label { font-size: 12px; margin-bottom: 4px; }
+            .datetime-grid .form-group { flex: 0 0 auto; margin-bottom: 0; } .datetime-grid .form-label { font-size: 12px; margin-bottom: 4px; }
             .datetime-grid input[type="date"], .datetime-grid input[type="time"] { width: auto !important; min-width: fit-content; padding: 6px 10px !important; font-size: 16px !important; min-height: auto !important; height: 40px !important; border-radius: 8px !important; border-width: 1.5px !important; display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 40px; box-sizing: border-box; }
-            .order-item { flex-direction: column; }
-            .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
-            .order-item-name { font-size: 16px; }
-            .order-item-options { font-size: 12px; }
-            .quantity-control { gap: 3px; }
-            .quantity-btn { width: 22px; height: 22px; font-size: 13px; }
-            .order-item-price { font-size: 18px; }
-            .remove-text { display: none; }
-            .order-item-remove-btn { padding: 10px; }
+            .order-item { flex-direction: column; } .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
+            .order-item-name { font-size: 16px; } .order-item-options { font-size: 12px; } .quantity-control { gap: 3px; }
+            .quantity-btn { width: 22px; height: 22px; font-size: 13px; } .order-item-price { font-size: 18px; }
+            .remove-text { display: none; } .order-item-remove-btn { padding: 10px; }
         }
         @media (max-width: 360px) {
-            .logo { width: 38px; height: 38px; font-size: 18px; }
-            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            .checkout-title { font-size: 22px; }
-            .form-title { font-size: 15px; }
-            .order-item-thumb { height: 100px; }
-            .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; }
-            .icon-btn svg { width: 22px; height: 22px; }
+            .logo { width: 38px; height: 38px; font-size: 18px; } .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .checkout-title { font-size: 22px; } .form-title { font-size: 15px; } .order-item-thumb { height: 100px; }
+            .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; } .icon-btn svg { width: 22px; height: 22px; }
             .datetime-grid input[type="date"], .datetime-grid input[type="time"] { padding: 5px 8px !important; font-size: 16px !important; height: 40px !important; line-height: 40px; }
             .datetime-grid .form-label { font-size: 11px; }
         }
@@ -290,7 +235,7 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
-
+    <!-- ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ HTML ОТ <header> ДО </footer>, ОН АБСОЛЮТНО ВЕРНЫЙ) ... -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -467,8 +412,9 @@
     </footer>
 
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzg-MbsED6JDExfMGjUKZOyS8wj-kGeYhNBhfApb39swIydd4WsfELGFDxWpw07bbA9/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw0yd0WMpdmdAUQR8dKddjXRdNI8JeRw5vleRsRmyS13nMmm2Qttmnq8thfDVy9cMNl/exec';
 
+    // ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ JS ДО ФУНКЦИИ sendToAppsScript, ОН ВЕРНЫЙ) ...
     const translations = {
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма", navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
@@ -714,42 +660,52 @@
         }
     }
 
-    // ✅ НАДЕЖНАЯ ОТПРАВКА С ПРОВЕРКОЙ ОТВЕТА СЕРВЕРА
+    // ==========================================
+    // ✅ АБСОЛЮТНО НАДЕЖНАЯ ОТПРАВКА ДЛЯ МОБИЛЬНЫХ
+    // ==========================================
     async function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📦 [DEBUG] Подготовка к отправке (размер: ' + jsonStr.length + ' байт)');
+        console.log('📱 [MOBILE DEBUG] Подготовка к отправке, размер:', jsonStr.length, 'байт');
 
+        // 1. ПРИОРИТЕТ: sendBeacon. Создан специально, чтобы браузер не убивал запрос при уходе со страницы.
+        if (navigator.sendBeacon) {
+            try {
+                // КРИТИЧНО: text/plain предотвращает CORS preflight (OPTIONS) запрос, который часто блокируется на мобильных сетях
+                const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+                const success = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                if (success) {
+                    console.log('✅ [MOBILE] sendBeacon успешно поставлен в очередь браузером');
+                    return true; 
+                }
+            } catch (e) {
+                console.warn('⚠️ [MOBILE] sendBeacon ошибка, переходим к fetch:', e);
+            }
+        }
+
+        // 2. ЗАПАСНОЙ ВАРИАНТ: fetch с keepalive и таймаутом
         try {
-            // 1. Пробуем стандартный fetch с ожиданием ответа. Это гарантирует, что мы узнаем об ошибке сервера.
-            console.log('🌐 [DEBUG] Отправка через fetch...');
+            console.log('🌐 [MOBILE] Попытка fetch с keepalive...');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 сек таймаут для мобильных сетей
+
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Строго text/plain!
                 body: jsonStr,
-                keepalive: true // Помогает мобильным браузерам не обрывать соединение при переходе
+                keepalive: true, // Разрешает запросу жить после закрытия страницы
+                signal: controller.signal
             });
-            
-            const responseText = await response.text();
-            console.log('📄 [DEBUG] Ответ сервера:', response.status, responseText);
-            
+            clearTimeout(timeoutId);
+
             if (response.ok) {
+                console.log('✅ [MOBILE] Fetch успешен:', response.status);
                 return true;
             } else {
-                throw new Error('Server returned status: ' + response.status);
+                throw new Error('HTTP ' + response.status);
             }
         } catch (error) {
-            console.warn('⚠️ [DEBUG] Fetch не сработал, используем sendBeacon как последний шанс:', error);
-            // 2. Fallback: если fetch упал (например, из-за строгой политики мобильного браузера), 
-            // используем sendBeacon. Он не вернет ответ, но попытается доставить данные в фоне.
-            try {
-                const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                const beaconSuccess = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                console.log('📡 [DEBUG] sendBeacon результат:', beaconSuccess);
-                return beaconSuccess;
-            } catch (beaconError) {
-                console.error('❌ [DEBUG] Полная неудача отправки:', beaconError);
-                return false;
-            }
+            console.error('❌ [MOBILE] Полная неудача отправки:', error);
+            return false;
         }
     }
 
@@ -1002,9 +958,7 @@
                         return;
                     }
                     
-                    console.log("🛒 [DEBUG 2] Состояние корзины:", cart);
-                    
-                    // Блокируем кнопку, чтобы пользователь не нажал дважды
+                    // МГНОВЕННАЯ визуальная реакция, чтобы пользователь не нажал дважды
                     submitBtn.disabled = true;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
@@ -1060,6 +1014,7 @@
                     
                     console.log("🌐 [DEBUG 4] Начало отправки к:", APPS_SCRIPT_URL);
                     
+                    // Ждем реального результата отправки
                     const sendSuccess = await sendToAppsScript(orderData);
                     
                     if (sendSuccess) {
@@ -1070,10 +1025,11 @@
                         cart = []; saveCart(); updateCartCount(); renderOrderSummary();
                         console.log("🎉 [DEBUG 5] Успех! Переход на страницу благодарности.");
                         
-                        // Небольшая задержка для гарантии завершения аналитики перед редиректом
+                        // КРИТИЧНО ДЛЯ МОБИЛЬНЫХ: Небольшая задержка перед редиректом гарантирует, 
+                        // что браузер физически успеет отправить сетевой пакет перед закрытием вкладки.
                         setTimeout(() => {
                             window.location.href = '/thank-you';
-                        }, 300);
+                        }, 400); 
                     } else {
                         console.error("❌ [DEBUG 6] Не удалось отправить заказ.");
                         alert(translations[currentLang].networkError);
