@@ -97,23 +97,8 @@
         .order-summary-title { font-size: 20px; font-weight: 600; color: #070395; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
         
         .empty-cart-message { text-align: center; padding: 30px 20px; color: #666; line-height: 1.6; }
-        .add-items-link {
-            color: #070395;
-            font-weight: 700;
-            text-decoration: underline;
-            text-decoration-color: #FFD93D;
-            text-underline-offset: 4px;
-            transition: all 0.3s;
-            display: inline-block;
-            margin-top: 8px;
-        }
-        .add-items-link:hover {
-            color: #FFD93D;
-            background: #070395;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-        }
+        .add-items-link { color: #070395; font-weight: 700; text-decoration: underline; text-decoration-color: #FFD93D; text-underline-offset: 4px; transition: all 0.3s; display: inline-block; margin-top: 8px; }
+        .add-items-link:hover { color: #FFD93D; background: #070395; text-decoration: none; padding: 8px 16px; border-radius: 8px; }
 
         .order-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; }
         .order-item:last-child { border-bottom: none; }
@@ -130,25 +115,8 @@
         .quantity-btn:hover { background: #070395; color: white; }
         .quantity-value { font-weight: 600; min-width: 18px; text-align: center; font-size: 13px; }
         
-        .order-item-remove-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: transparent;
-            color: #999;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .order-item-remove-btn:hover {
-            background: #ffebee;
-            color: #e74c3c;
-            border-color: #e74c3c;
-        }
+        .order-item-remove-btn { display: flex; align-items: center; gap: 6px; background: transparent; color: #999; border: 1px solid #e0e0e0; border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .order-item-remove-btn:hover { background: #ffebee; color: #e74c3c; border-color: #e74c3c; }
         .order-item-remove-btn svg { width: 16px; height: 16px; }
         
         .order-item-price { font-weight: 600; color: #070395; font-size: 16px; min-width: 70px; text-align: right; white-space: nowrap; display: flex; align-items: baseline; gap: 4px; }
@@ -162,7 +130,7 @@
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
         
-        /* ✅ ИСПРАВЛЕНИЕ: font-size 16px предотвращает зум на iOS */
+        /* ✅ font-size 16px предотвращает зум на iOS */
         .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; color: #070395; background: white; transition: all 0.3s; max-width: 100%; box-sizing: border-box; }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); }
         .form-input::placeholder { color: #999; }
@@ -535,6 +503,7 @@
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             validationError: "Пожалуйста, заполните все обязательные поля",
             consentError: "Необходимо дать согласие на обработку персональных данных",
+            networkError: "Ошибка сети. Проверьте подключение и попробуйте снова.",
             consentText: "Я даю согласие на обработку <a href='/privacy-policy' target='_blank'>персональных данных</a> и принимаю условия <a href='/offer' target='_blank'>публичной оферты</a>",
             emptyCart: "Корзина пуста.<br><a href='boxes.html' class='add-items-link'>🛒 Добавьте товары</a>",
             itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:",
@@ -569,6 +538,7 @@
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             validationError: "Please fill in all required fields",
             consentError: "Consent to data processing is required",
+            networkError: "Network error. Please check your connection and try again.",
             consentText: "I consent to the processing of <a href='/privacy-policy-en' target='_blank'>personal data</a> and accept the terms of the <a href='/offer-en' target='_blank'>public offer</a>",
             emptyCart: "Cart is empty.<br><a href='boxes.html' class='add-items-link'>🛒 Add items</a>",
             itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:",
@@ -587,20 +557,12 @@
 
     const productNames = {
         ru: {
-            'box1': 'Бокс «Ужин Николая II»',
-            'box2': 'Бокс «Ужин Чайковского»',
-            'cake1': 'Сливочный лимонный кекс',
-            'lemon-cookies': 'Нежное печенье с лимонным курдом',
-            'oat-cookies': 'Овсяное печенье с орехами и изюмом',
-            'rasstegai': 'Расстегаи с красной рыбой и рисом'
+            'box1': 'Бокс «Ужин Николая II»', 'box2': 'Бокс «Ужин Чайковского»', 'cake1': 'Сливочный лимонный кекс',
+            'lemon-cookies': 'Нежное печенье с лимонным курдом', 'oat-cookies': 'Овсяное печенье с орехами и изюмом', 'rasstegai': 'Расстегаи с красной рыбой и рисом'
         },
         en: {
-            'box1': 'Nicholas II Dinner Box',
-            'box2': 'Tchaikovsky Dinner Box',
-            'cake1': 'Creamy Lemon Cake',
-            'lemon-cookies': 'Tender Cookies with Lemon Curd',
-            'oat-cookies': 'Oat Cookies with Nuts and Raisins',
-            'rasstegai': 'Rasstegai with Red Fish and Rice'
+            'box1': 'Nicholas II Dinner Box', 'box2': 'Tchaikovsky Dinner Box', 'cake1': 'Creamy Lemon Cake',
+            'lemon-cookies': 'Tender Cookies with Lemon Curd', 'oat-cookies': 'Oat Cookies with Nuts and Raisins', 'rasstegai': 'Rasstegai with Red Fish and Rice'
         }
     };
 
@@ -614,23 +576,15 @@
     };
 
     const productImages = {
-        'box1': 'images/boxes-nicholas-1.webp',
-        'box2': 'images/boxes-tchaikovsky-1.webp',
-        'cake1': 'images/boxes-lemoncake.webp',
-        'lemon-cookies': 'images/boxes-lemoncookies-1.webp',
-        'oat-cookies': 'images/boxes-oatcookies.webp',
-        'rasstegai': 'images/boxes-rasstegai-1.webp'
+        'box1': 'images/boxes-nicholas-1.webp', 'box2': 'images/boxes-tchaikovsky-1.webp', 'cake1': 'images/boxes-lemoncake.webp',
+        'lemon-cookies': 'images/boxes-lemoncookies-1.webp', 'oat-cookies': 'images/boxes-oatcookies.webp', 'rasstegai': 'images/boxes-rasstegai-1.webp'
     };
 
     const allergenKeys = {
-        'Грибы': 'allergen1', 'Mushrooms': 'allergen1',
-        'Горчица': 'allergen2', 'Mustard': 'allergen2',
-        'Мед': 'allergen2', 'Honey': 'allergen2',
-        'Лактоза': 'allergen3', 'Lactose': 'allergen3',
-        'Яйца': 'allergen4', 'Eggs': 'allergen4',
-        'Глютен': 'allergen5', 'Gluten': 'allergen5',
-        'Красная рыба': 'allergen6', 'Red Fish': 'allergen6',
-        'Орехи': 'allergen7', 'Nuts': 'allergen7'
+        'Грибы': 'allergen1', 'Mushrooms': 'allergen1', 'Горчица': 'allergen2', 'Mustard': 'allergen2',
+        'Мед': 'allergen2', 'Honey': 'allergen2', 'Лактоза': 'allergen3', 'Lactose': 'allergen3',
+        'Яйца': 'allergen4', 'Eggs': 'allergen4', 'Глютен': 'allergen5', 'Gluten': 'allergen5',
+        'Красная рыба': 'allergen6', 'Red Fish': 'allergen6', 'Орехи': 'allergen7', 'Nuts': 'allergen7'
     };
 
     let currentLang = 'ru';
@@ -662,9 +616,7 @@
         return translations.ru.personsWord5;
     }
 
-    function getCourierPrice(lang) {
-        return lang === 'en' ? 40 : 800;
-    }
+    function getCourierPrice(lang) { return lang === 'en' ? 40 : 800; }
 
     function recalculateItemPrice(item, lang) {
         const productId = item.productId;
@@ -703,7 +655,6 @@
         
         const currency = lang === 'en' ? 'AED' : '₽';
         document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
-        
         document.querySelectorAll('.courier-price').forEach(el => {
             el.textContent = lang === 'en' ? '+ AED 40' : '(+800 ₽)';
         });
@@ -725,14 +676,11 @@
         
         localStorage.setItem('hedonism_lang', lang);
         renderOrderSummary();
-        
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    function getItemName(item, lang) {
-        return productNames[lang]?.[item.productId] || item.name || item.productId;
-    }
+    function getItemName(item, lang) { return productNames[lang]?.[item.productId] || item.name || item.productId; }
 
     function renderOrderSummary() {
         const container = document.getElementById('orderItemsContainer');
@@ -748,46 +696,29 @@
         }
         
         let html = '', total = 0;
-        
         cart.forEach(item => {
             const itemPrice = recalculateItemPrice(item, lang);
             const itemTotal = itemPrice * item.quantity;
             total += itemTotal;
             
             const thumbUrl = item.image || productImages[item.productId] || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
-            
             const itemName = getItemName(item, lang);
             const productType = item.productType || getProductTypeById(item.productId);
-            
             let optionsHtml = '';
             
             if (productType === 'box') {
                 const persons = item.options?.persons || 2;
-                let personsLabel;
-                if (lang === 'ru') {
-                    personsLabel = `${persons} ${getPersonsWordRu(persons)}`;
-                } else {
-                    personsLabel = persons === 1 ? '1 person' : `${persons} people`;
-                }
+                let personsLabel = lang === 'ru' ? `${persons} ${getPersonsWordRu(persons)}` : (persons === 1 ? '1 person' : `${persons} people`);
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
-                
                 if (item.options?.allergens?.length > 0) {
-                    const translatedAllergens = item.options.allergens.map(a => {
-                        const key = allergenKeys[a];
-                        return key ? translations[lang][key] : a;
-                    });
+                    const translatedAllergens = item.options.allergens.map(a => { const key = allergenKeys[a]; return key ? translations[lang][key] : a; });
                     optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${translatedAllergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
             } else if (productType === 'quantity-item') {
                 const qty = item.options?.quantity || 4;
-                let qtyLabel;
-                if (lang === 'ru') {
-                    qtyLabel = `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}`;
-                } else {
-                    qtyLabel = `${qty} pieces`;
-                }
+                let qtyLabel = lang === 'ru' ? `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}` : `${qty} pieces`;
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemQuantity}</span><span class="order-item-option-value">${qtyLabel}</span></div>`;
             }
             
@@ -816,25 +747,15 @@
         
         container.innerHTML = html;
         if (totalEl) {
-            if (lang === 'en') {
-                totalEl.innerHTML = `<span class="currency">${currency}</span> <span class="price-value">${total.toLocaleString('ru-RU')}</span>`;
-            } else {
-                totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
-            }
+            if (lang === 'en') totalEl.innerHTML = `<span class="currency">${currency}</span> <span class="price-value">${total.toLocaleString('ru-RU')}</span>`;
+            else totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
         }
         
         container.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const itemId = parseInt(this.dataset.itemId);
-                const action = this.dataset.action;
-                updateCartItemQuantity(itemId, action);
-            });
+            btn.addEventListener('click', function() { updateCartItemQuantity(parseInt(this.dataset.itemId), this.dataset.action); });
         });
         container.querySelectorAll('.order-item-remove-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const itemId = parseInt(this.dataset.itemId);
-                removeFromCart(itemId);
-            });
+            btn.addEventListener('click', function() { removeFromCart(parseInt(this.dataset.itemId)); });
         });
     }
     
@@ -843,16 +764,12 @@
         if (!item) return;
         if (action === 'increase') item.quantity++;
         else if (action === 'decrease' && item.quantity > 1) item.quantity--;
-        saveCart();
-        renderOrderSummary();
-        updateCartCount();
+        saveCart(); renderOrderSummary(); updateCartCount();
     }
     
     function removeFromCart(itemId) {
         cart = cart.filter(item => item.id !== itemId);
-        saveCart();
-        renderOrderSummary();
-        updateCartCount();
+        saveCart(); renderOrderSummary(); updateCartCount();
     }
     
     function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
@@ -865,27 +782,46 @@
         }
     }
 
-    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: Использование sendBeacon
-    function sendToAppsScript(orderData) {
+    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Двухуровневая отправка для мобильных
+    async function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📦 Отправляем payload:', jsonStr);
-        
-        // navigator.sendBeacon создан специально для отправки данных при уходе со страницы.
-        // Он гарантирует доставку даже если браузер закрывает вкладку/переходит на другую страницу.
-        // Он автоматически использует Content-Type: text/plain;charset=UTF-8, что идеально для Google Apps Script.
-        if (navigator.sendBeacon) {
-            const success = navigator.sendBeacon(APPS_SCRIPT_URL, jsonStr);
-            console.log('📡 sendBeacon queued:', success);
-            return success;
-        } else {
-            // Fallback для очень старых браузеров
-            fetch(APPS_SCRIPT_URL, {
+        console.log('📦 Payload:', jsonStr);
+
+        // Попытка 1: Стандартный fetch с ожиданием.
+        // Это критически важно для Google Apps Script, так как он делает 302 редирект.
+        // На мобильных браузерах keepalive + 302 редирект часто обрывается при уходе со страницы.
+        // Поэтому мы ждем ответа, не используя keepalive.
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: jsonStr,
-                keepalive: true
-            }).catch(e => console.error('Fetch fallback error', e));
-            return true;
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8' // Обязательно для GAS, чтобы избежать CORS preflight
+                },
+                body: jsonStr
+            });
+
+            if (response.ok || response.redirected) {
+                console.log('✅ Заказ успешно отправлен через fetch');
+                return true;
+            } else {
+                console.warn('⚠️ Fetch вернул статус:', response.status);
+                throw new Error('Fetch status ' + response.status);
+            }
+        } catch (error) {
+            console.error('❌ Ошибка fetch, пробуем sendBeacon:', error);
+            // Попытка 2: Fallback на sendBeacon, если fetch не сработал (например, обрыв связи)
+            if (navigator.sendBeacon) {
+                try {
+                    const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+                    const sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                    console.log('📡 sendBeacon queued:', sent);
+                    return sent;
+                } catch (beaconError) {
+                    console.error('❌ Ошибка sendBeacon:', beaconError);
+                    return false;
+                }
+            }
+            return false;
         }
     }
 
@@ -1030,27 +966,19 @@
         const timeInput = document.getElementById('time');
         if (!dateInput || !timeInput) return;
         
-        const availableDays = [5, 6, 0]; // Пт(5), Сб(6), Вс(0)
+        const availableDays = [5, 6, 0];
         const now = new Date();
         const currentHour = now.getHours();
         
         let minDate = new Date(now);
-        if (currentHour >= 18) {
-            minDate.setDate(minDate.getDate() + 2);
-        } else {
-            minDate.setDate(minDate.getDate() + 1);
-        }
+        if (currentHour >= 18) minDate.setDate(minDate.getDate() + 2);
+        else minDate.setDate(minDate.getDate() + 1);
         
-        while (!availableDays.includes(minDate.getDay())) {
-            minDate.setDate(minDate.getDate() + 1);
-        }
+        while (!availableDays.includes(minDate.getDay())) minDate.setDate(minDate.getDate() + 1);
         
         const minDateString = minDate.toISOString().split('T')[0];
         dateInput.min = minDateString;
-        
-        if (!dateInput.value || dateInput.value < minDateString) {
-            dateInput.value = minDateString;
-        }
+        if (!dateInput.value || dateInput.value < minDateString) dateInput.value = minDateString;
         
         timeInput.min = '17:00';
         timeInput.max = '23:00';
@@ -1059,16 +987,13 @@
         dateInput.addEventListener('change', function() {
             const selectedDate = new Date(this.value + 'T00:00:00');
             const dayOfWeek = selectedDate.getDay();
-            
             if (!availableDays.includes(dayOfWeek)) {
                 alert(currentLang === 'ru' ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
                 let newDate = new Date(selectedDate);
-                while (!availableDays.includes(newDate.getDay())) { 
-                    newDate.setDate(newDate.getDate() + 1); 
-                }
+                while (!availableDays.includes(newDate.getDay())) newDate.setDate(newDate.getDate() + 1);
                 this.value = newDate.toISOString().split('T')[0];
             } else if (this.value < minDateString) {
-                alert(currentLang === 'ru' ? 'Эта дата недоступна для заказа (слишком поздно). Пожалуйста, выберите более позднюю дату.' : 'This date is unavailable for ordering (too late). Please select a later date.');
+                alert(currentLang === 'ru' ? 'Эта дата недоступна для заказа.' : 'This date is unavailable for ordering.');
                 this.value = minDateString;
             }
         });
@@ -1117,47 +1042,6 @@
         renderOrderSummary();
         updateCartCount();
         
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const href = this.getAttribute('href');
-                if (href?.includes('contacts')) { ymTrack('nav_contacts_click'); trackGA4Event('click', { link_text: 'contacts', page: 'checkout' }); }
-                else if (href?.includes('boxes.html')) { ymTrack('nav_order_click'); trackGA4Event('click', { link_text: 'order_box', page: 'checkout' }); }
-                else if (href?.includes('index.html') && !href.includes('#')) { ymTrack('nav_home_click'); trackGA4Event('click', { link_text: 'home', page: 'checkout' }); }
-            });
-        });
-        
-        document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const platform = this.getAttribute('aria-label') || 'social';
-                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
-                ymTrack(goalId);
-                trackGA4Event('social_click', { platform: platform, page: 'checkout' });
-            });
-        });
-        
-        document.getElementById('orderItemsContainer')?.addEventListener('click', function(e) {
-            const btn = e.target.closest('.quantity-btn');
-            const removeBtn = e.target.closest('.order-item-remove-btn');
-            if (btn) {
-                const itemId = parseInt(btn.dataset.itemId);
-                const action = btn.dataset.action;
-                const item = cart.find(i => i.id === itemId);
-                if (item) ymTrack('cart_quantity_changed', { product_id: item.productId, action: action, new_quantity: action === 'increase' ? item.quantity + 1 : item.quantity - 1 });
-            }
-            if (removeBtn) {
-                const itemId = parseInt(removeBtn.dataset.itemId);
-                const item = cart.find(i => i.id === itemId);
-                if (item) ymTrack('cart_item_removed', { product_id: item.productId, product_name: item.name });
-            }
-        });
-        
-        document.querySelectorAll('input[name="payment"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                trackGA4Event('add_payment_info', { payment_type: this.value, currency: currentLang === 'en' ? 'AED' : 'RUB' });
-                ymTrack('payment_selected', { method: this.value });
-            });
-        });
-        
         document.getElementById('cancelBtn')?.addEventListener('click', function() {
             ymTrack('checkout_cancelled', { cart_items: cart.length });
             window.location.href = '/boxes';
@@ -1168,8 +1052,8 @@
         
         const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
-            // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Оборачиваем всю логику в try...catch, чтобы любая ошибка не прерывала отправку молча
-            checkoutForm.addEventListener('submit', function(e) {
+            // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Обработчик теперь async, мы ждем ответа от сервера
+            checkoutForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
                 try {
@@ -1186,14 +1070,14 @@
                     }
                     
                     if (cart.length === 0) {
-                        alert(currentLang === 'ru' ? 'Корзина пуста! Добавьте товары перед оформлением заказа.' : 'Cart is empty! Please add items before checkout.');
+                        alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!');
                         return;
                     }
                     
                     const date = document.getElementById('date').value;
                     const time = document.getElementById('time').value;
                     if (!date || !time) {
-                        alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время доставки.' : 'Please select delivery date and time.');
+                        alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.');
                         return;
                     }
                     
@@ -1208,31 +1092,23 @@
                     const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                     
                     const orderItems = cart.map(item => ({
-                        id: item.id, 
-                        productId: item.productId, 
+                        id: item.id, productId: item.productId, 
                         name: item.name || getItemName(item, currentLang),
-                        image: item.image, 
-                        productType: item.productType,
+                        image: item.image, productType: item.productType,
                         basePrice: Number(item.basePrice) || 0, 
-                        price: recalculateItemPrice(item, currentLang),
+                        price: Number(recalculateItemPrice(item, currentLang)) || 0,
                         quantity: Number(item.quantity) || 1,
                         options: item.options || {}
                     }));
                     
-                    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Безопасный парсинг addressStructured
                     let addressStructured = null;
                     const structuredData = document.getElementById('address')?.dataset.structured;
                     if (structuredData && structuredData !== 'undefined' && structuredData.trim() !== '') {
-                        try {
-                            addressStructured = JSON.parse(structuredData);
-                        } catch (e) {
-                            console.warn('Ошибка парсинга addressStructured:', e);
-                        }
+                        try { addressStructured = JSON.parse(structuredData); } catch (e) { console.warn('Address parse error'); }
                     }
 
                     const calculatedTotal = orderItems.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
-                    const finalCourierCost = delivery === 'courier' ? courierCost : 0;
-                    const finalTotal = calculatedTotal + finalCourierCost;
+                    const finalTotal = calculatedTotal + (delivery === 'courier' ? courierCost : 0);
 
                     const orderData = {
                         orderNumber: orderNumber,
@@ -1253,56 +1129,36 @@
                         consentTimestamp: new Date().toISOString()
                     };
                     
-                    trackGA4Event('begin_checkout', {
-                        currency: orderData.currency, value: orderData.total,
-                        items: orderData.items.map(item => ({
-                            item_id: item.productId, item_name: getItemName(item, currentLang),
-                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
-                        }))
-                    });
+                    trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
                     ymTrack('checkout_start');
                     
-                    // Отправка через sendBeacon (гарантированная доставка на мобильном)
-                    sendToAppsScript(orderData);
-                    sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                    // ✅ ЖДЕМ ответа от Google Apps Script. Страница не закроется, пока запрос не завершится.
+                    const success = await sendToAppsScript(orderData);
                     
-                    trackGA4Event('purchase', {
-                        transaction_id: orderData.orderNumber, currency: orderData.currency,
-                        value: orderData.total,
-                        shipping: delivery === 'courier' ? courierCost : 0,
-                        items: orderData.items.map(item => ({
-                            item_id: item.productId, item_name: getItemName(item, currentLang),
-                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
-                            item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
-                                         item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
-                        }))
-                    });
-                    
-                    ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
-                    
-                    if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
-                        dataLayer.push({
-                            'ecommerce': {
-                                'purchase': {
-                                    'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
-                                    'products': orderData.items.map(item => ({ 'id': item.productId, 'name': getItemName(item, currentLang), 'price': item.price, 'quantity': item.quantity }))
-                                }
-                            }
+                    if (success) {
+                        sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                        
+                        trackGA4Event('purchase', {
+                            transaction_id: orderData.orderNumber, currency: orderData.currency, value: orderData.total,
+                            shipping: delivery === 'courier' ? courierCost : 0
                         });
-                    }
-                    
-                    cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                    
-                    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Задержка перед редиректом дает браузеру время физически отправить запрос
-                    setTimeout(() => {
+                        ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
+                        
+                        cart = []; saveCart(); updateCartCount(); renderOrderSummary();
+                        
+                        // Переходим только после успешной отправки
                         window.location.href = '/thank-you';
-                    }, 600);
+                    } else {
+                        // Если отправка провалилась, показываем ошибку и разблокируем кнопку
+                        alert(translations[currentLang].networkError);
+                        submitBtn.disabled = false;
+                        if (btnText) btnText.style.display = 'inline';
+                        if (btnLoading) btnLoading.style.display = 'none';
+                    }
                     
                 } catch (error) {
                     console.error('Критическая ошибка при оформлении заказа:', error);
-                    alert(currentLang === 'ru' ? 'Произошла ошибка при отправке заказа. Пожалуйста, попробуйте еще раз или свяжитесь с нами.' : 'An error occurred while submitting the order. Please try again or contact us.');
-                    
-                    // Сбрасываем кнопку, чтобы пользователь мог попробовать снова
+                    alert(translations[currentLang].networkError);
                     const submitBtn = document.getElementById('submitBtn');
                     submitBtn.disabled = false;
                     const btnText = submitBtn.querySelector('.btn-text');
