@@ -666,25 +666,20 @@
         return lang === 'en' ? 40 : 800;
     }
 
-    // ✅ ИСПРАВЛЕНИЕ: Гарантируем, что функция НИКОГДА не вернет undefined или NaN
     function recalculateItemPrice(item, lang) {
         const productId = item.productId;
         const options = item.options || {};
         const table = priceTable[productId];
-        
         if (!table) return Number(item.price) || 0;
-        
         if (productId === 'box1' || productId === 'box2') {
             const persons = parseInt(options.persons) || 2;
             return Number(table[lang]?.[persons] || table[lang]?.[2] || item.price) || 0;
         }
         if (productId === 'cake1') return Number(table[lang] || item.price) || 0;
-        
         if (table[lang] && typeof table[lang] === 'object') {
             const qty = parseInt(options.quantity) || 4;
             return Number(table[lang][qty] || table[lang][4] || item.price) || 0;
         }
-        
         return Number(item.price) || 0;
     }
 
@@ -870,41 +865,28 @@
         }
     }
 
-    // ЛОГИКА ОТПРАВКИ ОСТАЛАСЬ БЕЗ ИЗМЕНЕНИЙ, КАК ВЫ И ПРОСИЛИ
+    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: Использование sendBeacon
     function sendToAppsScript(orderData) {
-        console.log('📤 Отправка заказа #' + orderData.orderNumber + ' в Apps Script...');
         const jsonStr = JSON.stringify(orderData);
+        console.log('📦 Отправляем payload:', jsonStr);
         
-        // ✅ Добавлен лог для отладки: если заказ не уходит, вы сможете увидеть точный JSON через консоль мобильного браузера
-        console.log('📦 Payload:', jsonStr);
-
-        fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: jsonStr,
-            redirect: 'follow',
-            keepalive: true
-        })
-        .then(response => {
-            console.log('✅ Fetch ответ, статус:', response.status);
-            if (response.ok) {
-                console.log('✅ Заказ успешно сохранён в Apps Script');
-            } else {
-                console.warn('⚠️ Apps Script вернул статус:', response.status);
-            }
-        })
-        .catch(error => {
-            console.error('❌ Ошибка отправки в Apps Script:', error);
-            try {
-                localStorage.setItem('hedonism_pending_order', jsonStr);
-                console.log('💾 Заказ сохранён в localStorage для повторной отправки на thank-you.html');
-            } catch (e) {
-                console.error('Не удалось сохранить в localStorage:', e);
-            }
-        });
-        
-        console.log('✅ Fetch запущен в фоне, переходим на thank-you.html');
-        return true;
+        // navigator.sendBeacon создан специально для отправки данных при уходе со страницы.
+        // Он гарантирует доставку даже если браузер закрывает вкладку/переходит на другую страницу.
+        // Он автоматически использует Content-Type: text/plain;charset=UTF-8, что идеально для Google Apps Script.
+        if (navigator.sendBeacon) {
+            const success = navigator.sendBeacon(APPS_SCRIPT_URL, jsonStr);
+            console.log('📡 sendBeacon queued:', success);
+            return success;
+        } else {
+            // Fallback для очень старых браузеров
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: jsonStr,
+                keepalive: true
+            }).catch(e => console.error('Fetch fallback error', e));
+            return true;
+        }
     }
 
     const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
@@ -1186,130 +1168,148 @@
         
         const checkoutForm = document.getElementById('checkoutForm');
         if (checkoutForm) {
+            // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Оборачиваем всю логику в try...catch, чтобы любая ошибка не прерывала отправку молча
             checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const submitBtn = document.getElementById('submitBtn');
-                const name = document.getElementById('name').value.trim();
-                const phone = document.getElementById('phone').value.trim();
-                
-                if (!name || !phone) { alert(translations[currentLang].validationError); return; }
-                
-                const consentCheckbox = document.getElementById('consentCheckbox');
-                if (consentCheckbox && !consentCheckbox.checked) {
-                    alert(translations[currentLang].consentError);
-                    return;
-                }
-                
-                if (cart.length === 0) {
-                    alert(currentLang === 'ru' ? 'Корзина пуста! Добавьте товары перед оформлением заказа.' : 'Cart is empty! Please add items before checkout.');
-                    return;
-                }
-                
-                const date = document.getElementById('date').value;
-                const time = document.getElementById('time').value;
-                if (!date || !time) {
-                    alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время доставки.' : 'Please select delivery date and time.');
-                    return;
-                }
-                
-                submitBtn.disabled = true;
-                const btnText = submitBtn.querySelector('.btn-text');
-                const btnLoading = submitBtn.querySelector('.btn-loading');
-                if (btnText) btnText.style.display = 'none';
-                if (btnLoading) btnLoading.style.display = 'inline';
-                
-                const orderNumber = generateOrderNumber();
-                const courierCost = currentLang === 'en' ? 40 : 800;
-                const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
-                
-                // ✅ ИСПРАВЛЕНИЕ: Гарантируем, что в массиве items не будет undefined значений
-                const orderItems = cart.map(item => ({
-                    id: item.id, 
-                    productId: item.productId, 
-                    name: item.name || getItemName(item, currentLang), // Фоллбэк имени
-                    image: item.image, 
-                    productType: item.productType,
-                    basePrice: Number(item.basePrice) || 0, 
-                    price: recalculateItemPrice(item, currentLang),
-                    quantity: Number(item.quantity) || 1,
-                    options: item.options || {}
-                }));
-                
-                // ✅ ИСПРАВЛЕНИЕ: Безопасный парсинг addressStructured (защита от краша на mobile Safari)
-                let addressStructured = null;
-                const structuredData = document.getElementById('address')?.dataset.structured;
-                if (structuredData && structuredData !== 'undefined') {
-                    try {
-                        addressStructured = JSON.parse(structuredData);
-                    } catch (e) {
-                        console.warn('Ошибка парсинга addressStructured:', e);
+                try {
+                    const submitBtn = document.getElementById('submitBtn');
+                    const name = document.getElementById('name').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    
+                    if (!name || !phone) { alert(translations[currentLang].validationError); return; }
+                    
+                    const consentCheckbox = document.getElementById('consentCheckbox');
+                    if (consentCheckbox && !consentCheckbox.checked) {
+                        alert(translations[currentLang].consentError);
+                        return;
                     }
-                }
-
-                // ✅ ИСПРАВЛЕНИЕ: Явный расчет total, исключающий NaN
-                const calculatedTotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const finalCourierCost = delivery === 'courier' ? courierCost : 0;
-                const finalTotal = calculatedTotal + finalCourierCost;
-
-                const orderData = {
-                    orderNumber: orderNumber,
-                    createdAt: new Date().toISOString(),
-                    name, phone, 
-                    messenger: document.getElementById('messenger').value,
-                    delivery: delivery,
-                    address: document.getElementById('address').value,
-                    addressStructured: addressStructured,
-                    date: date, time: time,
-                    payment: document.querySelector('input[name="payment"]:checked')?.value,
-                    comment: document.getElementById('comment').value,
-                    items: orderItems,
-                    total: finalTotal,
-                    currency: currentLang === 'en' ? 'AED' : '₽',
-                    lang: currentLang,
-                    consentGiven: consentCheckbox.checked,
-                    consentTimestamp: new Date().toISOString()
-                };
-                
-                trackGA4Event('begin_checkout', {
-                    currency: orderData.currency, value: orderData.total,
-                    items: orderData.items.map(item => ({
-                        item_id: item.productId, item_name: getItemName(item, currentLang),
-                        price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
-                    }))
-                });
-                ymTrack('checkout_start');
-                
-                sendToAppsScript(orderData);
-                sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
-                
-                trackGA4Event('purchase', {
-                    transaction_id: orderData.orderNumber, currency: orderData.currency,
-                    value: orderData.total,
-                    shipping: delivery === 'courier' ? courierCost : 0,
-                    items: orderData.items.map(item => ({
-                        item_id: item.productId, item_name: getItemName(item, currentLang),
-                        price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
-                        item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
-                                     item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
-                    }))
-                });
-                
-                ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
-                
-                if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
-                    dataLayer.push({
-                        'ecommerce': {
-                            'purchase': {
-                                'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
-                                'products': orderData.items.map(item => ({ 'id': item.productId, 'name': getItemName(item, currentLang), 'price': item.price, 'quantity': item.quantity }))
-                            }
+                    
+                    if (cart.length === 0) {
+                        alert(currentLang === 'ru' ? 'Корзина пуста! Добавьте товары перед оформлением заказа.' : 'Cart is empty! Please add items before checkout.');
+                        return;
+                    }
+                    
+                    const date = document.getElementById('date').value;
+                    const time = document.getElementById('time').value;
+                    if (!date || !time) {
+                        alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время доставки.' : 'Please select delivery date and time.');
+                        return;
+                    }
+                    
+                    submitBtn.disabled = true;
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const btnLoading = submitBtn.querySelector('.btn-loading');
+                    if (btnText) btnText.style.display = 'none';
+                    if (btnLoading) btnLoading.style.display = 'inline';
+                    
+                    const orderNumber = generateOrderNumber();
+                    const courierCost = currentLang === 'en' ? 40 : 800;
+                    const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
+                    
+                    const orderItems = cart.map(item => ({
+                        id: item.id, 
+                        productId: item.productId, 
+                        name: item.name || getItemName(item, currentLang),
+                        image: item.image, 
+                        productType: item.productType,
+                        basePrice: Number(item.basePrice) || 0, 
+                        price: recalculateItemPrice(item, currentLang),
+                        quantity: Number(item.quantity) || 1,
+                        options: item.options || {}
+                    }));
+                    
+                    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Безопасный парсинг addressStructured
+                    let addressStructured = null;
+                    const structuredData = document.getElementById('address')?.dataset.structured;
+                    if (structuredData && structuredData !== 'undefined' && structuredData.trim() !== '') {
+                        try {
+                            addressStructured = JSON.parse(structuredData);
+                        } catch (e) {
+                            console.warn('Ошибка парсинга addressStructured:', e);
                         }
+                    }
+
+                    const calculatedTotal = orderItems.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
+                    const finalCourierCost = delivery === 'courier' ? courierCost : 0;
+                    const finalTotal = calculatedTotal + finalCourierCost;
+
+                    const orderData = {
+                        orderNumber: orderNumber,
+                        createdAt: new Date().toISOString(),
+                        name, phone, 
+                        messenger: document.getElementById('messenger').value,
+                        delivery: delivery,
+                        address: document.getElementById('address').value,
+                        addressStructured: addressStructured,
+                        date: date, time: time,
+                        payment: document.querySelector('input[name="payment"]:checked')?.value,
+                        comment: document.getElementById('comment').value,
+                        items: orderItems,
+                        total: Number(finalTotal) || 0,
+                        currency: currentLang === 'en' ? 'AED' : '₽',
+                        lang: currentLang,
+                        consentGiven: consentCheckbox.checked,
+                        consentTimestamp: new Date().toISOString()
+                    };
+                    
+                    trackGA4Event('begin_checkout', {
+                        currency: orderData.currency, value: orderData.total,
+                        items: orderData.items.map(item => ({
+                            item_id: item.productId, item_name: getItemName(item, currentLang),
+                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box'
+                        }))
                     });
+                    ymTrack('checkout_start');
+                    
+                    // Отправка через sendBeacon (гарантированная доставка на мобильном)
+                    sendToAppsScript(orderData);
+                    sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
+                    
+                    trackGA4Event('purchase', {
+                        transaction_id: orderData.orderNumber, currency: orderData.currency,
+                        value: orderData.total,
+                        shipping: delivery === 'courier' ? courierCost : 0,
+                        items: orderData.items.map(item => ({
+                            item_id: item.productId, item_name: getItemName(item, currentLang),
+                            price: item.price, quantity: item.quantity, item_category: 'gastronomic_box',
+                            item_variant: item.productType === 'box' ? `${item.options?.persons || 2} persons` : 
+                                         item.productType === 'quantity-item' ? `${item.options?.quantity || 4} pcs` : '1 kg'
+                        }))
+                    });
+                    
+                    ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total, currency: orderData.currency });
+                    
+                    if (typeof dataLayer !== 'undefined' && typeof ym === 'function') {
+                        dataLayer.push({
+                            'ecommerce': {
+                                'purchase': {
+                                    'actionField': { 'id': orderData.orderNumber, 'revenue': orderData.total, 'currency': orderData.currency === 'AED' ? 'AED' : 'RUB' },
+                                    'products': orderData.items.map(item => ({ 'id': item.productId, 'name': getItemName(item, currentLang), 'price': item.price, 'quantity': item.quantity }))
+                                }
+                            }
+                        });
+                    }
+                    
+                    cart = []; saveCart(); updateCartCount(); renderOrderSummary();
+                    
+                    // ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Задержка перед редиректом дает браузеру время физически отправить запрос
+                    setTimeout(() => {
+                        window.location.href = '/thank-you';
+                    }, 600);
+                    
+                } catch (error) {
+                    console.error('Критическая ошибка при оформлении заказа:', error);
+                    alert(currentLang === 'ru' ? 'Произошла ошибка при отправке заказа. Пожалуйста, попробуйте еще раз или свяжитесь с нами.' : 'An error occurred while submitting the order. Please try again or contact us.');
+                    
+                    // Сбрасываем кнопку, чтобы пользователь мог попробовать снова
+                    const submitBtn = document.getElementById('submitBtn');
+                    submitBtn.disabled = false;
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const btnLoading = submitBtn.querySelector('.btn-loading');
+                    if (btnText) btnText.style.display = 'inline';
+                    if (btnLoading) btnLoading.style.display = 'none';
                 }
-                
-                cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                window.location.href = '/thank-you';
             });
         }
         
