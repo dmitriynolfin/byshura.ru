@@ -34,7 +34,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ CSS, ОН АБСОЛЮТНО ВЕРНЫЙ) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
         a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
@@ -235,7 +234,6 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
-    <!-- ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ HTML ОТ <header> ДО </footer>, ОН АБСОЛЮТНО ВЕРНЫЙ) ... -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -414,7 +412,6 @@
     <script>
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1P8VFUTG8NPOzVkSjfruATklyJ7gJKHNm1CN_CEnNqLGjoED-YmPgXIINm0Jbbgbx/exec';
 
-    // ... (ВСТАВЬТЕ СЮДА ВЕСЬ ВАШ ПРЕЖНИЙ JS ДО ФУНКЦИИ sendToAppsScript, ОН ВЕРНЫЙ) ...
     const translations = {
         ru: {
             pageTitle: "Оформление заказа - Вестник Гедонизма", navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
@@ -488,10 +485,9 @@
     function debounce(func, wait) { let timeout; return function(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
 
     function generateOrderNumber() {
-  // Номер заказа теперь генерируется на сервере (в Google Apps Script)
-  // Здесь возвращаем временный ID для отслеживания на клиенте
-  return 'TEMP-' + Date.now();
-}
+        // Временный ID, сервер его перезапишет на реальный
+        return 'TEMP-' + Date.now();
+    }
 
     function getProductTypeById(productId) {
         if (productId === 'box1' || productId === 'box2') return 'box';
@@ -659,51 +655,41 @@
     }
 
     // ==========================================
-    // ✅ АБСОЛЮТНО НАДЕЖНАЯ ОТПРАВКА ДЛЯ МОБИЛЬНЫХ
+    // ✅ АБСОЛЮТНО НАДЕЖНАЯ ОТПРАВКА С ПОЛУЧЕНИЕМ НОМЕРА ЗАКАЗА
     // ==========================================
     async function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📱 [MOBILE DEBUG] Подготовка к отправке, размер:', jsonStr.length, 'байт');
+        console.log('📱 [MOBILE] Отправка заказа, размер:', jsonStr.length, 'байт');
 
-        // 1. ПРИОРИТЕТ: sendBeacon. Создан специально, чтобы браузер не убивал запрос при уходе со страницы.
-        if (navigator.sendBeacon) {
-            try {
-                // КРИТИЧНО: text/plain предотвращает CORS preflight (OPTIONS) запрос, который часто блокируется на мобильных сетях
-                const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                const success = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                if (success) {
-                    console.log('✅ [MOBILE] sendBeacon успешно поставлен в очередь браузером');
-                    return true; 
-                }
-            } catch (e) {
-                console.warn('⚠️ [MOBILE] sendBeacon ошибка, переходим к fetch:', e);
-            }
-        }
-
-        // 2. ЗАПАСНОЙ ВАРИАНТ: fetch с keepalive и таймаутом
         try {
-            console.log('🌐 [MOBILE] Попытка fetch с keepalive...');
+            // 1. Пробуем fetch с await, чтобы получить ответ сервера (с реальным номером заказа)
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 сек таймаут для мобильных сетей
+            const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 сек таймаут
 
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Строго text/plain!
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: jsonStr,
-                keepalive: true, // Разрешает запросу жить после закрытия страницы
+                keepalive: true,
                 signal: controller.signal
             });
             clearTimeout(timeoutId);
 
             if (response.ok) {
-                console.log('✅ [MOBILE] Fetch успешен:', response.status);
-                return true;
-            } else {
-                throw new Error('HTTP ' + response.status);
+                const result = await response.json();
+                console.log('✅ [MOBILE] Сервер ответил:', result);
+                return { success: true, orderNumber: result.orderNumber };
             }
+            throw new Error('HTTP ' + response.status);
         } catch (error) {
-            console.error('❌ [MOBILE] Полная неудача отправки:', error);
-            return false;
+            console.error('❌ [MOBILE] Ошибка fetch, пробуем sendBeacon (номер заказа может быть временным):', error);
+            // 2. Fallback: sendBeacon гарантирует доставку, но не вернет номер заказа
+            if (navigator.sendBeacon) {
+                const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+                navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                return { success: true, orderNumber: 'PENDING-' + Date.now().toString().slice(-6) };
+            }
+            return { success: false, orderNumber: null };
         }
     }
 
@@ -956,14 +942,13 @@
                         return;
                     }
                     
-                    // МГНОВЕННАЯ визуальная реакция, чтобы пользователь не нажал дважды
                     submitBtn.disabled = true;
                     const btnText = submitBtn.querySelector('.btn-text');
                     const btnLoading = submitBtn.querySelector('.btn-loading');
                     if (btnText) btnText.textContent = currentLang === 'ru' ? 'ОТПРАВКА...' : 'SENDING...';
                     if (btnLoading) btnLoading.style.display = 'inline';
                     
-                    const orderNumber = generateOrderNumber();
+                    const tempOrderNumber = generateOrderNumber();
                     const courierCost = currentLang === 'en' ? 40 : 800;
                     const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
                     
@@ -996,7 +981,8 @@
                     const finalTotal = calculatedTotal + (delivery === 'courier' ? courierCost : 0);
 
                     const orderData = {
-                        orderNumber: orderNumber, createdAt: new Date().toISOString(), name, phone, 
+                        orderNumber: tempOrderNumber, // Сервер это перезапишет
+                        createdAt: new Date().toISOString(), name, phone, 
                         messenger: document.getElementById('messenger').value, delivery: delivery,
                         address: document.getElementById('address').value, addressStructured: addressStructured,
                         date: date, time: time, payment: document.querySelector('input[name="payment"]:checked')?.value,
@@ -1005,29 +991,33 @@
                         lang: currentLang, consentGiven: consentCheckbox.checked, consentTimestamp: new Date().toISOString()
                     };
                     
-                    console.log("📦 [DEBUG 3] Итоговый объект orderData:", orderData);
-                    
+                    console.log("📦 [DEBUG 3] Отправка данных на сервер...");
                     trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
                     ymTrack('checkout_start');
                     
-                    console.log("🌐 [DEBUG 4] Начало отправки к:", APPS_SCRIPT_URL);
+                    // ✅ ЖДЕМ ОТВЕТ СЕРВЕРА С РЕАЛЬНЫМ НОМЕРОМ ЗАКАЗА
+                    const result = await sendToAppsScript(orderData);
                     
-                    // Ждем реального результата отправки
-                    const sendSuccess = await sendToAppsScript(orderData);
-                    
-                    if (sendSuccess) {
-                        sessionStorage.setItem('hedonism_last_order', JSON.stringify(orderData));
-                        trackGA4Event('purchase', { transaction_id: orderData.orderNumber, currency: orderData.currency, value: orderData.total });
-                        ymTrack('order_success', { order_number: orderData.orderNumber, total: orderData.total });
+                    if (result.success) {
+                        const realOrderNumber = result.orderNumber || tempOrderNumber;
+                        console.log("✅ [DEBUG] Реальный номер заказа от сервера:", realOrderNumber);
+                        
+                        // ✅ СОХРАНЯЕМ ПРАВИЛЬНЫЙ ОБЪЕКТ В sessionStorage С РЕАЛЬНЫМ НОМЕРОМ
+                        sessionStorage.setItem('hedonism_last_order', JSON.stringify({
+                            ...orderData,
+                            orderNumber: realOrderNumber 
+                        }));
+                        
+                        trackGA4Event('purchase', { transaction_id: realOrderNumber, currency: orderData.currency, value: orderData.total });
+                        ymTrack('order_success', { order_number: realOrderNumber, total: orderData.total });
                         
                         cart = []; saveCart(); updateCartCount(); renderOrderSummary();
                         console.log("🎉 [DEBUG 5] Успех! Переход на страницу благодарности.");
                         
-                        // КРИТИЧНО ДЛЯ МОБИЛЬНЫХ: Небольшая задержка перед редиректом гарантирует, 
-                        // что браузер физически успеет отправить сетевой пакет перед закрытием вкладки.
                         setTimeout(() => {
                             window.location.href = '/thank-you';
-                        }, 400); 
+                        }, 500);
+                        
                     } else {
                         console.error("❌ [DEBUG 6] Не удалось отправить заказ.");
                         alert(translations[currentLang].networkError);
