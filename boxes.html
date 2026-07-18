@@ -1016,10 +1016,24 @@
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         updateCartCount();
+        
         if (currentProduct) {
+            const titleKeyMap = {
+                'box1': 'box1Title',
+                'box2': 'box2Title',
+                'cake1': 'cakeTitle',
+                'lemon-cookies': 'lemonCookiesTitle',
+                'rasstegai': 'rasstegaiTitle'
+            };
+            const titleKey = titleKeyMap[currentProduct.id];
+            if (titleKey && translations[lang][titleKey]) {
+                currentProduct.name = translations[lang][titleKey];
+                document.getElementById('modalProductTitle').textContent = currentProduct.name;
+            }
             renderModalContent(currentProduct.id);
             updateCompositionWeights();
         }
+        
         updateBoxPrices();
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
@@ -1281,7 +1295,22 @@
         
         document.querySelectorAll('.box-card').forEach(card => {
             card.addEventListener('click', function() {
-                const productData = { id: this.dataset.productId, name: this.dataset.productName, price: parseInt(this.dataset.productPrice) };
+                const productId = this.dataset.productId;
+                const titleKeyMap = {
+                    'box1': 'box1Title',
+                    'box2': 'box2Title',
+                    'cake1': 'cakeTitle',
+                    'lemon-cookies': 'lemonCookiesTitle',
+                    'rasstegai': 'rasstegaiTitle'
+                };
+                const titleKey = titleKeyMap[productId];
+                const productName = (titleKey && translations[currentLang][titleKey]) ? translations[currentLang][titleKey] : this.dataset.productName;
+                
+                const productData = { 
+                    id: productId, 
+                    name: productName, 
+                    price: parseInt(this.dataset.productPrice) 
+                };
                 const boxImage = this.querySelector('.box-image');
                 const isMobile = window.innerWidth <= 768;
                 let galleryImages = isMobile && boxImage.dataset.galleryMobile ? JSON.parse(boxImage.dataset.galleryMobile || '[]') : JSON.parse(boxImage.dataset.gallery || '[]');
