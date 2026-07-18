@@ -179,7 +179,6 @@
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        /* ✅ НОВЫЕ СТИЛИ ДЛЯ ОВЕРЛЕЯ ЗАГРУЗКИ */
         .processing-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(248, 249, 250, 0.85);
@@ -251,8 +250,6 @@
             .order-item-name { font-size: 16px; } .order-item-options { font-size: 12px; } .quantity-control { gap: 3px; }
             .quantity-btn { width: 22px; height: 22px; font-size: 13px; } .order-item-price { font-size: 18px; }
             .remove-text { display: none; } .order-item-remove-btn { padding: 10px; }
-            
-            /* Адаптация оверлея для мобильных */
             .processing-box { padding: 25px 20px; }
             .processing-text { font-size: 15px; }
         }
@@ -451,7 +448,6 @@
         </div>
     </footer>
 
-    <!-- ✅ ОВЕРЛЕЙ ЗАГРУЗКИ (Блокирует экран во время отправки) -->
     <div id="processingOverlay" class="processing-overlay">
         <div class="processing-box">
             <div class="processing-spinner"></div>
@@ -460,7 +456,7 @@
     </div>
 
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzerVWg731rqG34vNm4UUh8r_EG4kbhrixwTF-cewPt9o-gFGGrXUzkedkXZYZKZEjK/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynH7Wb7hmyAi4mnx94wf2t4peUq3XYlDvcHmpD4cAnviuFPrcmWJS1qffEYVEYVvI1/exec';
 
     const translations = {
         ru: {
@@ -707,10 +703,11 @@
 
     async function sendToAppsScript(orderData) {
         const jsonStr = JSON.stringify(orderData);
-        console.log('📱 [MOBILE] Отправка заказа, размер:', jsonStr.length, 'байт');
+        console.log('📱 Отправка заказа, размер:', jsonStr.length, 'байт');
 
         try {
             const controller = new AbortController();
+            // Стандартный таймаут 15 секунд
             const timeoutId = setTimeout(() => controller.abort(), 15000);
 
             const response = await fetch(APPS_SCRIPT_URL, {
@@ -724,17 +721,14 @@
 
             if (response.ok) {
                 const result = await response.json();
-                console.log('✅ [MOBILE] Сервер ответил:', result);
+                console.log('✅ Сервер ответил:', result);
                 return { success: true, orderNumber: result.orderNumber };
             }
             throw new Error('HTTP ' + response.status);
         } catch (error) {
-            console.error('❌ [MOBILE] Ошибка fetch, пробуем sendBeacon:', error);
-            if (navigator.sendBeacon) {
-                const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                return { success: true, orderNumber: 'PENDING-' + Date.now().toString().slice(-6) };
-            }
+            console.error('❌ Ошибка отправки заказа:', error);
+            // Убран sendBeacon с фейковым PENDING номером, так как он создавал дубликаты.
+            // Защита от дубликатов теперь полностью лежит на оптимизированном сервере (Apps Script).
             return { success: false, orderNumber: null };
         }
     }
@@ -954,43 +948,51 @@
         if (checkoutForm) {
             checkoutForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                console.log("🚀 [DEBUG 1] Форма отправлена");
+                
+                const submitBtn = document.getElementById('submitBtn');
+                const overlay = document.getElementById('processingOverlay');
+                
+                // ✅ 1. МГНОВЕННАЯ БЛОКИРОВКА ИНТЕРФЕЙСА (предотвращает двойные клики)
+                submitBtn.disabled = true;
+                submitBtn.querySelector('.btn-text').textContent = currentLang === 'ru' ? 'ОТПРАВКА...' : 'SENDING...';
+                overlay.classList.add('active');
+                
+                console.log("🚀 Форма отправлена, интерфейс заблокирован");
                 
                 try {
-                    const submitBtn = document.getElementById('submitBtn');
                     const name = document.getElementById('name').value.trim();
                     const phone = document.getElementById('phone').value.trim();
                     
                     if (!name || !phone) { 
-                        console.warn("[DEBUG] Ошибка валидации: нет имени или телефона");
+                        console.warn("Ошибка валидации: нет имени или телефона");
                         alert(translations[currentLang].validationError); 
+                        resetSubmitState();
                         return; 
                     }
                     
                     const consentCheckbox = document.getElementById('consentCheckbox');
                     if (consentCheckbox && !consentCheckbox.checked) {
-                        console.warn("[DEBUG] Ошибка валидации: нет согласия");
+                        console.warn("Ошибка валидации: нет согласия");
                         alert(translations[currentLang].consentError);
+                        resetSubmitState();
                         return;
                     }
                     
                     if (cart.length === 0) {
-                        console.warn("[DEBUG] Ошибка валидации: корзина пуста");
+                        console.warn("Ошибка валидации: корзина пуста");
                         alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!');
+                        resetSubmitState();
                         return;
                     }
                     
                     const date = document.getElementById('date').value;
                     const time = document.getElementById('time').value;
                     if (!date || !time) {
-                        console.warn("[DEBUG] Ошибка валидации: нет даты или времени");
+                        console.warn("Ошибка валидации: нет даты или времени");
                         alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.');
+                        resetSubmitState();
                         return;
                     }
-                    
-                    // ✅ 1. ВКЛЮЧАЕМ ОВЕРЛЕЙ (Блокирует весь экран и кнопку отмены)
-                    const overlay = document.getElementById('processingOverlay');
-                    overlay.classList.add('active');
                     
                     const tempOrderNumber = generateOrderNumber();
                     const courierCost = currentLang === 'en' ? 40 : 800;
@@ -1035,7 +1037,7 @@
                         lang: currentLang, consentGiven: consentCheckbox.checked, consentTimestamp: new Date().toISOString()
                     };
                     
-                    console.log("📦 [DEBUG 3] Отправка данных на сервер...");
+                    console.log("📦 Отправка данных на сервер...");
                     trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
                     ymTrack('checkout_start');
                     
@@ -1043,7 +1045,7 @@
                     
                     if (result.success) {
                         const realOrderNumber = result.orderNumber || tempOrderNumber;
-                        console.log("✅ [DEBUG] Реальный номер заказа от сервера:", realOrderNumber);
+                        console.log("✅ Реальный номер заказа от сервера:", realOrderNumber);
                         
                         sessionStorage.setItem('hedonism_last_order', JSON.stringify({
                             ...orderData,
@@ -1054,25 +1056,29 @@
                         ymTrack('order_success', { order_number: realOrderNumber, total: orderData.total });
                         
                         cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                        console.log("🎉 [DEBUG 5] Успех! Переход на страницу благодарности.");
+                        console.log("🎉 Успех! Переход на страницу благодарности.");
                         
                         setTimeout(() => {
                             window.location.href = '/thank-you';
                         }, 500);
                         
                     } else {
-                        console.error("❌ [DEBUG 6] Не удалось отправить заказ.");
-                        // ✅ 2. ВЫКЛЮЧАЕМ ОВЕРЛЕЙ ПРИ ОШИБКЕ, чтобы пользователь мог попробовать снова
-                        overlay.classList.remove('active');
+                        console.error("❌ Не удалось отправить заказ.");
+                        resetSubmitState();
                         alert(translations[currentLang].networkError);
                     }
                     
                 } catch (error) {
-                    console.error("💥 [DEBUG 7] Неожиданная критическая ошибка в обработчике:", error);
-                    // ✅ 2. ВЫКЛЮЧАЕМ ОВЕРЛЕЙ ПРИ ОШИБКЕ
-                    const overlay = document.getElementById('processingOverlay');
-                    overlay.classList.remove('active');
+                    console.error("💥 Неожиданная критическая ошибка в обработчике:", error);
+                    resetSubmitState();
                     alert(translations[currentLang].networkError);
+                }
+
+                // ✅ Функция для возврата кнопки в исходное состояние при ошибке
+                function resetSubmitState() {
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('.btn-text').textContent = translations[currentLang].btnSubmit;
+                    overlay.classList.remove('active');
                 }
             });
         }
