@@ -7,19 +7,19 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://byshura.ru/boxes.html</loc>
+    <loc>https://byshura.ru/boxes</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://byshura.ru/history.html</loc>
+    <loc>https://byshura.ru/history</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
     <url>
-    <loc>https://byshura.ru/index.html</loc>
+    <loc>https://byshura.ru/index</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
