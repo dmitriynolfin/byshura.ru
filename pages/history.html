@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-    <link rel="icon" type="image/svg+xml" href="/icon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
 
     <title>История боксов — Вестник Гедонизма | Философия гедонизма</title>
     <meta name="description" content="Как появилась идея гастрономических боксов «Вестника Гедонизма». Философия наслаждения, история в каждом блюде.">
-    <link rel="canonical" href="https://byshura.ru/history.html">
+    <!-- ✅ Обновлено: canonical путь -->
+    <link rel="canonical" href="https://byshura.ru/pages/history.html">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +39,7 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: window.location.pathname,
+        page_path: '/pages/history.html',
         send_page_view: false
       });
     </script>
@@ -53,7 +54,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* ===== БЕГУЩАЯ СТРОКА - ✅ ИДЕНТИЧНА index.html (С ТРЕМЯ ТЕКСТОВКАМИ) ===== */
+        /* ===== БЕГУЩАЯ СТРОКА - ✅ ИДЕНТИЧНА index.html ===== */
         .marquee-bar { 
             position: fixed;
             top: 75px;
@@ -104,13 +105,36 @@
         .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
+        
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
+        .icon-btn { 
+            padding: 8px; color: #070395; 
+            transition: transform 0.3s; 
+            position: relative; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; 
+            min-width: 44px; min-height: 44px;
+        }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
+        .cart-count { 
+            position: absolute; top: -2px; right: -2px; 
+            background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; 
+            width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            line-height: 1;
+        }
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            transition: all 0.3s; min-height: 44px; 
+            display: flex; align-items: center;
+            min-width: 140px; /* ✅ ОДИНАКОВАЯ ШИРИНА ДЛЯ ВЫРАВНИВАНИЯ КРАЯ ШАПКИ */
+            justify-content: center;
+        }
         .btn-back:hover { background: #070395; color: white; }
+        
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); }
         .lang-selector:hover { background: rgba(7,3,149,0.1); }
         .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
@@ -140,7 +164,7 @@
         .philosophy-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #070395; }
         .philosophy-card p { font-size: 14px; color: #666; line-height: 1.6; }
         
-        /* FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) */
+        /* FOOTER - ✅ КАК НА index.html */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -188,7 +212,7 @@
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; min-width: 120px; }
             
             .timeline-item { padding: 20px 0 20px 35px; margin-bottom: 25px; }
             .timeline-item::before { left: -8px; width: 18px; height: 18px; top: 25px; }
@@ -215,7 +239,7 @@
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; min-width: 110px; }
             
             .timeline { padding-left: 15px; }
             .timeline-item { padding: 15px 0 15px 30px; margin-bottom: 20px; }
@@ -250,7 +274,7 @@
         
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; }
-            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; min-width: 100px; }
             .page-title { font-size: 24px; }
             .page-subtitle { font-size: 14px; }
             .timeline-year { font-size: 17px; }
@@ -284,9 +308,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <!-- ✅ Обновлено: пути к страницам -->
+                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/history" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/pages/history.html" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -414,7 +439,6 @@
                 <div class="timeline-item" data-timeline-year="2025" data-timeline-title="Рождение идеи">
                     <div class="timeline-year">2025</div>
                     <div class="timeline-title" data-i18n="tl1Title">Рождение идеи</div>
-                    <!-- ✅ FIX 1: Упоминание Бокса Николая II -->
                     <p class="timeline-descr" data-i18n="tl1Descr">Всё началось с простого вопроса: «А что, если еда может рассказывать истории?». Так появился первый бокс «Николая II» — вдохновлённый утончёнными вкусами императорской эпохи и любовью к изысканным гастрономическим традициям.</p>
                 </div>
                 <div class="timeline-item" data-timeline-year="2025" data-timeline-title="Первые клиенты">
@@ -425,7 +449,6 @@
                 <div class="timeline-item" data-timeline-year="2026" data-timeline-title="Расширение линейки">
                     <div class="timeline-year">2026</div>
                     <div class="timeline-title" data-i18n="tl3Title">Расширение линейки</div>
-                    <!-- ✅ FIX 2: Упоминание Бокса Чайковского, печенья и кекса -->
                     <p class="timeline-descr" data-i18n="tl3Descr">Появился знаменитый бокс «Чайковский», а также отдельные авторские позиции: нежнейшее печенье и воздушный кекс. Каждый продукт создаётся с уникальной концепцией, историей и особым вниманием к деталям.</p>
                 </div>
                 <div class="timeline-item" data-timeline-year="Сегодня" data-timeline-title="Философия в каждом блюде">
@@ -449,7 +472,6 @@
                 <div class="philosophy-card" data-philosophy="history-bite">
                     <div class="philosophy-icon">📚</div>
                     <h3 data-i18n="phil2Title">ИСТОРИЯ В КАЖДОМ УКУСЕ</h3>
-                    <!-- ✅ FIX 3: Добавлено про изучение кулинарных книг 18-20 века -->
                     <p data-i18n="phil2Descr">Мы не только исследуем гастрономическое наследие разных эпох, но и внимательно изучаем кулинарные книги 18–20 веков, чтобы воссоздать и поделиться с вами настоящими вкусами прошлого.</p>
                 </div>
                 <div class="philosophy-card" data-philosophy="enjoy-moment">
@@ -461,7 +483,7 @@
         </div>
     </section>
 
-    <!-- FOOTER - ✅ КАК НА index.html (БЕЗ ЛИМОНА) -->
+    <!-- FOOTER - ✅ КАК НА index.html -->
     <footer class="footer">
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
@@ -477,16 +499,16 @@
                 </a>
             </div>
             
-            <!-- ✅ ЛЕГАЛЬНЫЕ ССЫЛКИ -->
+            <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
-                <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>
+                <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer-en" target="_blank">Public Offer</a>
+                <a href="/legal/offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -604,7 +626,7 @@
             trackGA4Event('page_view', {
                 page_title: document.title,
                 page_location: window.location.href,
-                page_path: '/history.html',
+                page_path: '/pages/history.html', // ✅ Обновлено
                 language: currentLang
             });
         }, 1000);
@@ -629,21 +651,23 @@
         }
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
-            trackGA4Event('cart_click', { page: 'history', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
+            trackGA4Event('cart_click', { page: 'history', cart_items: cart.length });
             ymTrack('cart_click_history', { cart_items: cart.length });
             if (cart.length === 0) {
                 const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
-                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = '/boxes'; return; }
+                // ✅ Обновлено: путь к boxes
+                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = '/pages/boxes.html'; return; }
             }
-            window.location.href = 'checkout.html';
+            // ✅ Обновлено: путь к checkout
+            window.location.href = '/pages/checkout.html';
         });
         
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
                 const href = this.getAttribute('href');
                 if (href?.includes('contacts')) { ymTrack('nav_contacts_click'); trackGA4Event('click', { link_text: 'contacts', page: 'history' }); }
-                else if (href?.includes('boxes.html')) { ymTrack('nav_order_click'); trackGA4Event('click', { link_text: 'order_box', page: 'history' }); }
-                else if (href?.includes('index.html') && !href.includes('#')) { ymTrack('nav_home_click'); trackGA4Event('click', { link_text: 'home', page: 'history' }); }
+                else if (href?.includes('boxes')) { ymTrack('nav_order_click'); trackGA4Event('click', { link_text: 'order_box', page: 'history' }); }
+                else if (href === '/' || href?.includes('index.html')) { ymTrack('nav_home_click'); trackGA4Event('click', { link_text: 'home', page: 'history' }); }
             });
         });
         
