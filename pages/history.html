@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -16,8 +16,8 @@
 
     <title>История боксов — Вестник Гедонизма | Философия гедонизма</title>
     <meta name="description" content="Как появилась идея гастрономических боксов «Вестника Гедонизма». Философия наслаждения, история в каждом блюде.">
-    <!-- ✅ Обновлено: canonical путь -->
-    <link rel="canonical" href="https://byshura.ru/pages/history.html">
+    <!-- ✅ Обновлено: canonical путь без .html -->
+    <link rel="canonical" href="https://byshura.ru/pages/history">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
     <meta http-equiv="Expires" content="3600">
     
-    <!-- 🔹 GOOGLE ANALYTICS 4 (оптимизировано) -->
+    <!-- 🔹 GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -39,7 +39,7 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: '/pages/history.html',
+        page_path: '/pages/history', /* ✅ Обновлено на чистый URL */
         send_page_view: false
       });
     </script>
@@ -54,7 +54,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
-        /* ===== БЕГУЩАЯ СТРОКА - ✅ ИДЕНТИЧНА index.html ===== */
+        /* ===== БЕГУЩАЯ СТРОКА ===== */
         .marquee-bar { 
             position: fixed;
             top: 75px;
@@ -92,7 +92,7 @@
             100% { transform: translateX(-50%); }
         }
         
-        /* ШАПКА - ✅ КАК НА index.html */
+        /* ШАПКА */
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
@@ -130,7 +130,7 @@
             border-radius: 25px; font-weight: 600; font-size: 13px; 
             transition: all 0.3s; min-height: 44px; 
             display: flex; align-items: center;
-            min-width: 140px; /* ✅ ОДИНАКОВАЯ ШИРИНА ДЛЯ ВЫРАВНИВАНИЯ КРАЯ ШАПКИ */
+            min-width: 140px; 
             justify-content: center;
         }
         .btn-back:hover { background: #070395; color: white; }
@@ -164,7 +164,7 @@
         .philosophy-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #070395; }
         .philosophy-card p { font-size: 14px; color: #666; line-height: 1.6; }
         
-        /* FOOTER - ✅ КАК НА index.html */
+        /* FOOTER */
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -302,16 +302,16 @@
 </head>
 <body>
 
-    <!-- ШАПКА - ✅ КАК НА index.html -->
+    <!-- ШАПКА -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: пути к страницам -->
-                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <!-- ✅ Обновлено: пути к страницам без .html -->
+                    <a href="/pages/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/pages/history.html" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/pages/history" class="nav-link active" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -344,7 +344,7 @@
         </div>
     </header>
 
-    <!-- БЕГУЩАЯ СТРОКА — ✅ С ТРЕМЯ ТЕКСТОВКАМИ (ИДЕНТИЧНА index.html) -->
+    <!-- БЕГУЩАЯ СТРОКА -->
     <div class="marquee-bar">
         <div class="marquee-track">
             <div class="marquee-item">
@@ -483,19 +483,20 @@
         </div>
     </section>
 
-    <!-- FOOTER - ✅ КАК НА index.html -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
+                <!-- ✅ Обновлено: абсолютные пути к иконкам (со слэшем в начале) -->
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram">
-                    <img src="images/tg_logo.webp" alt="Telegram" loading="lazy">
+                    <img src="/images/tg_logo.webp" alt="Telegram" loading="lazy">
                 </a>
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX">
-                    <img src="images/max_logo.webp" alt="MAX" loading="lazy">
+                    <img src="/images/max_logo.webp" alt="MAX" loading="lazy">
                 </a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram">
-                    <img src="images/ins_logo.webp" alt="Instagram" loading="lazy">
+                    <img src="/images/ins_logo.webp" alt="Instagram" loading="lazy">
                 </a>
             </div>
             
@@ -626,7 +627,7 @@
             trackGA4Event('page_view', {
                 page_title: document.title,
                 page_location: window.location.href,
-                page_path: '/pages/history.html', // ✅ Обновлено
+                page_path: '/pages/history', // ✅ Обновлено на чистый URL
                 language: currentLang
             });
         }, 1000);
@@ -655,11 +656,11 @@
             ymTrack('cart_click_history', { cart_items: cart.length });
             if (cart.length === 0) {
                 const alertMsg = translations[currentLang]?.cartAlert || translations.ru.cartAlert;
-                // ✅ Обновлено: путь к boxes
-                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = '/pages/boxes.html'; return; }
+                // ✅ Обновлено: путь к boxes без .html
+                if (confirm(alertMsg + '\n\nПерейти на страницу боксов?')) { window.location.href = '/pages/boxes'; return; }
             }
-            // ✅ Обновлено: путь к checkout
-            window.location.href = '/pages/checkout.html';
+            // ✅ Обновлено: путь к checkout без .html
+            window.location.href = '/pages/checkout';
         });
         
         document.querySelectorAll('.nav-link').forEach(link => {
