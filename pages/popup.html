@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ✅ ЗАПРЕТ ИНДЕКСАЦИИ: Страница не будет видна в поиске -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#070395">
+    <title>Секретное Pop-up Меню | Вестник Гедонизма</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: #070395; background: #f8f9fa; line-height: 1.6; }
+        .header-simple { background: white; padding: 20px 0; border-bottom: 2px solid #FFD93D; position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 28px; text-decoration: none; }
+        .btn-back { background: #070395; color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.3s; }
+        .btn-back:hover { background: #FFD93D; color: #070395; }
+        .popup-hero { text-align: center; padding: 60px 20px 40px; background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%); color: white; }
+        .popup-hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; }
+        .popup-hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .info-badge { display: inline-block; background: #FFD93D; color: #070395; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 14px; margin-top: 20px; }
+        .items-grid { max-width: 1000px; margin: -30px auto 60px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; position: relative; z-index: 10; }
+        .item-card { background: white; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 10px 40px rgba(7,3,149,0.1); transition: transform 0.3s, box-shadow 0.3s; border: 2px solid transparent; }
+        .item-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(7,3,149,0.15); border-color: #FFD93D; }
+        .item-icon { font-size: 64px; margin-bottom: 20px; display: block; }
+        .item-title { font-size: 22px; font-weight: 700; margin-bottom: 10px; color: #070395; }
+        .item-descr { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.5; }
+        .item-price { font-size: 28px; font-weight: 800; color: #070395; margin-bottom: 25px; display: block; }
+        .btn-add { width: 100%; background: #070395; color: white; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; text-transform: uppercase; }
+        .btn-add:hover { background: #FFD93D; color: #070395; }
+        .btn-add.in-cart { background: #28a745; color: white; }
+        .btn-add.in-cart:hover { background: #218838; }
+        .cart-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(150%); background: #070395; color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 15px; z-index: 1000; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 90%; width: 500px; }
+        .cart-notification.show { transform: translateX(-50%) translateY(0); }
+        .cart-notification-icon { font-size: 24px; }
+        .cart-notification-text { flex: 1; font-weight: 600; font-size: 15px; }
+        .cart-notification-btn { background: #FFD93D; color: #070395; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+        @media (max-width: 768px) { .popup-hero h1 { font-size: 28px; } .popup-hero p { font-size: 16px; } .items-grid { margin-top: -20px; } }
+    </style>
+</head>
+<body>
+    <header class="header-simple">
+        <div class="header-container">
+            <a href="/" class="logo">🍋</a>
+            <a href="/" class="btn-back">← Вернуться на главную</a>
+        </div>
+    </header>
+    <section class="popup-hero">
+        <h1>Секретное Pop-up Меню</h1>
+        <p>Эксклюзивное предложение для своих. Собирайте свой идеальный набор.</p>
+        <div class="info-badge">✨ Можно выбрать любые комбинации: печенье, кекс или салат</div>
+    </section>
+    <div class="items-grid">
+        <div class="item-card" data-item="Печенька" data-price="300">
+            <span class="item-icon">🍪</span>
+            <h3 class="item-title">Фирменная Печенька</h3>
+            <p class="item-descr">Хрустящая снаружи, тягучая внутри. С каплями бельгийского шоколада и морской солью.</p>
+            <span class="item-price">300 ₽</span>
+            <button class="btn-add" onclick="addPopupItem(this, 'Печенька', 300)">Добавить</button>
+        </div>
+        <div class="item-card" data-item="Кусочек кекса" data-price="350">
+            <span class="item-icon">🧁</span>
+            <h3 class="item-title">Кусочек Кекса</h3>
+            <p class="item-descr">Нежный бисквит с лимонной пропиткой и ягодным кули. Идеальный баланс сладости и кислинки.</p>
+            <span class="item-price">350 ₽</span>
+            <button class="btn-add" onclick="addPopupItem(this, 'Кусочек кекса', 350)">Добавить</button>
+        </div>
+        <div class="item-card" data-item="Салат" data-price="450">
+            <span class="item-icon">🥗</span>
+            <h3 class="item-title">Авторский Салат</h3>
+            <p class="item-descr">Свежая микс-зелень, томаты черри, авокадо и фирменная заправка от шефа. Легко и изысканно.</p>
+            <span class="item-price">450 ₽</span>
+            <button class="btn-add" onclick="addPopupItem(this, 'Салат', 450)">Добавить</button>
+        </div>
+    </div>
+    <div class="cart-notification" id="cartNotification">
+        <span class="cart-notification-icon">✅</span>
+        <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
+        <button class="cart-notification-btn" onclick="window.location.href='/pages/checkout.html'">В корзину</button>
+    </div>
+    <script>
+        function addPopupItem(button, itemName, price) {
+            let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+            let existingItemIndex = cart.findIndex(item => item.name === itemName && item.category === 'popup_exclusive');
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({ id: 'popup_' + itemName.replace(/\s+/g, '_').toLowerCase(), name: itemName, price: price, quantity: 1, category: 'popup_exclusive' });
+            }
+            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+            updateButtonState(button, itemName);
+            showNotification(itemName);
+            if (typeof gtag === 'function') gtag('event', 'popup_item_added', { item_name: itemName, price: price });
+        }
+        function updateButtonState(button, itemName) {
+            let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+            let item = cart.find(i => i.name === itemName && i.category === 'popup_exclusive');
+            if (item && item.quantity > 0) {
+                button.textContent = `В корзине: ${item.quantity} шт.`;
+                button.classList.add('in-cart');
+            } else {
+                button.textContent = 'Добавить';
+                button.classList.remove('in-cart');
+            }
+        }
+        function showNotification(itemName) {
+            const notification = document.getElementById('cartNotification');
+            document.getElementById('notificationText').textContent = `"${itemName}" добавлен в корзину!`;
+            notification.classList.add('show');
+            setTimeout(() => { notification.classList.remove('show'); }, 3000);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.item-card').forEach(card => {
+                const itemName = card.dataset.item;
+                const button = card.querySelector('.btn-add');
+                update
