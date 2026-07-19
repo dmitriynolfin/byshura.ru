@@ -19,8 +19,8 @@
     </script>
     
     <meta name="robots" content="noindex, nofollow">
-    <!-- ✅ Обновлено: canonical путь -->
-    <link rel="canonical" href="https://byshura.ru/legal/privacy-policy.html">
+    <!-- ✅ Обновлено: canonical путь без .html -->
+    <link rel="canonical" href="https://byshura.ru/legal/privacy-policy">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -386,8 +386,8 @@
             <section class="policy-section">
                 <h3>10. Заключительные положения</h3>
                 <p>Оператор оставляет за собой право вносить изменения в Политику. Новая редакция вступает в силу с момента публикации на Сайте.</p>
-                <!-- ✅ Обновлено: путь к текущей версии политики -->
-                <p>Актуальная версия Политики всегда доступна по адресу: <a href="https://byshura.ru/legal/privacy-policy.html">byshura.ru/legal/privacy-policy.html</a></p>
+                <!-- ✅ Обновлено: путь к текущей версии политики без .html -->
+                <p>Актуальная версия Политики всегда доступна по адресу: <a href="https://byshura.ru/legal/privacy-policy">byshura.ru/legal/privacy-policy</a></p>
                 <p>По всем вопросам, связанным с обработкой персональных данных, обращайтесь: <a href="mailto:saschhen@gmail.com" class="email-link">saschhen@gmail.com</a></p>
             </section>
         </article>
@@ -400,10 +400,10 @@
             <div class="footer-links">
                 <a href="/" class="footer-link">Главная</a>
                 <span class="footer-divider">|</span>
-                <!-- ✅ Обновлено: пути к юридическим документам -->
-                <a href="/legal/privacy-policy.html" class="footer-link">Политика конфиденциальности</a>
+                <!-- ✅ Обновлено: пути к юридическим документам без .html -->
+                <a href="/legal/privacy-policy" class="footer-link">Политика конфиденциальности</a>
                 <span class="footer-divider">|</span>
-                <a href="/legal/offer.html" class="footer-link">Публичная оферта</a>
+                <a href="/legal/offer" class="footer-link">Публичная оферта</a>
             </div>
         </div>
     </footer>
@@ -445,7 +445,7 @@
         trackGA4Event('page_view', {
             page_title: document.title,
             page_location: window.location.href,
-            page_path: '/legal/privacy-policy.html', // ✅ Обновлено
+            page_path: '/legal/privacy-policy', // ✅ Обновлено на чистый URL
             language: 'ru',
             page_type: 'legal_document'
         });
@@ -462,8 +462,8 @@
                 cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) 
             });
             ymTrack('cart_click_privacy', { cart_items: cart.length });
-            // ✅ Обновлено: путь к странице оформления заказа
-            window.location.href = '/pages/checkout.html';
+            // ✅ Обновлено: путь к странице оформления заказа без .html
+            window.location.href = '/pages/checkout';
         });
         
         // 🎯 Метрика + GA4: клик по кнопке "НАЗАД"
@@ -471,7 +471,7 @@
             trackGA4Event('click', {
                 element: 'back_button',
                 page: 'privacy-ru',
-                destination: 'index.html'
+                destination: '/' // ✅ Обновлено на корневой путь
             });
             
             ymTrack('privacy_back_click');
@@ -498,14 +498,14 @@
                 const href = this.getAttribute('href');
                 let linkName = 'unknown';
                 
-                // ✅ Обновлено: проверка новых путей
-                if (href === '/' || href === '/index.html') {
+                // ✅ Обновлено: проверка новых путей без .html
+                if (href === '/') {
                     linkName = 'home';
                     ymTrack('privacy_footer_home_click');
-                } else if (href === '/legal/privacy-policy.html') {
+                } else if (href === '/legal/privacy-policy') {
                     linkName = 'privacy_policy';
                     ymTrack('privacy_footer_privacy_click');
-                } else if (href === '/legal/offer.html') {
+                } else if (href === '/legal/offer') {
                     linkName = 'public_offer';
                     ymTrack('privacy_footer_offer_click');
                 }
@@ -571,7 +571,7 @@
             });
         }, 60000);
         
-        console.log('✅ privacy-policy.html ready! GA4: G-L8704SB9ZW, Language: RU');
+        console.log('✅ privacy-policy ready! GA4: G-L8704SB9ZW, Language: RU');
     });
     
     // Listen for cart updates from other pages
