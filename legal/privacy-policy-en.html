@@ -19,7 +19,8 @@
     </script>
     
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://byshura.ru/privacy-policy-en">
+    <!-- ✅ Обновлено: canonical путь -->
+    <link rel="canonical" href="https://byshura.ru/legal/privacy-policy-en.html">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -251,7 +252,7 @@
 </head>
 <body>
 
-    <!-- HEADER - ✅ КАК НА history.html, index.html, offer.html -->
+    <!-- HEADER -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -385,7 +386,8 @@
             <section class="policy-section">
                 <h3>10. Final Provisions</h3>
                 <p>The Operator reserves the right to make changes to the Policy. The new edition comes into force from the moment of publication on the Site.</p>
-                <p>The current version of the Policy is always available at: <a href="https://byshura.ru/privacy-policy-en">byshura.ru/privacy-policy-en</a></p>
+                <!-- ✅ Обновлено: путь к текущей версии политики -->
+                <p>The current version of the Policy is always available at: <a href="https://byshura.ru/legal/privacy-policy-en.html">byshura.ru/legal/privacy-policy-en.html</a></p>
                 <p>For all questions related to personal data processing, please contact: <a href="mailto:saschhen@gmail.com" class="email-link">saschhen@gmail.com</a></p>
             </section>
         </article>
@@ -398,9 +400,10 @@
             <div class="footer-links">
                 <a href="/" class="footer-link">Home</a>
                 <span class="footer-divider">|</span>
-                <a href="/privacy-policy-en" class="footer-link">Privacy Policy</a>
+                <!-- ✅ Обновлено: пути к юридическим документам -->
+                <a href="/legal/privacy-policy-en.html" class="footer-link">Privacy Policy</a>
                 <span class="footer-divider">|</span>
-                <a href="/offer-en" class="footer-link">Public Offer</a>
+                <a href="/legal/offer-en.html" class="footer-link">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -442,7 +445,7 @@
         trackGA4Event('page_view', {
             page_title: document.title,
             page_location: window.location.href,
-            page_path: '/privacy-policy-en',
+            page_path: '/legal/privacy-policy-en.html', // ✅ Обновлено
             language: 'en',
             page_type: 'legal_document'
         });
@@ -455,10 +458,12 @@
             trackGA4Event('cart_click', { 
                 page: 'privacy-en', 
                 cart_items: cart.length, 
-                cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) 
+                // ✅ Обновлено: защита от undefined значений
+                cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) 
             });
             ymTrack('cart_click_privacy_en', { cart_items: cart.length });
-            window.location.href = '/checkout';
+            // ✅ Обновлено: путь к странице оформления заказа
+            window.location.href = '/pages/checkout.html';
         });
         
         // 🎯 Метрика + GA4: клик по кнопке "BACK"
@@ -493,13 +498,14 @@
                 const href = this.getAttribute('href');
                 let linkName = 'unknown';
                 
-                if (href === 'index.html') {
+                // ✅ Обновлено: проверка новых путей
+                if (href === '/') {
                     linkName = 'home';
                     ymTrack('privacy_footer_home_click_en');
-                } else if (href === 'privacy-policy-en.html') {
+                } else if (href === '/legal/privacy-policy-en.html') {
                     linkName = 'privacy_policy';
                     ymTrack('privacy_footer_privacy_click_en');
-                } else if (href === 'offer-en.html') {
+                } else if (href === '/legal/offer-en.html') {
                     linkName = 'public_offer';
                     ymTrack('privacy_footer_offer_click_en');
                 }
