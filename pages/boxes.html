@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (обновлен путь) -->
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
     <script src="/js/data.js"></script>
     
-    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -20,8 +20,8 @@
     <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
-    <!-- ✅ Обновлено: canonical путь -->
-    <link rel="canonical" href="https://byshura.ru/pages/boxes.html">
+    <!-- ✅ Обновлено: canonical путь без .html -->
+    <link rel="canonical" href="https://byshura.ru/pages/boxes">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -35,7 +35,7 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: '/pages/boxes.html',
+        page_path: '/pages/boxes', /* ✅ Обновлено на чистый URL */
         send_page_view: false
       });
     </script>
@@ -318,10 +318,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: пути к страницам -->
-                    <a href="/pages/boxes.html" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <!-- ✅ Обновлено: пути к страницам без .html -->
+                    <a href="/pages/boxes" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/pages/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -373,9 +373,10 @@
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
+                <!-- ✅ Обновлено: абсолютные пути к иконкам (со слэшем в начале) -->
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="/images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="/images/max_logo.webp" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="/images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
@@ -762,8 +763,8 @@
         closeCartPrompt();
         trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: 0, items: cart.map(item => ({ item_id: item.productId, quantity: item.quantity })) });
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
-        // ✅ Обновлено: путь к checkout
-        window.location.href = '/pages/checkout.html';
+        // ✅ Обновлено: путь к checkout без .html
+        window.location.href = '/pages/checkout';
     }
 
     function lazyLoadBackgrounds() {
@@ -846,8 +847,8 @@
         updateCartCount();
         
         setTimeout(() => { 
-            // ✅ Обновлено: page_path для аналитики
-            trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/pages/boxes.html', language: currentLang }); 
+            // ✅ Обновлено: page_path для аналитики без .html
+            trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/pages/boxes', language: currentLang }); 
         }, 1000);
         ymTrack('boxes_viewed', { lang: currentLang });
         
@@ -900,7 +901,8 @@
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { cart_items: cart.length });
-            window.location.href = '/pages/checkout.html';
+            // ✅ Обновлено: путь к checkout без .html
+            window.location.href = '/pages/checkout';
         });
         
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
