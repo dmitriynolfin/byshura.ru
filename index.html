@@ -18,14 +18,16 @@
     <meta property="og:title" content="Вестник Гедонизма — Доставка гастрономических боксов в Москве">
     <meta property="og:description" content="Авторские гастрономические боксы с историей. Доставка по Москве Пт-Вс 17:00-23:00.">
     <meta property="og:url" content="https://byshura.ru/index.html">
-    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <!-- ✅ Обновлено: путь к favicon в assets -->
+    <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     
     <meta name="theme-color" content="#070395">
     
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <!-- ✅ Обновлено: пути к иконкам и манифесту в папку assets -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -684,9 +686,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
-                    <a href="#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <!-- ✅ Обновлено: ссылки на страницы в папке pages -->
+                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -700,7 +703,7 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
-                <a href="/boxes" class="btn-back" id="shopBtn" data-i18n="btnOrder">ЗАКАЗАТЬ</a>
+                <a href="/pages/boxes.html" class="btn-back" id="shopBtn" data-i18n="btnOrder">ЗАКАЗАТЬ</a>
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
@@ -879,15 +882,16 @@
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
+            <!-- ✅ Обновлено: ссылки на юридические документы в папке legal -->
             <div class="legal-links-ru">
-                <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>
+                <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer-en" target="_blank">Public Offer</a>
+                <a href="/legal/offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -915,7 +919,7 @@
             mapHintText: "Нажмите, чтобы увеличить масштаб и перемещать карту",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartAlert: "Добавьте товары в корзину на странице боксов",
-            cookieText: 'Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/privacy-policy" target="_blank">Политикой конфиденциальности</a>.',
+            cookieText: 'Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy.html" target="_blank">Политикой конфиденциальности</a>.',
             cookieAccept: "Принять"
         },
         en: {
@@ -931,7 +935,7 @@
             mapHintText: "Tap to zoom in and move the map",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first",
-            cookieText: 'We use cookies 🍪 to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>.',
+            cookieText: 'We use cookies 🍪 to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>.',
             cookieAccept: "Accept"
         }
     };
@@ -1166,15 +1170,16 @@
             document.addEventListener('click', e => { if (!langBtn.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
-        document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = '/boxes'; });
-        document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = '/boxes'; });
+        // ✅ Обновлено: JS-перенаправления на новые пути
+        document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes.html'; });
+        document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes.html'; });
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { page: 'index', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) });
             if (cart.length === 0) {
-                if (confirm((translations[currentLang]?.cartAlert || translations.ru.cartAlert) + '\n\nПерейти на страницу боксов?')) window.location.href = '/boxes';
+                if (confirm((translations[currentLang]?.cartAlert || translations.ru.cartAlert) + '\n\nПерейти на страницу боксов?')) window.location.href = '/pages/boxes.html';
             } else {
-                window.location.href = '/checkout';
+                window.location.href = '/pages/checkout.html';
             }
         });
 
