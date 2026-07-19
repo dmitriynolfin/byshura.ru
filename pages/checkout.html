@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
-    <script src="data.js"></script>
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (обновлен путь) -->
+    <script src="/js/data.js"></script>
     
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-    <link rel="icon" type="image/svg+xml" href="/icon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://byshura.ru/checkout.html">
+    <!-- ✅ Обновлено: canonical путь -->
+    <link rel="canonical" href="https://byshura.ru/pages/checkout.html">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Оформление заказа - Вестник Гедонизма</title>
@@ -30,7 +32,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-L8704SB9ZW', { page_title: document.title, page_location: window.location.href, page_path: window.location.pathname, send_page_view: false });
+      gtag('config', 'G-L8704SB9ZW', { 
+          page_title: document.title, 
+          page_location: window.location.href, 
+          page_path: '/pages/checkout.html', 
+          send_page_view: false 
+      });
     </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -326,9 +333,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <!-- ✅ Обновлено: пути к страницам -->
+                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -460,7 +468,8 @@
                 <div class="consent-group">
                     <label class="consent-checkbox">
                         <input type="checkbox" id="consentCheckbox" name="consent" required checked>
-                        <span class="consent-text" data-i18n="consentText">Я даю согласие на обработку <a href="/privacy-policy" target="_blank">персональных данных</a> и принимаю условия <a href="/offer" target="_blank">публичной оферты</a></span>
+                        <!-- ✅ Обновлено: пути к юридическим документам -->
+                        <span class="consent-text" data-i18n="consentText">Я даю согласие на обработку <a href="/legal/privacy-policy.html" target="_blank">персональных данных</a> и принимаю условия <a href="/legal/offer.html" target="_blank">публичной оферты</a></span>
                     </label>
                 </div>
                 
@@ -483,15 +492,16 @@
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
+            <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
-                <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>
+                <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer-en" target="_blank">Public Offer</a>
+                <a href="/legal/offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -520,8 +530,9 @@
             validationError: "Пожалуйста, заполните все обязательные поля", consentError: "Необходимо дать согласие на обработку персональных данных",
             networkError: "Ошибка сети. Проверьте подключение и попробуйте снова.",
             processingText: "Обработка заказа, пожалуйста, не закрывайте страницу...",
-            consentText: "Я даю согласие на обработку <a href='/privacy-policy' target='_blank'>персональных данных</a> и принимаю условия <a href='/offer' target='_blank'>публичной оферты</a>",
-            emptyCart: "Корзина пуста.<br><a href='/boxes' class='add-items-link'>🛒 Добавьте товары</a>",
+            // ✅ Обновлено: пути к юридическим документам в текстах
+            consentText: "Я даю согласие на обработку <a href='/legal/privacy-policy.html' target='_blank'>персональных данных</a> и принимаю условия <a href='/legal/offer.html' target='_blank'>публичной оферты</a>",
+            emptyCart: "Корзина пуста.<br><a href='/pages/boxes.html' class='add-items-link'>🛒 Добавьте товары</a>",
             itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:", itemWeight: "Вес:", btnRemove: "Удалить", courierPrice: "(+800 ₽)",
             dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.", dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)",
             personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон", qtyWord4: "штуки", qtyWord8: "штук", weightLabel: "Вес ~1 кг"
@@ -538,8 +549,9 @@
             validationError: "Please fill in all required fields", consentError: "Consent to data processing is required",
             networkError: "Network error. Please check your connection and try again.",
             processingText: "Processing your order, please do not close the page...",
-            consentText: "I consent to the processing of <a href='/privacy-policy-en' target='_blank'>personal data</a> and accept the terms of the <a href='/offer-en' target='_blank'>public offer</a>",
-            emptyCart: "Cart is empty.<br><a href='/boxes' class='add-items-link'>🛒 Add items</a>",
+            // ✅ Обновлено: пути к юридическим документам в текстах
+            consentText: "I consent to the processing of <a href='/legal/privacy-policy-en.html' target='_blank'>personal data</a> and accept the terms of the <a href='/legal/offer-en.html' target='_blank'>public offer</a>",
+            emptyCart: "Cart is empty.<br><a href='/pages/boxes.html' class='add-items-link'>🛒 Add items</a>",
             itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:", itemWeight: "Weight:", btnRemove: "Remove", courierPrice: "(+40 AED)",
             dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.", dateDisabled: "Select an available date (Fri, Sat or Sun)",
             personsWord1: "person", personsWord2: "people", personsWord5: "people", qtyWord4: "pieces", qtyWord8: "pieces", weightLabel: "Weight ~1 kg"
@@ -976,7 +988,8 @@
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title, page_location: window.location.href,
-                page_path: '/checkout.html', language: currentLang,
+                page_path: '/pages/checkout.html', // ✅ Обновлено
+                language: currentLang,
                 cart_items: cart.length,
                 cart_value: cart.reduce((sum, item) => sum + recalculateItemPrice(item, currentLang) * item.quantity, 0)
             });
@@ -1003,7 +1016,7 @@
         updateCartCount();
         document.getElementById('cancelBtn')?.addEventListener('click', function() {
             ymTrack('checkout_cancelled', { cart_items: cart.length });
-            window.location.href = '/boxes';
+            window.location.href = '/pages/boxes.html'; // ✅ Обновлено
         });
         initDateRestrictions();
         initAddressAutocomplete();
@@ -1011,11 +1024,9 @@
         // ✅ ОТСЛЕЖИВАНИЕ ТОЧНОГО ВРЕМЕНИ СОГЛАСИЯ
         const consentCheckbox = document.getElementById('consentCheckbox');
         if (consentCheckbox) {
-            // Если чекбокс уже отмечен при загрузке (например, браузер запомнил), фиксируем текущее время
             if (consentCheckbox.checked) {
                 privacyConsentTimestamp = new Date().toISOString();
             }
-            // При изменении состояния чекбокса обновляем время
             consentCheckbox.addEventListener('change', function() {
                 if (this.checked) {
                     privacyConsentTimestamp = new Date().toISOString();
@@ -1100,7 +1111,6 @@
                     const calculatedTotal = orderItems.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
                     const finalTotal = calculatedTotal + (delivery === 'courier' ? courierCost : 0);
 
-                    // ✅ ЧТЕНИЕ СТАТУСА СОГЛАСИЯ НА COOKIES ИЗ LOCALSTORAGE
                     const cookieConsentStatus = localStorage.getItem('cookie_consent') === 'true';
 
                     const orderData = {
@@ -1113,8 +1123,8 @@
                         total: Number(finalTotal) || 0, currency: currentLang === 'en' ? 'AED' : '₽',
                         lang: currentLang, 
                         consentGiven: consentCheckbox ? consentCheckbox.checked : false,
-                        consentTimestamp: privacyConsentTimestamp || new Date().toISOString(), // Точное время согласия
-                        cookieConsent: cookieConsentStatus // Статус согласия на cookies
+                        consentTimestamp: privacyConsentTimestamp || new Date().toISOString(),
+                        cookieConsent: cookieConsentStatus
                     };
                     
                     console.log("📦 Отправка данных на сервер...");
@@ -1146,7 +1156,7 @@
                         console.log("🎉 Успех! Переход на страницу благодарности.");
                         
                         setTimeout(() => {
-                            window.location.href = '/thank-you';
+                            window.location.href = '/pages/thank-you.html'; // ✅ Обновлено
                         }, result.isBackground ? 1000 : 500);
                         
                     } else {
