@@ -63,7 +63,7 @@
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
         
-        /* ✅ ПОЛНАЯ СИНХРОНИЗАЦИЯ С INDEX.HTML */
+        /* ✅ ИДЕНТИЧНО INDEX.HTML + ОДИНАКОВАЯ ШИРИНА КНОПОК */
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
         .icon-btn { 
@@ -88,6 +88,8 @@
             border-radius: 25px; font-weight: 600; font-size: 13px; 
             transition: all 0.3s; min-height: 44px; 
             display: flex; align-items: center;
+            min-width: 140px; /* ✅ ОДИНАКОВАЯ ШИРИНА ДЛЯ "ЗАКАЗАТЬ" И "← НАЗАД" */
+            justify-content: center;
         }
         .btn-back:hover { background: #070395; color: white; }
         
@@ -229,11 +231,10 @@
             .header { padding: 12px 0; } .catalog { padding-top: 100px; } .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; } 
             
-            /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML */
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } 
             .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; min-width: 120px; }
             
             .page-title, .section-title { font-size: 28px; margin: 40px 0 30px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -250,12 +251,11 @@
         @media (max-width: 480px) { 
             .header { padding: 10px 0; } .catalog { padding-top: 95px; } .logo { width: 40px; height: 40px; font-size: 20px; }
             
-            /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML */
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } 
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; } 
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; min-width: 110px; }
             
             .page-title { font-size: 24px; } .page-subtitle { font-size: 14px; } .section-title { font-size: 24px; letter-spacing: 1px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -289,8 +289,7 @@
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; } 
             
-            /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML */
-            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; min-width: 100px; }
             
             .page-title, .section-title { font-size: 22px; } .category-btn { padding: 8px 12px; font-size: 11px; min-height: 42px; }
             .person-option { flex: 1 1 27%; max-width: 29%; } .person-label { padding: 4px 1px; min-height: 46px; } .person-icon { font-size: 12px; }
