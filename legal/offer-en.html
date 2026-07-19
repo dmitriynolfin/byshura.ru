@@ -14,13 +14,13 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: '/legal/offer-en.html'
+        page_path: '/legal/offer-en'
       });
     </script>
     
     <meta name="robots" content="noindex, nofollow">
-    <!-- ✅ Обновлено: canonical путь -->
-    <link rel="canonical" href="https://byshura.ru/legal/offer-en.html">
+    <!-- ✅ Обновлено: canonical путь без .html -->
+    <link rel="canonical" href="https://byshura.ru/legal/offer-en">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -404,8 +404,8 @@
                 <h3>11. Final Provisions</h3>
                 <p><strong>11.1.</strong> This Offer comes into effect upon publication on the Site and remains valid indefinitely.</p>
                 <p><strong>11.2.</strong> The Seller reserves the right to amend the Offer. New versions are published on the Site and take effect 3 days after publication.</p>
-                <!-- ✅ Обновлено: путь к текущей версии оферты -->
-                <p><strong>11.3.</strong> The current version of the Offer is always available at: <a href="https://byshura.ru/legal/offer-en.html">byshura.ru/legal/offer-en.html</a></p>
+                <!-- ✅ Обновлено: путь к текущей версии оферты без .html -->
+                <p><strong>11.3.</strong> The current version of the Offer is always available at: <a href="https://byshura.ru/legal/offer-en">byshura.ru/legal/offer-en</a></p>
                 <p><strong>11.4.</strong> By using the Site and placing orders, the Buyer confirms they have read, understood, and fully agree to these Terms.</p>
             </section>
         </article>
@@ -418,10 +418,10 @@
             <div class="footer-links">
                 <a href="/" class="footer-link">Home</a>
                 <span class="footer-divider">|</span>
-                <!-- ✅ Обновлено: пути к юридическим документам -->
-                <a href="/legal/privacy-policy-en.html" class="footer-link">Privacy Policy</a>
+                <!-- ✅ Обновлено: пути к юридическим документам без .html -->
+                <a href="/legal/privacy-policy-en" class="footer-link">Privacy Policy</a>
                 <span class="footer-divider">|</span>
-                <a href="/legal/offer-en.html" class="footer-link">Public Offer</a>
+                <a href="/legal/offer-en" class="footer-link">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -463,7 +463,7 @@
         trackGA4Event('page_view', {
             page_title: document.title,
             page_location: window.location.href,
-            page_path: '/legal/offer-en.html', // ✅ Обновлено
+            page_path: '/legal/offer-en', // ✅ Обновлено на чистый URL
             language: 'en',
             page_type: 'legal_document'
         });
@@ -479,8 +479,8 @@
                 cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) 
             });
             ymTrack('cart_click_offer_en', { cart_items: cart.length });
-            // ✅ Обновлено: путь к странице оформления заказа
-            window.location.href = '/pages/checkout.html';
+            // ✅ Обновлено: путь к странице оформления заказа без .html
+            window.location.href = '/pages/checkout';
         });
         
         // 🎯 Метрика + GA4: клик по кнопке "BACK"
@@ -488,7 +488,7 @@
             trackGA4Event('click', {
                 element: 'back_button',
                 page: 'offer-en',
-                destination: 'index.html'
+                destination: '/' // ✅ Обновлено на корневой путь
             });
             
             ymTrack('offer_back_click_en');
@@ -515,14 +515,14 @@
                 const href = this.getAttribute('href');
                 let linkName = 'unknown';
                 
-                // ✅ Обновлено: проверка новых путей
+                // ✅ Обновлено: проверка новых путей без .html
                 if (href === '/') {
                     linkName = 'home';
                     ymTrack('offer_footer_home_click_en');
-                } else if (href === '/legal/privacy-policy-en.html') {
+                } else if (href === '/legal/privacy-policy-en') {
                     linkName = 'privacy_policy';
                     ymTrack('offer_footer_privacy_click_en');
-                } else if (href === '/legal/offer-en.html') {
+                } else if (href === '/legal/offer-en') {
                     linkName = 'public_offer';
                     ymTrack('offer_footer_offer_click_en');
                 }
@@ -588,7 +588,7 @@
             });
         }, 60000);
         
-        console.log('✅ offer-en.html ready! GA4: G-L8704SB9ZW, Language: EN');
+        console.log('✅ offer-en ready! GA4: G-L8704SB9ZW, Language: EN');
     });
     
     // Listen for cart updates from other pages
