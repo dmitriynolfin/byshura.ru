@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
     <script src="data.js"></script>
+    
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -14,26 +16,14 @@
     <meta property="og:image" content="https://byshura.ru/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
-    <title>Меню боксов — Вестник Гедонизма | Заказать доставку в Москве</title>
-    <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача, доставка по Москве.">
+    <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
+    <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
     <link rel="canonical" href="https://byshura.ru/boxes">
     
-    <link rel="preload" as="image" href="images/boxes-nicholas-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-nicholas-1.webp" media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-tchaikovsky-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-tchaikovsky-1.webp" media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-lemoncake-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-lemoncake.webp" media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-lemoncookies-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-lemoncookies-1.webp" media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-rasstegai-1-mobile.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="images/boxes-rasstegai-1.webp" media="(min-width: 769px)" fetchpriority="high">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
@@ -52,6 +42,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
@@ -93,46 +84,17 @@
         .catalog { padding: 115px 0 60px; min-height: 100vh; }
         
         .category-nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 18px 0 25px;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 75px;
-            background: #f8f9fa;
-            z-index: 500;
-            margin-bottom: 20px;
+            display: flex; justify-content: center; gap: 10px; padding: 18px 0 25px; flex-wrap: wrap;
+            position: sticky; top: 75px; background: #f8f9fa; z-index: 500; margin-bottom: 20px;
         }
         .category-btn {
-            background: white;
-            color: #070395;
-            padding: 10px 22px;
-            border-radius: 22px;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 2px solid #070395;
-            min-height: 42px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(7,3,149,0.08);
+            background: white; color: #070395; padding: 10px 22px; border-radius: 22px; font-weight: 700; font-size: 13px;
+            text-transform: uppercase; letter-spacing: 0.5px; border: 2px solid #070395; min-height: 42px;
+            display: inline-flex; align-items: center; justify-content: center; user-select: none;
+            transition: all 0.3s ease; box-shadow: 0 3px 10px rgba(7,3,149,0.08);
         }
-        .category-btn:hover {
-            background: #070395;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(7,3,149,0.2);
-        }
-        .category-btn.active {
-            background: #070395;
-            color: white;
-            box-shadow: 0 4px 12px rgba(7,3,149,0.25);
-        }
+        .category-btn:hover, .category-btn.active { background: #070395; color: white; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(7,3,149,0.2); }
+        .category-btn.active { box-shadow: 0 4px 12px rgba(7,3,149,0.25); transform: none; }
         
         .page-title { text-align: center; font-size: 42px; font-weight: 700; margin-bottom: 20px; color: #070395; scroll-margin-top: 150px; }
         .page-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 60px; max-width: 600px; margin: 0 auto 60px; }
@@ -143,14 +105,10 @@
         
         .box-card { background: white; border-radius: 0; overflow: hidden; box-shadow: 0 5px 20px rgba(7,3,149,0.1); transition: box-shadow 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .box-card:hover { box-shadow: 0 15px 40px rgba(7,3,149,0.2); }
-        
         .box-image { width: 100%; aspect-ratio: 1/1; background-size: cover; background-position: center; position: relative; }
         .box-image:hover { opacity: 0.95; }
-        
         .box-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-        
         .box-title { font-size: 20px; font-weight: 500; margin-bottom: 15px; color: #070395; text-align: center; }
-        
         .box-footer { display: flex; justify-content: center; align-items: center; padding-top: 15px; border-top: 1px solid #eee; margin-top: auto; }
         .box-price { font-size: 20px; font-weight: 700; color: #070395; display: flex; align-items: baseline; gap: 4px; }
         .box-price .price-value { font-weight: 700; }
@@ -162,23 +120,7 @@
         
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: block; opacity: 1; }
-        
-        .product-modal { 
-            position: fixed; 
-            top: 10%; 
-            left: 50%; 
-            transform: translate(-50%, 0); 
-            width: 95%; 
-            max-width: 600px; 
-            max-height: 80vh; 
-            background: white; 
-            border-radius: 0; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
-            z-index: 2501; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-        }
+        .product-modal { position: fixed; top: 10%; left: 50%; transform: translate(-50%, 0); width: 95%; max-width: 600px; max-height: 80vh; background: white; border-radius: 0; box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 2501; display: flex; flex-direction: column; overflow: hidden; }
         .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
         .modal-title { font-size: 18px; font-weight: 600; color: #070395; }
         .modal-close { background: none; border: none; font-size: 24px; color: #666; cursor: pointer; padding: 5px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
@@ -186,84 +128,34 @@
         .modal-body { padding: 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
         
         .modal-gallery { margin-bottom: 25px; }
-        .modal-main-slider { 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        .modal-main-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; gap: 10px; margin-bottom: 15px; }
         .modal-main-slider::-webkit-scrollbar { display: none; }
-        .modal-main-image { 
-            min-width: 100%; 
-            aspect-ratio: 4/3; 
-            background-size: cover; 
-            background-position: center; 
-            border-radius: 0; 
-            scroll-snap-align: center;
-            flex-shrink: 0;
-        }
-        .modal-thumbnails { 
-            display: flex; 
-            overflow-x: auto; 
-            gap: 10px; 
-            padding: 5px 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch;
-        }
+        .modal-main-image { min-width: 100%; aspect-ratio: 4/3; background-size: cover; background-position: center; border-radius: 0; scroll-snap-align: center; flex-shrink: 0; }
+        .modal-thumbnails { display: flex; overflow-x: auto; gap: 10px; padding: 5px 0; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
         .modal-thumbnails::-webkit-scrollbar { display: none; }
-        .modal-thumb { 
-            min-width: 80px; 
-            height: 80px; 
-            background-size: cover; 
-            background-position: center; 
-            border-radius: 0; 
-            cursor: pointer; 
-            border: 2px solid transparent; 
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-        .modal-thumb:hover, .modal-thumb.active { 
-            border-color: #070395; 
-            transform: scale(1.05); 
-        }
+        .modal-thumb { min-width: 80px; height: 80px; background-size: cover; background-position: center; border-radius: 0; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; flex-shrink: 0; }
+        .modal-thumb:hover, .modal-thumb.active { border-color: #070395; transform: scale(1.05); }
         
         .modal-section { margin-bottom: 25px; }
         .modal-section-title { font-size: 16px; font-weight: 600; color: #070395; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .modal-section-title::before { content: ''; width: 4px; height: 16px; background: #FFD93D; border-radius: 2px; }
-        
         .modal-description { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
-        
         .composition-list { list-style: none; }
         .composition-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 14px; }
         .composition-item:last-child { border-bottom: none; }
         .composition-name { color: #070395; font-weight: 500; flex: 1; }
         .composition-weight { color: #666; font-weight: 600; white-space: nowrap; margin-left: 10px; }
         
-        .persons-select { display: flex; gap: 12px; flex-wrap: wrap; }
-        .person-option { flex: 1; min-width: 70px; }
-        .person-radio { display: none; }
-        .person-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa; min-height: 70px; }
-        .person-label:hover { border-color: #FFD93D; background: #fff9e6; }
-        .person-radio:checked + .person-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
+        .persons-select, .quantity-select { display: flex; gap: 12px; flex-wrap: wrap; }
+        .person-option, .quantity-option { flex: 1; min-width: 70px; }
+        .person-radio, .quantity-radio { display: none; }
+        .person-label, .quantity-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 8px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa; min-height: 70px; }
+        .person-label:hover, .quantity-label:hover { border-color: #FFD93D; background: #fff9e6; }
+        .person-radio:checked + .person-label, .quantity-radio:checked + .quantity-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
         .person-icon { font-size: 22px; margin-bottom: 4px; line-height: 1; }
-        .person-price { font-size: 14px; font-weight: 600; color: #FFD93D; background: #070395; padding: 4px 10px; border-radius: 12px; margin-top: 4px; white-space: nowrap; }
-        .person-radio:checked + .person-label .person-price { background: #FFD93D; color: #070395; }
-        .person-price.hidden { display: none; }
-        
-        .quantity-select { display: flex; gap: 12px; flex-wrap: wrap; }
-        .quantity-option { flex: 1; min-width: 120px; }
-        .quantity-radio { display: none; }
-        .quantity-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 12px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; background: #fafafa; }
-        .quantity-label:hover { border-color: #FFD93D; background: #fff9e6; }
-        .quantity-radio:checked + .quantity-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
+        .person-price, .quantity-price { font-size: 14px; font-weight: 600; color: #FFD93D; background: #070395; padding: 4px 10px; border-radius: 12px; margin-top: 4px; white-space: nowrap; }
+        .person-radio:checked + .person-label .person-price, .quantity-radio:checked + .quantity-label .quantity-price { background: #FFD93D; color: #070395; }
         .quantity-count { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-        .quantity-price { font-size: 14px; font-weight: 600; color: #FFD93D; background: #070395; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
-        .quantity-radio:checked + .quantity-label .quantity-price { background: #FFD93D; color: #070395; }
         
         .allergens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .allergen-option { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fafafa; }
@@ -272,6 +164,7 @@
         .allergen-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
         .allergen-option input:checked + .allergen-label { font-weight: 600; color: #070395; }
         .allergen-icon { font-size: 18px; margin-right: 5px; }
+        
         .modal-actions { padding: 15px 20px; border-top: 1px solid #eee; display: flex; gap: 10px; flex-shrink: 0; background: white; }
         .btn-modal-cancel { flex: 1; background: transparent; color: #070395; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; border: 1.5px solid #070395; cursor: pointer; transition: all 0.3s; }
         .btn-modal-cancel:hover { background: #070395; color: white; }
@@ -297,7 +190,6 @@
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
-        
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
@@ -309,169 +201,70 @@
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
         
-        .cart-modal { display: none; }
-        .cart-overlay { display: none; }
-        
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
-        
         @media (max-width: 768px) { 
-            .header { padding: 12px 0; }
-            .catalog { padding-top: 100px; }
-            .header-container { padding: 0 15px; }
-            .logo { width: 42px; height: 42px; font-size: 22px; }
-            .header-icons { gap: 10px; }
-            
-            /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML (768px) */
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
-            .icon-btn svg { width: 22px; height: 22px; }
+            .header { padding: 12px 0; } .catalog { padding-top: 100px; } .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; } .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            
-            .page-title { font-size: 28px; }
-            .section-title { font-size: 28px; margin: 40px 0 30px; }
-            
+            .page-title, .section-title { font-size: 28px; margin: 40px 0 30px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            
-            .box-title { font-size: 16px; font-weight: 500; }
-            .box-price { font-size: 16px; }
-            
-            .category-nav { 
-                top: 76px;
-                gap: 8px; 
-                padding: 12px 0 20px; 
-                margin-bottom: 15px;
-            }
-            .category-btn { 
-                padding: 12px 20px; 
-                font-size: 16px; 
-                min-height: 54px;
-                border-radius: 27px;
-            }
-            
+            .box-title { font-size: 16px; } .box-price { font-size: 16px; }
+            .category-nav { top: 76px; gap: 8px; padding: 12px 0 20px; margin-bottom: 15px; }
+            .category-btn { padding: 12px 20px; font-size: 16px; min-height: 54px; border-radius: 27px; }
             .header-right { gap: 10px; }
-            
             .product-modal { width: 95%; max-width: none; max-height: 75vh; top: 5%; }
-            
-            .modal-main-image { aspect-ratio: 1/1; }
-            .modal-thumb { min-width: 70px; height: 70px; }
+            .modal-main-image { aspect-ratio: 1/1; } .modal-thumb { min-width: 70px; height: 70px; }
             .allergens-grid { grid-template-columns: 1fr; }
-            .persons-select { flex-direction: row; flex-wrap: wrap; }
-            .person-label { padding: 12px 8px; }
-            .quantity-select { flex-direction: row; }
-            .quantity-option { min-width: 100px; }
-            .cart-prompt { width: 95%; max-width: none; padding: 20px; }
-            .cart-prompt-actions { flex-direction: column; }
+            .cart-prompt { width: 95%; max-width: none; padding: 20px; } .cart-prompt-actions { flex-direction: column; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
-        
         @media (max-width: 480px) { 
-            .header { padding: 10px 0; }
-            .catalog { padding-top: 95px; }
-            .logo { width: 40px; height: 40px; font-size: 20px; }
+            .header { padding: 10px 0; } .catalog { padding-top: 95px; } .logo { width: 40px; height: 40px; font-size: 20px; }
             .header-icons { gap: 8px; }
-            
-            /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML (480px) */
-            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
-            .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; }
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            
-            .page-title { font-size: 24px; }
-            .page-subtitle { font-size: 14px; }
-            .section-title { font-size: 24px; letter-spacing: 1px; }
-            
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; } .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .page-title { font-size: 24px; } .page-subtitle { font-size: 14px; } .section-title { font-size: 24px; letter-spacing: 1px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            
-            .box-title { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
-            .box-price { font-size: 14px; }
-            .box-price .currency { font-size: 12px; }
-            
-            .category-nav { 
-                top: 72px;
-                gap: 6px; 
-                padding: 10px 0 16px;
-                margin-bottom: 12px;
-            }
-            .category-btn { 
-                padding: 10px 15px; 
-                font-size: 13px; 
-                letter-spacing: 0.3px;
-                min-height: 48px;
-                border-radius: 24px;
-                border-width: 1.5px;
-            }
-            
-            .header-right { gap: 8px; }
-            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
-            .modal-thumb { min-width: 60px; height: 60px; }
-            .allergen-option { padding: 8px 10px; }
-            .allergen-label { font-size: 13px; }
-            .persons-select { gap: 4px; justify-content: center; }
-            .person-option { flex: 1 1 29%; min-width: 0; max-width: 31%; }
-            .person-label { padding: 6px 2px; min-height: 50px; border-radius: 8px; }
-            .person-icon { font-size: 14px; margin-bottom: 2px; line-height: 1; white-space: nowrap; }
-            .quantity-select { gap: 8px; }
-            .quantity-option { flex: 1; min-width: 0; }
-            .quantity-label { padding: 12px 8px; }
-            .quantity-count { font-size: 16px; }
-            .modal-description { font-size: 13px; padding: 12px; }
+            .box-title { font-size: 14px; margin-bottom: 10px; } .box-price { font-size: 14px; } .box-price .currency { font-size: 12px; }
+            .category-nav { top: 72px; gap: 6px; padding: 10px 0 16px; margin-bottom: 12px; }
+            .category-btn { padding: 10px 15px; font-size: 13px; letter-spacing: 0.3px; min-height: 48px; border-radius: 24px; border-width: 1.5px; }
+            .header-right { gap: 8px; } .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            .modal-thumb { min-width: 60px; height: 60px; } .allergen-option { padding: 8px 10px; } .allergen-label { font-size: 13px; }
+            .persons-select { gap: 4px; justify-content: center; } .person-option { flex: 1 1 29%; min-width: 0; max-width: 31%; }
+            .person-label { padding: 6px 2px; min-height: 50px; border-radius: 8px; } .person-icon { font-size: 14px; margin-bottom: 2px; line-height: 1; white-space: nowrap; }
+            .quantity-select { gap: 8px; } .quantity-option { flex: 1; min-width: 0; } .quantity-label { padding: 12px 8px; }
+            .quantity-count { font-size: 16px; } .modal-description { font-size: 13px; padding: 12px; }
             .person-price { font-size: 10px !important; padding: 2px 5px; margin-top: 2px; border-radius: 8px; }
             .modal-body { max-height: calc(75vh - 150px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
             .modal-actions { position: sticky; bottom: 0; background: white; padding: 12px 15px; border-top: 1px solid #eee; }
             .btn-modal-cancel, .btn-modal-add { padding: 10px; font-size: 13px; }
-            .footer { padding: 18px 0; }
-            .social-links { gap: 12px; }
-            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
-            .social-link img { width: 28px; height: 28px; }
-            .footer-copyright { font-size: 12px; }
+            .footer { padding: 18px 0; } .social-links { gap: 12px; } .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
+            .social-link img { width: 28px; height: 28px; } .footer-copyright { font-size: 12px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
-            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; } .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
-            html[lang="en"] .legal-links-en { display: flex !important; }
-            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-links-en a:hover { color: #070395; }
+            html[lang="en"] .legal-links-en { display: flex !important; } .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
         }
-        
         @media (max-width: 414px) {
-            .persons-select { gap: 3px; }
-            .person-option { flex: 1 1 28%; max-width: 30%; }
-            .person-label { padding: 5px 1px; min-height: 48px; }
-            .person-icon { font-size: 13px; }
-            .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 12px; }
-            .person-option:nth-child(3) .person-icon { font-size: 13px; }
-            .person-price { font-size: 9px !important; padding: 2px 4px; }
-            .quantity-count { font-size: 15px; }
-            .quantity-price { font-size: 12px !important; padding: 3px 8px; }
-            .modal-body { max-height: calc(75vh - 140px); }
-            .modal-actions { padding: 10px 12px; }
+            .persons-select { gap: 3px; } .person-option { flex: 1 1 28%; max-width: 30%; } .person-label { padding: 5px 1px; min-height: 48px; }
+            .person-icon { font-size: 13px; } .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 12px; }
+            .person-option:nth-child(3) .person-icon { font-size: 13px; } .person-price { font-size: 9px !important; padding: 2px 4px; }
+            .quantity-count { font-size: 15px; } .quantity-price { font-size: 12px !important; padding: 3px 8px; }
+            .modal-body { max-height: calc(75vh - 140px); } .modal-actions { padding: 10px 12px; }
         }
-        
         @media (max-width: 360px) {
-            .logo { width: 38px; height: 38px; font-size: 18px; }
-            
-            /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML (360px) */
-            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            
-            .page-title { font-size: 22px; }
-            .section-title { font-size: 22px; }
-            
-            .category-btn { padding: 8px 12px; font-size: 11px; min-height: 42px; }
-            
-            .person-option { flex: 1 1 27%; max-width: 29%; }
-            .person-label { padding: 4px 1px; min-height: 46px; }
-            .person-icon { font-size: 12px; }
-            .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 11px; }
-            .person-option:nth-child(3) .person-icon { font-size: 12px; }
-            .person-price { font-size: 8px !important; padding: 1px 3px; }
-            .quantity-count { font-size: 14px; }
-            .quantity-price { font-size: 11px !important; padding: 2px 6px; }
+            .logo { width: 38px; height: 38px; font-size: 18px; } .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .page-title, .section-title { font-size: 22px; } .category-btn { padding: 8px 12px; font-size: 11px; min-height: 42px; }
+            .person-option { flex: 1 1 27%; max-width: 29%; } .person-label { padding: 4px 1px; min-height: 46px; } .person-icon { font-size: 12px; }
+            .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 11px; } .person-option:nth-child(3) .person-icon { font-size: 12px; }
+            .person-price { font-size: 8px !important; padding: 1px 3px; } .quantity-count { font-size: 14px; } .quantity-price { font-size: 11px !important; padding: 2px 6px; }
             .modal-body { max-height: calc(75vh - 130px); }
         }
-        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
@@ -531,79 +324,14 @@
             
             <h1 class="page-title" id="section-boxes" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
-            <div class="boxes-grid">
-                <div class="box-card" data-product-type="nicholas" data-product-id="box1" data-product-name="Бокс «Ужин Николая II»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
-                    <div class="box-image" data-bg-desktop="images/boxes-nicholas-1.webp" data-bg-mobile="images/boxes-nicholas-1-mobile.webp" data-gallery='["images/boxes-nicholas-1.webp","images/boxes-nicholas-2.webp","images/boxes-nicholas-3.webp","images/boxes-nicholas-4.webp","images/boxes-nicholas-5.webp","images/boxes-nicholas-6.webp","images/boxes-nicholas-7.webp","images/boxes-nicholas-8.webp","images/boxes-nicholas-9.webp"]' data-gallery-mobile='["images/boxes-nicholas-1-mobile.webp","images/boxes-nicholas-2-mobile.webp","images/boxes-nicholas-3-mobile.webp","images/boxes-nicholas-4-mobile.webp","images/boxes-nicholas-5-mobile.webp","images/boxes-nicholas-6-mobile.webp","images/boxes-nicholas-7-mobile.webp","images/boxes-nicholas-8-mobile.webp","images/boxes-nicholas-9-mobile.webp"]' data-bg-loaded="false"></div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="box1Title">Бокс «Ужин Николая II»</h3>
-                        <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-from" data-i18n="priceFrom">от </span>
-                                <span class="price-value">8 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="box-card" data-product-type="tchaikovsky" data-product-id="box2" data-product-name="Бокс «Ужин Чайковского»" data-product-price="8000" data-price-2="8000" data-price-4="15000" data-price-6="20000" data-price-2-en="400" data-price-4-en="700" data-price-6-en="1000">
-                    <div class="box-image" data-bg-desktop="images/boxes-tchaikovsky-1.webp" data-bg-mobile="images/boxes-tchaikovsky-1-mobile.webp" data-gallery='["images/boxes-tchaikovsky-1.webp","images/boxes-tchaikovsky-2.webp","images/boxes-tchaikovsky-3.webp","images/boxes-tchaikovsky-4.webp","images/boxes-tchaikovsky-5.webp","images/boxes-tchaikovsky-6.webp","images/boxes-tchaikovsky-7.webp","images/boxes-tchaikovsky-8.webp","images/boxes-tchaikovsky-9.webp","images/boxes-tchaikovsky-10.webp","images/boxes-tchaikovsky-11.webp","images/boxes-tchaikovsky-12.webp","images/boxes-tchaikovsky-13.webp","images/boxes-tchaikovsky-14.webp","images/boxes-tchaikovsky-15.webp","images/boxes-tchaikovsky-16.webp"]' data-gallery-mobile='["images/boxes-tchaikovsky-1-mobile.webp","images/boxes-tchaikovsky-2-mobile.webp","images/boxes-tchaikovsky-3-mobile.webp","images/boxes-tchaikovsky-4-mobile.webp","images/boxes-tchaikovsky-5-mobile.webp","images/boxes-tchaikovsky-6-mobile.webp","images/boxes-tchaikovsky-7-mobile.webp","images/boxes-tchaikovsky-8-mobile.webp","images/boxes-tchaikovsky-9-mobile.webp","images/boxes-tchaikovsky-10-mobile.webp","images/boxes-tchaikovsky-11-mobile.webp","images/boxes-tchaikovsky-12-mobile.webp","images/boxes-tchaikovsky-13-mobile.webp","images/boxes-tchaikovsky-14-mobile.webp","images/boxes-tchaikovsky-15-mobile.webp"]' data-bg-loaded="false"></div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="box2Title">Бокс «Ужин Чайковского»</h3>
-                        <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-from" data-i18n="priceFrom">от </span>
-                                <span class="price-value">8 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- ✅ ДИНАМИЧЕСКИЕ КОНТЕЙНЕРЫ -->
+            <div class="boxes-grid" id="grid-boxes"></div>
             
             <h2 class="section-title" id="section-sweets" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
-            <div class="boxes-grid">
-                <div class="box-card" data-product-type="cake" data-product-id="cake1" data-product-name="Сливочный лимонный кекс" data-product-price="3000" data-product-price-en="150">
-                    <div class="box-image" data-bg-desktop="images/boxes-lemoncake.webp" data-bg-mobile="images/boxes-lemoncake-mobile.webp" data-gallery='["images/boxes-lemoncake.webp","images/boxes-lemoncake-1.webp","images/boxes-lemoncake-2.webp","images/boxes-lemoncake-3.webp","images/boxes-lemoncake-4.webp","images/boxes-lemoncake-5.webp","images/boxes-lemoncake-6.webp","images/boxes-lemoncake-7.webp","images/boxes-lemoncake-8.webp"]' data-bg-loaded="false"></div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="cakeTitle">Сливочный лимонный кекс</h3>
-                        <div class="box-footer">
-                            <div class="box-price"><span class="price-value cake-price-ru">3 000</span> <span class="currency">₽</span></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="box-card" data-product-type="lemon-cookies" data-product-id="lemon-cookies" data-product-name="Нежное печенье с лимонным курдом" data-product-price="1000" data-product-price-en="50">
-                    <div class="box-image" data-bg-desktop="images/boxes-lemoncookies-1.webp" data-bg-mobile="images/boxes-lemoncookies-1-mobile.webp" data-gallery='["images/boxes-lemoncookies-1.webp","images/boxes-lemoncookies-2.webp","images/boxes-lemoncookies-3.webp","images/boxes-lemoncookies-4.webp"]' data-gallery-mobile='["images/boxes-lemoncookies-1-mobile.webp","images/boxes-lemoncookies-2-mobile.webp","images/boxes-lemoncookies-3-mobile.webp","images/boxes-lemoncookies-4-mobile.webp"]' data-bg-loaded="false"></div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="lemonCookiesTitle">Нежное печенье с лимонным курдом</h3>
-                        <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-from" data-i18n="priceFrom">от </span>
-                                <span class="price-value lemon-cookies-price-ru">1 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="boxes-grid" id="grid-sweets"></div>
             
             <h2 class="section-title" id="section-savory" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
-            <div class="boxes-grid">
-                <div class="box-card" data-product-type="rasstegai" data-product-id="rasstegai" data-product-name="Расстегаи с красной рыбой и рисом" data-product-price="1000" data-product-price-en="50">
-                    <div class="box-image" data-bg-desktop="images/boxes-rasstegai-1.webp" data-bg-mobile="images/boxes-rasstegai-1-mobile.webp" data-gallery='["images/boxes-rasstegai-1.webp","images/boxes-rasstegai-2.webp","images/boxes-rasstegai-3.webp","images/boxes-rasstegai-4.webp","images/boxes-rasstegai-5.webp","images/boxes-rasstegai-6.webp","images/boxes-rasstegai-7.webp","images/boxes-rasstegai-8.webp"]' data-gallery-mobile='["images/boxes-rasstegai-1-mobile.webp","images/boxes-rasstegai-2-mobile.webp","images/boxes-rasstegai-3-mobile.webp","images/boxes-rasstegai-4-mobile.webp","images/boxes-rasstegai-5-mobile.webp","images/boxes-rasstegai-6-mobile.webp","images/boxes-rasstegai-7-mobile.webp","images/boxes-rasstegai-8-mobile.webp"]' data-bg-loaded="false"></div>
-                    <div class="box-content">
-                        <h3 class="box-title" data-i18n="rasstegaiTitle">Расстегаи с красной рыбой и рисом</h3>
-                        <div class="box-footer">
-                            <div class="box-price">
-                                <span class="price-from" data-i18n="priceFrom">от </span>
-                                <span class="price-value rasstegai-price-ru">1 000</span> 
-                                <span class="currency">₽</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="boxes-grid" id="grid-savory"></div>
         </div>
     </section>
 
@@ -639,14 +367,11 @@
                     <div class="modal-main-slider" id="modalMainSlider"></div>
                     <div class="modal-thumbnails" id="modalThumbnails"></div>
                 </div>
-                
                 <div class="modal-description" id="modalDescription" style="display: none;"></div>
-                
                 <div class="modal-section" id="compositionSection" style="display: none;">
                     <div class="modal-section-title" data-i18n="modalComposition">Меню</div>
                     <ul class="composition-list" id="compositionList"></ul>
                 </div>
-                
                 <div class="modal-section" id="personsSection">
                     <div class="modal-section-title" data-i18n="modalPersons">Количество персон</div>
                     <div class="persons-select" id="personsSelect"></div>
@@ -669,7 +394,7 @@
 
     <div class="cart-prompt-overlay" id="cartPromptOverlay">
         <div class="cart-prompt">
-            <div class="cart-prompt-icon"></div>
+            <div class="cart-prompt-icon">🛒</div>
             <h3 class="cart-prompt-title" data-i18n="cartPromptTitle">Товар добавлен!</h3>
             <p class="cart-prompt-text" data-i18n="cartPromptText">Перейти в корзину или продолжать выбирать?</p>
             <div class="cart-prompt-actions">
@@ -680,111 +405,38 @@
     </div>
 
     <script>
+    // ✅ UI-ПЕРЕВОДЫ (без данных товаров, они теперь в data.js)
     const translations = {
         ru: {
-            pageTitle: "Боксы - Вестник Гедонизма",
-            navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            catBoxes: "БОКСЫ", catSweets: "СЛАДКОЕ", catSavory: "СОЛЕНОЕ",
-            catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС", catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
+            pageTitle: "Боксы - Вестник Гедонизма", navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
+            catBoxes: "БОКСЫ", catSweets: "СЛАДКОЕ", catSavory: "СОЛЕНОЕ", catalogTitle: "ВЫБЕРИТЕ СВОЙ БОКС",
+            catalogSubtitle: "Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением",
             sectionSweets: "ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ", sectionSavory: "ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ",
-            box1Title: "Бокс «Ужин Николая II»",
-            box2Title: "Бокс «Ужин Чайковского»",
-            cakeTitle: "Сливочный лимонный кекс",
-            lemonCookiesTitle: "Нежное печенье с лимонным курдом",
-            rasstegaiTitle: "Расстегаи с красной рыбой и рисом",
-            btnSelect: "ВЫБРАТЬ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             modalPersons: "Количество персон", modalAllergens: "Исключить аллергены", modalQuantity: "Количество", modalComposition: "Меню",
-            allergen1: "Грибы", allergen2: "Мед", allergen3: "Лактоза", allergen4: "Яйца", allergen5: "Глютен",
-            allergen6: "Красная рыба", allergen7: "Орехи",
             btnCancel: "ОТМЕНА", btnAddToCart: "ДОБАВИТЬ В КОРЗИНУ",
             cartPromptTitle: "Товар добавлен!", cartPromptText: "Перейти в корзину или продолжать выбирать?",
-            btnContinue: "Продолжить", btnGoToCart: "В корзину",
-            priceFrom: "от ",
-            cakeFullDescr: "Невероятно нежный лимонный кекс на основе сливочного масла и сливок.\nИдеальный вариант для тех, кто предпочитает не слишком сладкие цитрусовые десерты с богатым сливочным вкусом.\nВес ~ 1 кг",
-            lemonCookiesFullDescr: "Не приторное яркое цитрусовое печенье-пирожное с нежным центром в виде лимонного курда. Идеальный вариант к теплым напиткам для тех, кто устал от классических тортов.",
-            rasstegaiFullDescr: "Сочные, перечные, с красной рыбой и рисом. Сытный вариант к бульонам и теплым напиткам.",
-            nicholasComposition: [
-                { name: "Закуски: Расстегаи с красной рыбой", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
-                { name: "Салаты: Винегрет с нутом и солеными грибами", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
-                { name: "Основной курс: Жареные пельмени с говядиной и Драгомировская каша", weight2: "300 г", weight4: "600 г", weight6: "900 г" },
-                { name: "Десерты: Овсяное печенье", weight2: "250 г", weight4: "500 г", weight6: "750 г" }
-            ],
-            tchaikovskyComposition: [
-                { name: "Закуски: Взбитое масло с солью и перцем\nДомашний хлеб\nСоленые огурчики с медом\nШампиньоны в пивном кляре", weight2: "150 г", weight4: "300 г", weight6: "450 г" },
-                { name: "Салаты: Салат из зелени с ароматным маслом", weight2: "200 г", weight4: "400 г", weight6: "600 г" },
-                { name: "Основной курс: Телятина в сливочном соусе\nЖареный картофель со сливочными грибами", weight2: "300 г", weight4: "600 г", weight6: "900 г" },
-                { name: "Десерты: Заливной пирог с лимонным курдом", weight2: "250 г", weight4: "500 г", weight6: "750 г" }
-            ],
-            cakeComposition: [
-                { name: "Лимонный кекс", weight: "~ 1000 г" }
-            ],
-            lemonCookiesComposition: [
-                { name: "Печенье с лимонным курдом", weight4: "4 шт (~ 400 г)", weight8: "8 шт (~ 800 г)" }
-            ],
-            rasstegaiComposition: [
-                { name: "Расстегаи с рыбой", weight4: "4 шт (~ 480 г)", weight8: "8 шт (~ 960 г)" }
-            ]
+            btnContinue: "Продолжить", btnGoToCart: "В корзину"
         },
         en: {
-            pageTitle: "Boxes - Hedonism Dispatch",
-            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            catBoxes: "BOXES", catSweets: "SWEETS", catSavory: "SAVORY",
-            catalogTitle: "CHOOSE YOUR BOX", catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
+            pageTitle: "Boxes - Hedonism Dispatch", navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
+            catBoxes: "BOXES", catSweets: "SWEETS", catSavory: "SAVORY", catalogTitle: "CHOOSE YOUR BOX",
+            catalogSubtitle: "Each box is a unique gastronomic journey with history, music, and special atmosphere",
             sectionSweets: "CHOOSE YOUR SWEET", sectionSavory: "CHOOSE YOUR SAVORY",
-            box1Title: "Nicholas II Dinner Box",
-            box2Title: "Tchaikovsky Dinner Box",
-            cakeTitle: "Creamy Lemon Cake",
-            lemonCookiesTitle: "Tender Cookies with Lemon Curd",
-            rasstegaiTitle: "Rasstegai with Red Fish and Rice",
-            btnSelect: "SELECT", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
+            footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             modalPersons: "Number of persons", modalAllergens: "Exclude allergens", modalQuantity: "Quantity", modalComposition: "Menu",
-            allergen1: "Mushrooms", allergen2: "Honey", allergen3: "Lactose", allergen4: "Eggs", allergen5: "Gluten",
-            allergen6: "Red Fish", allergen7: "Nuts",
             btnCancel: "CANCEL", btnAddToCart: "ADD TO CART",
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
-            btnContinue: "Continue", btnGoToCart: "Go to cart",
-            priceFrom: "from ",
-            cakeFullDescr: "Incredibly tender lemon cake based on butter and cream.\nPerfect for those who prefer not too sweet citrus desserts with a rich creamy taste.\nWeight ~ 1 kg",
-            lemonCookiesFullDescr: "Not cloying bright citrus cookie-cake with a tender lemon curd center. Perfect with warm drinks for those tired of classic cakes.",
-            rasstegaiFullDescr: "Juicy, peppery, with red fish and rice. A hearty option for broths and warm drinks.",
-            nicholasComposition: [
-                { name: "Appetizers: Rasstegai with red fish", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
-                { name: "Salads: Vinaigrette with chickpeas and pickled mushrooms", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
-                { name: "Main course: Fried beef dumplings and Dragomirovskaya porridge", weight2: "300 g", weight4: "600 g", weight6: "900 g" },
-                { name: "Desserts: Oatmeal cookies", weight2: "250 g", weight4: "500 g", weight6: "750 g" }
-            ],
-            tchaikovskyComposition: [
-                { name: "Whipped butter with salt and pepper\nHomemade bread\nPickled cucumbers with honey\nBeer-battered champignons", weight2: "150 g", weight4: "300 g", weight6: "450 g" },
-                { name: "Salads: Herb salad with aromatic oil", weight2: "200 g", weight4: "400 g", weight6: "600 g" },
-                { name: "Main course: Veal in cream sauce\nFried potatoes with creamy mushrooms", weight2: "300 g", weight4: "600 g", weight6: "900 g" },
-                { name: "Desserts: Lemon curd pie", weight2: "250 g", weight4: "500 g", weight6: "750 g" }
-            ],
-            cakeComposition: [
-                { name: "Lemon cake", weight: "~ 1000 g" }
-            ],
-            lemonCookiesComposition: [
-                { name: "Cookies with lemon curd", weight4: "4 pcs (~ 400 g)", weight8: "8 pcs (~ 800 g)" }
-            ],
-            rasstegaiComposition: [
-                { name: "Rasstegai with fish", weight4: "4 pcs (~ 480 g)", weight8: "8 pcs (~ 960 g)" }
-            ]
+            btnContinue: "Continue", btnGoToCart: "Go to cart"
         }
     };
 
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
-    let currentLang = 'ru';
+    let currentLang = localStorage.getItem('hedonism_lang') || 'ru';
     let currentProduct = null;
     let currentGalleryImages = [];
     let currentMainImageIndex = 0;
     const isProduction = window.location.hostname !== 'localhost';
-
-    const productImages = {
-        'box1': 'images/boxes-nicholas-1.webp',
-        'box2': 'images/boxes-tchaikovsky-1.webp',
-        'cake1': 'images/boxes-lemoncake.webp',
-        'lemon-cookies': 'images/boxes-lemoncookies-1.webp',
-        'rasstegai': 'images/boxes-rasstegai-1.webp'
-    };
 
     function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
     function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
@@ -799,157 +451,283 @@
     }
     function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
 
-    function getNicholasPrice(persons, lang) {
-        const prices = { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } };
-        return prices[lang]?.[persons] || prices[lang]?.[2];
-    }
-    function formatPrice(amount, lang) { return lang === 'en' ? `AED ${amount}` : `${amount.toLocaleString('ru-RU')} ₽`; }
-
-    function getProductType(productId) {
-        if (productId === 'box1' || productId === 'box2') return 'box';
-        if (productId === 'cake1') return 'cake';
-        if (productId === 'lemon-cookies' || productId === 'rasstegai') return 'quantity-item';
-        return 'other';
-    }
-
-    function getQuantityPrices(productId, lang) {
-        const prices = {
-            'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
-            'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
+    // ✅ ДИНАМИЧЕСКИЙ РЕНДЕР КАТАЛОГА ИЗ data.js
+    function renderCatalog() {
+        const grids = {
+            boxes: document.getElementById('grid-boxes'),
+            sweets: document.getElementById('grid-sweets'),
+            savory: document.getElementById('grid-savory')
         };
-        return prices[productId]?.[lang] || { 4: 0, 8: 0 };
+        Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ''; });
+
+        for (const [id, product] of Object.entries(CATALOG)) {
+            const name = product.name[currentLang];
+            const isBox = product.type === 'box';
+            const isSweet = product.id === 'cake1' || product.id === 'lemon-cookies';
+            const isSavory = product.id === 'rasstegai';
+            
+            let basePrice = 0;
+            if (isBox) basePrice = product.prices[currentLang][2];
+            else if (product.type === 'cake') basePrice = product.prices[currentLang];
+            else basePrice = product.prices[currentLang][4];
+            
+            const currency = currentLang === 'ru' ? '₽' : 'AED';
+            const priceFromText = currentLang === 'ru' ? 'от ' : 'from ';
+
+            const cardHTML = `
+                <div class="box-card" data-product-id="${id}" data-product-type="${product.type}">
+                    <div class="box-image" data-bg-desktop="${product.images.desktop}" data-bg-mobile="${product.images.mobile}" data-bg-loaded="false"></div>
+                    <div class="box-content">
+                        <h3 class="box-title">${name}</h3>
+                        <div class="box-footer">
+                            <div class="box-price">
+                                <span class="price-from">${priceFromText}</span>
+                                <span class="price-value">${Number(basePrice).toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US')}</span> 
+                                <span class="currency">${currency}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (isBox && grids.boxes) grids.boxes.innerHTML += cardHTML;
+            else if (isSweet && grids.sweets) grids.sweets.innerHTML += cardHTML;
+            else if (isSavory && grids.savory) grids.savory.innerHTML += cardHTML;
+        }
+        lazyLoadBackgrounds();
+    }
+
+    // ✅ МОДАЛЬНОЕ ОКНО ИЗ data.js
+    function openProductModal(productId) {
+        const product = CATALOG[productId];
+        if (!product) return;
+        currentProduct = product;
+        
+        document.getElementById('modalProductTitle').textContent = product.name[currentLang];
+        
+        const gallery = product.gallery || [product.images.desktop];
+        initGallery(gallery);
+        document.getElementById('modalGallery').style.display = gallery.length > 0 ? 'block' : 'none';
+        
+        const descEl = document.getElementById('modalDescription');
+        if (product.description && product.description[currentLang]) {
+            descEl.innerHTML = product.description[currentLang].replace(/\n/g, '<br>');
+            descEl.style.display = 'block';
+        } else {
+            descEl.style.display = 'none';
+        }
+        
+        renderComposition(productId);
+        
+        const personsSection = document.getElementById('personsSection');
+        const quantitySection = document.getElementById('quantitySection');
+        
+        if (product.type === 'box') {
+            personsSection.style.display = 'block';
+            quantitySection.style.display = 'none';
+            renderPersonOptions(productId);
+        } else if (product.type === 'quantity-item') {
+            personsSection.style.display = 'none';
+            quantitySection.style.display = 'block';
+            renderQuantityOptions(productId);
+        } else {
+            personsSection.style.display = 'none';
+            quantitySection.style.display = 'none';
+        }
+        
+        renderAllergens(productId);
+        
+        document.getElementById('productModalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        trackGA4Event('view_item', { items: [{ item_id: product.id, item_name: product.name[currentLang], item_category: product.type }] });
     }
 
     function renderPersonOptions(productId) {
+        const product = CATALOG[productId];
         const container = document.getElementById('personsSelect');
-        const isNicholas = productId === 'box1' || productId === 'box2';
         let html = '';
         const persons = [2, 4, 6];
         const icons = ['👥', '👥👥', '👥👥👥'];
+        
         persons.forEach((count, index) => {
-            const price = isNicholas ? formatPrice(getNicholasPrice(count, currentLang), currentLang) : '';
-            const priceClass = isNicholas ? '' : 'hidden';
-            html += `<label class="person-option"><input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}><span class="person-label"><span class="person-icon">${icons[index]}</span><span class="person-price ${priceClass}">${price}</span></span></label>`;
+            const price = product.prices[currentLang][count];
+            const formattedPrice = currentLang === 'en' ? `AED ${price}` : `${price.toLocaleString('ru-RU')} ₽`;
+            html += `<label class="person-option">
+                <input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}>
+                <span class="person-label">
+                    <span class="person-icon">${icons[index]}</span>
+                    <span class="person-price">${formattedPrice}</span>
+                </span>
+            </label>`;
         });
         container.innerHTML = html;
-        
         container.querySelectorAll('.person-radio').forEach(radio => {
             radio.addEventListener('change', () => updateCompositionWeights());
         });
     }
 
     function renderQuantityOptions(productId) {
+        const product = CATALOG[productId];
         const container = document.getElementById('quantitySelect');
-        const prices = getQuantityPrices(productId, currentLang);
         let html = '';
-        [4, 8].forEach((count, index) => {
-            const price = formatPrice(prices[count], currentLang);
-            let label;
-            if (currentLang === 'ru') {
-                label = count === 4 ? '4 штуки' : '8 штук';
-            } else {
-                label = `${count} pieces`;
-            }
-            html += `<label class="quantity-option"><input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" data-price="${prices[count]}" ${index === 0 ? 'checked' : ''}><span class="quantity-label"><span class="quantity-count">${label}</span><span class="quantity-price">${price}</span></span></label>`;
+        const quantities = [4, 8];
+        
+        quantities.forEach((count, index) => {
+            const price = product.prices[currentLang][count];
+            const formattedPrice = currentLang === 'en' ? `AED ${price}` : `${price.toLocaleString('ru-RU')} ₽`;
+            const label = currentLang === 'ru' ? (count === 4 ? '4 штуки' : '8 штук') : `${count} pieces`;
+            html += `<label class="quantity-option">
+                <input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" ${index === 0 ? 'checked' : ''}>
+                <span class="quantity-label">
+                    <span class="quantity-count">${label}</span>
+                    <span class="quantity-price">${formattedPrice}</span>
+                </span>
+            </label>`;
         });
         container.innerHTML = html;
-        
         container.querySelectorAll('.quantity-radio').forEach(radio => {
             radio.addEventListener('change', () => updateCompositionWeights());
         });
     }
 
     function renderComposition(productId) {
-        const container = document.getElementById('compositionList');
-        let composition = [];
-        
-        if (productId === 'box1') {
-            composition = translations[currentLang].nicholasComposition;
-        } else if (productId === 'box2') {
-            composition = translations[currentLang].tchaikovskyComposition;
-        } else if (productId === 'cake1') {
-            composition = translations[currentLang].cakeComposition;
-        } else if (productId === 'lemon-cookies') {
-            composition = translations[currentLang].lemonCookiesComposition;
-        } else if (productId === 'rasstegai') {
-            composition = translations[currentLang].rasstegaiComposition;
-        }
-        
-        if (composition.length === 0) {
-            document.getElementById('compositionSection').style.display = 'none';
+        const product = CATALOG[productId];
+        const section = document.getElementById('compositionSection');
+        if (!product.composition || !product.composition[currentLang] || product.composition[currentLang].length === 0) {
+            section.style.display = 'none';
             return;
         }
-        
-        document.getElementById('compositionSection').style.display = 'block';
+        section.style.display = 'block';
         updateCompositionWeights();
     }
 
     function updateCompositionWeights() {
+        if (!currentProduct) return;
         const container = document.getElementById('compositionList');
-        const productId = currentProduct?.id;
-        let composition = [];
+        const composition = currentProduct.composition[currentLang];
+        
         let selectedPersons = '2';
         let selectedQuantity = 4;
         
-        if (productId === 'box1' || productId === 'box2') {
-            composition = translations[currentLang][productId === 'box1' ? 'nicholasComposition' : 'tchaikovskyComposition'];
-            const selectedPerson = document.querySelector('input[name="modalPersons"]:checked');
-            if (selectedPerson) selectedPersons = selectedPerson.value;
-        } else if (productId === 'cake1') {
-            composition = translations[currentLang].cakeComposition;
-        } else if (productId === 'lemon-cookies') {
-            composition = translations[currentLang].lemonCookiesComposition;
-            const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
-            if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
-        } else if (productId === 'rasstegai') {
-            composition = translations[currentLang].rasstegaiComposition;
-            const selectedQty = document.querySelector('input[name="modalQuantity"]:checked');
-            if (selectedQty) selectedQuantity = parseInt(selectedQty.value);
-        }
+        const personRadio = document.querySelector('input[name="modalPersons"]:checked');
+        if (personRadio) selectedPersons = personRadio.value;
+        
+        const qtyRadio = document.querySelector('input[name="modalQuantity"]:checked');
+        if (qtyRadio) selectedQuantity = parseInt(qtyRadio.value);
         
         let html = '';
         composition.forEach(item => {
             let weight = '';
-            if (item.weight) {
-                weight = item.weight;
-            } else if (productId === 'box1' || productId === 'box2') {
-                weight = item[`weight${selectedPersons}`] || item.weight2;
-            } else {
-                weight = item[`weight${selectedQuantity}`] || item.weight4;
-            }
-            html += `<li class="composition-item"><span class="composition-name">${item.name.replace(/^(.*?:)/, '<strong>$1</strong>').replace(/\n/g, '<br>')}</span><span class="composition-weight">${weight}</span></li>`;
+            if (item.w) weight = item.w;
+            else if (currentProduct.type === 'box') weight = item[`w${selectedPersons}`] || item.w2 || '';
+            else weight = item[`w${selectedQuantity}`] || item.w4 || '';
+            
+            html += `<li class="composition-item">
+                <span class="composition-name">${item.name.replace(/^(.*?:)/, '<strong>$1</strong>').replace(/\n/g, '<br>')}</span>
+                <span class="composition-weight">${weight}</span>
+            </li>`;
         });
         container.innerHTML = html;
     }
 
     function renderAllergens(productId) {
+        const product = CATALOG[productId];
         const container = document.getElementById('allergensGrid');
-        const isTchaikovsky = productId === 'box2';
-        let allergens = [];
-        if (isTchaikovsky) {
-            allergens = [
-                { value: 'Грибы', icon: '🍄', key: 'allergen1' },
-                { value: 'Мед', icon: '🍯', key: 'allergen2' },
-                { value: 'Лактоза', icon: '🥛', key: 'allergen3' },
-                { value: 'Яйца', icon: '🥚', key: 'allergen4' },
-                { value: 'Глютен', icon: '🌾', key: 'allergen5' }
-            ];
-        } else {
-            allergens = [
-                { value: 'Грибы', icon: '', key: 'allergen1' },
-                { value: 'Горчица', icon: '🟡', key: 'allergen2' },
-                { value: 'Лактоза', icon: '🥛', key: 'allergen3' },
-                { value: 'Яйца', icon: '', key: 'allergen4' },
-                { value: 'Глютен', icon: '🌾', key: 'allergen5' },
-                { value: 'Красная рыба', icon: '🐟', key: 'allergen6' },
-                { value: 'Орехи', icon: '', key: 'allergen7' }
-            ];
+        const section = document.getElementById('allergensSection');
+        
+        if (!product.allergens || product.allergens.length === 0) {
+            section.style.display = 'none';
+            return;
         }
+        section.style.display = 'block';
+        
+        const allergenIcons = { 'Грибы': '🍄', 'Мед': '🍯', 'Лактоза': '🥛', 'Яйца': '🥚', 'Глютен': '🌾', 'Красная рыба': '🐟', 'Орехи': '🥜', 'Горчица': '🟡' };
         let html = '';
-        allergens.forEach(allergen => {
-            html += `<label class="allergen-option"><input type="checkbox" name="modalAllergen" value="${allergen.value}" class="allergen-checkbox"><span class="allergen-label"><span class="allergen-icon">${allergen.icon}</span><span data-i18n="${allergen.key}">${translations[currentLang][allergen.key]}</span></span></label>`;
+        product.allergens.forEach(allergen => {
+            const icon = allergenIcons[allergen] || '';
+            html += `<label class="allergen-option">
+                <input type="checkbox" name="modalAllergen" value="${allergen}" class="allergen-checkbox">
+                <span class="allergen-label"><span class="allergen-icon">${icon}</span>${allergen}</span>
+            </label>`;
         });
         container.innerHTML = html;
+    }
+
+    function initGallery(images) {
+        const slider = document.getElementById('modalMainSlider');
+        const thumbnails = document.getElementById('modalThumbnails');
+        currentGalleryImages = images;
+        currentMainImageIndex = 0;
+        
+        slider.innerHTML = images.map((img, i) => `<div class="modal-main-image" style="background-image: url('${img}')" data-index="${i}"></div>`).join('');
+        thumbnails.innerHTML = images.map((img, i) => `<div class="modal-thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`).join('');
+        
+        thumbnails.querySelectorAll('.modal-thumb').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                currentMainImageIndex = index;
+                thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === index));
+                const slide = slider.querySelector(`[data-index="${index}"]`);
+                if (slide) slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            });
+        });
+        
+        let scrollTimeout;
+        slider.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const newIndex = Math.round(this.scrollLeft / this.offsetWidth);
+                if (newIndex !== currentMainImageIndex && newIndex >= 0 && newIndex < images.length) {
+                    currentMainImageIndex = newIndex;
+                    thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === newIndex));
+                }
+            }, 100);
+        });
+    }
+
+    function closeProductModal() {
+        document.getElementById('productModalOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+        currentProduct = null;
+    }
+
+    function getModalOptions() {
+        if (!currentProduct) return { persons: null, quantity: null, allergens: [] };
+        let options = { persons: null, quantity: null, allergens: [] };
+        if (currentProduct.type === 'box') {
+            options.persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
+            options.allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
+        } else if (currentProduct.type === 'quantity-item') {
+            const checkedQty = document.querySelector('input[name="modalQuantity"]:checked');
+            options.quantity = checkedQty ? parseInt(checkedQty.value) : 4;
+        }
+        return options;
+    }
+
+    // ✅ СОХРАНЕНИЕ В КОРЗИНУ ТОЛЬКО ID И ОПЦИЙ (цены пересчитаются на checkout)
+    function addToCartWithOptions(options) {
+        if (!currentProduct) return;
+        const cartItem = { 
+            id: Date.now(), 
+            productId: currentProduct.id, 
+            options: options, 
+            quantity: 1 
+        };
+        cart.push(cartItem); 
+        saveCart(); 
+        updateCartCount(); 
+        trackGA4Event('add_to_cart', { items: [{ item_id: currentProduct.id, item_name: currentProduct.name[currentLang], quantity: 1 }] });
+        closeProductModal(); 
+        showCartPrompt();
+    }
+
+    function showCartPrompt() { document.getElementById('cartPromptOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeCartPrompt() { document.getElementById('cartPromptOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+    function goToCheckout() {
+        closeCartPrompt();
+        trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: 0, items: cart.map(item => ({ item_id: item.productId, quantity: item.quantity })) });
+        ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
+        window.location.href = '/checkout';
     }
 
     function lazyLoadBackgrounds() {
@@ -970,286 +748,50 @@
         images.forEach(img => observer.observe(img));
     }
 
-    function adaptImagesForDevice() {
-        const isMobile = window.innerWidth <= 768;
-        document.querySelectorAll('.box-image[data-bg-desktop]').forEach(img => {
-            if (img.dataset.bgLoaded === 'true') {
-                const src = isMobile ? img.dataset.bgMobile : img.dataset.bgDesktop;
-                if (src && !img.style.backgroundImage.includes(src)) { img.style.backgroundImage = `url('${src}')`; }
-            }
-        });
-    }
-
-    function updateBoxPrices() {
-        const nicholasBoxes = document.querySelectorAll('.box-card[data-product-type="nicholas"], .box-card[data-product-type="tchaikovsky"]');
-        nicholasBoxes.forEach(box => {
-            const boxPrice = box.querySelector('.box-price');
-            if (boxPrice) {
-                const priceValue = boxPrice.querySelector('.price-value');
-                const currency = boxPrice.querySelector('.currency');
-                if (priceValue && currency) {
-                    if (currentLang === 'en') { priceValue.textContent = '400'; currency.textContent = 'AED'; }
-                    else { priceValue.textContent = '8 000'; currency.textContent = '₽'; }
-                }
-            }
-        });
-        document.querySelectorAll('.cake-price-ru').forEach(el => {
-            el.textContent = currentLang === 'en' ? '150' : '3 000';
-            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
-        });
-        document.querySelectorAll('.lemon-cookies-price-ru').forEach(el => {
-            el.textContent = currentLang === 'en' ? '50' : '1 000';
-            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
-        });
-        document.querySelectorAll('.rasstegai-price-ru').forEach(el => {
-            el.textContent = currentLang === 'en' ? '50' : '1 000';
-            el.closest('.box-price').querySelector('.currency').textContent = currentLang === 'en' ? 'AED' : '₽';
-        });
-    }
-
     function applyLanguage(lang) {
         if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
         currentLang = lang;
+        
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
-            if (translations[lang] && translations[lang][key]) {
-                if (key === 'cakeFullDescr' || key === 'lemonCookiesFullDescr' || key === 'rasstegaiFullDescr') { 
-                    el.innerHTML = translations[lang][key].replace(/\n/g, '<br>'); 
-                } else { el.textContent = translations[lang][key]; }
-            }
+            if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
         });
+        
         const langFlag = document.getElementById('langFlag');
         const langCurrent = document.getElementById('langCurrent');
         if (langFlag && langCurrent) {
-            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
-            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
+            langFlag.textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
+            langCurrent.textContent = lang.toUpperCase();
         }
+        
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
+        
+        renderCatalog(); // ✅ Перерисовка с новыми ценами и названиями
         updateCartCount();
         
         if (currentProduct) {
-            const titleKeyMap = {
-                'box1': 'box1Title',
-                'box2': 'box2Title',
-                'cake1': 'cakeTitle',
-                'lemon-cookies': 'lemonCookiesTitle',
-                'rasstegai': 'rasstegaiTitle'
-            };
-            const titleKey = titleKeyMap[currentProduct.id];
-            if (titleKey && translations[lang][titleKey]) {
-                currentProduct.name = translations[lang][titleKey];
-                document.getElementById('modalProductTitle').textContent = currentProduct.name;
-            }
-            renderModalContent(currentProduct.id);
-            updateCompositionWeights();
+            document.getElementById('modalProductTitle').textContent = currentProduct.name[currentLang];
+            renderComposition(currentProduct.id);
+            renderPersonOptions(currentProduct.id);
+            renderQuantityOptions(currentProduct.id);
+            renderAllergens(currentProduct.id);
         }
         
-        updateBoxPrices();
-        trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
-        ymTrack('lang_switch', { from: prevLang, to: lang });
-    }
-
-    function renderModalContent(productId) {
-        const productType = getProductType(productId);
-        const personsSection = document.getElementById('personsSection');
-        const quantitySection = document.getElementById('quantitySection');
-        const allergensSection = document.getElementById('allergensSection');
-        const modalDescription = document.getElementById('modalDescription');
-        const compositionSection = document.getElementById('compositionSection');
-        
-        if (productType === 'box') {
-            personsSection.style.display = 'block';
-            quantitySection.style.display = 'none';
-            allergensSection.style.display = 'block';
-            modalDescription.style.display = 'none';
-            compositionSection.style.display = 'block';
-            renderPersonOptions(productId);
-            renderComposition(productId);
-            renderAllergens(productId);
-        } else if (productType === 'cake') {
-            personsSection.style.display = 'none';
-            quantitySection.style.display = 'none';
-            allergensSection.style.display = 'none';
-            compositionSection.style.display = 'block';
-            modalDescription.style.display = 'block';
-            modalDescription.innerHTML = translations[currentLang].cakeFullDescr.replace(/\n/g, '<br>');
-            renderComposition(productId);
-        } else if (productType === 'quantity-item') {
-            personsSection.style.display = 'none';
-            quantitySection.style.display = 'block';
-            allergensSection.style.display = 'none';
-            compositionSection.style.display = 'block';
-            modalDescription.style.display = 'block';
-            const descrKey = productId === 'lemon-cookies' ? 'lemonCookiesFullDescr' : 'rasstegaiFullDescr';
-            modalDescription.innerHTML = translations[currentLang][descrKey].replace(/\n/g, '<br>');
-            renderQuantityOptions(productId);
-            renderComposition(productId);
-        }
-    }
-
-    function initGallery(images) {
-        const slider = document.getElementById('modalMainSlider');
-        const thumbnails = document.getElementById('modalThumbnails');
-        currentGalleryImages = images;
-        currentMainImageIndex = 0;
-        
-        slider.innerHTML = images.map((img, i) => 
-            `<div class="modal-main-image" style="background-image: url('${img}')" data-index="${i}"></div>`
-        ).join('');
-        
-        thumbnails.innerHTML = images.map((img, i) => 
-            `<div class="modal-thumb ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')" data-index="${i}"></div>`
-        ).join('');
-        
-        thumbnails.querySelectorAll('.modal-thumb').forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                const index = parseInt(this.dataset.index);
-                currentMainImageIndex = index;
-                thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === index));
-                const slide = slider.querySelector(`[data-index="${index}"]`);
-                if (slide) {
-                    slide.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                }
-            });
-        });
-        
-        let scrollTimeout;
-        slider.addEventListener('scroll', function() {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                const slideWidth = slider.offsetWidth;
-                const scrollLeft = slider.scrollLeft;
-                const newIndex = Math.round(scrollLeft / slideWidth);
-                if (newIndex !== currentMainImageIndex && newIndex >= 0 && newIndex < images.length) {
-                    currentMainImageIndex = newIndex;
-                    thumbnails.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === newIndex));
-                }
-            }, 100);
-        });
-    }
-
-    function openProductModal(productData, galleryImages) {
-        currentProduct = productData;
-        document.getElementById('modalProductTitle').textContent = productData.name;
-        renderModalContent(productData.id);
-        document.querySelectorAll('input[name="modalAllergen"]').forEach(cb => cb.checked = false);
-        if (galleryImages && galleryImages.length > 0) { 
-            initGallery(galleryImages); 
-            document.getElementById('modalGallery').style.display = 'block'; 
-        } else { 
-            document.getElementById('modalGallery').style.display = 'none'; 
-        }
-        document.getElementById('productModalOverlay').classList.add('open');
-        document.body.style.overflow = 'hidden';
-        trackGA4Event('view_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, currency: currentLang === 'en' ? 'AED' : 'RUB', item_category: 'gastronomic_box' }] });
-        ymTrack('box_modal_opened', { product_id: productData.id, product_name: productData.name });
-    }
-    
-    function closeProductModal() {
-        document.getElementById('productModalOverlay').classList.remove('open');
-        document.body.style.overflow = '';
-        currentProduct = null;
-    }
-    
-    function getModalOptions() {
-        if (!currentProduct) {
-            console.error('❌ currentProduct is null в getModalOptions');
-            return { persons: null, quantity: null, allergens: [] };
-        }
-        const productType = getProductType(currentProduct.id);
-        let options = { persons: null, quantity: null, allergens: [] };
-        if (productType === 'box') {
-            options.persons = document.querySelector('input[name="modalPersons"]:checked')?.value || '2';
-            options.allergens = Array.from(document.querySelectorAll('input[name="modalAllergen"]:checked')).map(cb => cb.value);
-        } else if (productType === 'quantity-item') {
-            const checkedQty = document.querySelector('input[name="modalQuantity"]:checked');
-            options.quantity = checkedQty ? parseInt(checkedQty.value) : 4;
-        }
-        return options;
-    }
-    
-    function addToCartWithOptions(options) {
-        if (!currentProduct) {
-            console.error('❌ currentProduct is null в addToCartWithOptions');
-            alert('Ошибка: товар не выбран. Попробуйте ещё раз.');
-            return;
-        }
-        const productType = getProductType(currentProduct.id);
-        const allergensTranslated = options.allergens.map(allergen => {
-            const allergenMap = { 
-                'Грибы': translations[currentLang].allergen1, 'Мед': translations[currentLang].allergen2, 
-                'Лактоза': translations[currentLang].allergen3, 'Яйца': translations[currentLang].allergen4, 
-                'Глютен': translations[currentLang].allergen5, 'Горчица': translations[currentLang].allergen2,
-                'Красная рыба': translations[currentLang].allergen6, 'Орехи': translations[currentLang].allergen7 
-            };
-            return allergenMap[allergen] || allergen;
-        });
-        
-        let finalPrice = currentProduct.price;
-        let variantLabel = '';
-        if (productType === 'box') {
-            finalPrice = getNicholasPrice(options.persons, currentLang);
-            variantLabel = `${options.persons} persons`;
-        } else if (productType === 'cake') {
-            finalPrice = currentLang === 'en' ? 150 : 3000;
-            variantLabel = '1 кг';
-        } else if (productType === 'quantity-item') {
-            const prices = getQuantityPrices(currentProduct.id, currentLang);
-            finalPrice = prices[options.quantity] || prices[4];
-            variantLabel = `${options.quantity} шт`;
-        }
-        
-        const cartItem = { 
-            id: Date.now(), productId: currentProduct.id, name: currentProduct.name, 
-            image: productImages[currentProduct.id] || '', productType: productType,
-            basePrice: currentProduct.price, price: finalPrice, quantity: 1, 
-            options: { persons: options.persons, quantity: options.quantity, allergens: allergensTranslated } 
-        };
-        
-        cart.push(cartItem); 
-        saveCart(); 
-        updateCartCount(); 
-        
-        trackGA4Event('add_to_cart', { 
-            currency: currentLang === 'en' ? 'AED' : 'RUB', value: finalPrice, 
-            items: [{ item_id: currentProduct.id, item_name: currentProduct.name, price: finalPrice, quantity: 1, item_category: 'gastronomic_box', item_variant: variantLabel }] 
-        });
-        ymTrack('box_added_to_cart', { 
-            product_id: currentProduct.id, product_name: currentProduct.name, price: finalPrice, 
-            currency: currentLang === 'en' ? 'AED' : 'RUB', variant: variantLabel, allergens_count: options.allergens.length 
-        });
-        
-        closeProductModal(); 
-        showCartPrompt();
-    }
-    
-    function showCartPrompt() { document.getElementById('cartPromptOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeCartPrompt() { document.getElementById('cartPromptOverlay').classList.remove('open'); document.body.style.overflow = ''; }
-    function goToCheckout() {
-        closeCartPrompt();
-        trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0), items: cart.map(item => ({ item_id: item.productId, item_name: item.name, price: item.price, quantity: item.quantity })) });
-        ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
-        window.location.href = '/checkout';
+        trackGA4Event('language_change', { from_language: prevLang, to_language: lang });
     }
 
     function scrollToSection(targetId) {
         const target = document.getElementById(targetId);
         if (!target) return;
-        const headerHeight = 75;
-        const navHeight = 60;
-        const offset = headerHeight + navHeight + 10;
+        const offset = 145;
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
         window.scrollTo({ top: targetPosition, behavior: 'smooth' });
     }
 
     function updateActiveCategoryBtn() {
-        const sections = [
-            { id: 'section-boxes', btn: 'section-boxes' },
-            { id: 'section-sweets', btn: 'section-sweets' },
-            { id: 'section-savory', btn: 'section-savory' }
-        ];
+        const sections = [{ id: 'section-boxes', btn: 'section-boxes' }, { id: 'section-sweets', btn: 'section-sweets' }, { id: 'section-savory', btn: 'section-savory' }];
         const scrollPos = window.pageYOffset + 250;
         let activeId = sections[0].id;
         sections.forEach(section => {
@@ -1264,12 +806,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         const savedLang = localStorage.getItem('hedonism_lang');
         const validLangs = ['ru', 'en'];
-        const langToUse = validLangs.includes(savedLang) ? savedLang : 'ru';
-        applyLanguage(langToUse);
-        lazyLoadBackgrounds();
+        applyLanguage(validLangs.includes(savedLang) ? savedLang : 'ru');
         updateCartCount();
+        
         setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes', language: currentLang }); }, 1000);
-        ymTrack('boxes_viewed', { lang: currentLang, boxes_count: 5 });
+        ymTrack('boxes_viewed', { lang: currentLang });
         
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
@@ -1278,8 +819,7 @@
             langDropdown.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', e => {
                     e.preventDefault(); e.stopPropagation();
-                    const selectedLink = e.target.closest('a');
-                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
+                    applyLanguage(link.dataset.lang);
                     setTimeout(() => langDropdown.classList.remove('show'), 100);
                 });
             });
@@ -1288,12 +828,9 @@
         
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const targetId = this.dataset.target;
-                trackGA4Event('category_nav_click', { category: targetId, page: 'boxes' });
-                ymTrack('category_nav_click', { category: targetId });
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                scrollToSection(targetId);
+                scrollToSection(this.dataset.target);
             });
         });
         
@@ -1305,31 +842,13 @@
             }
         });
         
-        document.querySelectorAll('.box-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const productId = this.dataset.productId;
-                const titleKeyMap = {
-                    'box1': 'box1Title',
-                    'box2': 'box2Title',
-                    'cake1': 'cakeTitle',
-                    'lemon-cookies': 'lemonCookiesTitle',
-                    'rasstegai': 'rasstegaiTitle'
-                };
-                const titleKey = titleKeyMap[productId];
-                const productName = (titleKey && translations[currentLang][titleKey]) ? translations[currentLang][titleKey] : this.dataset.productName;
-                
-                const productData = { 
-                    id: productId, 
-                    name: productName, 
-                    price: parseInt(this.dataset.productPrice) 
-                };
-                const boxImage = this.querySelector('.box-image');
-                const isMobile = window.innerWidth <= 768;
-                let galleryImages = isMobile && boxImage.dataset.galleryMobile ? JSON.parse(boxImage.dataset.galleryMobile || '[]') : JSON.parse(boxImage.dataset.gallery || '[]');
-                trackGA4Event('select_item', { items: [{ item_id: productData.id, item_name: productData.name, price: productData.price, item_category: 'gastronomic_box' }] });
-                ymTrack('box_select_click', { product_id: productData.id, product_name: productData.name, price: productData.price });
-                openProductModal(productData, galleryImages);
-            });
+        // ✅ ДЕЛЕГИРОВАНИЕ КЛИКА НА ДИНАМИЧЕСКИЕ КАРТОЧКИ
+        document.querySelector('.catalog').addEventListener('click', function(e) {
+            const card = e.target.closest('.box-card');
+            if (!card) return;
+            const productId = card.dataset.productId;
+            trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] }] });
+            openProductModal(productId);
         });
         
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
@@ -1337,24 +856,12 @@
         document.getElementById('productModalOverlay')?.addEventListener('click', e => { if (e.target.id === 'productModalOverlay') closeProductModal(); });
         document.getElementById('modalAddToCart')?.addEventListener('click', () => {
             try { addToCartWithOptions(getModalOptions()); } 
-            catch (error) { console.error(' Ошибка при добавлении в корзину:', error); alert('Произошла ошибка. Попробуйте ещё раз.'); }
-        });
-        document.getElementById('cartBtn')?.addEventListener('click', function() {
-            trackGA4Event('cart_click', { cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) });
-            ymTrack('cart_click_boxes', { cart_items: cart.length });
-            window.location.href = '/checkout';
+            catch (error) { console.error('Ошибка:', error); alert('Произошла ошибка. Попробуйте ещё раз.'); }
         });
         
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                const href = this.getAttribute('href');
-                if (href?.includes('contacts')) ymTrack('nav_contacts_click');
-                else if (href?.includes('history')) ymTrack('nav_history_click');
-                else if (href?.includes('/') && !href.includes('#')) ymTrack('nav_home_click');
-            });
-        });
-        document.querySelectorAll('.social-link').forEach(link => {
-            link.addEventListener('click', function() { ymTrack('click_' + (this.getAttribute('aria-label') || 'social').toLowerCase().replace(/\s+/g, '_')); });
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            trackGA4Event('cart_click', { cart_items: cart.length });
+            window.location.href = '/checkout';
         });
         
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
@@ -1363,22 +870,21 @@
         cartPromptOverlay?.addEventListener('click', e => { if (e.target.id === 'cartPromptOverlay') closeCartPrompt(); });
         
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' || e.code === 'Escape') {
+            if (e.key === 'Escape') {
                 if (document.getElementById('productModalOverlay')?.classList.contains('open')) closeProductModal();
                 else if (document.getElementById('cartPromptOverlay')?.classList.contains('open')) closeCartPrompt();
             }
         });
         
-        let footerViewed = false;
-        const checkFooterScroll = debounce(function() {
-            const footer = document.querySelector('.footer');
-            if (footer && !footerViewed && footer.getBoundingClientRect().top < window.innerHeight) { 
-                ymTrack('boxes_footer_viewed'); footerViewed = true; 
-            }
-        }, 200);
-        window.addEventListener('scroll', checkFooterScroll);
-        window.addEventListener('resize', debounce(adaptImagesForDevice, 250));
-        console.log(`✅ boxes.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}, Cart: ${cart.length}`);
+        window.addEventListener('resize', debounce(() => {
+            document.querySelectorAll('.box-image[data-bg-desktop]').forEach(img => {
+                if (img.dataset.bgLoaded === 'true') {
+                    const isMobile = window.innerWidth <= 768;
+                    const src = isMobile ? img.dataset.bgMobile : img.dataset.bgDesktop;
+                    if (src && !img.style.backgroundImage.includes(src)) img.style.backgroundImage = `url('${src}')`;
+                }
+            });
+        }, 250));
     });
     
     window.addEventListener('storage', function(e) {
