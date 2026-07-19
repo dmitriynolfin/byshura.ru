@@ -26,65 +26,23 @@
             text-align: center;
             padding: 20px;
         }
-        .thank-you-container {
-            max-width: 500px;
-            width: 100%;
-        }
-        .success-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .thank-you-container { max-width: 500px; width: 100%; }
+        .success-icon { font-size: 80px; margin-bottom: 20px; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes popIn {
             0% { transform: scale(0); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-        h1 {
-            font-size: 32px;
-            font-weight: 800;
-            color: #FFD93D;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-        p {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        h1 { font-size: 32px; font-weight: 800; color: #FFD93D; margin-bottom: 15px; text-transform: uppercase; }
+        p { font-size: 16px; color: rgba(255, 255, 255, 0.85); margin-bottom: 30px; line-height: 1.6; }
+        .btn-group { display: flex; flex-direction: column; gap: 15px; }
         .btn {
-            display: inline-block;
-            padding: 16px 30px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 15px;
-            text-decoration: none;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: inline-block; padding: 16px 30px; border-radius: 12px; font-weight: 700;
+            font-size: 15px; text-decoration: none; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .btn-primary {
-            background: #FFD93D;
-            color: #070395;
-        }
-        .btn-primary:hover {
-            background: #fff;
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-        .btn-secondary:hover {
-            border-color: #FFD93D;
-            color: #FFD93D;
-        }
+        .btn-primary { background: #FFD93D; color: #070395; }
+        .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: #ffffff; border: 2px solid rgba(255,255,255,0.3); }
+        .btn-secondary:hover { border-color: #FFD93D; color: #FFD93D; }
     </style>
 </head>
 <body>
@@ -96,13 +54,16 @@
         
         <div class="btn-group">
             <a href="https://t.me/sash_shura" target="_blank" class="btn btn-primary">Написать в Telegram</a>
+            <!-- ✅ Ссылка на главную без .html -->
             <a href="/" class="btn btn-secondary">Вернуться на главную</a>
         </div>
     </div>
 
     <script>
-        // Опционально: можно очистить данные заказа из localStorage после показа страницы
-        // localStorage.removeItem('hedonism_popup_last_order');
+        // Гарантированная очистка Pop-up корзины после успешного показа страницы "Спасибо"
+        // Это предотвращает повторную отправку того же заказа при обновлении страницы
+        localStorage.removeItem('hedonism_popup_cart');
+        localStorage.removeItem('hedonism_popup_last_order');
     </script>
 </body>
 </html>
