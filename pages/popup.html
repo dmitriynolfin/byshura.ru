@@ -18,8 +18,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- ✅ Подключаем единый источник данных -->
-    <script src="/data.js"></script>
+    <!-- ✅ ИСПРАВЛЕН ПУТЬ К DATA.JS -->
+    <script src="/js/data.js"></script>
     
     <style>
         html, body { overflow-x: hidden; width: 100%; }
@@ -117,7 +117,7 @@
         }
         .add-to-cart-btn:hover { background: #FFD93D; color: #070395; }
 
-        /* === СЕКЦИЯ САМОВЫВОЗА (как на index) === */
+        /* === СЕКЦИЯ САМОВЫВОЗА === */
         .pickup-section {
             padding: 80px 0 120px;
             background: white;
@@ -288,8 +288,8 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="/" class="logo" aria-label="Главная"></a>
-                <!-- ✅ Меню убрано -->
+                <!-- ✅ ВЕРНУЛ ЭМОДЗИ ЛИМОНА -->
+                <a href="/" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
                 <div class="header-icons">
@@ -314,12 +314,12 @@
                 <p>Эксклюзивное предложение для своих. Собирайте свой идеальный набор.</p>
             </div>
 
-            <!-- ✅ Карточки генерируются автоматически из data.js -->
+            <!-- ✅ Карточки генерируются автоматически из js/data.js -->
             <div class="items-grid" id="popupGrid"></div>
         </div>
     </main>
 
-    <!-- ✅ СЕКЦИЯ САМОВЫВОЗА (как на index.html) -->
+    <!-- ✅ СЕКЦИЯ САМОВЫВОЗА -->
     <section class="pickup-section" id="contacts">
         <div class="container">
             <div class="pickup-header">
@@ -359,6 +359,7 @@
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
                     </div>
+                    <!-- ✅ ТОЧНЫЙ АДРЕС -->
                     <div class="pickup-info-text">ЖК Prime Park, Ленинградский проспект 37/7</div>
                 </div>
                 <div class="pickup-info-item">
@@ -411,7 +412,6 @@
         function renderPopupItems() {
             console.log('=== РЕНДЕРИНГ КАРТОЧЕК ===');
             console.log('CATALOG загружен:', typeof CATALOG !== 'undefined');
-            console.log('Доступные ключи:', typeof CATALOG !== 'undefined' ? Object.keys(CATALOG) : 'CATALOG не определен');
             
             const grid = document.getElementById('popupGrid');
             if (!grid) {
@@ -420,21 +420,18 @@
             }
             
             if (typeof CATALOG === 'undefined') {
-                console.error('CATALOG не загружен! Проверьте путь к data.js');
-                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1;">Ошибка загрузки данных. Обновите страницу.</p>';
+                console.error('CATALOG не загружен! Проверьте путь к js/data.js');
+                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 40px;">Ошибка загрузки данных. Проверьте консоль (F12) или обновите страницу.</p>';
                 return;
             }
 
             let renderedCount = 0;
             POPUP_ITEM_IDS.forEach(id => {
-                console.log(`Проверка товара: ${id}`);
                 const item = CATALOG[id];
                 if (!item) {
-                    console.warn(`Товар ${id} не найден в CATALOG`);
+                    console.warn(`Товар ${id} не найден в CATALOG. Убедитесь, что он добавлен в js/data.js`);
                     return;
                 }
-                
-                console.log(`Товар найден:`, item);
 
                 const price = item.prices.ru;
                 const name = item.name.ru;
@@ -467,13 +464,10 @@
                 `;
                 grid.appendChild(card);
                 renderedCount++;
-                console.log(`Карточка ${name} добавлена`);
             });
             
-            console.log(`Всего карточек отрендерено: ${renderedCount}`);
-            
             if (renderedCount === 0) {
-                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1;">Товары не найдены. Проверьте data.js</p>';
+                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 40px;">Товары не найдены. Проверьте ключи в js/data.js (popup-cookie, popup-cake-slice, popup-salad).</p>';
             }
         }
 
@@ -570,7 +564,6 @@
 
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM загружен');
             renderPopupItems();
             updateCartCount();
             checkCookieConsent();
