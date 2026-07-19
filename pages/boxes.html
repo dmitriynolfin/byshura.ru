@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
-    <script src="data.js"></script>
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (обновлен путь) -->
+    <script src="/js/data.js"></script>
     
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-    <link rel="icon" type="image/svg+xml" href="/icon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
     <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
-    <link rel="canonical" href="https://byshura.ru/boxes">
+    <!-- ✅ Обновлено: canonical путь -->
+    <link rel="canonical" href="https://byshura.ru/pages/boxes.html">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -34,7 +35,7 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: window.location.pathname,
+        page_path: '/pages/boxes.html',
         send_page_view: false
       });
     </script>
@@ -317,9 +318,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="/boxes" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <!-- ✅ Обновлено: пути к страницам -->
+                    <a href="/pages/boxes.html" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -375,15 +377,16 @@
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
+            <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
-                <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>
+                <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer-en" target="_blank">Public Offer</a>
+                <a href="/legal/offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -759,7 +762,8 @@
         closeCartPrompt();
         trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: 0, items: cart.map(item => ({ item_id: item.productId, quantity: item.quantity })) });
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
-        window.location.href = '/checkout';
+        // ✅ Обновлено: путь к checkout
+        window.location.href = '/pages/checkout.html';
     }
 
     function lazyLoadBackgrounds() {
@@ -841,7 +845,10 @@
         applyLanguage(validLangs.includes(savedLang) ? savedLang : 'ru');
         updateCartCount();
         
-        setTimeout(() => { trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/boxes', language: currentLang }); }, 1000);
+        setTimeout(() => { 
+            // ✅ Обновлено: page_path для аналитики
+            trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/pages/boxes.html', language: currentLang }); 
+        }, 1000);
         ymTrack('boxes_viewed', { lang: currentLang });
         
         const langBtn = document.getElementById('langBtn');
@@ -893,7 +900,7 @@
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { cart_items: cart.length });
-            window.location.href = '/checkout';
+            window.location.href = '/pages/checkout.html';
         });
         
         const cartPromptOverlay = document.getElementById('cartPromptOverlay');
