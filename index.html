@@ -10,14 +10,16 @@
     <meta name="description" content="Домашний ресторан «Вестник Гедонизма» — авторские гастрономические боксы с историей. Доставка по Москве и самовывоз в ЖК Prime Park. Работаем Пт-Вс 17:00-23:00.">
     <meta name="keywords" content="доставка еды Москва, домашний ресторан, гастрономические боксы, авторская кухня">
     
-    <link rel="canonical" href="https://byshura.ru/index.html">
-    <link rel="alternate" hreflang="ru" href="https://byshura.ru/index.html">
-    <link rel="alternate" hreflang="en" href="https://byshura.ru/index.html?lang=en">
+    <!-- ✅ Обновлено: убраны .html из canonical и alternate -->
+    <link rel="canonical" href="https://byshura.ru/">
+    <link rel="alternate" hreflang="ru" href="https://byshura.ru/">
+    <link rel="alternate" hreflang="en" href="https://byshura.ru/?lang=en">
     
     <meta property="og:type" content="restaurant">
     <meta property="og:title" content="Вестник Гедонизма — Доставка гастрономических боксов в Москве">
     <meta property="og:description" content="Авторские гастрономические боксы с историей. Доставка по Москве Пт-Вс 17:00-23:00.">
-    <meta property="og:url" content="https://byshura.ru/index.html">
+    <!-- ✅ Обновлено: убран .html из og:url -->
+    <meta property="og:url" content="https://byshura.ru/">
     <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     
     <meta name="theme-color" content="#070395">
@@ -671,7 +673,6 @@
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
             .cookie-btn { width: 100%; max-width: 300px; }
 
-            /* Адаптация Pop-up кнопки для мобильных */
             .popup-cta-btn {
                 padding: 16px 30px;
                 font-size: 16px;
@@ -752,9 +753,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <!-- ✅ Обновлено: убраны .html из всех ссылок -->
+                    <a href="/pages/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <a href="/pages/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -768,7 +770,7 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
-                <a href="/pages/boxes.html" class="btn-back" id="shopBtn" data-i18n="btnOrder">ЗАКАЗАТЬ</a>
+                <a href="/pages/boxes" class="btn-back" id="shopBtn" data-i18n="btnOrder">ЗАКАЗАТЬ</a>
                 <div class="lang-selector" id="langBtn">
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
@@ -870,15 +872,14 @@
         </div>
     </section>
 
-    <!-- ✅ НОВЫЙ БЛОК: Яркая кнопка-приглашение в Pop-up меню -->
     <section class="popup-teaser">
         <div class="container">
-            <a href="/pages/popup.html" class="popup-cta-btn">
+            <!-- ✅ Обновлено: убран .html -->
+            <a href="/pages/popup" class="popup-cta-btn">
                 <span>🤫</span> СЕКРЕТНОЕ POP-UP МЕНЮ
             </a>
         </div>
     </section>
-    <!-- КОНЕЦ НОВОГО БЛОКА -->
 
     <section class="custom-dinner">
         <div class="container custom-dinner-container">
@@ -958,14 +959,15 @@
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <div class="legal-links-ru">
-                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
+                <!-- ✅ Обновлено: убраны .html из юридических ссылок -->
+                <a href="/legal/privacy-policy" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>
+                <a href="/legal/privacy-policy-en" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="/legal/offer-en.html" target="_blank">Public Offer</a>
+                <a href="/legal/offer-en" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -992,7 +994,8 @@
             mapHintText: "Нажмите, чтобы увеличить масштаб и перемещать карту",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartAlert: "Добавьте товары в корзину на странице боксов",
-            cookieText: 'Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy.html" target="_blank">Политикой конфиденциальности</a>.',
+            // ✅ Обновлено: убран .html из ссылки в тексте cookie
+            cookieText: 'Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy" target="_blank">Политикой конфиденциальности</a>.',
             cookieAccept: "Принять"
         },
         en: {
@@ -1008,7 +1011,8 @@
             mapHintText: "Tap to zoom in and move the map",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first",
-            cookieText: 'We use cookies 🍪 to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>.',
+            // ✅ Обновлено: убран .html из ссылки в тексте cookie
+            cookieText: 'We use cookies 🍪 to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href="/legal/privacy-policy-en" target="_blank">Privacy Policy</a>.',
             cookieAccept: "Accept"
         }
     };
@@ -1241,15 +1245,16 @@
             document.addEventListener('click', e => { if (!langBtn.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
-        document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes.html'; });
-        document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes.html'; });
+        // ✅ Обновлено: убраны .html из JS-перенаправлений
+        document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes'; });
+        document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes'; });
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { page: 'index', cart_items: cart.length, cart_value: cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) });
             if (cart.length === 0) {
-                if (confirm((translations[currentLang]?.cartAlert || translations.ru.cartAlert) + '\n\nПерейти на страницу боксов?')) window.location.href = '/pages/boxes.html';
+                if (confirm((translations[currentLang]?.cartAlert || translations.ru.cartAlert) + '\n\nПерейти на страницу боксов?')) window.location.href = '/pages/boxes';
             } else {
-                window.location.href = '/pages/checkout.html';
+                window.location.href = '/pages/checkout';
             }
         });
 
@@ -1264,7 +1269,8 @@
             trackGA4Event('cookie_consent_accepted', { method: 'banner_click' });
         });
         
-        trackGA4Event('page_view', { page_path: '/index.html', language: currentLang });
+        // ✅ Обновлено: page_path для главной страницы теперь '/'
+        trackGA4Event('page_view', { page_path: '/', language: currentLang });
     });
     
     window.addEventListener('storage', function(e) {
