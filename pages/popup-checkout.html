@@ -22,16 +22,29 @@
         }
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
         a:hover { color: #FFD93D; }
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        
+        /* ✅ Точно как на странице popup */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        .checkout-container { max-width: 800px; margin: 0 auto; }
 
+        /* ✅ Точно как на странице popup */
         .header { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; 
             background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
             border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px);
         }
-        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; padding: 0 20px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; color: #070395; transition: all 0.3s; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; flex-shrink: 0; 
+        }
+        /* ✅ Точно как на странице popup */
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            color: #070395; transition: all 0.3s; 
+        }
         .btn-back:hover { background: #070395; color: white; }
 
         .checkout-main { margin-top: 100px; padding: 40px 0 80px; }
@@ -41,7 +54,7 @@
         .summary-item { display: flex; justify-content: flex-start; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(7,3,149,0.1); }
         .summary-item:last-child { border-bottom: none; }
         
-        /* ✅ Стили для фотографии товара (как на основной странице checkout) */
+        /* ✅ Улучшенное отображение фото из карточек popup */
         .item-image {
             width: 70px;
             height: 70px;
@@ -72,7 +85,6 @@
         }
         .form-input:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 3px rgba(7, 3, 149, 0.1); }
         
-        /* ✅ Стили для неизменяемых полей */
         .form-input[readonly] {
             background: #f5f5f5;
             color: #555;
@@ -82,7 +94,7 @@
         
         textarea.form-input { resize: vertical; min-height: 100px; }
 
-        /* ✅ Кастомная валидация (советы, если поля не заполнены) */
+        /* Валидация */
         .form-input.invalid {
             border-color: #e74c3c;
             background-color: #fdf2f2;
@@ -99,36 +111,31 @@
             align-items: center;
             gap: 5px;
         }
-        .validation-hint::before {
-            content: '⚠️';
-            font-size: 14px;
-        }
-        .form-input.invalid + .validation-hint {
-            display: flex;
-        }
+        .validation-hint::before { content: '⚠️'; font-size: 14px; }
+        .form-input.invalid + .validation-hint { display: flex; }
 
-        /* ✅ Стили кнопки как на странице checkout */
+        /* ✅ Кнопка точно как на странице /pages/checkout */
         .submit-btn { 
             width: 100%; 
             background: #070395; 
-            color: white; 
-            padding: 18px 24px; 
+            color: #ffffff; 
+            padding: 20px 30px; 
             border-radius: 12px; 
             font-size: 16px; 
             font-weight: 700; 
             text-transform: uppercase; 
-            letter-spacing: 0.5px; 
+            letter-spacing: 1px; 
             border: none; 
             cursor: pointer; 
             transition: all 0.3s ease; 
-            margin-top: 10px; 
+            margin-top: 15px; 
             box-shadow: 0 4px 15px rgba(7, 3, 149, 0.2);
         }
         .submit-btn:hover { 
             background: #FFD93D; 
             color: #070395; 
             transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(255, 217, 61, 0.4); 
+            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4); 
         }
         .submit-btn:disabled { 
             opacity: 0.6; 
@@ -140,27 +147,35 @@
         .empty-cart-msg { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); }
         .empty-cart-msg a { color: #FFD93D; text-decoration: underline; font-weight: 600; }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
             .checkout-title { font-size: 24px; }
             .order-summary, .checkout-form { padding: 20px; }
             .item-image { width: 60px; height: 60px; margin-right: 12px; }
             .item-name { font-size: 15px; }
             .item-price { font-size: 16px; }
-            .submit-btn { padding: 16px 20px; font-size: 15px; }
+            .submit-btn { padding: 18px 24px; font-size: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            .header { padding: 12px 0; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; }
+            .checkout-main { margin-top: 90px; }
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <div class="header-container">
+        <div class="container header-container">
             <a href="/pages/popup" class="logo" aria-label="Главная">🍋</a>
             <a href="/pages/popup" class="btn-back">← Назад к меню</a>
         </div>
     </header>
 
     <main class="checkout-main">
-        <div class="container">
+        <div class="container checkout-container">
             <h1 class="checkout-title">Оформление Pop-up заказа</h1>
             
             <div id="orderContent">
@@ -183,18 +198,11 @@
                         <label class="form-label">Дата</label>
                         <input type="text" class="form-input" value="25.07.2026" readonly>
                     </div>
-                    <!-- ✅ Новый блок выбора времени -->
+                    <!-- ✅ Встроенный функционал выбора времени (как на основной странице checkout) -->
                     <div class="form-group">
                         <label class="form-label">Время получения *</label>
-                        <select class="form-input" id="pickupTime" required>
-                            <option value="" disabled selected>Выберите время</option>
-                            <option value="10:00">10:00</option>
-                            <option value="11:00">11:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="13:00">13:00</option>
-                            <option value="14:00">14:00</option>
-                        </select>
-                        <div class="validation-hint">Пожалуйста, выберите время получения</div>
+                        <input type="time" class="form-input" id="pickupTime" min="10:00" max="14:00" required>
+                        <div class="validation-hint">Пожалуйста, выберите время с 10:00 до 14:00</div>
                     </div>
                 </div>
 
@@ -246,8 +254,8 @@
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
                 
-                // ✅ Отображение фотографии товара с надежной заглушкой
-                const imageUrl = item.image || '/assets/favicon-512.png';
+                // ✅ Надежное получение картинки: проверяем image, img или src, иначе заглушка
+                const imageUrl = item.image || item.img || item.src || '/assets/favicon-512.png';
                 
                 html += `
                     <div class="summary-item">
@@ -265,7 +273,6 @@
             totalPriceEl.textContent = total + ' ₽';
         }
 
-        // ✅ Кастомная валидация формы перед отправкой
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -282,7 +289,6 @@
             });
 
             if (!isValid) {
-                // Прокрутка к первому невалидному полю для удобства пользователя
                 const firstInvalid = form.querySelector('.invalid');
                 if (firstInvalid) {
                     firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -308,7 +314,7 @@
                 },
                 delivery: "ЖК Prime Park, Москва",
                 date: "25.07.2026",
-                time: document.getElementById('pickupTime').value, // ✅ Добавлено время
+                time: document.getElementById('pickupTime').value, // ✅ Сохраняем выбранное время
                 dateIso: new Date().toISOString(),
                 type: 'popup_order'
             };
@@ -319,7 +325,6 @@
             window.location.href = '/pages/popup-thank-you';
         });
 
-        // ✅ Убираем подсветку ошибки при вводе данных
         form.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('input', function() {
                 if (this.value.trim()) {
