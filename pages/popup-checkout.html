@@ -37,79 +37,29 @@
         .checkout-main { margin-top: 100px; padding: 40px 0 80px; }
         .checkout-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; text-align: center; color: #FFD93D; }
 
-        .order-summary {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 30px;
-            color: #070395;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(7,3,149,0.1);
-        }
+        .order-summary { background: rgba(255, 255, 255, 0.95); border-radius: 16px; padding: 25px; margin-bottom: 30px; color: #070395; }
+        .summary-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(7,3,149,0.1); }
         .summary-item:last-child { border-bottom: none; }
         .item-info { flex: 1; }
         .item-name { font-weight: 700; font-size: 16px; }
         .item-qty { font-size: 14px; color: #666; margin-top: 4px; }
         .item-price { font-weight: 800; font-size: 18px; white-space: nowrap; margin-left: 15px; }
         
-        .summary-total {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #070395;
-            font-size: 20px;
-            font-weight: 800;
-        }
+        .summary-total { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid #070395; font-size: 20px; font-weight: 800; }
 
-        .checkout-form {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 30px;
-            color: #070395;
-        }
+        .checkout-form { background: rgba(255, 255, 255, 0.95); border-radius: 16px; padding: 30px; color: #070395; }
         .form-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #070395; }
-        .form-input {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
+        .form-input { width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; font-family: inherit; transition: border-color 0.3s; box-sizing: border-box; }
         .form-input:focus { outline: none; border-color: #070395; }
         textarea.form-input { resize: vertical; min-height: 100px; }
 
-        .submit-btn {
-            width: 100%;
-            background: #070395;
-            color: white;
-            padding: 18px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
+        .submit-btn { width: 100%; background: #070395; color: white; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: none; cursor: pointer; transition: all 0.3s; margin-top: 10px; }
         .submit-btn:hover { background: #FFD93D; color: #070395; }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        .empty-cart-msg {
-            text-align: center;
-            padding: 40px;
-            color: rgba(255,255,255,0.8);
-        }
+        .empty-cart-msg { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); }
         .empty-cart-msg a { color: #FFD93D; text-decoration: underline; }
 
         @media (max-width: 480px) {
@@ -122,8 +72,9 @@
 
     <header class="header">
         <div class="header-container">
-            <a href="/pages/popup.html" class="logo">🍋</a>
-            <a href="/pages/popup.html" class="btn-back">← Назад к меню</a>
+            <!-- ✅ Ссылка без .html -->
+            <a href="/pages/popup" class="logo">🍋</a>
+            <a href="/pages/popup" class="btn-back">← Назад к меню</a>
         </div>
     </header>
 
@@ -155,38 +106,35 @@
                         <label class="form-label">Комментарий к заказу</label>
                         <textarea class="form-input" id="customerComment" placeholder="Аллергии, пожелания по времени и т.д."></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Подтвердить заказ</button>
+                    <button type="submit" class="submit-btn" id="submitBtn">Подтвердить заказ</button>
                 </form>
             </div>
 
             <div id="emptyCartMsg" class="empty-cart-msg" style="display: none;">
                 <p>Ваша Pop-up корзина пуста.</p>
                 <br>
-                <a href="/pages/popup.html">Вернуться к секретному меню</a>
+                <a href="/pages/popup">Вернуться к секретному меню</a>
             </div>
         </div>
     </main>
 
     <script>
-        // Загружаем корзину
-        const cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+        // ✅ Загружаем ТОЛЬКО Pop-up корзину
+        let popupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
         
-        // ФИЛЬТРУЕМ: берем только Pop-up товары, чтобы не смешивать с основным меню
-        const popupItems = cart.filter(item => item.category === 'popup_exclusive');
-
         const summaryItemsEl = document.getElementById('summaryItems');
         const totalPriceEl = document.getElementById('totalPrice');
         const orderContentEl = document.getElementById('orderContent');
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
 
-        if (popupItems.length === 0) {
+        if (popupCart.length === 0) {
             orderContentEl.style.display = 'none';
             emptyCartMsgEl.style.display = 'block';
         } else {
             let total = 0;
             let html = '';
             
-            popupItems.forEach(item => {
+            popupCart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
                 html += `
@@ -204,13 +152,20 @@
             totalPriceEl.textContent = total + ' ₽';
         }
 
-        // Обработка отправки формы
         document.getElementById('popupOrderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            // Пересчитываем итоговую сумму безопасно
+            const currentPopupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
+            const orderTotal = currentPopupCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
             const orderData = {
-                items: popupItems,
-                total: total,
+                items: currentPopupCart,
+                total: orderTotal,
                 customer: {
                     name: document.getElementById('customerName').value,
                     contact: document.getElementById('customerContact').value,
@@ -220,15 +175,16 @@
                 type: 'popup_order'
             };
 
-            // Сохраняем заказ (в реальном проекте здесь будет отправка на сервер/в Telegram)
+            // Здесь можно добавить fetch() для отправки в Google Apps Script, аналогично основному чекауту
+            // Для примера просто сохраняем и переходим дальше
+            
             localStorage.setItem('hedonism_popup_last_order', JSON.stringify(orderData));
             
-            // Очищаем только Pop-up товары из основной корзины
-            const remainingCart = cart.filter(item => item.category !== 'popup_exclusive');
-            localStorage.setItem('hedonism_cart', JSON.stringify(remainingCart));
+            // ✅ Очищаем ТОЛЬКО Pop-up корзину
+            localStorage.removeItem('hedonism_popup_cart');
             
-            // Перенаправляем на страницу спасибо
-            window.location.href = '/pages/popup-thank-you.html';
+            // ✅ Перенаправляем без .html
+            window.location.href = '/pages/popup-thank-you';
         });
     </script>
 </body>
