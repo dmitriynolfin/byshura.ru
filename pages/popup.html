@@ -248,9 +248,11 @@
         <div class="container">
             <div class="pickup-header">
                 <h2>САМОВЫВОЗ</h2>
-                <p>Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично</p>
+                <!-- ✅ ИЗМЕНЕНИЕ 3: Добавлено "или через беллменов" -->
+                <p>Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично или через беллменов</p>
             </div>
             <div class="pickup-map-container" id="mapContainer">
+                <!-- ✅ ИЗМЕНЕНИЕ 1: Точка на карте (pm2rdm = красная метка на координатах ЖК Prime Park) -->
                 <iframe class="pickup-map-iframe" id="mapIframe" src="https://yandex.ru/map-widget/v1/?ll=37.5364%2C55.7897&z=16&l=map&pt=37.5364%2C55.7897%2Cpm2rdm" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта самовывоза ЖК Prime Park" style="background-color: #f0f0f0;"></iframe>
             </div>
             <div class="pickup-info-bar">
@@ -258,7 +260,8 @@
                     <div class="pickup-info-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     </div>
-                    <div class="pickup-info-text"><span>Сб</span> · <span>17:00 – 23:00</span></div>
+                    <!-- ✅ ИЗМЕНЕНИЕ 2: Обновлено время и дата -->
+                    <div class="pickup-info-text"><span>Субботу 25.07</span> · <span>10:00 – 14:00</span></div>
                 </div>
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
@@ -295,7 +298,6 @@
     <div class="cart-notification" id="cartNotification">
         <span class="cart-notification-icon">✅</span>
         <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
-        <!-- ✅ Обновлено: ссылка на checkout-popup без .html -->
         <button class="cart-notification-btn" onclick="window.location.href='/pages/popup-checkout'">В корзину</button>
     </div>
 
@@ -353,7 +355,6 @@
             });
         }
 
-        // ✅ ВАЖНО: Используем отдельный ключ для Pop-up корзины
         let cart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
 
         function updateCartCount() {
@@ -370,7 +371,6 @@
                     window.location.href = '/pages/boxes';
                 }
             } else {
-                // ✅ Ведет на отдельный чекаут для поп-ап
                 window.location.href = '/pages/popup-checkout';
             }
         });
@@ -403,7 +403,6 @@
                 });
             }
             
-            // ✅ Сохраняем в отдельный ключ
             localStorage.setItem('hedonism_popup_cart', JSON.stringify(cart));
             updateCartCount();
             
