@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- ✅ ИСПРАВЛЕН ПУТЬ К DATA.JS -->
+    <!-- ✅ Подключаем единый источник данных -->
     <script src="/js/data.js"></script>
     
     <style>
@@ -58,8 +58,6 @@
         .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
         .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; color: #070395; }
-        .btn-back:hover { background: #070395; color: white; }
 
         .popup-main { margin-top: 75px; padding: 60px 0 40px; }
         .popup-header { text-align: center; margin-bottom: 50px; }
@@ -116,6 +114,55 @@
             text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s;
         }
         .add-to-cart-btn:hover { background: #FFD93D; color: #070395; }
+
+        /* === ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) === */
+        .cart-notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: #070395;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 400px;
+            border-left: 4px solid #FFD93D;
+        }
+        .cart-notification.show {
+            transform: translateX(0);
+        }
+        .cart-notification-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .cart-notification-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        .cart-notification-btn {
+            background: #FFD93D;
+            color: #070395;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        .cart-notification-btn:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
 
         /* === СЕКЦИЯ САМОВЫВОЗА === */
         .pickup-section {
@@ -253,6 +300,13 @@
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
             .cookie-btn { width: 100%; max-width: 300px; }
             
+            .cart-notification {
+                top: 80px;
+                right: 15px;
+                left: 15px;
+                max-width: none;
+            }
+            
             .pickup-section { padding: 50px 0 80px; }
             .pickup-header { margin-bottom: 25px; }
             .pickup-header h2 { font-size: 26px; margin-bottom: 15px; }
@@ -272,7 +326,6 @@
             .container { padding: 0 15px; }
             .header-icons { gap: 8px; }
             .icon-btn { min-width: 48px; min-height: 48px; }
-            .btn-back { padding: 10px 15px; font-size: 12px; }
             .pickup-header h2 { font-size: 22px; margin-bottom: 12px; }
             .pickup-header p { font-size: 14px; max-width: 100%; }
             .pickup-map-iframe { height: 300px; }
@@ -288,7 +341,6 @@
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <!-- ✅ ВЕРНУЛ ЭМОДЗИ ЛИМОНА -->
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
@@ -302,7 +354,7 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
-                <a href="/pages/boxes.html" class="btn-back" id="shopBtn">В основное меню</a>
+                <!-- ✅ КНОПКА "ОСНОВНОЕ МЕНЮ" УБРАНА -->
             </div>
         </div>
     </header>
@@ -328,10 +380,11 @@
             </div>
             
             <div class="pickup-map-container" id="mapContainer">
+                <!-- ✅ КАРТА С ТОЧКОЙ ЖК Prime Park -->
                 <iframe 
                     class="pickup-map-iframe" 
                     id="mapIframe" 
-                    src="https://yandex.ru/map-widget/v1/-/CDU~3Z~i" 
+                    src="https://yandex.ru/map-widget/v1/?ll=37.5364%2C55.7897&z=16&l=map&pt=37.5364%2C55.7897%2Cpm2rdm" 
                     allowfullscreen 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade"
@@ -349,7 +402,8 @@
                         </svg>
                     </div>
                     <div class="pickup-info-text">
-                        <span>Пт-Сб-Вс</span> · <span>17:00 – 23:00</span>
+                        <!-- ✅ ИЗМЕНЕНО ВРЕМЯ РАБОТЫ -->
+                        <span>Сб</span> · <span>17:00 – 23:00</span>
                     </div>
                 </div>
                 <div class="pickup-info-item">
@@ -359,7 +413,6 @@
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
                     </div>
-                    <!-- ✅ ТОЧНЫЙ АДРЕС -->
                     <div class="pickup-info-text">ЖК Prime Park, Ленинградский проспект 37/7</div>
                 </div>
                 <div class="pickup-info-item">
@@ -392,9 +445,10 @@
         </div>
     </footer>
 
+    <!-- ✅ ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) -->
     <div class="cart-notification" id="cartNotification">
-        <span style="font-size: 24px;">✅</span>
-        <span style="flex: 1; font-weight: 600; font-size: 15px;" id="notificationText">Товар добавлен в корзину!</span>
+        <span class="cart-notification-icon">✅</span>
+        <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
         <button class="cart-notification-btn" onclick="window.location.href='/pages/checkout.html'">В корзину</button>
     </div>
 
@@ -437,7 +491,7 @@
                 const name = item.name.ru;
                 const descr = item.description.ru;
                 const img = item.images.mobile;
-                const emoji = item.emoji || '🍽️';
+                const emoji = item.emoji || '️';
 
                 const card = document.createElement('div');
                 card.className = 'box-card';
@@ -530,14 +584,23 @@
             showNotification(name);
         }
 
+        // === 3. ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) ===
         function showNotification(itemName) {
             const notification = document.getElementById('cartNotification');
-            document.getElementById('notificationText').textContent = `"${itemName}" добавлен в корзину!`;
-            notification.classList.add('show');
-            setTimeout(() => { notification.classList.remove('show'); }, 3000);
+            const notificationText = document.getElementById('notificationText');
+            
+            if (notification && notificationText) {
+                notificationText.textContent = `"${itemName}" добавлен в корзину!`;
+                notification.classList.add('show');
+                
+                // Автоматически скрыть через 4 секунды
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
         }
 
-        // === 3. ЛОГИКА COOKIE ===
+        // === 4. ЛОГИКА COOKIE ===
         function checkCookieConsent() {
             const consent = localStorage.getItem('cookie_consent');
             if (consent !== 'true') {
