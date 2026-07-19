@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (обновлен путь) -->
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
     <script src="/js/data.js"></script>
     
-    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -17,8 +17,8 @@
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta name="robots" content="noindex, nofollow">
-    <!-- ✅ Обновлено: canonical путь -->
-    <link rel="canonical" href="https://byshura.ru/pages/thank-you.html">
+    <!-- ✅ Обновлено: canonical путь без .html -->
+    <link rel="canonical" href="https://byshura.ru/pages/thank-you">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Спасибо, что выбрали Вестник Гедонизма!</title>
@@ -34,7 +34,7 @@
       gtag('config', 'G-L8704SB9ZW', { 
           page_title: document.title, 
           page_location: window.location.href, 
-          page_path: '/pages/thank-you.html', 
+          page_path: '/pages/thank-you', /* ✅ Обновлено на чистый URL */
           send_page_view: false 
       });
     </script>
@@ -252,10 +252,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: пути к страницам -->
-                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
-                    <a href="/pages/boxes.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <!-- ✅ Обновлено: пути к страницам без .html -->
+                    <a href="/pages/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <a href="/pages/boxes#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="/pages/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
         </div>
@@ -269,9 +269,10 @@
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
-                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
-                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
+                <!-- ✅ Обновлено: абсолютные пути к иконкам (со слэшем в начале) -->
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="/images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="/images/max_logo.webp" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="/images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
@@ -459,8 +460,8 @@
                     <div class="no-order-icon">📭</div>
                     <h2 class="no-order-title">${t.noOrderTitle}</h2>
                     <p class="no-order-text">${t.noOrderText}</p>
-                    <!-- ✅ Обновлено: путь к оформлению заказа -->
-                    <a href="/pages/boxes.html" class="btn-home">${t.noOrderBtn}</a>
+                    <!-- ✅ Обновлено: путь к оформлению заказа без .html -->
+                    <a href="/pages/boxes" class="btn-home">${t.noOrderBtn}</a>
                 </div>
             `;
             return;
@@ -634,7 +635,7 @@
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title, page_location: window.location.href,
-                page_path: '/pages/thank-you.html', // ✅ Обновлено
+                page_path: '/pages/thank-you', // ✅ Обновлено на чистый URL
                 language: currentLang,
                 has_order: !!orderData,
                 order_number: orderData?.orderNumber || null
@@ -673,6 +674,13 @@
         });
         
         console.log(`✅ thank-you.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}, Order: ${orderData?.orderNumber || 'none'}`);
+    });
+    
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'hedonism_cart') {
+            // На этой странице корзина обычно пуста после успешного заказа, 
+            // но слушатель оставлен для консистентности
+        }
     });
     </script>
 </body>
