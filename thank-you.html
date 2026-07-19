@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
+    <script src="data.js"></script>
+    
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -43,56 +46,32 @@
         
         /* ===== ШАПКА ===== */
         .header { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            width: 100%; 
-            background: rgba(255,255,255,0.98); 
-            padding: 15px 0; 
-            z-index: 1000; 
-            border-bottom: 1px solid rgba(7,3,149,0.2); 
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
+            border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;
             box-shadow: 0 2px 8px rgba(255,217,61,0.3);
         }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
-        .nav-link { 
-            font-weight: 600; font-size: 14px; text-transform: uppercase; 
-            letter-spacing: 0.5px; position: relative; padding: 5px 0;
-        }
-        .nav-link::after { 
-            content: ''; position: absolute; bottom: -5px; left: 0; 
-            width: 0; height: 2px; background: #FFD93D; transition: width 0.3s;
-        }
+        .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding: 5px 0; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #FFD93D; transition: width 0.3s; }
         .nav-link:hover::after { width: 100%; }
         .nav-link.active { color: #FFD93D; }
-        .nav-link-cta { 
-            background: #070395; color: white !important; 
-            padding: 10px 25px !important; border-radius: 25px;
-            transition: all 0.3s !important;
-        }
+        .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
         .nav-link-cta::after { display: none !important; }
-        .nav-link-cta:hover { 
-            background: #FFD93D !important; color: #070395 !important; 
-            transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3);
-        }
+        .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
         
-        /* ✅ УВЕЛИЧЕН ОТСТУП СВЕРХУ, ТАК КАК БЕГУЩАЯ СТРОКА УБРАНА */
         .thankyou-page { padding: 100px 0 60px; min-height: 100vh; background: #f8f9fa; }
         .thankyou-container { max-width: 900px; margin: 0 auto; }
         
         .thankyou-hero { 
             background: white; border-radius: 24px; padding: 35px 40px; 
-            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px; 
-            text-align: center;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px; text-align: center;
         }
         .thankyou-icon {
             width: 80px; height: 80px; margin: 0 auto 15px;
@@ -106,12 +85,8 @@
             60% { transform: scale(1.1); }
             100% { transform: scale(1); opacity: 1; }
         }
-        .thankyou-title { 
-            font-size: 32px; font-weight: 700; margin-bottom: 10px; color: #070395;
-        }
-        .thankyou-subtitle { 
-            font-size: 15px; color: #666; margin-bottom: 18px; line-height: 1.5;
-        }
+        .thankyou-title { font-size: 32px; font-weight: 700; margin-bottom: 10px; color: #070395; }
+        .thankyou-subtitle { font-size: 15px; color: #666; margin-bottom: 18px; line-height: 1.5; }
         .order-number-badge {
             display: inline-block; background: #070395; color: white;
             padding: 10px 24px; border-radius: 30px; font-weight: 600; font-size: 14px;
@@ -129,18 +104,12 @@
             font-size: 17px; font-weight: 600; color: #070395;
             margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
         }
-        .details-section-title::before {
-            content: ''; width: 4px; height: 18px; background: #FFD93D; border-radius: 2px;
-        }
+        .details-section-title::before { content: ''; width: 4px; height: 18px; background: #FFD93D; border-radius: 2px; }
         
-        .order-item { 
-            display: flex; gap: 12px; padding: 10px 0; 
-            border-bottom: 1px solid #f5f5f5; align-items: flex-start;
-        }
+        .order-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; align-items: flex-start; }
         .order-item:last-child { border-bottom: none; }
         .order-item-thumb { 
-            width: 60px; height: 60px; border-radius: 10px; 
-            background-size: cover; background-position: center; 
+            width: 60px; height: 60px; border-radius: 10px; background-size: cover; background-position: center; 
             flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f0f0f0; 
         }
         .order-item-info { flex: 1; min-width: 0; }
@@ -151,34 +120,24 @@
         .order-item-option-label { color: #999; }
         .order-item-option-value { color: #070395; font-weight: 500; }
         .order-item-price { 
-            font-weight: 600; color: #070395; font-size: 15px; 
-            white-space: nowrap; display: flex; align-items: baseline; gap: 4px;
-            flex-shrink: 0;
+            font-weight: 600; color: #070395; font-size: 15px; white-space: nowrap; 
+            display: flex; align-items: baseline; gap: 4px; flex-shrink: 0;
         }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
         
-        .info-row {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 6px 0; gap: 15px;
-        }
+        .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; gap: 15px; }
         .info-row:not(:last-child) { border-bottom: 1px dashed #eee; }
         .info-label { color: #999; font-size: 13px; flex-shrink: 0; }
         .info-value { color: #070395; font-weight: 500; font-size: 13px; text-align: right; }
-        .info-value-price {
-            display: flex; align-items: baseline; gap: 4px;
-            justify-content: flex-end;
-        }
+        .info-value-price { display: flex; align-items: baseline; gap: 4px; justify-content: flex-end; }
         html[lang="en"] .info-value-price { flex-direction: row-reverse; }
         
         .order-total-row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 0 0; margin-top: 8px;
-            border-top: 2px solid #070395;
+            padding: 12px 0 0; margin-top: 8px; border-top: 2px solid #070395;
             font-size: 18px; font-weight: 700; color: #070395;
         }
-        .order-total-value {
-            display: flex; align-items: baseline; gap: 6px;
-        }
+        .order-total-value { display: flex; align-items: baseline; gap: 6px; }
         html[lang="en"] .order-total-value { flex-direction: row-reverse; }
         
         .thankyou-actions { text-align: center; margin-top: 20px; }
@@ -222,13 +181,9 @@
         body { -ms-overflow-style: none; }
         
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
-        
         @media (max-width: 768px) { 
-            .header { padding: 12px 0; }
-            .thankyou-page { padding-top: 85px; }
-            .header-container { padding: 0 15px; }
+            .header { padding: 12px 0; } .thankyou-page { padding-top: 85px; } .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; }
-            
             .thankyou-hero { padding: 28px 20px; margin-bottom: 15px; }
             .thankyou-icon { width: 64px; height: 64px; font-size: 34px; margin-bottom: 12px; }
             .thankyou-title { font-size: 24px; margin-bottom: 8px; }
@@ -236,24 +191,14 @@
             .thankyou-details { padding: 18px 20px; margin-bottom: 15px; }
             .details-section { margin-bottom: 14px; padding-bottom: 12px; }
             .details-section-title { font-size: 15px; margin-bottom: 8px; }
-            
             .order-item { gap: 10px; padding: 8px 0; }
             .order-item-thumb { width: 52px; height: 52px; border-radius: 8px; }
-            .order-item-name { font-size: 13px; }
-            .order-item-options { font-size: 11px; }
-            .order-item-price { font-size: 14px; }
-            
-            .info-row { padding: 5px 0; }
-            .info-label, .info-value { font-size: 12px; }
-            
+            .order-item-name { font-size: 13px; } .order-item-options { font-size: 11px; } .order-item-price { font-size: 14px; }
+            .info-row { padding: 5px 0; } .info-label, .info-value { font-size: 12px; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
-        
         @media (max-width: 480px) { 
-            .header { padding: 10px 0; }
-            .thankyou-page { padding-top: 85px; }
-            .logo { width: 40px; height: 40px; font-size: 20px; }
-            
+            .header { padding: 10px 0; } .thankyou-page { padding-top: 85px; } .logo { width: 40px; height: 40px; font-size: 20px; }
             .thankyou-hero { padding: 22px 16px; border-radius: 18px; }
             .thankyou-icon { width: 56px; height: 56px; font-size: 28px; margin-bottom: 10px; }
             .thankyou-title { font-size: 20px; margin-bottom: 6px; }
@@ -262,40 +207,24 @@
             .thankyou-details { padding: 16px; border-radius: 18px; }
             .details-section { margin-bottom: 12px; padding-bottom: 10px; }
             .details-section-title { font-size: 14px; margin-bottom: 6px; }
-            
             .order-item { flex-direction: column; gap: 8px; padding: 8px 0; }
             .order-item-thumb { width: 100%; height: 100px; border-radius: 12px; }
-            .order-item-name { font-size: 14px; }
-            .order-item-options { font-size: 11px; }
-            .order-item-price { font-size: 15px; }
-            
+            .order-item-name { font-size: 14px; } .order-item-options { font-size: 11px; } .order-item-price { font-size: 15px; }
             .info-row { flex-direction: column; gap: 2px; padding: 5px 0; }
-            .info-value { text-align: left; }
-            .info-value-price { justify-content: flex-start; }
+            .info-value { text-align: left; } .info-value-price { justify-content: flex-start; }
             .order-total-row { font-size: 16px; padding-top: 10px; margin-top: 6px; }
-            
-            .thankyou-actions { margin-top: 15px; }
-            .btn-home { padding: 12px 28px; font-size: 13px; }
-            
-            .footer { padding: 18px 0; }
-            .social-links { gap: 12px; }
+            .thankyou-actions { margin-top: 15px; } .btn-home { padding: 12px 28px; font-size: 13px; }
+            .footer { padding: 18px 0; } .social-links { gap: 12px; }
             .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
-            .social-link img { width: 28px; height: 28px; }
-            .footer-copyright { font-size: 12px; }
+            .social-link img { width: 28px; height: 28px; } .footer-copyright { font-size: 12px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
-            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
-            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; } .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
-            html[lang="en"] .legal-links-en { display: flex !important; }
-            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            html[lang="en"] .legal-links-en { display: flex !important; } .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
         }
-        
         @media (max-width: 360px) {
-            .logo { width: 38px; height: 38px; font-size: 18px; }
-            .thankyou-title { font-size: 19px; }
-            .thankyou-hero { padding: 18px 14px; }
-            .thankyou-details { padding: 14px; }
-            .order-item-thumb { height: 80px; }
+            .logo { width: 38px; height: 38px; font-size: 18px; } .thankyou-title { font-size: 19px; }
+            .thankyou-hero { padding: 18px 14px; } .thankyou-details { padding: 14px; } .order-item-thumb { height: 80px; }
         }
     </style>
     
@@ -372,11 +301,10 @@
             labelPayment: "Способ оплаты:",
             labelComment: "Комментарий:",
             labelTotal: "Итого:",
-            deliveryPickup: "Самовывоз в Prime Park",
             deliveryCourier: "Курьер",
             paymentSber: "Перевод на Сбер",
             paymentTbank: "Перевод на Т-Банк",
-            paymentAlfa: "Перевод на Альфа",
+            paymentAlfa: "Перевод на Альфу",
             paymentCash: "Наличные",
             btnHome: "НА ГЛАВНУЮ",
             noOrderTitle: "Заказ не найден",
@@ -411,7 +339,6 @@
             labelPayment: "Payment method:",
             labelComment: "Comment:",
             labelTotal: "Total:",
-            deliveryPickup: "Pickup in Merano tower",
             deliveryCourier: "Courier",
             paymentSber: "Transfer to Sber",
             paymentTbank: "Transfer to T-Bank",
@@ -431,44 +358,6 @@
         }
     };
 
-    const allergenTranslations = {
-        'Грибы': { ru: 'Грибы', en: 'Mushrooms' },
-        'Горчица': { ru: 'Горчица', en: 'Mustard' },
-        'Лактоза': { ru: 'Лактоза', en: 'Lactose' },
-        'Яйца': { ru: 'Яйца', en: 'Eggs' },
-        'Глютен': { ru: 'Глютен', en: 'Gluten' },
-        'Красная рыба': { ru: 'Красная рыба', en: 'Red Fish' },
-        'Орехи': { ru: 'Орехи', en: 'Nuts' }
-    };
-
-    const productNames = {
-        ru: {
-            'box1': 'Бокс «Ужин Николая II»',
-            'box2': 'Бокс «Ужин Чайковского»',
-            'cake1': 'Сливочный лимонный кекс',
-            'lemon-cookies': 'Нежное печенье с лимонным курдом',
-            'oat-cookies': 'Овсяное печенье с орехами и изюмом',
-            'rasstegai': 'Расстегаи с красной рыбой и рисом'
-        },
-        en: {
-            'box1': 'Nicholas II Dinner Box',
-            'box2': 'Tchaikovsky Dinner Box',
-            'cake1': 'Creamy Lemon Cake',
-            'lemon-cookies': 'Tender Cookies with Lemon Curd',
-            'oat-cookies': 'Oat Cookies with Nuts and Raisins',
-            'rasstegai': 'Rasstegai with Red Fish and Rice'
-        }
-    };
-
-    const priceTable = {
-        'box1': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
-        'box2': { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
-        'cake1': { ru: 3000, en: 150 },
-        'lemon-cookies': { ru: { 4: 1000, 8: 1600 }, en: { 4: 50, 8: 80 } },
-        'oat-cookies': { ru: { 4: 800, 8: 1400 }, en: { 4: 40, 8: 70 } },
-        'rasstegai': { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } }
-    };
-
     let currentLang = 'ru';
     let orderData = null;
     const isProduction = window.location.hostname !== 'localhost';
@@ -476,11 +365,13 @@
     function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
     function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
 
-    function getProductTypeById(productId) {
-        if (productId === 'box1' || productId === 'box2') return 'box';
-        if (productId === 'cake1') return 'cake';
-        if (productId === 'lemon-cookies' || productId === 'oat-cookies' || productId === 'rasstegai') return 'quantity-item';
-        return 'other';
+    // ✅ ДИНАМИЧЕСКОЕ ПОЛУЧЕНИЕ ДАННЫХ ИЗ CATALOG
+    function getProductType(productId) {
+        return CATALOG[productId]?.type || 'other';
+    }
+
+    function getItemName(item, lang) {
+        return CATALOG[item.productId]?.name[lang] || item.name || item.productId;
     }
 
     function getPersonsWordRu(count) {
@@ -489,32 +380,26 @@
         return translations.ru.personsWord5;
     }
 
-    function translateAllergen(name, lang) {
-        if (allergenTranslations[name]) {
-            return allergenTranslations[name][lang] || name;
-        }
-        return name;
-    }
-
+    // ✅ ДИНАМИЧЕСКИЙ РАСЧЕТ ЦЕНЫ НА ОСНОВЕ CATALOG
     function recalculateItemPrice(item, lang) {
-        const productId = item.productId;
-        const options = item.options || {};
-        const table = priceTable[productId];
-        if (!table) return item.price;
-        if (productId === 'box1' || productId === 'box2') {
-            const persons = parseInt(options.persons) || 2;
-            return table[lang]?.[persons] || table[lang]?.[2];
-        }
-        if (productId === 'cake1') return table[lang];
-        if (table[lang] && typeof table[lang] === 'object') {
-            const qty = parseInt(options.quantity) || 4;
-            return table[lang][qty] || table[lang][4];
-        }
-        return item.price;
-    }
+        const product = CATALOG[item.productId];
+        if (!product) return Number(item.price) || 0;
+        
+        const prices = product.prices[lang];
+        if (!prices) return 0;
 
-    function getItemName(item, lang) {
-        return productNames[lang]?.[item.productId] || item.name || item.productId;
+        if (product.type === 'box') {
+            const persons = parseInt(item.options?.persons) || 2;
+            return Number(prices[persons] || prices[2] || 0);
+        }
+        if (product.type === 'cake') {
+            return Number(prices || 0);
+        }
+        if (product.type === 'quantity-item') {
+            const qty = parseInt(item.options?.quantity) || 4;
+            return Number(prices[qty] || prices[4] || 0);
+        }
+        return Number(item.price) || 0;
     }
 
     function formatPrice(amount, lang) {
@@ -583,7 +468,7 @@
             
             const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
             const itemName = getItemName(item, currentLang);
-            const productType = item.productType || getProductTypeById(item.productId);
+            const productType = getProductType(item.productId);
             
             let optionsHtml = '';
             
@@ -598,8 +483,8 @@
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
                 
                 if (item.options?.allergens?.length > 0) {
-                    const translatedAllergens = item.options.allergens.map(a => translateAllergen(a, currentLang));
-                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${translatedAllergens.join(', ')}</span></div>`;
+                    // ✅ Аллергены уже сохранены на нужном языке из checkout.html
+                    optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
@@ -629,8 +514,10 @@
             `;
         });
         
-        const deliveryText = orderData.delivery === 'courier' ? t.deliveryCourier : t.deliveryPickup;
-        const deliveryCost = orderData.delivery === 'courier' ? (currentLang === 'en' ? 40 : 800) : 0;
+        const isPickup = orderData.delivery === 'pickup';
+        // ✅ ДИНАМИЧЕСКИЙ ТЕКСТ САМОВЫВОЗА ИЗ SITE_SETTINGS
+        const deliveryText = isPickup ? (SITE_SETTINGS?.pickup[currentLang] || 'Самовывоз') : t.deliveryCourier;
+        const deliveryCost = isPickup ? 0 : (currentLang === 'en' ? 40 : 800);
         const totalValue = itemsTotal + deliveryCost;
         
         container.innerHTML = `
@@ -655,7 +542,7 @@
                         <span class="info-label">${t.labelDelivery}</span>
                         <span class="info-value">${deliveryText}</span>
                     </div>
-                    ${orderData.delivery === 'courier' && orderData.address ? `
+                    ${!isPickup && orderData.address ? `
                     <div class="info-row">
                         <span class="info-label">${t.labelAddress}</span>
                         <span class="info-value">${orderData.address}</span>
@@ -766,7 +653,7 @@
                 const href = this.getAttribute('href');
                 if (href?.includes('contacts')) ymTrack('nav_contacts_click');
                 else if (href?.includes('history')) ymTrack('nav_history_click');
-                else if (href?.includes('index.html') && !href.includes('#')) ymTrack('nav_home_click');
+                else if (href?.includes('/') && !href.includes('#')) ymTrack('nav_home_click');
             });
         });
         
