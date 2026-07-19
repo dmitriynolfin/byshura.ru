@@ -8,7 +8,6 @@
     
     <title>Секретное Pop-up Меню | Вестник Гедонизма</title>
     
-    <!-- ✅ ИКОНКИ САЙТА -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
@@ -18,7 +17,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- ✅ Подключаем единый источник данных -->
     <script src="/js/data.js"></script>
     
     <style>
@@ -115,148 +113,39 @@
         }
         .add-to-cart-btn:hover { background: #FFD93D; color: #070395; }
 
-        /* === ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) === */
         .cart-notification {
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            background: #070395;
-            color: white;
-            padding: 20px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 10000;
-            transform: translateX(400px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 400px;
-            border-left: 4px solid #FFD93D;
+            position: fixed; top: 100px; right: 30px; background: #070395; color: white;
+            padding: 20px 30px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            display: flex; align-items: center; gap: 15px; z-index: 10000;
+            transform: translateX(400px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 400px; border-left: 4px solid #FFD93D;
         }
-        .cart-notification.show {
-            transform: translateX(0);
-        }
-        .cart-notification-icon {
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-        .cart-notification-text {
-            flex: 1;
-            font-weight: 600;
-            font-size: 15px;
-            line-height: 1.4;
-        }
+        .cart-notification.show { transform: translateX(0); }
+        .cart-notification-icon { font-size: 28px; flex-shrink: 0; }
+        .cart-notification-text { flex: 1; font-weight: 600; font-size: 15px; line-height: 1.4; }
         .cart-notification-btn {
-            background: #FFD93D;
-            color: #070395;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            white-space: nowrap;
-            font-size: 13px;
-            transition: all 0.3s;
+            background: #FFD93D; color: #070395; border: none; padding: 10px 20px;
+            border-radius: 8px; font-weight: 700; cursor: pointer; white-space: nowrap;
+            font-size: 13px; transition: all 0.3s;
         }
-        .cart-notification-btn:hover {
-            background: #fff;
-            transform: translateY(-2px);
-        }
+        .cart-notification-btn:hover { background: #fff; transform: translateY(-2px); }
 
-        /* === СЕКЦИЯ САМОВЫВОЗА === */
-        .pickup-section {
-            padding: 80px 0 120px;
-            background: white;
-            color: #070395;
-        }
-        .pickup-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-        .pickup-header h2 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #070395;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-        .pickup-header p {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #555;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .pickup-section { padding: 80px 0 120px; background: white; color: #070395; }
+        .pickup-header { text-align: center; margin-bottom: 35px; }
+        .pickup-header h2 { font-size: 32px; font-weight: 700; color: #070395; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .pickup-header p { font-size: 16px; line-height: 1.7; color: #555; max-width: 600px; margin: 0 auto; }
         
-        .pickup-map-container {
-            max-width: 1100px;
-            margin: 0 auto 40px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(7,3,149,0.15);
-            position: relative;
-            background: #f0f0f0;
-        }
-        .pickup-map-iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-            display: block;
-        }
+        .pickup-map-container { max-width: 1100px; margin: 0 auto 40px; overflow: hidden; box-shadow: 0 10px 40px rgba(7,3,149,0.15); position: relative; background: #f0f0f0; }
+        .pickup-map-iframe { width: 100%; height: 450px; border: none; display: block; }
         
-        .pickup-info-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0;
-            max-width: 1100px;
-            margin: 0 auto;
-            background: #f8f9fa;
-            padding: 20px 30px;
-            box-shadow: 0 5px 20px rgba(7,3,149,0.08);
-        }
-        .pickup-info-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 30px;
-            flex: 1;
-            justify-content: center;
-        }
-        .pickup-info-item:not(:last-child) {
-            border-right: 2px solid #e0e0e0;
-        }
-        .pickup-info-icon {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 3px 10px rgba(7,3,149,0.1);
-        }
-        .pickup-info-icon svg {
-            width: 22px;
-            height: 22px;
-            color: #070395;
-        }
-        .pickup-info-text {
-            font-size: 15px;
-            color: #070395;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-        .pickup-info-text a {
-            color: #070395;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .pickup-info-text a:hover {
-            color: #FFD93D;
-        }
+        .pickup-info-bar { display: flex; justify-content: center; align-items: center; gap: 0; max-width: 1100px; margin: 0 auto; background: #f8f9fa; padding: 20px 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.08); }
+        .pickup-info-item { display: flex; align-items: center; gap: 12px; padding: 0 30px; flex: 1; justify-content: center; }
+        .pickup-info-item:not(:last-child) { border-right: 2px solid #e0e0e0; }
+        .pickup-info-icon { width: 44px; height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; background: white; border-radius: 50%; box-shadow: 0 3px 10px rgba(7,3,149,0.1); }
+        .pickup-info-icon svg { width: 22px; height: 22px; color: #070395; }
+        .pickup-info-text { font-size: 15px; color: #070395; font-weight: 600; line-height: 1.5; }
+        .pickup-info-text a { color: #070395; text-decoration: none; transition: color 0.3s; }
+        .pickup-info-text a:hover { color: #FFD93D; }
 
         .footer { background: rgba(255, 255, 255, 0.95); padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 0; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
@@ -299,27 +188,14 @@
             .cookie-banner { padding: 15px 0; }
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
             .cookie-btn { width: 100%; max-width: 300px; }
-            
-            .cart-notification {
-                top: 80px;
-                right: 15px;
-                left: 15px;
-                max-width: none;
-            }
-            
+            .cart-notification { top: 80px; right: 15px; left: 15px; max-width: none; }
             .pickup-section { padding: 50px 0 80px; }
             .pickup-header { margin-bottom: 25px; }
             .pickup-header h2 { font-size: 26px; margin-bottom: 15px; }
             .pickup-header p { font-size: 15px; }
             .pickup-map-iframe { height: 350px; }
             .pickup-info-bar { flex-direction: column; gap: 20px; padding: 25px 20px; }
-            .pickup-info-item { 
-                padding: 15px 0; 
-                border-right: none !important; 
-                border-bottom: 1px solid #e0e0e0;
-                width: 100%;
-                justify-content: flex-start;
-            }
+            .pickup-info-item { padding: 15px 0; border-right: none !important; border-bottom: 1px solid #e0e0e0; width: 100%; justify-content: flex-start; }
             .pickup-info-item:last-child { border-bottom: none; }
         }
         @media (max-width: 480px) {
@@ -354,7 +230,6 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
-                <!-- ✅ КНОПКА "ОСНОВНОЕ МЕНЮ" УБРАНА -->
             </div>
         </div>
     </header>
@@ -365,65 +240,37 @@
                 <h1>Секретное Pop-up Меню</h1>
                 <p>Эксклюзивное предложение для своих. Собирайте свой идеальный набор.</p>
             </div>
-
-            <!-- ✅ Карточки генерируются автоматически из js/data.js -->
             <div class="items-grid" id="popupGrid"></div>
         </div>
     </main>
 
-    <!-- ✅ СЕКЦИЯ САМОВЫВОЗА -->
     <section class="pickup-section" id="contacts">
         <div class="container">
             <div class="pickup-header">
                 <h2>САМОВЫВОЗ</h2>
                 <p>Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично</p>
             </div>
-            
             <div class="pickup-map-container" id="mapContainer">
-                <!-- ✅ КАРТА С ТОЧКОЙ ЖК Prime Park -->
-                <iframe 
-                    class="pickup-map-iframe" 
-                    id="mapIframe" 
-                    src="https://yandex.ru/map-widget/v1/?ll=37.5364%2C55.7897&z=16&l=map&pt=37.5364%2C55.7897%2Cpm2rdm" 
-                    allowfullscreen 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Карта самовывоза ЖК Prime Park"
-                    style="background-color: #f0f0f0;">
-                </iframe>
+                <iframe class="pickup-map-iframe" id="mapIframe" src="https://yandex.ru/map-widget/v1/?ll=37.5364%2C55.7897&z=16&l=map&pt=37.5364%2C55.7897%2Cpm2rdm" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Карта самовывоза ЖК Prime Park" style="background-color: #f0f0f0;"></iframe>
             </div>
-            
             <div class="pickup-info-bar">
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     </div>
-                    <div class="pickup-info-text">
-                        <!-- ✅ ИЗМЕНЕНО ВРЕМЯ РАБОТЫ -->
-                        <span>Сб</span> · <span>17:00 – 23:00</span>
-                    </div>
+                    <div class="pickup-info-text"><span>Сб</span> · <span>17:00 – 23:00</span></div>
                 </div>
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                     </div>
                     <div class="pickup-info-text">ЖК Prime Park, Ленинградский проспект 37/7</div>
                 </div>
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                     </div>
-                    <div class="pickup-info-text">
-                        <a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer">@sash_shura</a>
-                    </div>
+                    <div class="pickup-info-text"><a href="https://t.me/sash_shura" target="_blank" rel="noopener noreferrer">@sash_shura</a></div>
                 </div>
             </div>
         </div>
@@ -438,60 +285,46 @@
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="/images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <div class="legal-links-ru">
-                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
+                <a href="/legal/privacy-policy" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer" target="_blank">Публичная оферта</a>
             </div>
         </div>
     </footer>
 
-    <!-- ✅ ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) -->
     <div class="cart-notification" id="cartNotification">
         <span class="cart-notification-icon">✅</span>
         <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
-        <button class="cart-notification-btn" onclick="window.location.href='/pages/checkout.html'">В корзину</button>
+        <!-- ✅ Обновлено: ссылка на checkout-popup без .html -->
+        <button class="cart-notification-btn" onclick="window.location.href='/pages/checkout-popup'">В корзину</button>
     </div>
 
     <div id="cookieBanner" class="cookie-banner">
         <div class="container cookie-banner-container">
-            <p class="cookie-text">Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy.html" target="_blank">Политикой конфиденциальности</a>.</p>
+            <p class="cookie-text">Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy" target="_blank">Политикой конфиденциальности</a>.</p>
             <button id="cookieAcceptBtn" class="cookie-btn">Принять</button>
         </div>
     </div>
 
     <script>
-        // === 1. ГЕНЕРАЦИЯ КАРТОЧЕК ИЗ DATA.JS ===
         const POPUP_ITEM_IDS = ['popup-cookie', 'popup-cake-slice', 'popup-salad'];
 
         function renderPopupItems() {
-            console.log('=== РЕНДЕРИНГ КАРТОЧЕК ===');
-            console.log('CATALOG загружен:', typeof CATALOG !== 'undefined');
-            
             const grid = document.getElementById('popupGrid');
-            if (!grid) {
-                console.error('Элемент popupGrid не найден!');
-                return;
-            }
-            
-            if (typeof CATALOG === 'undefined') {
-                console.error('CATALOG не загружен! Проверьте путь к js/data.js');
-                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 40px;">Ошибка загрузки данных. Проверьте консоль (F12) или обновите страницу.</p>';
+            if (!grid || typeof CATALOG === 'undefined') {
+                if(grid) grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 40px;">Ошибка загрузки данных.</p>';
                 return;
             }
 
-            let renderedCount = 0;
             POPUP_ITEM_IDS.forEach(id => {
                 const item = CATALOG[id];
-                if (!item) {
-                    console.warn(`Товар ${id} не найден в CATALOG. Убедитесь, что он добавлен в js/data.js`);
-                    return;
-                }
+                if (!item) return;
 
                 const price = item.prices.ru;
                 const name = item.name.ru;
                 const descr = item.description.ru;
                 const img = item.images.mobile;
-                const emoji = item.emoji || '️';
+                const emoji = item.emoji || '🍪';
 
                 const card = document.createElement('div');
                 card.className = 'box-card';
@@ -517,16 +350,11 @@
                     </div>
                 `;
                 grid.appendChild(card);
-                renderedCount++;
             });
-            
-            if (renderedCount === 0) {
-                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 40px;">Товары не найдены. Проверьте ключи в js/data.js (popup-cookie, popup-cake-slice, popup-salad).</p>';
-            }
         }
 
-        // === 2. ЛОГИКА КОРЗИНЫ ===
-        let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+        // ✅ ВАЖНО: Используем отдельный ключ для Pop-up корзины
+        let cart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
 
         function updateCartCount() {
             const cartCount = document.getElementById('cartCount');
@@ -539,10 +367,11 @@
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             if (cart.length === 0) {
                 if (confirm('Корзина пуста. Перейти на страницу боксов?')) {
-                    window.location.href = '/pages/boxes.html';
+                    window.location.href = '/pages/boxes';
                 }
             } else {
-                window.location.href = '/pages/checkout.html';
+                // ✅ Ведет на отдельный чекаут для поп-ап
+                window.location.href = '/pages/checkout-popup';
             }
         });
 
@@ -551,8 +380,7 @@
             let newValue = parseInt(input.value) + change;
             if (newValue < 1) newValue = 1;
             input.value = newValue;
-            const minusBtn = btn.parentElement.querySelector('.qty-minus');
-            minusBtn.disabled = newValue === 1;
+            btn.parentElement.querySelector('.qty-minus').disabled = newValue === 1;
         }
 
         function addToCart(btn) {
@@ -561,7 +389,7 @@
             const price = parseInt(card.dataset.price);
             const quantity = parseInt(card.querySelector('.qty-input').value);
 
-            let existingItemIndex = cart.findIndex(item => item.name === name && item.category === 'popup_exclusive');
+            let existingItemIndex = cart.findIndex(item => item.name === name);
             
             if (existingItemIndex !== -1) {
                 cart[existingItemIndex].quantity += quantity;
@@ -575,7 +403,8 @@
                 });
             }
             
-            localStorage.setItem('hedonism_cart', JSON.stringify(cart));
+            // ✅ Сохраняем в отдельный ключ
+            localStorage.setItem('hedonism_popup_cart', JSON.stringify(cart));
             updateCartCount();
             
             card.querySelector('.qty-input').value = 1;
@@ -584,23 +413,16 @@
             showNotification(name);
         }
 
-        // === 3. ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) ===
         function showNotification(itemName) {
             const notification = document.getElementById('cartNotification');
             const notificationText = document.getElementById('notificationText');
-            
             if (notification && notificationText) {
                 notificationText.textContent = `"${itemName}" добавлен в корзину!`;
                 notification.classList.add('show');
-                
-                // Автоматически скрыть через 4 секунды
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 4000);
+                setTimeout(() => { notification.classList.remove('show'); }, 4000);
             }
         }
 
-        // === 4. ЛОГИКА COOKIE ===
         function checkCookieConsent() {
             const consent = localStorage.getItem('cookie_consent');
             if (consent !== 'true') {
@@ -618,18 +440,23 @@
             }
         });
 
-        // Эффект скролла для шапки
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
             if (window.scrollY > 50) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         });
 
-        // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', () => {
             renderPopupItems();
             updateCartCount();
             checkCookieConsent();
+        });
+        
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'hedonism_popup_cart') {
+                cart = JSON.parse(e.newValue) || [];
+                updateCartCount();
+            }
         });
     </script>
 </body>
