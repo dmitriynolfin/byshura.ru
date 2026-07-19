@@ -73,13 +73,35 @@
         .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
+        
+        /* ✅ ПОЛНАЯ СИНХРОНИЗАЦИЯ С INDEX.HTML И BOXES.HTML */
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
+        .icon-btn { 
+            padding: 8px; color: #070395; 
+            transition: transform 0.3s; 
+            position: relative; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; 
+            min-width: 44px; min-height: 44px;
+        }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
+        .cart-count { 
+            position: absolute; top: -2px; right: -2px; 
+            background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; 
+            width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            line-height: 1;
+        }
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            transition: all 0.3s; min-height: 44px; 
+            display: flex; align-items: center;
+            min-width: 140px; /* ✅ ОДИНАКОВАЯ ШИРИНА ДЛЯ ВЫРАВНИВАНИЯ КРАЯ ШАПКИ */
+            justify-content: center;
+        }
         .btn-back:hover { background: #070395; color: white; }
         
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); transition: background 0.3s; }
@@ -223,9 +245,14 @@
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         @media (max-width: 768px) { 
             .header { padding: 12px 0; } .checkout-page { padding-top: 95px; } .header-container { padding: 0 15px; }
-            .logo { width: 42px; height: 42px; font-size: 22px; } .header-icons { gap: 10px; }
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; } .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; } 
+            
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } 
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; min-width: 120px; }
+            .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            
             .checkout-title { font-size: 28px; } .checkout-form { padding: 20px; } .form-title { font-size: 18px; }
             .delivery-options { flex-direction: column; } .checkout-actions { flex-direction: column; } .header-right { gap: 10px; }
             .order-item { flex-direction: row; gap: 12px; } .order-item-thumb { width: 60px; height: 60px; }
@@ -234,9 +261,15 @@
         }
         @media (max-width: 480px) { 
             .header { padding: 10px 0; } .checkout-page { padding-top: 90px; } .logo { width: 40px; height: 40px; font-size: 20px; }
-            .header-icons { gap: 8px; } .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; } .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; } .checkout-title { font-size: 24px; }
+            
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } 
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; } 
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; min-width: 110px; }
+            .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; } 
+            
+            .checkout-title { font-size: 24px; }
             .checkout-form { padding: 18px; } .form-title { font-size: 16px; } .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 16px; }
             .contact-input-wrapper .form-input { padding-left: 44px; } .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
             .delivery-label { padding: 12px 16px; font-size: 13px; } .footer { padding: 18px 0; } .social-links { gap: 12px; }
@@ -258,8 +291,18 @@
             .processing-box { padding: 25px 20px; }
             .processing-text { font-size: 15px; }
         }
+        @media (max-width: 414px) {
+            .persons-select { gap: 3px; } .person-option { flex: 1 1 28%; max-width: 30%; } .person-label { padding: 5px 1px; min-height: 48px; }
+            .person-icon { font-size: 13px; } .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 12px; }
+            .person-option:nth-child(3) .person-icon { font-size: 13px; } .person-price { font-size: 9px !important; padding: 2px 4px; }
+            .quantity-count { font-size: 15px; } .quantity-price { font-size: 12px !important; padding: 3px 8px; }
+            .modal-body { max-height: calc(75vh - 140px); } .modal-actions { padding: 10px 12px; }
+        }
         @media (max-width: 360px) {
-            .logo { width: 38px; height: 38px; font-size: 18px; } .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            .logo { width: 38px; height: 38px; font-size: 18px; } 
+            
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; min-width: 100px; }
+            
             .checkout-title { font-size: 22px; } .form-title { font-size: 15px; } .order-item-thumb { height: 100px; }
             .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; } .icon-btn svg { width: 22px; height: 22px; }
             .datetime-grid input[type="date"], .datetime-grid input[type="time"] { padding: 5px 8px !important; font-size: 16px !important; height: 40px !important; line-height: 40px; }
