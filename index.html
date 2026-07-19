@@ -294,6 +294,10 @@
             position: relative;
             overflow: hidden;
         }
+        /* ✅ НОВОЕ: Скрываем POP-UP секцию, когда выбран английский язык */
+        html[lang="en"] .popup-teaser {
+            display: none !important;
+        }
         .popup-teaser::before {
             content: '';
             position: absolute;
@@ -545,7 +549,11 @@
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
         .legal-divider { color: #ccc; }
+        
+        /* ✅ Управление видимостью элементов в зависимости от языка */
         html[lang="en"] .legal-links-ru { display: none !important; }
+        html[lang="en"] .popup-teaser { display: none !important; } /* Дублируем для надежности */
+        
         .legal-links-en { display: none; gap: 15px; align-items: center; }
         .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-en a:hover { color: #070395; }
