@@ -19,7 +19,7 @@ const CATALOG = {
         name: { ru: "Бокс «Ужин Николая II»", en: "Nicholas II Dinner Box" },
         prices: { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
         images: { desktop: "images/boxes-nicholas-1.webp", mobile: "images/boxes-nicholas-1-mobile.webp" },
-        gallery: ["images/boxes-nicholas-1.webp", "images/boxes-nicholas-2.webp", "images/boxes-nicholas-3.webp"], // добавьте все пути
+        gallery: ["images/boxes-nicholas-1.webp", "images/boxes-nicholas-2.webp", "images/boxes-nicholas-3.webp", "images/boxes-nicholas-4.webp", "images/boxes-nicholas-5.webp", "images/boxes-nicholas-6.webp"], // добавьте все пути
         composition: {
             ru: [
                 { name: "Закуски: Расстегаи с красной рыбой", w2: "150 г", w4: "300 г", w6: "450 г" },
