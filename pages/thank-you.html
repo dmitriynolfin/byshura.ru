@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
-    <script src="data.js"></script>
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (обновлен путь) -->
+    <script src="/js/data.js"></script>
     
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-    <link rel="icon" type="image/svg+xml" href="/icon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta property="og:image" content="https://byshura.ru/favicon-512.png">
+    <!-- ===== FAVICON (обновлены пути в /assets/) ===== -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://byshura.ru/thank-you.html">
+    <!-- ✅ Обновлено: canonical путь -->
+    <link rel="canonical" href="https://byshura.ru/pages/thank-you.html">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="pageTitle">Спасибо, что выбрали Вестник Гедонизма!</title>
@@ -29,7 +31,12 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-L8704SB9ZW', { page_title: document.title, page_location: window.location.href, page_path: window.location.pathname, send_page_view: false });
+      gtag('config', 'G-L8704SB9ZW', { 
+          page_title: document.title, 
+          page_location: window.location.href, 
+          page_path: '/pages/thank-you.html', 
+          send_page_view: false 
+      });
     </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -245,9 +252,10 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <a href="/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
-                    <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
-                    <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
+                    <!-- ✅ Обновлено: пути к страницам -->
+                    <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
+                    <a href="/pages/boxes.html#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
+                    <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
         </div>
@@ -265,15 +273,16 @@
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
+            <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
-                <a href="/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer" target="_blank">Публичная оферта</a>
+                <a href="/legal/offer.html" target="_blank">Публичная оферта</a>
             </div>
             <div class="legal-links-en">
-                <a href="/privacy-policy-en" target="_blank">Privacy Policy</a>
+                <a href="/legal/privacy-policy-en.html" target="_blank">Privacy Policy</a>
                 <span class="legal-divider">|</span>
-                <a href="/offer-en" target="_blank">Public Offer</a>
+                <a href="/legal/offer-en.html" target="_blank">Public Offer</a>
             </div>
         </div>
     </footer>
@@ -365,7 +374,6 @@
     function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
     function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
 
-    // ✅ ДИНАМИЧЕСКОЕ ПОЛУЧЕНИЕ ДАННЫХ ИЗ CATALOG
     function getProductType(productId) {
         return CATALOG[productId]?.type || 'other';
     }
@@ -380,7 +388,6 @@
         return translations.ru.personsWord5;
     }
 
-    // ✅ ДИНАМИЧЕСКИЙ РАСЧЕТ ЦЕНЫ НА ОСНОВЕ CATALOG
     function recalculateItemPrice(item, lang) {
         const product = CATALOG[item.productId];
         if (!product) return Number(item.price) || 0;
@@ -452,7 +459,8 @@
                     <div class="no-order-icon">📭</div>
                     <h2 class="no-order-title">${t.noOrderTitle}</h2>
                     <p class="no-order-text">${t.noOrderText}</p>
-                    <a href="/boxes" class="btn-home">${t.noOrderBtn}</a>
+                    <!-- ✅ Обновлено: путь к оформлению заказа -->
+                    <a href="/pages/boxes.html" class="btn-home">${t.noOrderBtn}</a>
                 </div>
             `;
             return;
@@ -483,7 +491,6 @@
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
                 
                 if (item.options?.allergens?.length > 0) {
-                    // ✅ Аллергены уже сохранены на нужном языке из checkout.html
                     optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
@@ -515,8 +522,7 @@
         });
         
         const isPickup = orderData.delivery === 'pickup';
-        // ✅ ДИНАМИЧЕСКИЙ ТЕКСТ САМОВЫВОЗА ИЗ SITE_SETTINGS
-        const deliveryText = isPickup ? (SITE_SETTINGS?.pickup[currentLang] || 'Самовывоз') : t.deliveryCourier;
+        const deliveryText = isPickup ? (typeof SITE_SETTINGS !== 'undefined' && SITE_SETTINGS?.pickup[currentLang] ? SITE_SETTINGS.pickup[currentLang] : 'Самовывоз') : t.deliveryCourier;
         const deliveryCost = isPickup ? 0 : (currentLang === 'en' ? 40 : 800);
         const totalValue = itemsTotal + deliveryCost;
         
@@ -628,7 +634,8 @@
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title, page_location: window.location.href,
-                page_path: '/thank-you.html', language: currentLang,
+                page_path: '/pages/thank-you.html', // ✅ Обновлено
+                language: currentLang,
                 has_order: !!orderData,
                 order_number: orderData?.orderNumber || null
             });
@@ -653,7 +660,7 @@
                 const href = this.getAttribute('href');
                 if (href?.includes('contacts')) ymTrack('nav_contacts_click');
                 else if (href?.includes('history')) ymTrack('nav_history_click');
-                else if (href?.includes('/') && !href.includes('#')) ymTrack('nav_home_click');
+                else if (href === '/' || href?.includes('index.html')) ymTrack('nav_home_click');
             });
         });
         
