@@ -16,14 +16,13 @@
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://byshura.ru/checkout.html">
+    <link rel="canonical" href="https://byshura.ru/thank-you.html">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="pageTitle">Оформление заказа - Вестник Гедонизма</title>
+    <title data-i18n="pageTitle">Спасибо, что выбрали Вестник Гедонизма!</title>
     
     <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" crossorigin>
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
-    <meta http-equiv="Expires" content="3600">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
@@ -44,27 +43,20 @@
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-        .address-input-wrapper { position: relative; }
-        .suggestions-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #eee; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 1000; max-height: 300px; overflow-y: auto; display: none; margin-top: 5px; }
-        .suggestions-list.show { display: block; }
-        .suggestion-item { padding: 12px 15px; cursor: pointer; transition: background 0.2s; border-bottom: 1px solid #f5f5f5; }
-        .suggestion-item:last-child { border-bottom: none; }
-        .suggestion-item:hover, .suggestion-item.active { background: #f0f0ff; }
-        .suggestion-main { font-size: 14px; color: #070395; font-weight: 500; margin-bottom: 4px; }
-        .suggestion-details { font-size: 12px; color: #666; }
-        .address-loading { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: none; }
-        .address-loading.show { display: block; }
-        .address-loading svg { animation: spin 1s linear infinite; color: #070395; }
-        @keyframes spin { 0% { transform: translateY(-50%) rotate(0deg); } 100% { transform: translateY(-50%) rotate(360deg); } }
-        @media (max-width: 480px) {
-            .suggestions-list { position: absolute !important; left: 0 !important; right: 0 !important; top: 100% !important; max-height: 50vh; z-index: 9999; margin-top: 5px; }
-            .suggestion-main { font-size: 13px; }
-            .suggestion-details { font-size: 11px; }
+        
+        /* ===== ШАПКА ===== */
+        .header { 
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
+            border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
         }
-        .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 2px 8px rgba(255,217,61,0.3); flex-shrink: 0; }
+        .logo { 
+            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+        }
         .nav-menu { display: flex; gap: 25px; align-items: center; }
         .nav-link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; position: relative; padding: 5px 0; }
         .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #FFD93D; transition: width 0.3s; }
@@ -73,95 +65,98 @@
         .nav-link-cta { background: #070395; color: white !important; padding: 10px 25px !important; border-radius: 25px; transition: all 0.3s !important; }
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
-        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
-        .header-icons { display: flex; gap: 12px; }
         
-        /* ✅ СИНХРОНИЗИРОВАНО С INDEX.HTML */
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
-        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
-        .btn-back:hover { background: #070395; color: white; }
+        .thankyou-page { padding: 100px 0 60px; min-height: 100vh; background: #f8f9fa; }
+        .thankyou-container { max-width: 900px; margin: 0 auto; }
         
-        .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); transition: background 0.3s; }
-        .lang-selector:hover { background: rgba(7,3,149,0.1); }
-        .lang-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2); min-width: 220px; display: none; z-index: 100; margin-top: 5px; }
-        .lang-dropdown.show { display: block; }
-        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; color: #070395; transition: background 0.2s; }
-        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
-        .lang-code { font-weight: 600; margin-right: 5px; }
-        .lang-descr { color: #666; font-size: 12px; }
-        .checkout-page { padding: 115px 0 60px; min-height: 100vh; background: #f8f9fa; }
-        .checkout-container { max-width: 900px; margin: 0 auto; }
-        .checkout-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 30px; color: #070395; }
-        .checkout-subtitle { text-align: center; font-size: 16px; color: #666; margin-bottom: 40px; }
-        .order-summary { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 30px; }
-        .order-summary-title { font-size: 20px; font-weight: 600; color: #070395; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .empty-cart-message { text-align: center; padding: 30px 20px; color: #666; line-height: 1.6; }
-        .add-items-link { color: #070395; font-weight: 700; text-decoration: underline; text-decoration-color: #FFD93D; text-underline-offset: 4px; transition: all 0.3s; display: inline-block; margin-top: 8px; }
-        .add-items-link:hover { color: #FFD93D; background: #070395; text-decoration: none; padding: 8px 16px; border-radius: 8px; }
-        .order-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #f5f5f5; gap: 15px; }
+        .thankyou-hero { 
+            background: white; border-radius: 24px; padding: 35px 40px; 
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px; text-align: center;
+        }
+        .thankyou-icon {
+            width: 80px; height: 80px; margin: 0 auto 15px;
+            background: linear-gradient(135deg, #FFD93D 0%, #FFB800 100%);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 44px; box-shadow: 0 10px 30px rgba(255,217,61,0.3);
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .thankyou-title { font-size: 32px; font-weight: 700; margin-bottom: 10px; color: #070395; }
+        .thankyou-subtitle { font-size: 15px; color: #666; margin-bottom: 18px; line-height: 1.5; }
+        .order-number-badge {
+            display: inline-block; background: #070395; color: white;
+            padding: 10px 24px; border-radius: 30px; font-weight: 600; font-size: 14px;
+            letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(7,3,149,0.2);
+        }
+        .order-number-badge span { color: #FFD93D; margin-left: 6px; }
+        
+        .thankyou-details {
+            background: white; border-radius: 24px; padding: 25px 30px;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); margin-bottom: 20px;
+        }
+        .details-section { margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .details-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .details-section-title {
+            font-size: 17px; font-weight: 600; color: #070395;
+            margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+        }
+        .details-section-title::before { content: ''; width: 4px; height: 18px; background: #FFD93D; border-radius: 2px; }
+        
+        .order-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; align-items: flex-start; }
         .order-item:last-child { border-bottom: none; }
+        .order-item-thumb { 
+            width: 60px; height: 60px; border-radius: 10px; background-size: cover; background-position: center; 
+            flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f0f0f0; 
+        }
         .order-item-info { flex: 1; min-width: 0; }
-        .order-item-thumb { width: 70px; height: 70px; border-radius: 12px; background-size: cover; background-position: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f0f0f0; }
-        .order-item-name { font-weight: 600; color: #070395; margin-bottom: 5px; }
-        .order-item-options { font-size: 13px; color: #666; margin-bottom: 8px; }
-        .order-item-option { display: flex; gap: 5px; margin-bottom: 3px; }
+        .order-item-name { font-weight: 600; color: #070395; margin-bottom: 3px; font-size: 14px; }
+        .order-item-options { font-size: 12px; color: #666; margin-bottom: 0; }
+        .order-item-option { display: flex; gap: 5px; margin-bottom: 2px; }
+        .order-item-option:last-child { margin-bottom: 0; }
         .order-item-option-label { color: #999; }
         .order-item-option-value { color: #070395; font-weight: 500; }
-        .order-item-controls { display: flex; align-items: center; gap: 10px; margin-left: 15px; }
-        .quantity-control { display: flex; align-items: center; gap: 5px; background: #f8f9fa; padding: 4px; border-radius: 15px; }
-        .quantity-btn { width: 24px; height: 24px; border: none; background: white; border-radius: 50%; color: #070395; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-        .quantity-btn:hover { background: #070395; color: white; }
-        .quantity-value { font-weight: 600; min-width: 18px; text-align: center; font-size: 13px; }
-        .order-item-remove-btn { display: flex; align-items: center; gap: 6px; background: transparent; color: #999; border: 1px solid #e0e0e0; border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .order-item-remove-btn:hover { background: #ffebee; color: #e74c3c; border-color: #e74c3c; }
-        .order-item-remove-btn svg { width: 16px; height: 16px; }
-        .order-item-price { font-weight: 600; color: #070395; font-size: 16px; min-width: 70px; text-align: right; white-space: nowrap; display: flex; align-items: baseline; gap: 4px; }
+        .order-item-price { 
+            font-weight: 600; color: #070395; font-size: 15px; white-space: nowrap; 
+            display: flex; align-items: baseline; gap: 4px; flex-shrink: 0;
+        }
         html[lang="en"] .order-item-price { flex-direction: row-reverse; }
-        .order-total { display: flex; justify-content: space-between; padding-top: 20px; margin-top: 10px; border-top: 2px solid #eee; font-size: 18px; font-weight: 600; color: #070395; }
-        .checkout-form { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 20px rgba(7,3,149,0.1); }
-        .form-section { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; }
-        .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .form-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #070395; }
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #070395; }
-        .form-input, .form-select, .form-textarea { width: 100%; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; color: #070395; background: white; transition: all 0.3s; max-width: 100%; box-sizing: border-box; }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 4px rgba(7,3,149,0.1); }
-        .form-input::placeholder { color: #999; }
-        .form-textarea { min-height: 100px; resize: vertical; }
-        .contact-input-wrapper { position: relative; }
-        .contact-input-wrapper .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #999; font-size: 18px; pointer-events: none; }
-        .contact-input-wrapper .form-input { padding-left: 48px; }
-        .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23070395' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 40px; }
-        .delivery-options { display: flex; gap: 15px; flex-wrap: wrap; }
-        .delivery-option { flex: 1; min-width: 150px; }
-        .delivery-radio { display: none; }
-        .delivery-label { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; color: #070395; cursor: pointer; transition: all 0.3s; background: #fafafa; }
-        .delivery-radio:checked + .delivery-label { background: #070395; color: white; border-color: #070395; box-shadow: 0 4px 12px rgba(7,3,149,0.2); }
-        .delivery-label:hover { border-color: #FFD93D; background: #fff9e6; }
-        .delivery-label svg { width: 20px; height: 20px; flex-shrink: 0; }
-        .payment-options { display: flex; flex-direction: column; gap: 10px; }
-        .payment-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; transition: all 0.3s; background: #fafafa; }
-        .payment-option:hover { border-color: #FFD93D; background: #fff9e6; }
-        .payment-radio { width: 20px; height: 20px; accent-color: #070395; }
-        .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; }
-        .payment-option input:checked + .payment-label { font-weight: 600; }
-        .consent-group { margin: 25px 0 30px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
-        .consent-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
-        .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: #070395; cursor: pointer; flex-shrink: 0; }
-        .consent-text { font-size: 13px; color: #555; line-height: 1.5; }
-        .consent-text a { color: #070395; font-weight: 600; text-decoration: none; }
-        .consent-text a:hover { color: #FFD93D; text-decoration: underline; }
-        .checkout-actions { display: flex; gap: 15px; margin-top: 30px; }
-        .btn-submit { flex: 1; background: #070395; color: white; padding: 16px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-submit:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); }
-        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .btn-cancel { flex: 1; background: transparent; color: #070395; padding: 16px 30px; border-radius: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: all 0.3s; border: 2px solid #070395; cursor: pointer; }
-        .btn-cancel:hover { background: #070395; color: white; }
-        .datetime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .date-hint { font-size: 12px; color: #666; margin-top: 5px; display: block; }
-        .date-hint strong { color: #070395; }
+        
+        .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; gap: 15px; }
+        .info-row:not(:last-child) { border-bottom: 1px dashed #eee; }
+        .info-label { color: #999; font-size: 13px; flex-shrink: 0; }
+        .info-value { color: #070395; font-weight: 500; font-size: 13px; text-align: right; }
+        .info-value-price { display: flex; align-items: baseline; gap: 4px; justify-content: flex-end; }
+        html[lang="en"] .info-value-price { flex-direction: row-reverse; }
+        
+        .order-total-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0 0; margin-top: 8px; border-top: 2px solid #070395;
+            font-size: 18px; font-weight: 700; color: #070395;
+        }
+        .order-total-value { display: flex; align-items: baseline; gap: 6px; }
+        html[lang="en"] .order-total-value { flex-direction: row-reverse; }
+        
+        .thankyou-actions { text-align: center; margin-top: 20px; }
+        .btn-home {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: #070395; color: white; padding: 14px 36px;
+            border-radius: 30px; font-weight: 600; font-size: 14px;
+            text-transform: uppercase; transition: all 0.3s; border: none; cursor: pointer;
+        }
+        .btn-home:hover { background: #FFD93D; color: #070395; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7,3,149,0.2); }
+        
+        .no-order {
+            background: white; border-radius: 24px; padding: 50px 40px;
+            box-shadow: 0 5px 20px rgba(7,3,149,0.1); text-align: center;
+        }
+        .no-order-icon { font-size: 56px; margin-bottom: 15px; }
+        .no-order-title { font-size: 22px; font-weight: 700; color: #070395; margin-bottom: 10px; }
+        .no-order-text { color: #666; margin-bottom: 20px; }
+        
         .footer { background: white; padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 60px; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -169,6 +164,7 @@
         .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; min-width: 25px; min-height: 25px; }
         .social-link:hover { color: #FFD93D; }
         .social-link img { width: 25px; height: 25px; object-fit: contain; }
+        
         .legal-links-ru { display: flex; gap: 15px; align-items: center; }
         .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
         .legal-links-ru a:hover { color: #070395; }
@@ -179,92 +175,56 @@
         .legal-links-en a:hover { color: #070395; }
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
-        .cart-modal { display: none; }
-        .cart-overlay { display: none; }
+        
         ::-webkit-scrollbar { width: 0px; background: transparent; }
         html { scrollbar-width: none; }
         body { -ms-overflow-style: none; }
         
-        .processing-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(248, 249, 250, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 10000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .processing-overlay.active { display: flex; }
-        .processing-box {
-            background: #ffffff;
-            padding: 30px 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(7,3,149,0.15);
-            text-align: center;
-            border: 1px solid #f0f0f5;
-            max-width: 90%;
-        }
-        .processing-spinner {
-            width: 40px; height: 40px;
-            margin: 0 auto 15px;
-            border: 4px solid #f0f0f5;
-            border-top: 4px solid #070395;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        .processing-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: #070395;
-            margin: 0;
-        }
-
         @media (max-width: 1024px) { .container { padding: 0 20px; } .nav-menu { display: none; } }
         @media (max-width: 768px) { 
-            .header { padding: 12px 0; } .checkout-page { padding-top: 95px; } .header-container { padding: 0 15px; }
-            .logo { width: 42px; height: 42px; font-size: 22px; } .header-icons { gap: 10px; }
-            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; } .btn-submit, .btn-cancel { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .checkout-title { font-size: 28px; } .checkout-form { padding: 20px; } .form-title { font-size: 18px; }
-            .delivery-options { flex-direction: column; } .checkout-actions { flex-direction: column; } .header-right { gap: 10px; }
-            .order-item { flex-direction: row; gap: 12px; } .order-item-thumb { width: 60px; height: 60px; }
-            .order-item-info { min-width: 0; } .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
-            .order-item-price { text-align: left; } .footer-container { flex-direction: column; gap: 15px; text-align: center; }
+            .header { padding: 12px 0; } .thankyou-page { padding-top: 85px; } .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .thankyou-hero { padding: 28px 20px; margin-bottom: 15px; }
+            .thankyou-icon { width: 64px; height: 64px; font-size: 34px; margin-bottom: 12px; }
+            .thankyou-title { font-size: 24px; margin-bottom: 8px; }
+            .thankyou-subtitle { font-size: 14px; margin-bottom: 14px; }
+            .thankyou-details { padding: 18px 20px; margin-bottom: 15px; }
+            .details-section { margin-bottom: 14px; padding-bottom: 12px; }
+            .details-section-title { font-size: 15px; margin-bottom: 8px; }
+            .order-item { gap: 10px; padding: 8px 0; }
+            .order-item-thumb { width: 52px; height: 52px; border-radius: 8px; }
+            .order-item-name { font-size: 13px; } .order-item-options { font-size: 11px; } .order-item-price { font-size: 14px; }
+            .info-row { padding: 5px 0; } .info-label, .info-value { font-size: 12px; }
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         @media (max-width: 480px) { 
-            .header { padding: 10px 0; } .checkout-page { padding-top: 90px; } .logo { width: 40px; height: 40px; font-size: 20px; }
-            .header-icons { gap: 8px; } .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } .icon-btn svg { width: 24px; height: 24px; }
-            .cart-count { width: 18px; height: 18px; font-size: 10px; } .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
-            .btn-submit, .btn-cancel { padding: 12px 18px; font-size: 12px; min-height: 52px; } .checkout-title { font-size: 24px; }
-            .checkout-form { padding: 18px; } .form-title { font-size: 16px; } .form-input, .form-select, .form-textarea { padding: 12px 16px; font-size: 16px; }
-            .contact-input-wrapper .form-input { padding-left: 44px; } .contact-input-wrapper .icon { left: 16px; font-size: 16px; }
-            .delivery-label { padding: 12px 16px; font-size: 13px; } .footer { padding: 18px 0; } .social-links { gap: 12px; }
-            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; } .social-link img { width: 28px; height: 28px; }
-            .footer-copyright { font-size: 12px; } .header-right { gap: 8px; }
-            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
+            .header { padding: 10px 0; } .thankyou-page { padding-top: 85px; } .logo { width: 40px; height: 40px; font-size: 20px; }
+            .thankyou-hero { padding: 22px 16px; border-radius: 18px; }
+            .thankyou-icon { width: 56px; height: 56px; font-size: 28px; margin-bottom: 10px; }
+            .thankyou-title { font-size: 20px; margin-bottom: 6px; }
+            .thankyou-subtitle { font-size: 13px; margin-bottom: 12px; }
+            .order-number-badge { padding: 8px 18px; font-size: 13px; }
+            .thankyou-details { padding: 16px; border-radius: 18px; }
+            .details-section { margin-bottom: 12px; padding-bottom: 10px; }
+            .details-section-title { font-size: 14px; margin-bottom: 6px; }
+            .order-item { flex-direction: column; gap: 8px; padding: 8px 0; }
+            .order-item-thumb { width: 100%; height: 100px; border-radius: 12px; }
+            .order-item-name { font-size: 14px; } .order-item-options { font-size: 11px; } .order-item-price { font-size: 15px; }
+            .info-row { flex-direction: column; gap: 2px; padding: 5px 0; }
+            .info-value { text-align: left; } .info-value-price { justify-content: flex-start; }
+            .order-total-row { font-size: 16px; padding-top: 10px; margin-top: 6px; }
+            .thankyou-actions { margin-top: 15px; } .btn-home { padding: 12px 28px; font-size: 13px; }
+            .footer { padding: 18px 0; } .social-links { gap: 12px; }
+            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
+            .social-link img { width: 28px; height: 28px; } .footer-copyright { font-size: 12px; }
             .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; } .legal-divider { color: #ccc; font-size: 11px; }
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             html[lang="en"] .legal-links-en { display: flex !important; } .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
-            .consent-group { padding: 12px; margin: 20px 0 25px; } .consent-text { font-size: 12px; line-height: 1.4; }
-            .datetime-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; align-items: flex-start; }
-            .datetime-grid .form-group { flex: 0 0 auto; margin-bottom: 0; } .datetime-grid .form-label { font-size: 12px; margin-bottom: 4px; }
-            .datetime-grid input[type="date"], .datetime-grid input[type="time"] { width: auto !important; min-width: fit-content; padding: 6px 10px !important; font-size: 16px !important; min-height: auto !important; height: 40px !important; border-radius: 8px !important; border-width: 1.5px !important; display: inline-flex; align-items: center; justify-content: center; text-align: center; line-height: 40px; box-sizing: border-box; }
-            .order-item { flex-direction: column; } .order-item-thumb { width: 100%; height: 120px; border-radius: 16px; }
-            .order-item-name { font-size: 16px; } .order-item-options { font-size: 12px; } .quantity-control { gap: 3px; }
-            .quantity-btn { width: 22px; height: 22px; font-size: 13px; } .order-item-price { font-size: 18px; }
-            .remove-text { display: none; } .order-item-remove-btn { padding: 10px; }
-            .processing-box { padding: 25px 20px; }
-            .processing-text { font-size: 15px; }
         }
         @media (max-width: 360px) {
-            .logo { width: 38px; height: 38px; font-size: 18px; } .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
-            .checkout-title { font-size: 22px; } .form-title { font-size: 15px; } .order-item-thumb { height: 100px; }
-            .icon-btn { min-width: 48px; min-height: 48px; padding: 10px; } .icon-btn svg { width: 22px; height: 22px; }
-            .datetime-grid input[type="date"], .datetime-grid input[type="time"] { padding: 5px 8px !important; font-size: 16px !important; height: 40px !important; line-height: 40px; }
-            .datetime-grid .form-label { font-size: 11px; }
+            .logo { width: 38px; height: 38px; font-size: 18px; } .thankyou-title { font-size: 19px; }
+            .thankyou-hero { padding: 18px 14px; } .thankyou-details { padding: 14px; } .order-item-thumb { height: 80px; }
         }
     </style>
     
@@ -279,6 +239,7 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
+
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
@@ -289,148 +250,11 @@
                     <a href="/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
                 </nav>
             </div>
-            <div class="header-right">
-                <div class="header-icons">
-                    <button class="icon-btn cart-btn" aria-label="Корзина" id="cartBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <path d="M16 10a4 4 0 0 1-8 0"></path>
-                        </svg>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                </div>
-                <a href="/" class="btn-back" data-i18n="btnBack">← НАЗАД</a>
-                <div class="lang-selector" id="langBtn">
-                    <span id="langFlag">🇷🇺</span>
-                    <span id="langCurrent">RU</span>
-                    <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
-                    </div>
-                </div>
-            </div>
         </div>
     </header>
 
-    <section class="checkout-page">
-        <div class="container checkout-container">
-            <h1 class="checkout-title" data-i18n="checkoutTitle">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
-            <p class="checkout-subtitle" data-i18n="checkoutSubtitle">Заполните данные для доставки вашего заказа</p>
-            
-            <div class="order-summary">
-                <h2 class="order-summary-title" data-i18n="orderSummaryTitle">Ваш заказ</h2>
-                <div id="orderItemsContainer"></div>
-                <div class="order-total">
-                    <span data-i18n="orderTotal">Итого:</span>
-                    <span id="orderTotal"><span class="price-value">0</span> <span class="currency">₽</span></span>
-                </div>
-            </div>
-            
-            <form class="checkout-form" id="checkoutForm" novalidate>
-                <div class="form-section">
-                    <h2 class="form-title"><span data-i18n="sectionContactsText">Контактные данные</span></h2>
-                    <div class="form-group">
-                        <label class="form-label" for="name" data-i18n="labelName">Имя *</label>
-                        <div class="contact-input-wrapper">
-                            <span class="icon">👤</span>
-                            <input type="text" id="name" name="name" class="form-input" data-placeholder-ru="Ваше имя" data-placeholder-en="Your name" placeholder="Ваше имя">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="phone" data-i18n="labelPhone">Телефон *</label>
-                        <div class="contact-input-wrapper">
-                            <span class="icon">📞</span>
-                            <input type="tel" id="phone" name="phone" class="form-input" data-placeholder-ru="Ваш номер телефона" data-placeholder-en="Your phone number" placeholder="Ваш номер телефона">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="messenger" data-i18n="labelMessenger">Предпочтительный способ связи</label>
-                        <select id="messenger" name="messenger" class="form-select">
-                            <option value="MAX" data-i18n="messenger1">MAX</option>
-                            <option value="Telegram" data-i18n="messenger2">Telegram</option>
-                            <option value="WhatsApp" data-i18n="messenger3">WhatsApp</option>
-                            <option value="SMS" data-i18n="messenger4">SMS</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-section">
-                    <h2 class="form-title"><span data-i18n="sectionDeliveryText">Доставка</span></h2>
-                    <div class="delivery-options">
-                        <label class="delivery-option">
-                            <input type="radio" name="delivery" value="pickup" class="delivery-radio" checked>
-                            <span class="delivery-label">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                <span id="pickupLabel" data-i18n="deliveryPickup">Самовывоз</span>
-                            </span>
-                        </label>
-                        <label class="delivery-option">
-                            <input type="radio" name="delivery" value="courier" class="delivery-radio">
-                            <span class="delivery-label">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                                <span><span data-i18n="deliveryCourier">Курьер</span> <span class="courier-price">(+800 <span class="currency">₽</span>)</span></span>
-                            </span>
-                        </label>
-                    </div>
-                    
-                    <div id="addressField" class="form-group" style="display: none; margin-top: 20px;">
-                        <label class="form-label" for="address" data-i18n="labelAddress">Адрес доставки *</label>
-                        <div class="address-input-wrapper">
-                            <input type="text" id="address" name="address" class="form-input" data-placeholder-ru="Начните вводить адрес..." data-placeholder-en="Enter address..." placeholder="Начните вводить адрес..." autocomplete="off" data-dd-city="Москва" data-osm-city="Dubai">
-                            <div class="address-loading" id="addressLoading">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56" stroke-linecap="round"/></svg>
-                            </div>
-                            <div class="suggestions-list" id="addressSuggestions"></div>
-                        </div>
-                        <small style="color: #999; display: block; margin-top: 5px;" data-i18n="addressHint">Введите улицу, дом или метро — подсказки появятся автоматически</small>
-                    </div>
-                    
-                    <div class="datetime-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="date" data-i18n="labelDate">Дата *</label>
-                            <input type="date" id="date" name="date" class="form-input">
-                            <span class="date-hint" id="dateHint" data-i18n="dateHint">Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="time" data-i18n="labelTime">Время (17:00-23:00) *</label>
-                            <input type="time" id="time" name="time" class="form-input" min="17:00" max="23:00">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-section">
-                    <h2 class="form-title"><span data-i18n="sectionPaymentText">Оплата</span></h2>
-                    <div class="payment-options">
-                        <label class="payment-option"><input type="radio" name="payment" value="sber" class="payment-radio" checked><span class="payment-label" data-i18n="payment1">Перевод на Сбер</span></label>
-                        <label class="payment-option"><input type="radio" name="payment" value="tbank" class="payment-radio"><span class="payment-label" data-i18n="payment2">Перевод на Т-Банк</span></label>
-                        <label class="payment-option"><input type="radio" name="payment" value="alfa" class="payment-radio"><span class="payment-label" data-i18n="payment3">Перевод на Альфу</span></label>
-                    </div>
-                </div>
-                
-                <div class="form-section">
-                    <div class="form-group">
-                        <label class="form-label" for="comment" data-i18n="labelComment">Комментарий к заказу</label>
-                        <textarea id="comment" name="comment" class="form-textarea" data-placeholder-ru="Пожелания по доставке, сервировке и т.д." data-placeholder-en="Requests for delivery, serving, etc." placeholder="Пожелания по доставке, сервировке и т.д."></textarea>
-                    </div>
-                </div>
-                
-                <div class="consent-group">
-                    <label class="consent-checkbox">
-                        <input type="checkbox" id="consentCheckbox" name="consent" required checked>
-                        <span class="consent-text" data-i18n="consentText">Я даю согласие на обработку <a href="/privacy-policy" target="_blank">персональных данных</a> и принимаю условия <a href="/offer" target="_blank">публичной оферты</a></span>
-                    </label>
-                </div>
-                
-                <div class="checkout-actions">
-                    <button type="button" class="btn-cancel" id="cancelBtn" data-i18n="btnCancel">ОТМЕНА</button>
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        <span class="btn-text" data-i18n="btnSubmit">ПОДТВЕРДИТЬ ЗАКАЗ</span>
-                        <span class="btn-loading" style="display:none">⏳</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+    <section class="thankyou-page">
+        <div class="container thankyou-container" id="thankyouContainer"></div>
     </section>
 
     <footer class="footer">
@@ -454,66 +278,92 @@
         </div>
     </footer>
 
-    <div id="processingOverlay" class="processing-overlay">
-        <div class="processing-box">
-            <div class="processing-spinner"></div>
-            <p class="processing-text" data-i18n="processingText">Обработка заказа, пожалуйста, подождите...</p>
-        </div>
-    </div>
-
     <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjfEvcjQ0E8EP34DpvUmFIZL_1wadymuwYZE9WOFlcd3xq1q1N5lRsu4wUv8NYUy5I/exec';
-
     const translations = {
         ru: {
-            pageTitle: "Оформление заказа - Вестник Гедонизма", navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
-            checkoutTitle: "ОФОРМЛЕНИЕ ЗАКАЗА", checkoutSubtitle: "Заполните данные для доставки вашего заказа", orderSummaryTitle: "Ваш заказ", orderTotal: "Итого:",
-            sectionContactsText: "Контактные данные", labelName: "Имя *", labelPhone: "Телефон *", labelMessenger: "Предпочтительный способ связи",
-            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS", sectionDeliveryText: "Доставка",
-            deliveryPickup: "Самовывоз", deliveryCourier: "Курьер", labelAddress: "Адрес доставки *", 
-            addressHint: "Введите улицу, дом или метро — подсказки появятся автоматически", labelDate: "Дата *", labelTime: "Время (17:00-23:00) *",
-            sectionPaymentText: "Оплата", payment1: "Перевод на Сбер", payment2: "Перевод на Т-Банк", payment3: "Перевод на Альфу", labelComment: "Комментарий к заказу",
-            btnCancel: "ОТМЕНА", btnSubmit: "ПОДТВЕРДИТЬ ЗАКАЗ", footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
-            validationError: "Пожалуйста, заполните все обязательные поля", consentError: "Необходимо дать согласие на обработку персональных данных",
-            networkError: "Ошибка сети. Проверьте подключение и попробуйте снова.",
-            processingText: "Обработка заказа, пожалуйста, не закрывайте страницу...",
-            consentText: "Я даю согласие на обработку <a href='/privacy-policy' target='_blank'>персональных данных</a> и принимаю условия <a href='/offer' target='_blank'>публичной оферты</a>",
-            emptyCart: "Корзина пуста.<br><a href='/boxes' class='add-items-link'>🛒 Добавьте товары</a>",
-            itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:", itemWeight: "Вес:", btnRemove: "Удалить", courierPrice: "(+800 ₽)",
-            dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.", dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)",
-            personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон", qtyWord4: "штуки", qtyWord8: "штук", weightLabel: "Вес ~1 кг"
+            pageTitle: "Спасибо, что выбрали Вестник Гедонизма!",
+            navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ",
+            thankyouTitle: "Спасибо, что выбрали Вестник Гедонизма!",
+            thankyouSubtitle: "Мы свяжемся с вами в течение часа для подтверждения деталей, чтобы все было идеально.",
+            orderNumberLabel: "Номер заказа",
+            sectionItems: "Состав заказа",
+            sectionDelivery: "Доставка",
+            sectionContacts: "Контактные данные",
+            sectionPayment: "Оплата",
+            labelDelivery: "Способ доставки:",
+            labelDeliveryCost: "Стоимость доставки:",
+            labelAddress: "Адрес:",
+            labelDate: "Дата:",
+            labelTime: "Время:",
+            labelName: "Имя:",
+            labelPhone: "Телефон:",
+            labelMessenger: "Мессенджер:",
+            labelPayment: "Способ оплаты:",
+            labelComment: "Комментарий:",
+            labelTotal: "Итого:",
+            deliveryCourier: "Курьер",
+            paymentSber: "Перевод на Сбер",
+            paymentTbank: "Перевод на Т-Банк",
+            paymentAlfa: "Перевод на Альфу",
+            paymentCash: "Наличные",
+            btnHome: "НА ГЛАВНУЮ",
+            noOrderTitle: "Заказ не найден",
+            noOrderText: "Похоже, вы перешли сюда напрямую. Оформите заказ, чтобы увидеть эту страницу.",
+            noOrderBtn: "ОФОРМИТЬ ЗАКАЗ",
+            footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
+            itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:",
+            itemWeight: "Вес:",
+            personsWord1: "персона", personsWord2: "персоны", personsWord5: "персон",
+            qtyWord4: "штуки", qtyWord8: "штук",
+            weightLabel: "Вес ~1 кг",
+            deliveryFree: "Бесплатно"
         },
         en: {
-            pageTitle: "Checkout - Hedonism Dispatch", navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY", btnBack: "← BACK",
-            checkoutTitle: "CHECKOUT", checkoutSubtitle: "Fill in your details for box delivery", orderSummaryTitle: "Your Order", orderTotal: "Total:",
-            sectionContactsText: "Contact Details", labelName: "Name *", labelPhone: "Phone *", labelMessenger: "Preferred contact method",
-            messenger1: "MAX", messenger2: "Telegram", messenger3: "WhatsApp", messenger4: "SMS", sectionDeliveryText: "Delivery",
-            deliveryPickup: "Pickup", deliveryCourier: "Courier", labelAddress: "Delivery Address *", 
-            addressHint: "Enter street, building or area", labelDate: "Date *", labelTime: "Time (17:00-23:00) *",
-            sectionPaymentText: "Payment", payment1: "Transfer to Sber", payment2: "Transfer to T-Bank", payment3: "Transfer to Alfa", labelComment: "Order comment",
-            btnCancel: "CANCEL", btnSubmit: "CONFIRM ORDER", footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
-            validationError: "Please fill in all required fields", consentError: "Consent to data processing is required",
-            networkError: "Network error. Please check your connection and try again.",
-            processingText: "Processing your order, please do not close the page...",
-            consentText: "I consent to the processing of <a href='/privacy-policy-en' target='_blank'>personal data</a> and accept the terms of the <a href='/offer-en' target='_blank'>public offer</a>",
-            emptyCart: "Cart is empty.<br><a href='/boxes' class='add-items-link'>🛒 Add items</a>",
-            itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:", itemWeight: "Weight:", btnRemove: "Remove", courierPrice: "(+40 AED)",
-            dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.", dateDisabled: "Select an available date (Fri, Sat or Sun)",
-            personsWord1: "person", personsWord2: "people", personsWord5: "people", qtyWord4: "pieces", qtyWord8: "pieces", weightLabel: "Weight ~1 kg"
+            pageTitle: "Thank you for your order - Hedonism Dispatch",
+            navOrder: "ORDER BOX", navContacts: "CONTACTS", navHistory: "BOX HISTORY",
+            thankyouTitle: "THANK YOU FOR YOUR ORDER!",
+            thankyouSubtitle: "Your order has been successfully received. We're already preparing it. We'll contact you soon to confirm the details.",
+            orderNumberLabel: "Order number",
+            sectionItems: "Order details",
+            sectionDelivery: "Delivery",
+            sectionContacts: "Contact details",
+            sectionPayment: "Payment",
+            labelDelivery: "Delivery method:",
+            labelDeliveryCost: "Delivery cost:",
+            labelAddress: "Address:",
+            labelDate: "Date:",
+            labelTime: "Time:",
+            labelName: "Name:",
+            labelPhone: "Phone:",
+            labelMessenger: "Messenger:",
+            labelPayment: "Payment method:",
+            labelComment: "Comment:",
+            labelTotal: "Total:",
+            deliveryCourier: "Courier",
+            paymentSber: "Transfer to Sber",
+            paymentTbank: "Transfer to T-Bank",
+            paymentAlfa: "Transfer to Alfa",
+            paymentCash: "Cash",
+            btnHome: "GO TO HOME",
+            noOrderTitle: "Order not found",
+            noOrderText: "It looks like you came here directly. Place an order to see this page.",
+            noOrderBtn: "PLACE AN ORDER",
+            footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
+            itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:",
+            itemWeight: "Weight:",
+            personsWord1: "person", personsWord2: "people", personsWord5: "people",
+            qtyWord4: "pieces", qtyWord8: "pieces",
+            weightLabel: "Weight ~1 kg",
+            deliveryFree: "Free"
         }
     };
 
     let currentLang = 'ru';
-    let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
+    let orderData = null;
     const isProduction = window.location.hostname !== 'localhost';
 
     function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
     function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
-    function debounce(func, wait) { let timeout; return function(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
-
-    function generateOrderNumber() {
-        return 'TEMP-' + Date.now();
-    }
 
     // ✅ ДИНАМИЧЕСКОЕ ПОЛУЧЕНИЕ ДАННЫХ ИЗ CATALOG
     function getProductType(productId) {
@@ -524,17 +374,11 @@
         return CATALOG[item.productId]?.name[lang] || item.name || item.productId;
     }
 
-    function getItemImage(productId) {
-        return CATALOG[productId]?.images?.desktop || 'images/placeholder.webp';
-    }
-
     function getPersonsWordRu(count) {
         if (count === 1) return translations.ru.personsWord1;
         if (count >= 2 && count <= 4) return translations.ru.personsWord2;
         return translations.ru.personsWord5;
     }
-
-    function getCourierPrice(lang) { return lang === 'en' ? 40 : 800; }
 
     // ✅ ДИНАМИЧЕСКИЙ РАСЧЕТ ЦЕНЫ НА ОСНОВЕ CATALOG
     function recalculateItemPrice(item, lang) {
@@ -558,6 +402,25 @@
         return Number(item.price) || 0;
     }
 
+    function formatPrice(amount, lang) {
+        if (lang === 'en') return amount;
+        return amount.toLocaleString('ru-RU');
+    }
+
+    function formatDate(dateStr, lang) {
+        if (!dateStr) return '—';
+        const d = new Date(dateStr);
+        const months_ru = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+        const months_en = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const weekdays_ru = ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+        const weekdays_en = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        if (lang === 'ru') {
+            return `${d.getDate()} ${months_ru[d.getMonth()]} ${d.getFullYear()}, ${weekdays_ru[d.getDay()]}`;
+        } else {
+            return `${weekdays_en[d.getDay()]}, ${months_en[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+        }
+    }
+
     function applyLanguage(lang) {
         if (!translations[lang]) lang = 'ru';
         const prevLang = currentLang;
@@ -566,552 +429,243 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.dataset.i18n;
             if (translations[lang] && translations[lang][key]) {
-                if (key === 'consentText' || key === 'dateHint' || key === 'emptyCart' || key === 'processingText') {
-                    el.innerHTML = translations[lang][key];
-                } else {
-                    el.textContent = translations[lang][key];
-                }
+                el.textContent = translations[lang][key];
             }
         });
         
-        document.querySelectorAll('[data-placeholder-ru], [data-placeholder-en]').forEach(el => {
-            const key = lang === 'ru' ? 'data-placeholder-ru' : 'data-placeholder-en';
-            if (el.dataset[key]) el.placeholder = el.dataset[key];
-        });
-        
-        const currency = lang === 'en' ? 'AED' : '₽';
-        document.querySelectorAll('.currency').forEach(el => el.textContent = currency);
-        document.querySelectorAll('.courier-price').forEach(el => { 
-            el.textContent = lang === 'en' ? '(+40 AED)' : '(+800 ₽)'; 
-        });
-        
-        // ✅ ДИНАМИЧЕСКОЕ ОБНОВЛЕНИЕ ТЕКСТА САМОВЫВОЗА ИЗ SITE_SETTINGS
-        const pickupLabel = document.getElementById('pickupLabel');
-        if (pickupLabel && SITE_SETTINGS) {
-            pickupLabel.textContent = SITE_SETTINGS.pickup[lang];
-        }
-        
-        const langFlag = document.getElementById('langFlag');
-        const langCurrent = document.getElementById('langCurrent');
-        if (langFlag && langCurrent) {
-            if (lang === 'ru') { langFlag.textContent = '🇷🇺'; langCurrent.textContent = 'RU'; }
-            else { langFlag.textContent = '🇦🇪'; langCurrent.textContent = 'EN'; }
-        }
         document.documentElement.lang = lang;
-        
-        const dateInput = document.getElementById('date');
-        if (dateInput) {
-            const currentValue = dateInput.value;
-            dateInput.setAttribute('lang', lang);
-            if (currentValue) { dateInput.value = ''; setTimeout(() => { dateInput.value = currentValue; }, 10); }
-        }
         localStorage.setItem('hedonism_lang', lang);
-        renderOrderSummary();
+        renderThankYou();
+        
         trackGA4Event('language_change', { from_language: prevLang, to_language: lang, page_location: window.location.href });
         ymTrack('lang_switch', { from: prevLang, to: lang });
     }
 
-    function renderOrderSummary() {
-        const container = document.getElementById('orderItemsContainer');
-        const totalEl = document.getElementById('orderTotal');
-        const lang = currentLang;
-        const t = translations[lang];
-        const currency = lang === 'en' ? 'AED' : '₽';
+    function renderThankYou() {
+        const container = document.getElementById('thankyouContainer');
+        const t = translations[currentLang];
+        const currency = currentLang === 'en' ? 'AED' : '₽';
         
-        if (cart.length === 0) {
-            container.innerHTML = `<div class="empty-cart-message">${t.emptyCart}</div>`;
-            if (totalEl) totalEl.innerHTML = `<span class="price-value">0</span> <span class="currency">${currency}</span>`;
+        if (!orderData) {
+            container.innerHTML = `
+                <div class="no-order">
+                    <div class="no-order-icon">📭</div>
+                    <h2 class="no-order-title">${t.noOrderTitle}</h2>
+                    <p class="no-order-text">${t.noOrderText}</p>
+                    <a href="/boxes" class="btn-home">${t.noOrderBtn}</a>
+                </div>
+            `;
             return;
         }
         
-        let html = '', total = 0;
-        cart.forEach(item => {
-            const itemPrice = recalculateItemPrice(item, lang);
+        let itemsHtml = '';
+        let itemsTotal = 0;
+        
+        orderData.items.forEach(item => {
+            const itemPrice = recalculateItemPrice(item, currentLang);
             const itemTotal = itemPrice * item.quantity;
-            total += itemTotal;
+            itemsTotal += itemTotal;
             
-            const thumbUrl = getItemImage(item.productId);
-            const itemName = getItemName(item, lang);
+            const thumbUrl = item.image || `https://placehold.co/100x100/FFD93D/070395?text=${encodeURIComponent(item.productId)}`;
+            const itemName = getItemName(item, currentLang);
             const productType = getProductType(item.productId);
+            
             let optionsHtml = '';
             
             if (productType === 'box') {
                 const persons = item.options?.persons || 2;
-                let personsLabel = lang === 'ru' ? `${persons} ${getPersonsWordRu(persons)}` : (persons === 1 ? '1 person' : `${persons} people`);
+                let personsLabel;
+                if (currentLang === 'ru') {
+                    personsLabel = `${persons} ${getPersonsWordRu(persons)}`;
+                } else {
+                    personsLabel = persons === 1 ? '1 person' : `${persons} people`;
+                }
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemPersons}</span><span class="order-item-option-value">${personsLabel}</span></div>`;
+                
                 if (item.options?.allergens?.length > 0) {
+                    // ✅ Аллергены уже сохранены на нужном языке из checkout.html
                     optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemAllergens}</span><span class="order-item-option-value">${item.options.allergens.join(', ')}</span></div>`;
                 }
             } else if (productType === 'cake') {
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemWeight}</span><span class="order-item-option-value">${t.weightLabel}</span></div>`;
             } else if (productType === 'quantity-item') {
                 const qty = item.options?.quantity || 4;
-                let qtyLabel = lang === 'ru' ? `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}` : `${qty} pieces`;
+                let qtyLabel;
+                if (currentLang === 'ru') {
+                    qtyLabel = `${qty} ${qty === 4 ? t.qtyWord4 : t.qtyWord8}`;
+                } else {
+                    qtyLabel = `${qty} pieces`;
+                }
                 optionsHtml += `<div class="order-item-option"><span class="order-item-option-label">${t.itemQuantity}</span><span class="order-item-option-value">${qtyLabel}</span></div>`;
             }
             
-            html += `
-                <div class="order-item" data-item-id="${item.id}">
+            itemsHtml += `
+                <div class="order-item">
                     <div class="order-item-thumb" style="background-image: url('${thumbUrl}')"></div>
                     <div class="order-item-info">
-                        <div class="order-item-name">${itemName}</div>
+                        <div class="order-item-name">${itemName}${item.quantity > 1 ? ` × ${item.quantity}` : ''}</div>
                         <div class="order-item-options">${optionsHtml}</div>
                     </div>
-                    <div class="order-item-controls">
-                        <div class="quantity-control">
-                            <button class="quantity-btn" data-action="decrease" data-item-id="${item.id}">−</button>
-                            <span class="quantity-value">${item.quantity}</span>
-                            <button class="quantity-btn" data-action="increase" data-item-id="${item.id}">+</button>
-                        </div>
-                        <button class="order-item-remove-btn" data-action="remove" data-item-id="${item.id}" title="${t.btnRemove}">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                            <span class="remove-text" data-i18n="btnRemove">${t.btnRemove}</span>
-                        </button>
+                    <div class="order-item-price">
+                        <span>${formatPrice(itemTotal, currentLang)}</span>
+                        <span>${currency}</span>
                     </div>
-                    <div class="order-item-price"><span class="price-value">${itemTotal.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span></div>
                 </div>
             `;
         });
-        container.innerHTML = html;
-        if (totalEl) {
-            if (lang === 'en') totalEl.innerHTML = `<span class="currency">${currency}</span> <span class="price-value">${total.toLocaleString('ru-RU')}</span>`;
-            else totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
-        }
-        container.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', function() { updateCartItemQuantity(parseInt(this.dataset.itemId), this.dataset.action); });
-        });
-        container.querySelectorAll('.order-item-remove-btn').forEach(btn => {
-            btn.addEventListener('click', function() { removeFromCart(parseInt(this.dataset.itemId)); });
-        });
-    }
-    
-    function updateCartItemQuantity(itemId, action) {
-        const item = cart.find(i => i.id === itemId);
-        if (!item) return;
-        if (action === 'increase') item.quantity++;
-        else if (action === 'decrease' && item.quantity > 1) item.quantity--;
-        saveCart(); renderOrderSummary(); updateCartCount();
-    }
-    
-    function removeFromCart(itemId) {
-        cart = cart.filter(item => item.id !== itemId);
-        saveCart(); renderOrderSummary(); updateCartCount();
-    }
-    
-    function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
-    
-    function updateCartCount() {
-        const cartCount = document.getElementById('cartCount');
-        if (cartCount) {
-            const totalQty = Array.isArray(cart) ? cart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
-            cartCount.textContent = totalQty > 0 ? totalQty : '0';
-        }
-    }
-
-    async function sendToAppsScript(orderData) {
-        const jsonStr = JSON.stringify(orderData);
-        console.log('📱 Отправка заказа, размер:', jsonStr.length, 'байт');
-
-        const maxRetries = 3;
-        const retryDelay = 2000;
         
-        for (let attempt = 1; attempt <= maxRetries; attempt++) {
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 45000);
-
-                const response = await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: jsonStr,
-                    keepalive: true,
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log(`✅ Успешная отправка (попытка ${attempt}):`, result);
-                    return { success: true, orderNumber: result.orderNumber };
-                }
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            } catch (error) {
-                console.error(`❌ Попытка ${attempt} не удалась:`, error.message);
-                if (attempt === maxRetries) {
-                    console.error('💥 Все попытки отправки исчерпаны');
-                    if (navigator.sendBeacon) {
-                        console.log('📮 Отправка через sendBeacon...');
-                        const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
-                        const sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                        if (sent) {
-                            return { success: true, orderNumber: 'PROCESSING-' + Date.now().toString().slice(-6), isBackground: true };
-                        }
-                    }
-                    return { success: false, orderNumber: null, error: error.message };
-                }
-                await new Promise(resolve => setTimeout(resolve, retryDelay));
-            }
-        }
-    }
-
-    const DADATA_API_KEY = '610c388612c0a34fa0157ce65ca548c67af9ea68';
-    const DADATA_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
-    const PHOTON_URL = 'https://photon.komoot.io/api/?';
-    const DEBOUNCE_DELAY = 300;
-
-    function isAllowedDomain() {
-        const allowedHosts = ['byshura.ru', 'www.byshura.ru', 'localhost', '127.0.0.1'];
-        return allowedHosts.some(domain => window.location.hostname.includes(domain));
-    }
-
-    function initAddressAutocomplete() {
-        const addressInput = document.getElementById('address');
-        const suggestionsList = document.getElementById('addressSuggestions');
-        const loadingIndicator = document.getElementById('addressLoading');
-        if (!addressInput) return;
-        if (!isAllowedDomain()) {
-            addressInput.disabled = true;
-            addressInput.placeholder = 'Автодополнение доступно только на byshura.ru';
-            return;
-        }
-        const fetchSuggestions = debounce(async function(query) {
-            if (query.length < 2) { suggestionsList.classList.remove('show'); suggestionsList.innerHTML = ''; return; }
-            loadingIndicator.classList.add('show');
-            try {
-                if (currentLang === 'ru') {
-                    const response = await fetch(DADATA_URL, {
-                        method: 'POST', mode: 'cors',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${DADATA_API_KEY}` },
-                        body: JSON.stringify({ query: query, count: 5, locations: [{ city: addressInput.dataset.ddCity || 'Москва' }] })
-                    });
-                    if (!response.ok) throw new Error('API error');
-                    const data = await response.json();
-                    suggestionsList.innerHTML = data.suggestions.map(s => `
-                        <div class="suggestion-item" data-value="${escapeHtml(s.value)}" data-full="${escapeHtml(JSON.stringify(s.data))}">
-                            <div class="suggestion-main">${highlightMatch(s.value, query)}</div>
-                        </div>
-                    `).join('');
-                } else {
-                    const bbox = '54.8,24.7,55.6,25.3';
-                    const url = `${PHOTON_URL}q=${encodeURIComponent(query)}&limit=5&lang=en&countrycode=ae&bbox=${bbox}`;
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error('Network error');
-                    const data = await response.json();
-                    suggestionsList.innerHTML = data.features.map(f => {
-                        const p = f.properties;
-                        const text = [p.name, p.street, p.city, p.state].filter(Boolean).join(', ');
-                        return `<div class="suggestion-item" data-value="${text}" data-full="${escapeHtml(JSON.stringify(p))}">
-                            <div class="suggestion-main">${highlightMatch(text, query)}</div>
-                            <div class="suggestion-details">${p.city || p.state || 'Dubai'}</div>
-                        </div>`;
-                    }).join('');
-                }
-                suggestionsList.classList.add('show');
-            } catch (e) {
-                console.error('Address API error', e);
-                suggestionsList.innerHTML = `<div class="suggestion-item" style="color:#e74c3c">Ошибка загрузки</div>`;
-                suggestionsList.classList.add('show');
-            } finally {
-                loadingIndicator.classList.remove('show');
-            }
-        }, DEBOUNCE_DELAY);
-
-        addressInput.addEventListener('input', function(e) { fetchSuggestions(e.target.value.trim()); });
-        addressInput.addEventListener('focus', function() {
-            const query = this.value.trim();
-            if (query.length >= 2 && suggestionsList.innerHTML) suggestionsList.classList.add('show');
-        });
-        document.addEventListener('click', function(e) {
-            if (!addressInput.contains(e.target) && !suggestionsList.contains(e.target)) suggestionsList.classList.remove('show');
-        });
-        addressInput.addEventListener('keydown', function(e) {
-            const items = suggestionsList.querySelectorAll('.suggestion-item');
-            const active = suggestionsList.querySelector('.suggestion-item.active');
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                const next = active ? active.nextElementSibling : items[0];
-                if (next) { active?.classList.remove('active'); next.classList.add('active'); next.scrollIntoView({ block: 'nearest' }); }
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                const prev = active ? active.previousElementSibling : items[items.length - 1];
-                if (prev) { active?.classList.remove('active'); prev.classList.add('active'); prev.scrollIntoView({ block: 'nearest' }); }
-            } else if (e.key === 'Enter' && active) {
-                e.preventDefault();
-                selectAddressSuggestion(active.dataset.value, active.dataset.full);
-            } else if (e.key === 'Escape') {
-                suggestionsList.classList.remove('show');
-            }
-        });
-        suggestionsList.addEventListener('click', function(e) {
-            const item = e.target.closest('.suggestion-item');
-            if (item) selectAddressSuggestion(item.dataset.value, item.dataset.full);
-        });
-
-        document.querySelectorAll('input[name="delivery"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const addressField = document.getElementById('addressField');
-                if (this.value === 'courier') {
-                    addressField.style.display = 'block';
-                    trackGA4Event('add_shipping_info', { shipping_tier: 'courier', currency: currentLang === 'en' ? 'AED' : 'RUB', value: getCourierPrice(currentLang) });
-                    ymTrack('delivery_courier_selected');
-                } else {
-                    addressField.style.display = 'none';
-                    trackGA4Event('add_shipping_info', { shipping_tier: 'pickup', currency: currentLang === 'en' ? 'AED' : 'RUB', value: 0 });
-                    ymTrack('delivery_pickup_selected');
-                }
-            });
-        });
-    }
-
-    function selectAddressSuggestion(value, fullJson) {
-        const addressInput = document.getElementById('address');
-        addressInput.value = value;
-        document.getElementById('addressSuggestions').classList.remove('show');
-        if (fullJson) {
-            try {
-                const data = JSON.parse(fullJson);
-                if (currentLang === 'ru') {
-                    addressInput.dataset.structured = JSON.stringify({ source: 'dadata', street: data.street_with_type, house: data.house, city: data.city, region: data.region_with_type, postal_code: data.postal_code });
-                } else {
-                    addressInput.dataset.structured = JSON.stringify({ source: 'osm', name: data.name, street: data.street, city: data.city || 'Dubai', state: data.state, country: data.country, postcode: data.postcode });
-                }
-            } catch(e) { console.warn('Failed to parse structured address'); }
-        }
-        addressInput.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-
-    function highlightMatch(text, query) {
-        if (!query) return escapeHtml(text);
-        const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
-        return escapeHtml(text).replace(regex, '<strong style="color:#070395">$1</strong>');
-    }
-    function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-    function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-
-    function initDateRestrictions() {
-        const dateInput = document.getElementById('date');
-        const timeInput = document.getElementById('time');
-        if (!dateInput || !timeInput) return;
-        const availableDays = [5, 6, 0]; // Пт, Сб, Вс
-        const now = new Date();
-        const currentHour = now.getHours();
-        let minDate = new Date(now);
-        if (currentHour >= 18) minDate.setDate(minDate.getDate() + 2);
-        else minDate.setDate(minDate.getDate() + 1);
-        while (!availableDays.includes(minDate.getDay())) minDate.setDate(minDate.getDate() + 1);
-        const minDateString = minDate.toISOString().split('T')[0];
-        dateInput.min = minDateString;
-        if (!dateInput.value || dateInput.value < minDateString) dateInput.value = minDateString;
-        timeInput.min = '17:00';
-        timeInput.max = '23:00';
-        timeInput.value = '18:00';
-        dateInput.addEventListener('change', function() {
-            const selectedDate = new Date(this.value + 'T00:00:00');
-            const dayOfWeek = selectedDate.getDay();
-            if (!availableDays.includes(dayOfWeek)) {
-                alert(currentLang === 'ru' ? 'Эта дата недоступна. Пожалуйста, выберите пятницу, субботу или воскресенье.' : 'This date is unavailable. Please select Friday, Saturday, or Sunday.');
-                let newDate = new Date(selectedDate);
-                while (!availableDays.includes(newDate.getDay())) newDate.setDate(newDate.getDate() + 1);
-                this.value = newDate.toISOString().split('T')[0];
-            } else if (this.value < minDateString) {
-                alert(currentLang === 'ru' ? 'Эта дата недоступна для заказа.' : 'This date is unavailable for ordering.');
-                this.value = minDateString;
-            }
-        });
-        timeInput.addEventListener('change', function() {
-            const time = this.value;
-            if (time < '17:00' || time > '23:00') {
-                alert(currentLang === 'ru' ? 'Доступное время: 17:00 - 23:00' : 'Available time: 17:00 - 23:00');
-                this.value = '18:00';
-            }
-        });
+        const isPickup = orderData.delivery === 'pickup';
+        // ✅ ДИНАМИЧЕСКИЙ ТЕКСТ САМОВЫВОЗА ИЗ SITE_SETTINGS
+        const deliveryText = isPickup ? (SITE_SETTINGS?.pickup[currentLang] || 'Самовывоз') : t.deliveryCourier;
+        const deliveryCost = isPickup ? 0 : (currentLang === 'en' ? 40 : 800);
+        const totalValue = itemsTotal + deliveryCost;
+        
+        container.innerHTML = `
+            <div class="thankyou-hero">
+                <div class="thankyou-icon">✓</div>
+                <h1 class="thankyou-title">${t.thankyouTitle}</h1>
+                <p class="thankyou-subtitle">${t.thankyouSubtitle}</p>
+                <div class="order-number-badge">
+                    ${t.orderNumberLabel}<span>#${orderData.orderNumber}</span>
+                </div>
+            </div>
+            
+            <div class="thankyou-details">
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionItems}</h3>
+                    ${itemsHtml}
+                </div>
+                
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionDelivery}</h3>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelDelivery}</span>
+                        <span class="info-value">${deliveryText}</span>
+                    </div>
+                    ${!isPickup && orderData.address ? `
+                    <div class="info-row">
+                        <span class="info-label">${t.labelAddress}</span>
+                        <span class="info-value">${orderData.address}</span>
+                    </div>
+                    ` : ''}
+                    <div class="info-row">
+                        <span class="info-label">${t.labelDate}</span>
+                        <span class="info-value">${formatDate(orderData.date, currentLang)}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelTime}</span>
+                        <span class="info-value">${orderData.time || '—'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelDeliveryCost}</span>
+                        <span class="info-value">
+                            <span class="info-value-price">
+                                <span>${deliveryCost === 0 ? t.deliveryFree : formatPrice(deliveryCost, currentLang)}</span>
+                                ${deliveryCost > 0 ? `<span>${currency}</span>` : ''}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionContacts}</h3>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelName}</span>
+                        <span class="info-value">${orderData.name || '—'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelPhone}</span>
+                        <span class="info-value">${orderData.phone || '—'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelMessenger}</span>
+                        <span class="info-value">${orderData.messenger || '—'}</span>
+                    </div>
+                </div>
+                
+                <div class="details-section">
+                    <h3 class="details-section-title">${t.sectionPayment}</h3>
+                    <div class="info-row">
+                        <span class="info-label">${t.labelPayment}</span>
+                        <span class="info-value">${{ 'sber': t.paymentSber, 'tbank': t.paymentTbank, 'alfa': t.paymentAlfa, 'cash': t.paymentCash }[orderData.payment] || orderData.payment}</span>
+                    </div>
+                    ${orderData.comment ? `
+                    <div class="info-row">
+                        <span class="info-label">${t.labelComment}</span>
+                        <span class="info-value">${orderData.comment}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="order-total-row">
+                    <span>${t.labelTotal}</span>
+                    <div class="order-total-value">
+                        <span>${formatPrice(totalValue, currentLang)}</span>
+                        <span>${currency}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="thankyou-actions">
+                <a href="/" class="btn-home">🍋 ${t.btnHome}</a>
+            </div>
+        `;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        try {
+            const savedOrder = sessionStorage.getItem('hedonism_last_order');
+            if (savedOrder) {
+                orderData = JSON.parse(savedOrder);
+            }
+        } catch (e) {
+            console.warn('Не удалось загрузить данные заказа:', e);
+        }
+        
         const savedLang = localStorage.getItem('hedonism_lang') || 'ru';
         applyLanguage(savedLang);
+        
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title, page_location: window.location.href,
-                page_path: '/checkout.html', language: currentLang,
-                cart_items: cart.length,
-                cart_value: cart.reduce((sum, item) => sum + recalculateItemPrice(item, currentLang) * item.quantity, 0)
+                page_path: '/thank-you.html', language: currentLang,
+                has_order: !!orderData,
+                order_number: orderData?.orderNumber || null
             });
         }, 1000);
-        ymTrack('checkout_viewed', { lang: currentLang, cart_items: cart.length });
         
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        if (langBtn && langDropdown) {
-            langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
-            langDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault(); e.stopPropagation();
-                    const selectedLink = e.target.closest('a');
-                    if (selectedLink) applyLanguage(selectedLink.dataset.lang);
-                    setTimeout(() => langDropdown.classList.remove('show'), 100);
-                });
-            });
-            document.addEventListener('click', e => {
-                if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('show');
-            });
-        }
-        renderOrderSummary();
-        updateCartCount();
-        document.getElementById('cancelBtn')?.addEventListener('click', function() {
-            ymTrack('checkout_cancelled', { cart_items: cart.length });
-            window.location.href = '/boxes';
+        ymTrack('thankyou_viewed', { 
+            lang: currentLang, 
+            has_order: !!orderData,
+            order_number: orderData?.orderNumber || null 
         });
-        initDateRestrictions();
-        initAddressAutocomplete();
         
-        const checkoutForm = document.getElementById('checkoutForm');
-        if (checkoutForm) {
-            checkoutForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const submitBtn = document.getElementById('submitBtn');
-                const overlay = document.getElementById('processingOverlay');
-                
-                submitBtn.disabled = true;
-                submitBtn.querySelector('.btn-text').textContent = currentLang === 'ru' ? 'ОТПРАВКА...' : 'SENDING...';
-                overlay.classList.add('active');
-                
-                console.log("🚀 Форма отправлена, интерфейс заблокирован");
-                
-                try {
-                    const name = document.getElementById('name').value.trim();
-                    const phone = document.getElementById('phone').value.trim();
-                    
-                    if (!name || !phone) { 
-                        console.warn("Ошибка валидации: нет имени или телефона");
-                        alert(translations[currentLang].validationError); 
-                        resetSubmitState();
-                        return; 
-                    }
-                    
-                    const consentCheckbox = document.getElementById('consentCheckbox');
-                    if (consentCheckbox && !consentCheckbox.checked) {
-                        console.warn("Ошибка валидации: нет согласия");
-                        alert(translations[currentLang].consentError);
-                        resetSubmitState();
-                        return;
-                    }
-                    
-                    if (cart.length === 0) {
-                        console.warn("Ошибка валидации: корзина пуста");
-                        alert(currentLang === 'ru' ? 'Корзина пуста!' : 'Cart is empty!');
-                        resetSubmitState();
-                        return;
-                    }
-                    
-                    const date = document.getElementById('date').value;
-                    const time = document.getElementById('time').value;
-                    if (!date || !time) {
-                        console.warn("Ошибка валидации: нет даты или времени");
-                        alert(currentLang === 'ru' ? 'Пожалуйста, выберите дату и время.' : 'Please select date and time.');
-                        resetSubmitState();
-                        return;
-                    }
-                    
-                    const tempOrderNumber = generateOrderNumber();
-                    const courierCost = getCourierPrice(currentLang);
-                    const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
-                    
-                    // ✅ ФОРМИРОВАНИЕ ЗАКАЗА НА ОСНОВЕ CATALOG
-                    const orderItems = cart.map(item => {
-                        const product = CATALOG[item.productId];
-                        return {
-                            id: item.id,
-                            productId: item.productId,
-                            name: product ? product.name[currentLang] : (item.name || item.productId),
-                            image: product ? product.images.desktop : '',
-                            productType: product ? product.type : 'other',
-                            price: recalculateItemPrice(item, currentLang),
-                            quantity: item.quantity,
-                            options: item.options
-                        };
-                    });
-                    
-                    let addressStructured = null;
-                    const structuredData = document.getElementById('address')?.dataset.structured;
-                    if (structuredData && structuredData !== 'undefined' && structuredData.trim() !== '') {
-                        try { addressStructured = JSON.parse(structuredData); } catch (e) { console.warn('Address parse error'); }
-                    }
-
-                    const calculatedTotal = orderItems.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
-                    const finalTotal = calculatedTotal + (delivery === 'courier' ? courierCost : 0);
-
-                    const orderData = {
-                        orderNumber: tempOrderNumber,
-                        createdAt: new Date().toISOString(), name, phone, 
-                        messenger: document.getElementById('messenger').value, delivery: delivery,
-                        address: document.getElementById('address').value, addressStructured: addressStructured,
-                        date: date, time: time, payment: document.querySelector('input[name="payment"]:checked')?.value,
-                        comment: document.getElementById('comment').value, items: orderItems,
-                        total: Number(finalTotal) || 0, currency: currentLang === 'en' ? 'AED' : '₽',
-                        lang: currentLang, consentGiven: consentCheckbox.checked, consentTimestamp: new Date().toISOString()
-                    };
-                    
-                    console.log("📦 Отправка данных на сервер...");
-                    trackGA4Event('begin_checkout', { currency: orderData.currency, value: orderData.total });
-                    ymTrack('checkout_start');
-                    
-                    const result = await sendToAppsScript(orderData);
-                    
-                    if (result.success) {
-                        const realOrderNumber = result.orderNumber || tempOrderNumber;
-                        console.log("✅ Реальный номер заказа от сервера:", realOrderNumber);
-                        
-                        if (result.isBackground) {
-                            alert(currentLang === 'ru' 
-                                ? 'Заказ отправлен на обработку. Номер: ' + realOrderNumber + '\n\nМы свяжемся с вами для подтверждения.'
-                                : 'Order is being processed. Number: ' + realOrderNumber + '\n\nWe will contact you to confirm.'
-                            );
-                        }
-                        
-                        sessionStorage.setItem('hedonism_last_order', JSON.stringify({
-                            ...orderData,
-                            orderNumber: realOrderNumber 
-                        }));
-                        
-                        trackGA4Event('purchase', { transaction_id: realOrderNumber, currency: orderData.currency, value: orderData.total });
-                        ymTrack('order_success', { order_number: realOrderNumber, total: orderData.total });
-                        
-                        cart = []; saveCart(); updateCartCount(); renderOrderSummary();
-                        console.log("🎉 Успех! Переход на страницу благодарности.");
-                        
-                        setTimeout(() => {
-                            window.location.href = '/thank-you';
-                        }, result.isBackground ? 1000 : 500);
-                        
-                    } else {
-                        console.error("❌ Не удалось отправить заказ:", result.error);
-                        resetSubmitState();
-                        alert(translations[currentLang].networkError + (result.error ? '\n\nDetails: ' + result.error : ''));
-                    }
-                } catch (error) {
-                    console.error("💥 Неожиданная критическая ошибка в обработчике:", error);
-                    resetSubmitState();
-                    alert(translations[currentLang].networkError);
-                }
-
-                function resetSubmitState() {
-                    submitBtn.disabled = false;
-                    submitBtn.querySelector('.btn-text').textContent = translations[currentLang].btnSubmit;
-                    overlay.classList.remove('active');
-                }
+        if (orderData) {
+            ymTrack('thankyou_with_order', { 
+                order_number: orderData.orderNumber, 
+                total: orderData.total, 
+                currency: orderData.currency 
             });
         }
-        console.log(`✅ checkout.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}`);
-    });
-    
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'hedonism_cart') {
-            cart = JSON.parse(e.newValue) || [];
-            updateCartCount();
-            renderOrderSummary();
-        }
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const href = this.getAttribute('href');
+                if (href?.includes('contacts')) ymTrack('nav_contacts_click');
+                else if (href?.includes('history')) ymTrack('nav_history_click');
+                else if (href?.includes('/') && !href.includes('#')) ymTrack('nav_home_click');
+            });
+        });
+        
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const platform = this.getAttribute('aria-label') || 'social';
+                const goalId = 'click_' + platform.toLowerCase().replace(/\s+/g, '_');
+                ymTrack(goalId);
+            });
+        });
+        
+        console.log(`✅ thank-you.html ready! GA4: G-L8704SB9ZW, Language: ${currentLang.toUpperCase()}, Order: ${orderData?.orderNumber || 'none'}`);
     });
     </script>
 </body>
