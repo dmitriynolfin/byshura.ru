@@ -18,12 +18,10 @@
     <meta property="og:title" content="Вестник Гедонизма — Доставка гастрономических боксов в Москве">
     <meta property="og:description" content="Авторские гастрономические боксы с историей. Доставка по Москве Пт-Вс 17:00-23:00.">
     <meta property="og:url" content="https://byshura.ru/index.html">
-    <!-- ✅ Обновлено: путь к favicon в assets -->
     <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     
     <meta name="theme-color" content="#070395">
     
-    <!-- ✅ Обновлено: пути к иконкам и манифесту в папку assets -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
@@ -34,13 +32,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-
-        /* Плавное изменение шапки при скролле (работает в паре с main.js) */
-.header.scrolled {
-    background: rgba(255, 255, 255, 0.98) !important;
-    box-shadow: 0 4px 20px rgba(7, 3, 149, 0.15) !important;
-    backdrop-filter: blur(15px) !important;
-}
+        /* Плавное изменение шапки при скролле */
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 4px 20px rgba(7, 3, 149, 0.15) !important;
+            backdrop-filter: blur(15px) !important;
+        }
         html, body {
             overflow-x: hidden;
             width: 100%;
@@ -287,6 +284,61 @@
         }
         .dot.active { background: white; transform: scale(1.2); }
         
+        /* === СТИЛИ ДЛЯ POP-UP СЕКЦИИ === */
+        .popup-teaser {
+            background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-teaser::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,217,61,0.1) 0%, transparent 70%);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .popup-cta-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #FFD93D;
+            color: #070395;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(255,217,61,0.4);
+            transition: all 0.3s ease;
+            z-index: 2;
+            animation: bounce-soft 2s infinite;
+        }
+        .popup-cta-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255,217,61,0.6);
+            background: #fff;
+        }
+        @keyframes bounce-soft {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .popup-cta-btn span {
+            font-size: 24px;
+        }
+        /* ================================ */
+
         .custom-dinner {
             padding: 80px 0 120px;
             background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
@@ -498,7 +550,6 @@
         html[lang="en"] .legal-links-en { display: flex !important; }
         html[lang="ru"] .legal-links-en { display: none !important; }
 
-        /* Cookie Banner Styles */
         .cookie-banner {
             position: fixed;
             bottom: 0;
@@ -619,6 +670,14 @@
             .cookie-banner { padding: 15px 0; }
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
             .cookie-btn { width: 100%; max-width: 300px; }
+
+            /* Адаптация Pop-up кнопки для мобильных */
+            .popup-cta-btn {
+                padding: 16px 30px;
+                font-size: 16px;
+                width: 90%;
+                justify-content: center;
+            }
         }
         
         @media (max-width: 480px) {
@@ -693,7 +752,6 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: ссылки на страницы в папке pages -->
                     <a href="/pages/boxes.html" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
                     <a href="/pages/history.html" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
@@ -812,6 +870,16 @@
         </div>
     </section>
 
+    <!-- ✅ НОВЫЙ БЛОК: Яркая кнопка-приглашение в Pop-up меню -->
+    <section class="popup-teaser">
+        <div class="container">
+            <a href="/pages/popup.html" class="popup-cta-btn">
+                <span>🤫</span> СЕКРЕТНОЕ POP-UP МЕНЮ
+            </a>
+        </div>
+    </section>
+    <!-- КОНЕЦ НОВОГО БЛОКА -->
+
     <section class="custom-dinner">
         <div class="container custom-dinner-container">
             <h2 class="custom-dinner-title" data-i18n="customDinnerTitle">ИНДИВИДУАЛЬНЫЙ УЖИН (ЗВАНЫЙ)</h2>
@@ -889,7 +957,6 @@
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
-            <!-- ✅ Обновлено: ссылки на юридические документы в папке legal -->
             <div class="legal-links-ru">
                 <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
@@ -903,7 +970,6 @@
         </div>
     </footer>
 
-    <!-- Cookie Consent Banner -->
     <div id="cookieBanner" class="cookie-banner">
         <div class="container cookie-banner-container">
             <p class="cookie-text" data-i18n="cookieText"></p>
@@ -966,7 +1032,6 @@
         if (window.analyticsInitialized) return;
         window.analyticsInitialized = true;
 
-        // GA4
         const ga4Script = document.createElement('script');
         ga4Script.async = true;
         ga4Script.src = 'https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW';
@@ -978,7 +1043,6 @@
         gtag('js', new Date());
         gtag('config', 'G-L8704SB9ZW');
 
-        // Yandex Metrica
         const ymScript = document.createElement('script');
         ymScript.type = 'text/javascript';
         ymScript.innerHTML = `
@@ -1177,7 +1241,6 @@
             document.addEventListener('click', e => { if (!langBtn.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
-        // ✅ Обновлено: JS-перенаправления на новые пути
         document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes.html'; });
         document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes.html'; });
         
