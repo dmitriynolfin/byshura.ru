@@ -39,7 +39,6 @@
             display: flex; align-items: center; justify-content: center; 
             font-size: 24px; flex-shrink: 0; 
         }
-        /* ✅ Точно как на странице popup */
         .btn-back { 
             border: 1.5px solid #070395; padding: 10px 25px; 
             border-radius: 25px; font-weight: 600; font-size: 13px; 
@@ -54,7 +53,6 @@
         .summary-item { display: flex; justify-content: flex-start; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(7,3,149,0.1); }
         .summary-item:last-child { border-bottom: none; }
         
-        /* ✅ Улучшенное отображение фото из карточек popup */
         .item-image {
             width: 70px;
             height: 70px;
@@ -94,7 +92,6 @@
         
         textarea.form-input { resize: vertical; min-height: 100px; }
 
-        /* Валидация */
         .form-input.invalid {
             border-color: #e74c3c;
             background-color: #fdf2f2;
@@ -114,7 +111,6 @@
         .validation-hint::before { content: '⚠️'; font-size: 14px; }
         .form-input.invalid + .validation-hint { display: flex; }
 
-        /* ✅ Кнопка точно как на странице /pages/checkout */
         .submit-btn { 
             width: 100%; 
             background: #070395; 
@@ -147,6 +143,43 @@
         .empty-cart-msg { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); }
         .empty-cart-msg a { color: #FFD93D; text-decoration: underline; font-weight: 600; }
 
+        /* ✅ Футер точно как на странице popup */
+        .footer { 
+            background: white; padding: 20px 0; 
+            border-top: 1px solid rgba(7,3,149,0.2);
+            color: #070395;
+        }
+        .footer-container { 
+            display: flex; justify-content: space-between; 
+            align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+        .footer-copyright { 
+            font-size: 14px; font-weight: 600; 
+            text-align: center; color: #070395;
+        }
+        .social-links { display: flex; gap: 15px; }
+        .social-link { 
+            width: 25px; height: 25px; 
+            display: flex; align-items: center; justify-content: center;
+            color: #070395;
+            transition: color 0.3s;
+            min-width: 25px;
+            min-height: 25px;
+        }
+        .social-link:hover { color: #FFD93D; }
+        .social-link img { width: 25px; height: 25px; object-fit: contain; }
+        .legal-links-ru { display: flex; gap: 15px; align-items: center; }
+        .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-ru a:hover { color: #070395; }
+        .legal-divider { color: #ccc; }
+        
+        .legal-links-en { display: none; gap: 15px; align-items: center; }
+        .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-en a:hover { color: #070395; }
+        html[lang="en"] .legal-links-en { display: flex !important; }
+        html[lang="ru"] .legal-links-en { display: none !important; }
+        html[lang="en"] .legal-links-ru { display: none !important; }
+
         @media (max-width: 768px) {
             .container { padding: 0 20px; }
             .checkout-title { font-size: 24px; }
@@ -155,6 +188,7 @@
             .item-name { font-size: 15px; }
             .item-price { font-size: 16px; }
             .submit-btn { padding: 18px 24px; font-size: 15px; }
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
         
         @media (max-width: 480px) {
@@ -162,6 +196,17 @@
             .logo { width: 42px; height: 42px; font-size: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; }
             .checkout-main { margin-top: 90px; }
+            .footer { padding: 18px 0; }
+            .social-links { gap: 12px; }
+            .social-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
+            .social-link img { width: 28px; height: 28px; }
+            .footer-copyright { font-size: 12px; }
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            html[lang="en"] .legal-links-en { display: flex !important; }
+            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
         }
     </style>
 </head>
@@ -198,9 +243,9 @@
                         <label class="form-label">Дата</label>
                         <input type="text" class="form-input" value="25.07.2026" readonly>
                     </div>
-                    <!-- ✅ Встроенный функционал выбора времени (как на основной странице checkout) -->
                     <div class="form-group">
                         <label class="form-label">Время получения *</label>
+                        <!-- ✅ Нативный выбор времени (встроенный функционал телефона) -->
                         <input type="time" class="form-input" id="pickupTime" min="10:00" max="14:00" required>
                         <div class="validation-hint">Пожалуйста, выберите время с 10:00 до 14:00</div>
                     </div>
@@ -210,12 +255,14 @@
                     <h3 class="form-title">Контактные данные</h3>
                     <div class="form-group">
                         <label class="form-label">Ваше имя *</label>
-                        <input type="text" class="form-input" id="customerName" required placeholder="Как к вам обращаться?">
+                        <!-- ✅ Добавлен autocomplete для подстановки браузером -->
+                        <input type="text" class="form-input" id="customerName" required placeholder="Как к вам обращаться?" autocomplete="name">
                         <div class="validation-hint">Пожалуйста, введите ваше имя</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Телефон или Telegram *</label>
-                        <input type="text" class="form-input" id="customerContact" required placeholder="+7 (999) 000-00-00 или @username">
+                        <!-- ✅ Добавлен autocomplete для подстановки браузером -->
+                        <input type="text" class="form-input" id="customerContact" required placeholder="+7 (999) 000-00-00 или @username" autocomplete="tel">
                         <div class="validation-hint">Пожалуйста, укажите способ связи</div>
                     </div>
                     <div class="form-group">
@@ -234,6 +281,28 @@
         </div>
     </main>
 
+    <!-- ✅ Футер точно как на странице popup -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
+            <div class="social-links">
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="images/max_logo.webp" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
+            </div>
+            <div class="legal-links-ru">
+                <a href="/legal/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <span class="legal-divider">|</span>
+                <a href="/legal/offer" target="_blank">Публичная оферта</a>
+            </div>
+            <div class="legal-links-en">
+                <a href="/legal/privacy-policy-en" target="_blank">Privacy Policy</a>
+                <span class="legal-divider">|</span>
+                <a href="/legal/offer-en" target="_blank">Public Offer</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
         let popupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
         
@@ -242,6 +311,14 @@
         const orderContentEl = document.getElementById('orderContent');
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
         const form = document.getElementById('popupOrderForm');
+
+        // ✅ Автозаполнение имени и телефона из localStorage (как на странице checkout)
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('hedonism_user_name');
+            const savedPhone = localStorage.getItem('hedonism_user_phone');
+            if (savedName) document.getElementById('customerName').value = savedName;
+            if (savedPhone) document.getElementById('customerContact').value = savedPhone;
+        });
 
         if (popupCart.length === 0) {
             orderContentEl.style.display = 'none';
@@ -254,7 +331,7 @@
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
                 
-                // ✅ Надежное получение картинки: проверяем image, img или src, иначе заглушка
+                // ✅ Надежное получение картинки из карточек popup
                 const imageUrl = item.image || item.img || item.src || '/assets/favicon-512.png';
                 
                 html += `
@@ -304,17 +381,24 @@
             const currentPopupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
             const orderTotal = currentPopupCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+            const nameValue = document.getElementById('customerName').value;
+            const contactValue = document.getElementById('customerContact').value;
+
+            // ✅ Сохраняем имя и телефон в localStorage для будущих автозаполнений
+            localStorage.setItem('hedonism_user_name', nameValue);
+            localStorage.setItem('hedonism_user_phone', contactValue);
+
             const orderData = {
                 items: currentPopupCart,
                 total: orderTotal,
                 customer: {
-                    name: document.getElementById('customerName').value,
-                    contact: document.getElementById('customerContact').value,
+                    name: nameValue,
+                    contact: contactValue,
                     comment: document.getElementById('customerComment').value
                 },
                 delivery: "ЖК Prime Park, Москва",
                 date: "25.07.2026",
-                time: document.getElementById('pickupTime').value, // ✅ Сохраняем выбранное время
+                time: document.getElementById('pickupTime').value,
                 dateIso: new Date().toISOString(),
                 type: 'popup_order'
             };
