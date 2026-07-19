@@ -130,5 +130,37 @@ const CATALOG = {
             en: [{ name: "Rasstegai with fish", w4: "4 pcs (~ 480 g)", w8: "8 pcs (~ 960 g)" }]
         },
         allergens: ["Глютен", "Яйца", "Красная рыба"]
+    },
+    
+    // ✅ НОВЫЕ POP-UP ПОЗИЦИИ (Единый источник данных)
+    "popup-cookie": {
+        id: "popup-cookie",
+        type: "popup",
+        name: { ru: "Фирменная Печенька" },
+        prices: { ru: 300 },
+        images: { desktop: "/images/boxes-lemoncookies-1.webp", mobile: "/images/boxes-lemoncookies-1-mobile.webp" },
+        description: { ru: "Хрустящая снаружи, тягучая внутри. С каплями бельгийского шоколада и морской солью." },
+        emoji: "🍪",
+        allergens: ["Глютен", "Яйца", "Лактоза"]
+    },
+    "popup-cake-slice": {
+        id: "popup-cake-slice",
+        type: "popup",
+        name: { ru: "Кусочек Кекса" },
+        prices: { ru: 350 },
+        images: { desktop: "/images/boxes-lemoncake.webp", mobile: "/images/boxes-lemoncake-mobile-4.webp" },
+        description: { ru: "Нежный бисквит с лимонной пропиткой и ягодным кули. Идеальный баланс сладости и кислинки." },
+        emoji: "🧁",
+        allergens: ["Глютен", "Яйца", "Лактоза"]
+    },
+    "popup-salad": {
+        id: "popup-salad",
+        type: "popup",
+        name: { ru: "Авторский Салат" },
+        prices: { ru: 450 },
+        images: { desktop: "/images/boxes-nicholas-1.webp", mobile: "/images/boxes-nicholas-1-mobile.webp" },
+        description: { ru: "Свежая микс-зелень, томаты черри, авокадо и фирменная заправка от шефа. Легко и изысканно." },
+        emoji: "🥗",
+        allergens: [] 
     }
 };
