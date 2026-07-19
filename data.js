@@ -2,7 +2,7 @@
 
 const SITE_SETTINGS = {
     pickup: {
-        ru: "ЖК Prime Park, Моска", // ✅ Обновлено по вашему запросу
+        ru: "ЖК Prime Park, Москва", // ✅ Обновлено по вашему запросу
         en: "Merano Tower, Dubai"
     },
     hours: {
