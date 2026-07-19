@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (абсолютный путь от корня) -->
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
+    <!-- Если открываете локально (file://), замените на: src="../js/data.js" -->
+    <!-- Если на хостинге, оставьте: src="/js/data.js" -->
     <script src="/js/data.js"></script>
     
     <!-- ===== FAVICON ===== -->
@@ -44,7 +46,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ... (ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ, ОНИ ВЕРНЫ) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
         a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
@@ -452,9 +453,18 @@
         };
         Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ''; });
 
-        // Проверка на случай, если data.js не загрузился
+        // ✅ УЛУЧШЕННАЯ ПРОВЕРКА ЗАГРУЗКИ DATA.JS
         if (typeof CATALOG === 'undefined') {
-            console.error('Ошибка: объект CATALOG не найден. Проверьте путь к /js/data.js');
+            console.error('❌ ОШИБКА: Объект CATALOG не найден!');
+            console.error('1. Проверьте вкладку Network (Сеть) в инструментах разработчика (F12). Загружается ли файл data.js?');
+            console.error('2. Если вы открываете файл локально (адрес начинается с file://), замените в <head> строку:');
+            console.error('   <script src="/js/data.js"><\/script>  на  <script src="../js/data.js"><\/script>');
+            
+            Object.values(grids).forEach(grid => {
+                if (grid) {
+                    grid.innerHTML = '<p style="color: #e74c3c; text-align: center; padding: 40px; font-weight: 600; background: #fff0f0; border-radius: 12px;">⚠️ Ошибка загрузки данных. Проверьте консоль разработчика (F12) и путь к файлу /js/data.js</p>';
+                }
+            });
             return;
         }
 
@@ -840,7 +850,7 @@
             }
         });
         
-        // Делегирование клика работает надежно, если CATALOG загружен
+        // ✅ ДЕЛЕГИРОВАНИЕ КЛИКА С ДОПОЛНИТЕЛЬНОЙ ПРОВЕРКОЙ
         document.querySelector('.catalog').addEventListener('click', function(e) {
             const card = e.target.closest('.box-card');
             if (!card) return;
@@ -848,6 +858,8 @@
             if (typeof CATALOG !== 'undefined' && CATALOG[productId]) {
                 trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] }] });
                 openProductModal(productId);
+            } else {
+                console.warn('⚠️ Клик по карточке, но товар не найден в CATALOG:', productId);
             }
         });
         
