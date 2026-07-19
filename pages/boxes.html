@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
+    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ (абсолютный путь от корня) -->
     <script src="/js/data.js"></script>
     
     <!-- ===== FAVICON ===== -->
@@ -20,7 +20,6 @@
     <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
     <meta property="og:description" content="Гастрономические боксы с историей. Выберите свой гастрономический опыт.">
-    <!-- ✅ Обновлено: canonical путь без .html -->
     <link rel="canonical" href="https://byshura.ru/pages/boxes">
     
     <meta charset="UTF-8">
@@ -35,7 +34,7 @@
       gtag('config', 'G-L8704SB9ZW', {
         page_title: document.title,
         page_location: window.location.href,
-        page_path: '/pages/boxes', /* ✅ Обновлено на чистый URL */
+        page_path: '/pages/boxes',
         send_page_view: false
       });
     </script>
@@ -45,6 +44,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ... (ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ, ОНИ ВЕРНЫ) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
         a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
@@ -64,34 +64,12 @@
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
         
-        /* ✅ ИДЕНТИЧНО INDEX.HTML + ОДИНАКОВАЯ ШИРИНА КНОПОК */
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { 
-            padding: 8px; color: #070395; 
-            transition: transform 0.3s; 
-            position: relative; 
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; 
-            min-width: 44px; min-height: 44px;
-        }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { 
-            position: absolute; top: -2px; right: -2px; 
-            background: #FFD93D; color: #070395; 
-            font-size: 9px; font-weight: 700; 
-            width: 16px; height: 16px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            line-height: 1;
-        }
-        .btn-back { 
-            border: 1.5px solid #070395; padding: 10px 25px; 
-            border-radius: 25px; font-weight: 600; font-size: 13px; 
-            transition: all 0.3s; min-height: 44px; 
-            display: flex; align-items: center;
-            min-width: 140px; /* ✅ ОДИНАКОВАЯ ШИРИНА ДЛЯ "ЗАКАЗАТЬ" И "← НАЗАД" */
-            justify-content: center;
-        }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; min-width: 140px; justify-content: center; }
         .btn-back:hover { background: #070395; color: white; }
         
         .lang-selector { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; cursor: pointer; position: relative; white-space: nowrap; min-height: 44px; padding: 5px 10px; border-radius: 20px; background: rgba(7,3,149,0.05); transition: background 0.3s; }
@@ -104,17 +82,8 @@
         .lang-descr { color: #666; font-size: 12px; }
         
         .catalog { padding: 115px 0 60px; min-height: 100vh; }
-        
-        .category-nav {
-            display: flex; justify-content: center; gap: 10px; padding: 18px 0 25px; flex-wrap: wrap;
-            position: sticky; top: 75px; background: #f8f9fa; z-index: 500; margin-bottom: 20px;
-        }
-        .category-btn {
-            background: white; color: #070395; padding: 10px 22px; border-radius: 22px; font-weight: 700; font-size: 13px;
-            text-transform: uppercase; letter-spacing: 0.5px; border: 2px solid #070395; min-height: 42px;
-            display: inline-flex; align-items: center; justify-content: center; user-select: none;
-            transition: all 0.3s ease; box-shadow: 0 3px 10px rgba(7,3,149,0.08);
-        }
+        .category-nav { display: flex; justify-content: center; gap: 10px; padding: 18px 0 25px; flex-wrap: wrap; position: sticky; top: 75px; background: #f8f9fa; z-index: 500; margin-bottom: 20px; }
+        .category-btn { background: white; color: #070395; padding: 10px 22px; border-radius: 22px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; border: 2px solid #070395; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; user-select: none; transition: all 0.3s ease; box-shadow: 0 3px 10px rgba(7,3,149,0.08); }
         .category-btn:hover, .category-btn.active { background: #070395; color: white; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(7,3,149,0.2); }
         .category-btn.active { box-shadow: 0 4px 12px rgba(7,3,149,0.25); transform: none; }
         
@@ -231,12 +200,10 @@
         @media (max-width: 768px) { 
             .header { padding: 12px 0; } .catalog { padding-top: 100px; } .header-container { padding: 0 15px; }
             .logo { width: 42px; height: 42px; font-size: 22px; } 
-            
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; } 
             .icon-btn svg { width: 22px; height: 22px; }
             .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; min-width: 120px; }
-            
             .page-title, .section-title { font-size: 28px; margin: 40px 0 30px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .box-title { font-size: 16px; } .box-price { font-size: 16px; }
@@ -251,13 +218,11 @@
         }
         @media (max-width: 480px) { 
             .header { padding: 10px 0; } .catalog { padding-top: 95px; } .logo { width: 40px; height: 40px; font-size: 20px; }
-            
             .header-icons { gap: 8px; }
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; } 
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; } 
             .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; min-width: 110px; }
-            
             .page-title { font-size: 24px; } .page-subtitle { font-size: 14px; } .section-title { font-size: 24px; letter-spacing: 1px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .box-title { font-size: 14px; margin-bottom: 10px; } .box-price { font-size: 14px; } .box-price .currency { font-size: 12px; }
@@ -289,9 +254,7 @@
         }
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; } 
-            
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; min-width: 100px; }
-            
             .page-title, .section-title { font-size: 22px; } .category-btn { padding: 8px 12px; font-size: 11px; min-height: 42px; }
             .person-option { flex: 1 1 27%; max-width: 29%; } .person-label { padding: 4px 1px; min-height: 46px; } .person-icon { font-size: 12px; }
             .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 11px; } .person-option:nth-child(3) .person-icon { font-size: 12px; }
@@ -318,7 +281,6 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: пути к страницам без .html -->
                     <a href="/pages/boxes" class="nav-link nav-link-cta active" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
                     <a href="/pages/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
@@ -358,12 +320,10 @@
             
             <h1 class="page-title" id="section-boxes" data-i18n="catalogTitle">ВЫБЕРИТЕ СВОЙ БОКС</h1>
             <p class="page-subtitle" data-i18n="catalogSubtitle">Каждый бокс — это уникальное гастрономическое путешествие с историей, музыкой и особым настроением</p>
-            <!-- ✅ ДИНАМИЧЕСКИЕ КОНТЕЙНЕРЫ -->
-            <div class="boxes-grid" id="grid-boxes"></div>
             
+            <div class="boxes-grid" id="grid-boxes"></div>
             <h2 class="section-title" id="section-sweets" data-i18n="sectionSweets">ВЫБЕРИТЕ СВОЮ СЛАДОСТЬ</h2>
             <div class="boxes-grid" id="grid-sweets"></div>
-            
             <h2 class="section-title" id="section-savory" data-i18n="sectionSavory">ВЫБЕРИТЕ СВОЮ СОЛЕНОСТЬ</h2>
             <div class="boxes-grid" id="grid-savory"></div>
         </div>
@@ -373,12 +333,10 @@
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <!-- ✅ Обновлено: абсолютные пути к иконкам (со слэшем в начале) -->
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="/images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="/images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="/images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
-            <!-- ✅ Обновлено: пути к юридическим документам -->
             <div class="legal-links-ru">
                 <a href="/legal/privacy-policy.html" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
@@ -441,7 +399,6 @@
     </div>
 
     <script>
-    // ✅ UI-ПЕРЕВОДЫ (без данных товаров, они теперь в data.js)
     const translations = {
         ru: {
             pageTitle: "Боксы - Вестник Гедонизма", navOrder: "ЗАКАЗАТЬ", navContacts: "КОНТАКТЫ", navHistory: "ИСТОРИЯ БОКСОВ", btnBack: "← НАЗАД",
@@ -487,7 +444,6 @@
     }
     function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
 
-    // ✅ ДИНАМИЧЕСКИЙ РЕНДЕР КАТАЛОГА ИЗ data.js
     function renderCatalog() {
         const grids = {
             boxes: document.getElementById('grid-boxes'),
@@ -495,6 +451,12 @@
             savory: document.getElementById('grid-savory')
         };
         Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ''; });
+
+        // Проверка на случай, если data.js не загрузился
+        if (typeof CATALOG === 'undefined') {
+            console.error('Ошибка: объект CATALOG не найден. Проверьте путь к /js/data.js');
+            return;
+        }
 
         for (const [id, product] of Object.entries(CATALOG)) {
             const name = product.name[currentLang];
@@ -533,7 +495,6 @@
         lazyLoadBackgrounds();
     }
 
-    // ✅ МОДАЛЬНОЕ ОКНО ИЗ data.js
     function openProductModal(productId) {
         const product = CATALOG[productId];
         if (!product) return;
@@ -740,7 +701,6 @@
         return options;
     }
 
-    // ✅ СОХРАНЕНИЕ В КОРЗИНУ ТОЛЬКО ID И ОПЦИЙ (цены пересчитаются на checkout)
     function addToCartWithOptions(options) {
         if (!currentProduct) return;
         const cartItem = { 
@@ -763,7 +723,6 @@
         closeCartPrompt();
         trackGA4Event('begin_checkout', { currency: currentLang === 'en' ? 'AED' : 'RUB', value: 0, items: cart.map(item => ({ item_id: item.productId, quantity: item.quantity })) });
         ymTrack('go_to_checkout_from_boxes', { cart_items: cart.length });
-        // ✅ Обновлено: путь к checkout без .html
         window.location.href = '/pages/checkout';
     }
 
@@ -805,7 +764,7 @@
         document.documentElement.lang = lang;
         localStorage.setItem('hedonism_lang', lang);
         
-        renderCatalog(); // ✅ Перерисовка с новыми ценами и названиями
+        renderCatalog();
         updateCartCount();
         
         if (currentProduct) {
@@ -847,7 +806,6 @@
         updateCartCount();
         
         setTimeout(() => { 
-            // ✅ Обновлено: page_path для аналитики без .html
             trackGA4Event('page_view', { page_title: document.title, page_location: window.location.href, page_path: '/pages/boxes', language: currentLang }); 
         }, 1000);
         ymTrack('boxes_viewed', { lang: currentLang });
@@ -882,13 +840,15 @@
             }
         });
         
-        // ✅ ДЕЛЕГИРОВАНИЕ КЛИКА НА ДИНАМИЧЕСКИЕ КАРТОЧКИ
+        // Делегирование клика работает надежно, если CATALOG загружен
         document.querySelector('.catalog').addEventListener('click', function(e) {
             const card = e.target.closest('.box-card');
             if (!card) return;
             const productId = card.dataset.productId;
-            trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] }] });
-            openProductModal(productId);
+            if (typeof CATALOG !== 'undefined' && CATALOG[productId]) {
+                trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] }] });
+                openProductModal(productId);
+            }
         });
         
         document.getElementById('modalClose')?.addEventListener('click', closeProductModal);
@@ -901,7 +861,6 @@
         
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { cart_items: cart.length });
-            // ✅ Обновлено: путь к checkout без .html
             window.location.href = '/pages/checkout';
         });
         
