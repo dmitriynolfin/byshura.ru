@@ -17,7 +17,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Montserrat', sans-serif;
-            /* ✅ Фон оставлен как в исходном коде popup-checkout */
             background: radial-gradient(circle at 50% 0%, #1e1b8a 0%, #070395 40%, #020133 100%);
             color: #ffffff; line-height: 1.6; min-height: 100vh;
         }
@@ -42,15 +41,16 @@
         .summary-item { display: flex; justify-content: flex-start; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(7,3,149,0.1); }
         .summary-item:last-child { border-bottom: none; }
         
-        /* ✅ Стили для фотографии товара */
+        /* ✅ Стили для фотографии товара (как на основной странице checkout) */
         .item-image {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-right: 15px;
             flex-shrink: 0;
             background: #f0f0f0;
+            border: 1px solid rgba(7,3,149,0.1);
         }
         
         .item-info { flex: 1; }
@@ -62,10 +62,15 @@
 
         .checkout-form { background: rgba(255, 255, 255, 0.95); border-radius: 16px; padding: 30px; color: #070395; margin-bottom: 20px; }
         .form-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; position: relative; }
         .form-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #070395; }
-        .form-input { width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; font-family: inherit; transition: border-color 0.3s; box-sizing: border-box; }
-        .form-input:focus { outline: none; border-color: #070395; }
+        
+        .form-input { 
+            width: 100%; padding: 16px; border: 2px solid #e0e0e0; border-radius: 12px; 
+            font-size: 16px; font-family: inherit; transition: all 0.3s; box-sizing: border-box; 
+            background: #ffffff;
+        }
+        .form-input:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 3px rgba(7, 3, 149, 0.1); }
         
         /* ✅ Стили для неизменяемых полей */
         .form-input[readonly] {
@@ -77,19 +82,71 @@
         
         textarea.form-input { resize: vertical; min-height: 100px; }
 
-        .submit-btn { width: 100%; background: #070395; color: white; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: none; cursor: pointer; transition: all 0.3s; margin-top: 10px; }
-        .submit-btn:hover { background: #FFD93D; color: #070395; }
-        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        /* ✅ Кастомная валидация (советы, если поля не заполнены) */
+        .form-input.invalid {
+            border-color: #e74c3c;
+            background-color: #fdf2f2;
+        }
+        .form-input.invalid:focus {
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+        .validation-hint {
+            color: #e74c3c;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 6px;
+            display: none;
+            align-items: center;
+            gap: 5px;
+        }
+        .validation-hint::before {
+            content: '⚠️';
+            font-size: 14px;
+        }
+        .form-input.invalid + .validation-hint {
+            display: flex;
+        }
+
+        /* ✅ Стили кнопки как на странице checkout */
+        .submit-btn { 
+            width: 100%; 
+            background: #070395; 
+            color: white; 
+            padding: 18px 24px; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 10px; 
+            box-shadow: 0 4px 15px rgba(7, 3, 149, 0.2);
+        }
+        .submit-btn:hover { 
+            background: #FFD93D; 
+            color: #070395; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(255, 217, 61, 0.4); 
+        }
+        .submit-btn:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            transform: none; 
+            box-shadow: none;
+        }
 
         .empty-cart-msg { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); }
-        .empty-cart-msg a { color: #FFD93D; text-decoration: underline; }
+        .empty-cart-msg a { color: #FFD93D; text-decoration: underline; font-weight: 600; }
 
         @media (max-width: 480px) {
             .checkout-title { font-size: 24px; }
             .order-summary, .checkout-form { padding: 20px; }
-            .item-image { width: 50px; height: 50px; margin-right: 10px; }
+            .item-image { width: 60px; height: 60px; margin-right: 12px; }
             .item-name { font-size: 15px; }
             .item-price { font-size: 16px; }
+            .submit-btn { padding: 16px 20px; font-size: 15px; }
         }
     </style>
 </head>
@@ -116,7 +173,6 @@
                     </div>
                 </div>
 
-                <!-- ✅ Блок с неизменяемыми параметрами Доставки и Даты -->
                 <div class="checkout-form">
                     <h3 class="form-title">Детали получения</h3>
                     <div class="form-group">
@@ -127,18 +183,32 @@
                         <label class="form-label">Дата</label>
                         <input type="text" class="form-input" value="25.07.2026" readonly>
                     </div>
+                    <!-- ✅ Новый блок выбора времени -->
+                    <div class="form-group">
+                        <label class="form-label">Время получения *</label>
+                        <select class="form-input" id="pickupTime" required>
+                            <option value="" disabled selected>Выберите время</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                        </select>
+                        <div class="validation-hint">Пожалуйста, выберите время получения</div>
+                    </div>
                 </div>
 
-                <form class="checkout-form" id="popupOrderForm">
+                <form class="checkout-form" id="popupOrderForm" novalidate>
                     <h3 class="form-title">Контактные данные</h3>
                     <div class="form-group">
                         <label class="form-label">Ваше имя *</label>
                         <input type="text" class="form-input" id="customerName" required placeholder="Как к вам обращаться?">
+                        <div class="validation-hint">Пожалуйста, введите ваше имя</div>
                     </div>
                     <div class="form-group">
-                        <!-- ✅ Поле "Предпочтительный способ связи" исключено, оставлено единое поле контакта -->
                         <label class="form-label">Телефон или Telegram *</label>
                         <input type="text" class="form-input" id="customerContact" required placeholder="+7 (999) 000-00-00 или @username">
+                        <div class="validation-hint">Пожалуйста, укажите способ связи</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Комментарий к заказу</label>
@@ -163,6 +233,7 @@
         const totalPriceEl = document.getElementById('totalPrice');
         const orderContentEl = document.getElementById('orderContent');
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
+        const form = document.getElementById('popupOrderForm');
 
         if (popupCart.length === 0) {
             orderContentEl.style.display = 'none';
@@ -175,7 +246,7 @@
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
                 
-                // ✅ Добавлено отображение фотографии заказа (с запасным вариантом, если фото нет)
+                // ✅ Отображение фотографии товара с надежной заглушкой
                 const imageUrl = item.image || '/assets/favicon-512.png';
                 
                 html += `
@@ -194,8 +265,31 @@
             totalPriceEl.textContent = total + ' ₽';
         }
 
-        document.getElementById('popupOrderForm').addEventListener('submit', function(e) {
+        // ✅ Кастомная валидация формы перед отправкой
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            let isValid = true;
+            const requiredInputs = form.querySelectorAll('[required]');
+            
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('invalid');
+                }
+            });
+
+            if (!isValid) {
+                // Прокрутка к первому невалидному полю для удобства пользователя
+                const firstInvalid = form.querySelector('.invalid');
+                if (firstInvalid) {
+                    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalid.focus();
+                }
+                return;
+            }
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
@@ -212,9 +306,9 @@
                     contact: document.getElementById('customerContact').value,
                     comment: document.getElementById('customerComment').value
                 },
-                // ✅ Добавлены фиксированные параметры в объект заказа для сохранения
                 delivery: "ЖК Prime Park, Москва",
                 date: "25.07.2026",
+                time: document.getElementById('pickupTime').value, // ✅ Добавлено время
                 dateIso: new Date().toISOString(),
                 type: 'popup_order'
             };
@@ -223,6 +317,15 @@
             localStorage.removeItem('hedonism_popup_cart');
             
             window.location.href = '/pages/popup-thank-you';
+        });
+
+        // ✅ Убираем подсветку ошибки при вводе данных
+        form.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.classList.remove('invalid');
+                }
+            });
         });
     </script>
 </body>
