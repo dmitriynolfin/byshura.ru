@@ -411,8 +411,9 @@
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
         const form = document.getElementById('popupOrderForm');
 
+        // ✅ НОВЫЙ ФОРМАТ НОМЕРА ЗАКАЗА: начинается с PU и содержит 4 случайные цифры
         function generateOrderNumber() {
-            return 'POPUP-' + Date.now();
+            return 'PU' + String(1000 + Math.floor(Math.random() * 9000));
         }
 
         let privacyConsentTimestamp = null;
@@ -547,7 +548,8 @@
                         if (navigator.sendBeacon) {
                             const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
                             const sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                            if (sent) return { success: true, orderNumber: 'PROCESSING-' + Date.now().toString().slice(-6), isBackground: true };
+                            // ✅ Фоллбек-номер также начинается с PU
+                            if (sent) return { success: true, orderNumber: 'PU' + String(1000 + Math.floor(Math.random() * 9000)), isBackground: true };
                         }
                         return { success: false, orderNumber: null, error: error.message };
                     }
@@ -610,10 +612,10 @@
             localStorage.setItem('hedonism_user_name', nameValue);
             localStorage.setItem('hedonism_user_phone', contactValue);
 
+            // ✅ Генерируем номер заказа с префиксом PU
             const tempOrderNumber = generateOrderNumber();
             
             // ✅ Считываем согласие на cookies из localStorage (оно было дано на предыдущей странице)
-            // GAS ожидает boolean или строку 'true'
             const cookiesConsentBool = localStorage.getItem('cookie_consent') === 'true';
             
             // ✅ ИДЕАЛЬНОЕ СООТВЕТСТВИЕ СТРУКТУРЕ GOOGLE APPS SCRIPT:
@@ -621,15 +623,15 @@
                 // 1. Базовые настройки для логики GAS
                 lang: 'ru',
                 currency: '₽',
-                orderNumber: tempOrderNumber,
-                source: 'checkout-popup.html', // Для нашей аналитики
+                orderNumber: tempOrderNumber, // Начинается с PU
+                source: 'checkout-popup.html', 
                 
                 // 2. Плоские поля, которые напрямую читает GAS (saveOrderToSheet & sendOrderEmail)
                 name: nameValue,
                 phone: contactValue,
-                messenger: 'Telegram/Телефон', // GAS ожидает это поле, ставим дефолт для popup
-                delivery: 'pickup', // КРИТИЧЕСКИ ВАЖНО: GAS проверяет `data.delivery === 'courier'`. Если не courier, он сам подставит "ЖК Prime Park, Москва"
-                address: '', // GAS проигнорирует это, так как delivery !== 'courier'
+                messenger: 'Telegram/Телефон', 
+                delivery: 'pickup', 
+                address: '', 
                 date: "25.07.2026",
                 time: timeValue,
                 payment: paymentValue,
@@ -640,7 +642,7 @@
                 cookieConsent: cookiesConsentBool,
                 consentTimestamp: privacyConsentTimestamp || new Date().toISOString(),
                 
-                // 4. Вложенная структура (оставляем для совместимости со страницей popup-thank-you.html)
+                // 4. Вложенная структура (для совместимости со страницей popup-thank-you.html)
                 customer: {
                     name: nameValue,
                     contact: contactValue,
@@ -656,7 +658,9 @@
             const result = await sendToAppsScript(orderData);
             
             if (result.success) {
+                // Если Google Apps Script вернул свой номер (например, тоже с PU, если вы обновили функцию generateFastOrderNumber), используем его. Иначе оставляем наш PU-номер.
                 const realOrderNumber = result.orderNumber || tempOrderNumber;
+                
                 sessionStorage.setItem('hedonism_popup_last_order', JSON.stringify({
                     ...orderData,
                     orderNumber: realOrderNumber
