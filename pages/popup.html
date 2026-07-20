@@ -66,11 +66,14 @@
         .popup-header p { font-size: 18px; color: rgba(255, 255, 255, 0.85); max-width: 600px; margin: 0 auto; }
 
         .items-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px; max-width: 1200px; margin: 0 auto 60px;
         }
         .box-card {
-            background: rgba(255, 255, 255, 0.97); border-radius: 16px; overflow: hidden;
+            background: rgba(255, 255, 255, 0.97); 
+            border-radius: 0; /* ✅ ИСПРАВЛЕНИЕ 2: Прямоугольные карточки */
+            overflow: hidden;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); transition: transform 0.3s, box-shadow 0.3s;
             display: flex; flex-direction: column;
         }
@@ -113,14 +116,25 @@
         }
         .add-to-cart-btn:hover { background: #FFD93D; color: #070395; }
 
+        /* ✅ ИСПРАВЛЕНИЕ 1: Уведомление скрыто по умолчанию */
         .cart-notification {
             position: fixed; top: 100px; right: 30px; background: #070395; color: white;
             padding: 20px 30px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            display: flex; align-items: center; gap: 15px; z-index: 10000;
-            transform: translateX(400px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none; /* Скрыто по умолчанию */
+            align-items: center; gap: 15px; z-index: 10000;
             max-width: 400px; border-left: 4px solid #FFD93D;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .cart-notification.show { transform: translateX(0); }
+        .cart-notification.show { 
+            display: flex; 
+            opacity: 1;
+            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
         .cart-notification-icon { font-size: 28px; flex-shrink: 0; }
         .cart-notification-text { flex: 1; font-weight: 600; font-size: 15px; line-height: 1.4; }
         .cart-notification-btn {
@@ -184,6 +198,11 @@
             .popup-header h1 { font-size: 26px; }
             .popup-header p { font-size: 16px; }
             .box-image { height: 180px; }
+            /* ✅ ИСПРАВЛЕНИЕ 3: Две карточки в ряд на телефоне */
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
             .footer-container { flex-direction: column; text-align: center; }
             .cookie-banner { padding: 15px 0; }
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
@@ -209,6 +228,14 @@
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
             .pickup-info-icon svg { width: 20px; height: 20px; }
             .pickup-info-text { font-size: 14px; }
+            /* На очень маленьких экранах можно оставить 2 в ряд или сделать 1 */
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .box-title { font-size: 14px; }
+            .box-descr { font-size: 12px; }
+            .box-price { font-size: 18px; }
         }
     </style>
 </head>
@@ -248,29 +275,27 @@
         <div class="container">
             <div class="pickup-header">
                 <h2>САМОВЫВОЗ</h2>
-                <!-- ✅ ИЗМЕНЕНИЕ 3: Добавлено "или через беллменов" -->
                 <p>Наш домашний ресторан пока работает только на доставку, но мы всегда рады передать вам заказ лично или через беллменов</p>
             </div>
             <div class="pickup-map-container" id="mapContainer">
-                <!-- ✅ ИЗМЕНЕНИЕ 1: Точка на карте (pm2rdm = красная метка на координатах ЖК Prime Park) -->
-<iframe 
-    class="pickup-map-iframe" 
-    id="mapIframe" 
-    src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" 
-    allowfullscreen 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade"
-    title="Карта самовывоза ЖК Prime Park"
-    style="background-color: #f0f0f0;">
-</iframe>
+                <iframe 
+                    class="pickup-map-iframe" 
+                    id="mapIframe" 
+                    src="https://yandex.ru/map-widget/v1/?ll=37.542858%2C55.793510&z=16&l=map&pt=37.542858%2C55.793510%2Cpm2rdm" 
+                    allowfullscreen 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Карта самовывоза ЖК Prime Park"
+                    style="background-color: #f0f0f0;">
+                </iframe>
             </div>
             <div class="pickup-info-bar">
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     </div>
-                    <!-- ✅ ИЗМЕНЕНИЕ 2: Обновлено время и дата -->
-                    <div class="pickup-info-text"><span>Субботу 25.07</span> · <span>10:00 – 14:00</span></div>
+                    <!-- ✅ ИСПРАВЛЕНИЕ 4: "Субботу" заменено на "Суббота" -->
+                    <div class="pickup-info-text"><span>Суббота 25.07</span> · <span>10:00 – 14:00</span></div>
                 </div>
                 <div class="pickup-info-item">
                     <div class="pickup-info-icon">
@@ -304,6 +329,7 @@
         </div>
     </footer>
 
+    <!-- ✅ Уведомление теперь скрыто по умолчанию (display: none) -->
     <div class="cart-notification" id="cartNotification">
         <span class="cart-notification-icon">✅</span>
         <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
