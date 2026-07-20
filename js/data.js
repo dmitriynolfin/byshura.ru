@@ -132,16 +132,16 @@ const CATALOG = {
         allergens: ["Глютен", "Яйца", "Красная рыба"]
     },
     
-    // ✅ ИСПРАВЛЕНО: Добавлены полные английские (en) переводы для POP-UP позиций
+    // ✅ ОБНОВЛЕНО: Pop-up позиции с новыми названиями, описаниями, весом, ценами и фото
     "popup-cookie": {
         id: "popup-cookie",
         type: "popup",
-        name: { ru: "Фирменная Печенька", en: "Signature Cookie" },
-        prices: { ru: 300, en: 15 },
-        images: { desktop: "/images/boxes-lemoncookies-1.webp", mobile: "/images/boxes-lemoncookies-1-mobile.webp" },
+        name: { ru: "Ошеломительное печенье с лимонным курдом", en: "Stunning Lemon Curd Cookie" },
+        prices: { ru: 100, en: 5 },
+        images: { desktop: "/images/popup-coockies.webp", mobile: "/images/popup-coockies.webp" },
         description: { 
-            ru: "Хрустящая снаружи, тягучая внутри. С каплями бельгийского шоколада и морской солью.",
-            en: "Crispy on the outside, chewy on the inside. With Belgian chocolate chips and sea salt."
+            ru: "Хрустящий корпус, нежная не приторная основа, кремовый кисло-сладкий курд.\nВес: ~40 г",
+            en: "Crispy exterior, tender not overly sweet base, creamy sweet-and-sour curd.\nWeight: ~40 g"
         },
         emoji: "🍪",
         allergens: ["Глютен", "Яйца", "Лактоза"]
@@ -149,12 +149,12 @@ const CATALOG = {
     "popup-cake-slice": {
         id: "popup-cake-slice",
         type: "popup",
-        name: { ru: "Кусочек Кекса", en: "Slice of Cake" },
-        prices: { ru: 350, en: 18 },
-        images: { desktop: "/images/boxes-lemoncake.webp", mobile: "/images/boxes-lemoncake-mobile.webp" },
+        name: { ru: "Нежный сливочный лимонный кекс", en: "Tender Creamy Lemon Cake" },
+        prices: { ru: 150, en: 8 },
+        images: { desktop: "/images/popup-cake.webp", mobile: "/images/popup-cake.webp" },
         description: { 
-            ru: "Нежный бисквит с лимонной пропиткой и ягодным кули. Идеальный баланс сладости и кислинки.",
-            en: "Tender sponge cake with lemon soaking and berry coulis. Perfect balance of sweetness and tartness."
+            ru: "Бисквитная основа на сливочном масле и сливках, лимонная пропитка, лимонная глазурь.\nВес: ~100 г",
+            en: "Sponge base on butter and cream, lemon soaking, lemon glaze.\nWeight: ~100 g"
         },
         emoji: "🧁",
         allergens: ["Глютен", "Яйца", "Лактоза"]
@@ -162,14 +162,14 @@ const CATALOG = {
     "popup-salad": {
         id: "popup-salad",
         type: "popup",
-        name: { ru: "Авторский Салат", en: "Signature Salad" },
-        prices: { ru: 450, en: 25 },
-        images: { desktop: "/images/boxes-nicholas-1.webp", mobile: "/images/boxes-nicholas-1-mobile.webp" },
+        name: { ru: "Лимонно-имбирный дип с сезонными овощами", en: "Lemon-Ginger Dip with Seasonal Vegetables" },
+        prices: { ru: 300, en: 15 },
+        images: { desktop: "/images/popup-dip.webp", mobile: "/images/popup-dip.webp" },
         description: { 
-            ru: "Свежая микс-зелень, томаты черри, авокадо и фирменная заправка от шефа. Легко и изысканно.",
-            en: "Fresh mixed greens, cherry tomatoes, avocado, and the chef's signature dressing. Light and exquisite."
+            ru: "Пряный греческий йогурт, карамельно-лимонный арахис, хрустящие овощи.\nВес: ~200 г",
+            en: "Spicy Greek yogurt, caramel-lemon peanut, crunchy vegetables.\nWeight: ~200 g"
         },
         emoji: "🥗",
-        allergens: [] 
+        allergens: ["Лактоза", "Орехи"]
     }
 };
