@@ -358,13 +358,6 @@
                             <span class="consent-text">Я даю согласие на обработку <a href="/legal/privacy-policy" target="_blank">персональных данных</a> и принимаю условия <a href="/legal/offer" target="_blank">публичной оферты</a></span>
                         </label>
                     </div>
-                    
-                    <div class="consent-group">
-                        <label class="consent-checkbox">
-                            <input type="checkbox" id="cookiesCheckbox" name="cookies" required checked>
-                            <span class="consent-text">Я даю согласие на использование <a href="/legal/cookies" target="_blank">cookies</a></span>
-                        </label>
-                    </div>
 
                     <button type="submit" class="submit-btn" id="submitBtn">
                         <span class="btn-text">Подтвердить заказ</span>
@@ -418,12 +411,10 @@
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
         const form = document.getElementById('popupOrderForm');
 
-        // ✅ ТРЕБОВАНИЕ 2: Генерация номера заказа (идентично основному checkout.html)
         function generateOrderNumber() {
             return 'POPUP-' + Date.now();
         }
 
-        // ✅ ТРЕБОВАНИЕ 1: Отслеживание точного времени согласия (как в основном checkout.html)
         let privacyConsentTimestamp = null;
         const consentCheckbox = document.getElementById('consentCheckbox');
         if (consentCheckbox) {
@@ -536,6 +527,7 @@
                     const controller = new AbortController();
                     const timeoutId = setTimeout(() => controller.abort(), 45000);
 
+                    // ✅ КРИТИЧЕСКИ ВАЖНО ДЛЯ КИРИЛЛИЦЫ: text/plain;charset=utf-8
                     const response = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -594,12 +586,6 @@
                 return;
             }
 
-            const cookiesCheckbox = document.getElementById('cookiesCheckbox');
-            if (cookiesCheckbox && !cookiesCheckbox.checked) {
-                alert("Необходимо дать согласие на использование cookies");
-                return;
-            }
-
             const timeValue = document.getElementById('pickupTime').value;
             if (!timeValue || timeValue < '10:00' || timeValue > '14:00') {
                 alert('Пожалуйста, выберите время получения с 10:00 до 14:00');
@@ -618,33 +604,50 @@
 
             const nameValue = document.getElementById('customerName').value;
             const contactValue = document.getElementById('customerContact').value;
+            const commentValue = document.getElementById('customerComment').value;
             const paymentValue = document.querySelector('input[name="payment"]:checked')?.value || 'sber';
 
             localStorage.setItem('hedonism_user_name', nameValue);
             localStorage.setItem('hedonism_user_phone', contactValue);
 
-            // ✅ ТРЕБОВАНИЕ 2: Генерация временного номера заказа (как в основном checkout)
             const tempOrderNumber = generateOrderNumber();
             
-            // ✅ ТРЕБОВАНИЯ 1 и 3: Плоская структура данных для идеального маппинга в столбцы Google Sheets и источник
+            // ✅ Считываем согласие на cookies из localStorage (оно было дано на предыдущей странице)
+            // GAS ожидает boolean или строку 'true'
+            const cookiesConsentBool = localStorage.getItem('cookie_consent') === 'true';
+            
+            // ✅ ИДЕАЛЬНОЕ СООТВЕТСТВИЕ СТРУКТУРЕ GOOGLE APPS SCRIPT:
             const orderData = {
+                // 1. Базовые настройки для логики GAS
+                lang: 'ru',
+                currency: '₽',
                 orderNumber: tempOrderNumber,
-                source: 'checkout-popup.html', // ТРЕБОВАНИЕ 3
-                type: 'popup_order',
+                source: 'checkout-popup.html', // Для нашей аналитики
                 
-                // ТРЕБОВАНИЕ 1: Плоские поля для удобной записи в таблицу/почту
+                // 2. Плоские поля, которые напрямую читает GAS (saveOrderToSheet & sendOrderEmail)
                 name: nameValue,
                 phone: contactValue,
-                comment: document.getElementById('customerComment').value,
-                payment: paymentValue,
-                consentGiven: consentCheckbox.checked,
-                cookiesConsent: cookiesCheckbox.checked,
-                consentTimestamp: privacyConsentTimestamp || new Date().toISOString(),
-                
-                // Дополнительные данные заказа
-                delivery: "ЖК Prime Park, Москва",
+                messenger: 'Telegram/Телефон', // GAS ожидает это поле, ставим дефолт для popup
+                delivery: 'pickup', // КРИТИЧЕСКИ ВАЖНО: GAS проверяет `data.delivery === 'courier'`. Если не courier, он сам подставит "ЖК Prime Park, Москва"
+                address: '', // GAS проигнорирует это, так как delivery !== 'courier'
                 date: "25.07.2026",
                 time: timeValue,
+                payment: paymentValue,
+                comment: commentValue,
+                
+                // 3. Согласия (GAS ожидает boolean для корректной конвертации в 'Да'/'Нет')
+                consentGiven: true, 
+                cookieConsent: cookiesConsentBool,
+                consentTimestamp: privacyConsentTimestamp || new Date().toISOString(),
+                
+                // 4. Вложенная структура (оставляем для совместимости со страницей popup-thank-you.html)
+                customer: {
+                    name: nameValue,
+                    contact: contactValue,
+                    comment: commentValue
+                },
+                
+                // 5. Корзина и итог
                 items: currentPopupCart,
                 total: orderTotal,
                 dateIso: new Date().toISOString()
@@ -653,8 +656,6 @@
             const result = await sendToAppsScript(orderData);
             
             if (result.success) {
-                // ✅ ТРЕБОВАНИЕ 2: Сохранение в sessionStorage (как в основном checkout.html) 
-                // для гарантированной передачи данных на страницу /pages/popup-thank-you
                 const realOrderNumber = result.orderNumber || tempOrderNumber;
                 sessionStorage.setItem('hedonism_popup_last_order', JSON.stringify({
                     ...orderData,
