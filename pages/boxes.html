@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ ЕДИНЫЙ ИСТОЧНИК ДАННЫХ -->
-    <!-- Если открываете локально (file://), замените на: src="../js/data.js" -->
-    <!-- Если на хостинге, оставьте: src="/js/data.js" -->
-    <script src="/js/data.js"></script>
+    <!-- ✅ УМНАЯ ЗАГРУЗКА DATA.JS: автоматически выбирает путь для локального теста или хостинга -->
+    <script>
+        const dataScript = document.createElement('script');
+        if (window.location.protocol === 'file:') {
+            dataScript.src = 'js/data.js'; // Относительный путь для локального открытия (file://)
+        } else {
+            dataScript.src = '/js/data.js'; // Абсолютный путь для хостинга (https://)
+        }
+        document.head.appendChild(dataScript);
+    </script>
     
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
@@ -453,38 +459,36 @@
         };
         Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ''; });
 
-        // ✅ УЛУЧШЕННАЯ ПРОВЕРКА ЗАГРУЗКИ DATA.JS
         if (typeof CATALOG === 'undefined') {
             console.error('❌ ОШИБКА: Объект CATALOG не найден!');
-            console.error('1. Проверьте вкладку Network (Сеть) в инструментах разработчика (F12). Загружается ли файл data.js?');
-            console.error('2. Если вы открываете файл локально (адрес начинается с file://), замените в <head> строку:');
-            console.error('   <script src="/js/data.js"><\/script>  на  <script src="../js/data.js"><\/script>');
-            
             Object.values(grids).forEach(grid => {
                 if (grid) {
-                    grid.innerHTML = '<p style="color: #e74c3c; text-align: center; padding: 40px; font-weight: 600; background: #fff0f0; border-radius: 12px;">⚠️ Ошибка загрузки данных. Проверьте консоль разработчика (F12) и путь к файлу /js/data.js</p>';
+                    grid.innerHTML = '<p style="color: #e74c3c; text-align: center; padding: 40px; font-weight: 600; background: #fff0f0; border-radius: 12px;">⚠️ Ошибка загрузки данных. Проверьте консоль разработчика (F12) и наличие файла data.js</p>';
                 }
             });
             return;
         }
 
         for (const [id, product] of Object.entries(CATALOG)) {
-            const name = product.name[currentLang];
+            // ✅ БЕЗОПАСНОЕ ПОЛУЧЕНИЕ ДАННЫХ С ФОЛЛБЕКОМ НА RU (предотвращает краш при отсутствии EN)
+            const name = product.name[currentLang] || product.name['ru'] || 'Товар';
+            const prices = product.prices[currentLang] || product.prices['ru'] || {};
+            
             const isBox = product.type === 'box';
             const isSweet = product.id === 'cake1' || product.id === 'lemon-cookies';
             const isSavory = product.id === 'rasstegai';
             
             let basePrice = 0;
-            if (isBox) basePrice = product.prices[currentLang][2];
-            else if (product.type === 'cake') basePrice = product.prices[currentLang];
-            else basePrice = product.prices[currentLang][4];
+            if (isBox) basePrice = prices[2] || 0;
+            else if (product.type === 'cake') basePrice = (typeof prices === 'number' ? prices : (prices['default'] || prices[1] || 0));
+            else basePrice = prices[4] || 0;
             
             const currency = currentLang === 'ru' ? '₽' : 'AED';
             const priceFromText = currentLang === 'ru' ? 'от ' : 'from ';
 
             const cardHTML = `
                 <div class="box-card" data-product-id="${id}" data-product-type="${product.type}">
-                    <div class="box-image" data-bg-desktop="${product.images.desktop}" data-bg-mobile="${product.images.mobile}" data-bg-loaded="false"></div>
+                    <div class="box-image" data-bg-desktop="${product.images?.desktop || ''}" data-bg-mobile="${product.images?.mobile || ''}" data-bg-loaded="false"></div>
                     <div class="box-content">
                         <h3 class="box-title">${name}</h3>
                         <div class="box-footer">
@@ -510,15 +514,16 @@
         if (!product) return;
         currentProduct = product;
         
-        document.getElementById('modalProductTitle').textContent = product.name[currentLang];
+        document.getElementById('modalProductTitle').textContent = product.name[currentLang] || product.name['ru'];
         
-        const gallery = product.gallery || [product.images.desktop];
+        const gallery = product.gallery || [product.images?.desktop || ''];
         initGallery(gallery);
         document.getElementById('modalGallery').style.display = gallery.length > 0 ? 'block' : 'none';
         
         const descEl = document.getElementById('modalDescription');
-        if (product.description && product.description[currentLang]) {
-            descEl.innerHTML = product.description[currentLang].replace(/\n/g, '<br>');
+        const descText = product.description ? (product.description[currentLang] || product.description['ru']) : '';
+        if (descText) {
+            descEl.innerHTML = descText.replace(/\n/g, '<br>');
             descEl.style.display = 'block';
         } else {
             descEl.style.display = 'none';
@@ -546,7 +551,7 @@
         
         document.getElementById('productModalOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
-        trackGA4Event('view_item', { items: [{ item_id: product.id, item_name: product.name[currentLang], item_category: product.type }] });
+        trackGA4Event('view_item', { items: [{ item_id: product.id, item_name: product.name[currentLang] || product.name['ru'], item_category: product.type }] });
     }
 
     function renderPersonOptions(productId) {
@@ -555,10 +560,12 @@
         let html = '';
         const persons = [2, 4, 6];
         const icons = ['👥', '👥👥', '👥👥👥'];
+        // ✅ Безопасное получение цен
+        const prices = product.prices[currentLang] || product.prices['ru'] || {};
         
         persons.forEach((count, index) => {
-            const price = product.prices[currentLang][count];
-            const formattedPrice = currentLang === 'en' ? `AED ${price}` : `${price.toLocaleString('ru-RU')} ₽`;
+            const price = prices[count] || 0;
+            const formattedPrice = currentLang === 'en' ? `AED ${price}` : `${Number(price).toLocaleString('ru-RU')} ₽`;
             html += `<label class="person-option">
                 <input type="radio" name="modalPersons" value="${count}" class="person-radio" ${index === 0 ? 'checked' : ''}>
                 <span class="person-label">
@@ -578,10 +585,12 @@
         const container = document.getElementById('quantitySelect');
         let html = '';
         const quantities = [4, 8];
+        // ✅ Безопасное получение цен
+        const prices = product.prices[currentLang] || product.prices['ru'] || {};
         
         quantities.forEach((count, index) => {
-            const price = product.prices[currentLang][count];
-            const formattedPrice = currentLang === 'en' ? `AED ${price}` : `${price.toLocaleString('ru-RU')} ₽`;
+            const price = prices[count] || 0;
+            const formattedPrice = currentLang === 'en' ? `AED ${price}` : `${Number(price).toLocaleString('ru-RU')} ₽`;
             const label = currentLang === 'ru' ? (count === 4 ? '4 штуки' : '8 штук') : `${count} pieces`;
             html += `<label class="quantity-option">
                 <input type="radio" name="modalQuantity" value="${count}" class="quantity-radio" ${index === 0 ? 'checked' : ''}>
@@ -600,7 +609,10 @@
     function renderComposition(productId) {
         const product = CATALOG[productId];
         const section = document.getElementById('compositionSection');
-        if (!product.composition || !product.composition[currentLang] || product.composition[currentLang].length === 0) {
+        // ✅ Безопасное получение композиции
+        const composition = product.composition ? (product.composition[currentLang] || product.composition['ru']) : [];
+        
+        if (!composition || composition.length === 0) {
             section.style.display = 'none';
             return;
         }
@@ -611,7 +623,7 @@
     function updateCompositionWeights() {
         if (!currentProduct) return;
         const container = document.getElementById('compositionList');
-        const composition = currentProduct.composition[currentLang];
+        const composition = currentProduct.composition ? (currentProduct.composition[currentLang] || currentProduct.composition['ru']) : [];
         
         let selectedPersons = '2';
         let selectedQuantity = 4;
@@ -651,7 +663,7 @@
         const allergenIcons = { 'Грибы': '🍄', 'Мед': '🍯', 'Лактоза': '🥛', 'Яйца': '🥚', 'Глютен': '🌾', 'Красная рыба': '🐟', 'Орехи': '🥜', 'Горчица': '🟡' };
         let html = '';
         product.allergens.forEach(allergen => {
-            const icon = allergenIcons[allergen] || '';
+            const icon = allergenIcons[allergen] || '⚠️';
             html += `<label class="allergen-option">
                 <input type="checkbox" name="modalAllergen" value="${allergen}" class="allergen-checkbox">
                 <span class="allergen-label"><span class="allergen-icon">${icon}</span>${allergen}</span>
@@ -722,7 +734,7 @@
         cart.push(cartItem); 
         saveCart(); 
         updateCartCount(); 
-        trackGA4Event('add_to_cart', { items: [{ item_id: currentProduct.id, item_name: currentProduct.name[currentLang], quantity: 1 }] });
+        trackGA4Event('add_to_cart', { items: [{ item_id: currentProduct.id, item_name: currentProduct.name[currentLang] || currentProduct.name['ru'], quantity: 1 }] });
         closeProductModal(); 
         showCartPrompt();
     }
@@ -778,7 +790,7 @@
         updateCartCount();
         
         if (currentProduct) {
-            document.getElementById('modalProductTitle').textContent = currentProduct.name[currentLang];
+            document.getElementById('modalProductTitle').textContent = currentProduct.name[currentLang] || currentProduct.name['ru'];
             renderComposition(currentProduct.id);
             renderPersonOptions(currentProduct.id);
             renderQuantityOptions(currentProduct.id);
@@ -850,13 +862,12 @@
             }
         });
         
-        // ✅ ДЕЛЕГИРОВАНИЕ КЛИКА С ДОПОЛНИТЕЛЬНОЙ ПРОВЕРКОЙ
         document.querySelector('.catalog').addEventListener('click', function(e) {
             const card = e.target.closest('.box-card');
             if (!card) return;
             const productId = card.dataset.productId;
             if (typeof CATALOG !== 'undefined' && CATALOG[productId]) {
-                trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] }] });
+                trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] || CATALOG[productId].name['ru'] }] });
                 openProductModal(productId);
             } else {
                 console.warn('⚠️ Клик по карточке, но товар не найден в CATALOG:', productId);
