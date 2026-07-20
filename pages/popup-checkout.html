@@ -360,10 +360,18 @@
                         </div>
                     </div>
                     
+                    <!-- ✅ 1. Добавлен блок согласия на cookies -->
                     <div class="consent-group">
                         <label class="consent-checkbox">
                             <input type="checkbox" id="consentCheckbox" name="consent" required checked>
                             <span class="consent-text">Я даю согласие на обработку <a href="/legal/privacy-policy" target="_blank">персональных данных</a> и принимаю условия <a href="/legal/offer" target="_blank">публичной оферты</a></span>
+                        </label>
+                    </div>
+                    
+                    <div class="consent-group">
+                        <label class="consent-checkbox">
+                            <input type="checkbox" id="cookiesCheckbox" name="cookies" required checked>
+                            <span class="consent-text">Я даю согласие на использование <a href="/legal/cookies" target="_blank">cookies</a></span>
                         </label>
                     </div>
 
@@ -575,6 +583,12 @@
                 return;
             }
 
+            const cookiesCheckbox = document.getElementById('cookiesCheckbox');
+            if (cookiesCheckbox && !cookiesCheckbox.checked) {
+                alert("Необходимо дать согласие на использование cookies");
+                return;
+            }
+
             const timeValue = document.getElementById('pickupTime').value;
             if (!timeValue || timeValue < '10:00' || timeValue > '14:00') {
                 alert('Пожалуйста, выберите время получения с 10:00 до 14:00');
@@ -595,10 +609,17 @@
             const contactValue = document.getElementById('customerContact').value;
             // ✅ Сохраняем выбранный способ оплаты
             const paymentValue = document.querySelector('input[name="payment"]:checked')?.value || 'sber';
+            // ✅ Сохраняем согласие на данные и cookies
+            const consentData = consentCheckbox.checked;
+            const cookiesConsent = cookiesCheckbox.checked;
+            const consentDate = new Date().toISOString();
 
             localStorage.setItem('hedonism_user_name', nameValue);
             localStorage.setItem('hedonism_user_phone', contactValue);
 
+            // ✅ Генерация номера заказа как на основной странице
+            const orderNumber = 'PO' + Math.floor(1000000 + Math.random() * 9000000);
+            
             const orderData = {
                 items: currentPopupCart,
                 total: orderTotal,
@@ -610,15 +631,20 @@
                 delivery: "ЖК Prime Park, Москва",
                 date: "25.07.2026",
                 time: timeValue,
-                payment: paymentValue, // ✅ Добавлено в объект заказа
+                payment: paymentValue,
+                consentData: consentData,
+                cookiesConsent: cookiesConsent,
+                consentDate: consentDate,
+                orderNumber: orderNumber,
                 dateIso: new Date().toISOString(),
-                type: 'popup_order'
+                type: 'popup_order',
+                source: 'checkout-popup.html' // ✅ Правильный источник
             };
 
             const result = await sendToAppsScript(orderData);
             
             if (result.success) {
-                localStorage.setItem('hedonism_popup_last_order', JSON.stringify({ ...orderData, orderNumber: result.orderNumber }));
+                localStorage.setItem('hedonism_popup_last_order', JSON.stringify({ ...orderData, orderNumber: orderNumber }));
                 localStorage.removeItem('hedonism_popup_cart');
                 window.location.href = '/pages/popup-thank-you';
             } else {
