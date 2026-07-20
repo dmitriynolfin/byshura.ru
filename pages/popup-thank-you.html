@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#070395">
-    <title>Заказ принят | Вестник Гедонизма</title>
+    <title>Спасибо за заказ! | Вестник Гедонизма</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,57 +13,284 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        html, body { overflow-x: hidden; width: 100%; height: 100%; }
+        html, body { overflow-x: hidden; width: 100%; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
             background: radial-gradient(circle at 50% 0%, #1e1b8a 0%, #070395 40%, #020133 100%);
-            color: #ffffff; line-height: 1.6; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
+            color: #ffffff; line-height: 1.6; min-height: 100vh;
         }
-        .thank-you-container { max-width: 500px; width: 100%; }
-        .success-icon { font-size: 80px; margin-bottom: 20px; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
+        a:hover { color: #FFD93D; }
+        button { cursor: pointer; border: none; background: none; font: inherit; }
+        img { max-width: 100%; display: block; }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        .thank-you-container { max-width: 700px; margin: 0 auto; }
+
+        .header { 
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
+            border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
         }
-        h1 { font-size: 32px; font-weight: 800; color: #FFD93D; margin-bottom: 15px; text-transform: uppercase; }
-        p { font-size: 16px; color: rgba(255, 255, 255, 0.85); margin-bottom: 30px; line-height: 1.6; }
-        .btn-group { display: flex; flex-direction: column; gap: 15px; }
-        .btn {
-            display: inline-block; padding: 16px 30px; border-radius: 12px; font-weight: 700;
-            font-size: 15px; text-decoration: none; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
+        .logo { 
+            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+        }
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            color: #070395; transition: all 0.3s; min-height: 44px; 
+            display: flex; align-items: center;
+        }
+        .btn-back:hover { background: #070395; color: white; }
+
+        .thank-you-main { margin-top: 100px; padding: 40px 0 80px; text-align: center; }
+        
+        .success-icon { font-size: 64px; margin-bottom: 20px; animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .thank-you-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; color: #FFD93D; }
+        .thank-you-subtitle { font-size: 16px; color: rgba(255, 255, 255, 0.85); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        .order-number-box {
+            background: rgba(255, 217, 61, 0.15);
+            border: 1px solid rgba(255, 217, 61, 0.3);
+            border-radius: 12px;
+            padding: 15px 25px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        .order-number-label { font-size: 13px; color: #FFD93D; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .order-number-value { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 1px; }
+
+        .order-details-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 30px;
+            color: #070395;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .details-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(7,3,149,0.1); }
+        
+        .detail-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; font-size: 15px; }
+        .detail-row:last-child { margin-bottom: 0; }
+        .detail-label { color: #666; font-weight: 500; flex-shrink: 0; width: 140px; }
+        .detail-value { font-weight: 600; color: #070395; text-align: right; word-break: break-word; }
+        
+        .items-summary { margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(7,3,149,0.2); }
+        .item-summary-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
+        .item-summary-name { color: #070395; }
+        .item-summary-qty { color: #666; }
+        
+        .total-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-top: 20px; padding-top: 20px; border-top: 2px solid #070395; 
+            font-size: 20px; font-weight: 800; color: #070395; 
+        }
+
+        .action-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-action { 
+            padding: 16px 30px; border-radius: 30px; font-size: 14px; font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s; 
+            text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-width: 200px;
         }
         .btn-primary { background: #FFD93D; color: #070395; }
-        .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+        .btn-primary:hover { background: #ffffff; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4); }
         .btn-secondary { background: transparent; color: #ffffff; border: 2px solid rgba(255,255,255,0.3); }
-        .btn-secondary:hover { border-color: #FFD93D; color: #FFD93D; }
+        .btn-secondary:hover { border-color: #FFD93D; color: #FFD93D; transform: translateY(-2px); }
+
+        .footer { background: rgba(255, 255, 255, 0.95); padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); }
+        .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
+        .social-links { display: flex; gap: 15px; }
+        .social-link { width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: #070395; transition: color 0.3s; }
+        .social-link:hover { color: #FFD93D; }
+        .social-link img { width: 25px; height: 25px; object-fit: contain; }
+        .legal-links-ru { display: flex; gap: 15px; align-items: center; }
+        .legal-links-ru a { font-size: 12px; color: #666; transition: color 0.3s; }
+        .legal-links-ru a:hover { color: #070395; }
+        .legal-divider { color: #ccc; }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .thank-you-title { font-size: 26px; }
+            .order-details-box { padding: 20px; }
+            .detail-row { flex-direction: column; gap: 5px; }
+            .detail-label { width: 100%; font-size: 13px; }
+            .detail-value { text-align: left; }
+            .action-buttons { flex-direction: column; }
+            .btn-action { width: 100%; }
+            .footer-container { flex-direction: column; text-align: center; }
+        }
+        
+        @media (max-width: 480px) {
+            .header { padding: 12px 0; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .thank-you-main { margin-top: 90px; padding: 30px 0 60px; }
+            .success-icon { font-size: 48px; }
+            .order-number-value { font-size: 20px; }
+            .footer { padding: 18px 0; }
+            .social-links { gap: 12px; }
+            .social-link { width: 28px; height: 28px; }
+            .social-link img { width: 28px; height: 28px; }
+            .footer-copyright { font-size: 12px; }
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
+            .legal-divider { color: #ccc; font-size: 11px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="thank-you-container">
-        <div class="success-icon">✨</div>
-        <h1>Заказ принят!</h1>
-        <p>Спасибо, что воспользовались нашим секретным Pop-up меню. <br>Мы уже получили ваш заказ и скоро свяжемся с вами в Telegram для подтверждения деталей и времени доставки.</p>
-        
-        <div class="btn-group">
-            <a href="https://t.me/sash_shura" target="_blank" class="btn btn-primary">Написать в Telegram</a>
-            <!-- ✅ Ссылка на главную без .html -->
-            <a href="/" class="btn btn-secondary">Вернуться на главную</a>
+    <header class="header">
+        <div class="container header-container">
+            <div class="header-left">
+                <a href="/" class="logo" aria-label="Главная">🍋</a>
+            </div>
+            <div class="header-right">
+                <a href="/pages/popup" class="btn-back">← Назад к меню</a>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <main class="thank-you-main">
+        <div class="container thank-you-container">
+            <div class="success-icon">🎉</div>
+            <h1 class="thank-you-title">Спасибо за ваш заказ!</h1>
+            <p class="thank-you-subtitle">Мы уже начали готовить ваш Pop-up набор. Мы свяжемся с вами в ближайшее время для подтверждения деталей.</p>
+            
+            <div class="order-number-box">
+                <div class="order-number-label">Номер вашего заказа</div>
+                <div class="order-number-value" id="displayOrderNumber">---</div>
+            </div>
+
+            <div class="order-details-box">
+                <h3 class="details-title">Детали заказа</h3>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Имя:</span>
+                    <span class="detail-value" id="displayName">---</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Контакт:</span>
+                    <span class="detail-value" id="displayContact">---</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Дата и время:</span>
+                    <span class="detail-value" id="displayDateTime">---</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Место:</span>
+                    <span class="detail-value" id="displayDelivery">---</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Способ оплаты:</span>
+                    <span class="detail-value" id="displayPayment">---</span>
+                </div>
+                <div class="detail-row" id="commentRow" style="display: none;">
+                    <span class="detail-label">Комментарий:</span>
+                    <span class="detail-value" id="displayComment" style="font-weight: 500; font-style: italic;">---</span>
+                </div>
+
+                <div class="items-summary" id="itemsSummary">
+                    <!-- Сюда JS вставит список товаров -->
+                </div>
+
+                <div class="total-row">
+                    <span>Итого к оплате:</span>
+                    <span id="displayTotal">0 ₽</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/pages/popup" class="btn-action btn-primary">Вернуться в Pop-up меню</a>
+                <a href="/" class="btn-action btn-secondary">На главную</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="footer-copyright">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
+            <div class="social-links">
+                <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="/images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
+                <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="/images/max_logo.webp" alt="MAX" loading="lazy"></a>
+                <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="/images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
+            </div>
+            <div class="legal-links-ru">
+                <a href="/legal/privacy-policy" target="_blank">Политика конфиденциальности</a>
+                <span class="legal-divider">|</span>
+                <a href="/legal/offer" target="_blank">Публичная оферта</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Гарантированная очистка Pop-up корзины после успешного показа страницы "Спасибо"
-        // Это предотвращает повторную отправку того же заказа при обновлении страницы
-        localStorage.removeItem('hedonism_popup_cart');
-        localStorage.removeItem('hedonism_popup_last_order');
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Получаем данные заказа из localStorage
+            const orderDataStr = localStorage.getItem('hedonism_popup_last_order');
+            
+            // Если данных нет, перенаправляем на страницу Pop-up меню
+            if (!orderDataStr) {
+                window.location.href = '/pages/popup';
+                return;
+            }
+
+            const order = JSON.parse(orderDataStr);
+
+            // 2. Заполняем страницу данными
+            document.getElementById('displayOrderNumber').textContent = order.orderNumber || 'Не указан';
+            document.getElementById('displayName').textContent = order.customer?.name || 'Не указано';
+            document.getElementById('displayContact').textContent = order.customer?.contact || 'Не указано';
+            document.getElementById('displayDateTime').textContent = `${order.date || ''} в ${order.time || ''}`;
+            document.getElementById('displayDelivery').textContent = order.delivery || 'Не указано';
+            
+            // Маппинг способов оплаты
+            const paymentMap = {
+                'sber': 'Перевод на Сбербанк',
+                'tbank': 'Перевод на Т-Банк',
+                'alfa': 'Перевод на Альфа-Банк'
+            };
+            document.getElementById('displayPayment').textContent = paymentMap[order.payment] || order.payment || 'Не указано';
+
+            // Комментарий (показываем только если он есть)
+            if (order.customer?.comment && order.customer.comment.trim() !== '') {
+                document.getElementById('commentRow').style.display = 'flex';
+                document.getElementById('displayComment').textContent = order.customer.comment;
+            }
+
+            // Список товаров
+            const itemsContainer = document.getElementById('itemsSummary');
+            if (order.items && order.items.length > 0) {
+                let itemsHtml = '';
+                order.items.forEach(item => {
+                    itemsHtml += `
+                        <div class="item-summary-row">
+                            <span class="item-summary-name">${item.name || 'Товар'}</span>
+                            <span class="item-summary-qty">${item.quantity} шт. × ${item.price} ₽</span>
+                        </div>
+                    `;
+                });
+                itemsContainer.innerHTML = itemsHtml;
+            }
+
+            // Итоговая сумма
+            document.getElementById('displayTotal').textContent = `${order.total || 0} ₽`;
+
+            // 3. (Опционально) Очищаем данные последнего заказа через некоторое время, 
+            // чтобы при случайном обновлении страницы они не висели вечно, 
+            // но даем время пользователю прочитать.
+            setTimeout(() => {
+                localStorage.removeItem('hedonism_popup_last_order');
+            }, 60000); // Очистка через 1 минуту
+        });
     </script>
 </body>
 </html>
