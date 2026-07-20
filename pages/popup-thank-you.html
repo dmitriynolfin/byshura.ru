@@ -234,8 +234,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Получаем данные заказа из localStorage
-            const orderDataStr = localStorage.getItem('hedonism_popup_last_order');
+            // 1. Получаем данные заказа. 
+            // Приоритет у sessionStorage (так как checkout-popup пишет туда), с фоллбеком на localStorage для надежности.
+            const orderDataStr = sessionStorage.getItem('hedonism_popup_last_order') || localStorage.getItem('hedonism_popup_last_order');
             
             // Если данных нет, перенаправляем на страницу Pop-up меню
             if (!orderDataStr) {
@@ -245,12 +246,20 @@
 
             const order = JSON.parse(orderDataStr);
 
-            // 2. Заполняем страницу данными
+            // 2. Заполняем страницу данными (используем плоские поля, которые мы передали из формы)
             document.getElementById('displayOrderNumber').textContent = order.orderNumber || 'Не указан';
-            document.getElementById('displayName').textContent = order.customer?.name || 'Не указано';
-            document.getElementById('displayContact').textContent = order.customer?.contact || 'Не указано';
-            document.getElementById('displayDateTime').textContent = `${order.date || ''} в ${order.time || ''}`;
-            document.getElementById('displayDelivery').textContent = order.delivery || 'Не указано';
+            
+            document.getElementById('displayName').textContent = order.name || order.customer?.name || 'Не указано';
+            document.getElementById('displayContact').textContent = order.phone || order.customer?.contact || 'Не указано';
+            
+            document.getElementById('displayDateTime').textContent = `${order.date || 'Не указана'} в ${order.time || 'Не указано'}`;
+            
+            // Красивое отображение места получения
+            const deliveryMap = {
+                'pickup': 'Самовывоз (ЖК Prime Park, Москва)',
+                'courier': 'Курьер'
+            };
+            document.getElementById('displayDelivery').textContent = deliveryMap[order.delivery] || order.delivery || 'Не указано';
             
             // Маппинг способов оплаты
             const paymentMap = {
@@ -261,14 +270,17 @@
             document.getElementById('displayPayment').textContent = paymentMap[order.payment] || order.payment || 'Не указано';
 
             // Комментарий (показываем только если он есть)
-            if (order.customer?.comment && order.customer.comment.trim() !== '') {
+            const comment = order.comment || order.customer?.comment;
+            if (comment && comment.trim() !== '') {
                 document.getElementById('commentRow').style.display = 'flex';
-                document.getElementById('displayComment').textContent = order.customer.comment;
+                document.getElementById('displayComment').textContent = comment;
+            } else {
+                document.getElementById('commentRow').style.display = 'none';
             }
 
             // Список товаров
             const itemsContainer = document.getElementById('itemsSummary');
-            if (order.items && order.items.length > 0) {
+            if (order.items && Array.isArray(order.items) && order.items.length > 0) {
                 let itemsHtml = '';
                 order.items.forEach(item => {
                     itemsHtml += `
@@ -279,17 +291,17 @@
                     `;
                 });
                 itemsContainer.innerHTML = itemsHtml;
+            } else {
+                itemsContainer.innerHTML = '<div class="item-summary-row"><span class="item-summary-name">Список товаров пуст</span></div>';
             }
 
             // Итоговая сумма
             document.getElementById('displayTotal').textContent = `${order.total || 0} ₽`;
 
-            // 3. (Опционально) Очищаем данные последнего заказа через некоторое время, 
-            // чтобы при случайном обновлении страницы они не висели вечно, 
-            // но даем время пользователю прочитать.
-            setTimeout(() => {
-                localStorage.removeItem('hedonism_popup_last_order');
-            }, 60000); // Очистка через 1 минуту
+            // 3. Очищаем данные из хранилища после успешного отображения, 
+            // чтобы при случайном обновлении страницы или переходе по ссылкам данные не дублировались.
+            sessionStorage.removeItem('hedonism_popup_last_order');
+            localStorage.removeItem('hedonism_popup_last_order');
         });
     </script>
 </body>
