@@ -61,7 +61,7 @@ const CATALOG = {
                 { name: "Десерты: Заливной пирог с лимонным курдом", w2: "250 г", w4: "500 г", w6: "750 г" }
             ],
             en: [
-                { name: "Whipped butter with salt and pepper\nHomemade bread\nPickled cucumbers with honey\nBeer-battered champignons", w2: "150 g", w4: "300 g", w6: "450 g" },
+                { name: "Appetizers: Whipped butter with salt and pepper\nHomemade bread\nPickled cucumbers with honey\nBeer-battered champignons", w2: "150 g", w4: "300 g", w6: "450 g" },
                 { name: "Salads: Herb salad with aromatic oil", w2: "200 g", w4: "400 g", w6: "600 g" },
                 { name: "Main course: Veal in cream sauce\nFried potatoes with creamy mushrooms", w2: "300 g", w4: "600 g", w6: "900 g" },
                 { name: "Desserts: Lemon curd pie", w2: "250 g", w4: "500 g", w6: "750 g" }
@@ -132,34 +132,43 @@ const CATALOG = {
         allergens: ["Глютен", "Яйца", "Красная рыба"]
     },
     
-    // ✅ НОВЫЕ POP-UP ПОЗИЦИИ (Единый источник данных)
+    // ✅ ИСПРАВЛЕНО: Добавлены полные английские (en) переводы для POP-UP позиций
     "popup-cookie": {
         id: "popup-cookie",
         type: "popup",
-        name: { ru: "Фирменная Печенька" },
-        prices: { ru: 300 },
+        name: { ru: "Фирменная Печенька", en: "Signature Cookie" },
+        prices: { ru: 300, en: 15 },
         images: { desktop: "/images/boxes-lemoncookies-1.webp", mobile: "/images/boxes-lemoncookies-1-mobile.webp" },
-        description: { ru: "Хрустящая снаружи, тягучая внутри. С каплями бельгийского шоколада и морской солью." },
+        description: { 
+            ru: "Хрустящая снаружи, тягучая внутри. С каплями бельгийского шоколада и морской солью.",
+            en: "Crispy on the outside, chewy on the inside. With Belgian chocolate chips and sea salt."
+        },
         emoji: "🍪",
         allergens: ["Глютен", "Яйца", "Лактоза"]
     },
     "popup-cake-slice": {
         id: "popup-cake-slice",
         type: "popup",
-        name: { ru: "Кусочек Кекса" },
-        prices: { ru: 350 },
-        images: { desktop: "/images/boxes-lemoncake.webp", mobile: "/images/boxes-lemoncake-mobile-4.webp" },
-        description: { ru: "Нежный бисквит с лимонной пропиткой и ягодным кули. Идеальный баланс сладости и кислинки." },
+        name: { ru: "Кусочек Кекса", en: "Slice of Cake" },
+        prices: { ru: 350, en: 18 },
+        images: { desktop: "/images/boxes-lemoncake.webp", mobile: "/images/boxes-lemoncake-mobile.webp" },
+        description: { 
+            ru: "Нежный бисквит с лимонной пропиткой и ягодным кули. Идеальный баланс сладости и кислинки.",
+            en: "Tender sponge cake with lemon soaking and berry coulis. Perfect balance of sweetness and tartness."
+        },
         emoji: "🧁",
         allergens: ["Глютен", "Яйца", "Лактоза"]
     },
     "popup-salad": {
         id: "popup-salad",
         type: "popup",
-        name: { ru: "Авторский Салат" },
-        prices: { ru: 450 },
+        name: { ru: "Авторский Салат", en: "Signature Salad" },
+        prices: { ru: 450, en: 25 },
         images: { desktop: "/images/boxes-nicholas-1.webp", mobile: "/images/boxes-nicholas-1-mobile.webp" },
-        description: { ru: "Свежая микс-зелень, томаты черри, авокадо и фирменная заправка от шефа. Легко и изысканно." },
+        description: { 
+            ru: "Свежая микс-зелень, томаты черри, авокадо и фирменная заправка от шефа. Легко и изысканно.",
+            en: "Fresh mixed greens, cherry tomatoes, avocado, and the chef's signature dressing. Light and exquisite."
+        },
         emoji: "🥗",
         allergens: [] 
     }
