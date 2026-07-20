@@ -8,6 +8,21 @@
     
     <title>Секретное Pop-up Меню | Вестник Гедонизма</title>
     
+    <!-- ✅ Open Graph теги для красивого превью в мессенджерах и соцсетях -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Секретное Pop-up Меню | Вестник Гедонизма">
+    <meta property="og:description" content="Эксклюзивное предложение для своих. Наполните свой завтра гедонизмом">
+    <meta property="og:url" content="https://byshura.ru/pages/popup">
+    <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
+    <meta property="og:site_name" content="Вестник Гедонизма">
+    <meta property="og:locale" content="ru_RU">
+    
+    <!-- ✅ Twitter Card (используется также некоторыми другими парсерами) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Секретное Pop-up Меню | Вестник Гедонизма">
+    <meta name="twitter:description" content="Эксклюзивное предложение для своих. Наполните свой завтра гедонизмом">
+    <meta name="twitter:image" content="https://byshura.ru/assets/favicon-512.png">
+    
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
@@ -346,7 +361,6 @@
     <div class="cart-notification" id="cartNotification">
         <span class="cart-notification-icon">✅</span>
         <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
-        <!-- ✅ ДОБАВЛЕНО: Событие begin_checkout при клике на кнопку в уведомлении -->
         <button class="cart-notification-btn" onclick="trackGA4Event('begin_checkout', {page: 'popup'}); window.location.href='/pages/popup-checkout'">В корзину</button>
     </div>
 
@@ -414,7 +428,6 @@
             }
         }
 
-        // ✅ ДОБАВЛЕНО: Событие cart_click для аналитики
         document.getElementById('cartBtn')?.addEventListener('click', function() {
             trackGA4Event('cart_click', { 
                 page: 'popup', 
@@ -461,7 +474,6 @@
             localStorage.setItem('hedonism_popup_cart', JSON.stringify(cart));
             updateCartCount();
             
-            // ✅ ДОБАВЛЕНО: Событие add_to_cart для e-commerce отчетов GA4 и Я.Метрики
             trackGA4Event('add_to_cart', {
                 currency: 'RUB',
                 value: price * quantity,
@@ -489,10 +501,8 @@
             }
         }
 
-        // ✅ Логика cookies и аналитики
         function trackGA4Event(eventName, params) { 
             if (typeof gtag === 'function') gtag('event', eventName, params); 
-            // Для Яндекс.Метрики также отправляем событие (достигается автоматически через reachGoal, если нужно, или дублируется)
             if (typeof ym === 'function') {
                 ym(110092456, 'reachGoal', eventName, params);
             }
@@ -502,7 +512,6 @@
             if (window.analyticsInitialized) return;
             window.analyticsInitialized = true;
 
-            // Google Analytics 4
             const ga4Script = document.createElement('script');
             ga4Script.async = true;
             ga4Script.src = 'https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW';
@@ -514,7 +523,6 @@
             gtag('js', new Date());
             gtag('config', 'G-L8704SB9ZW');
 
-            // Яндекс.Метрика
             const ymScript = document.createElement('script');
             ymScript.type = 'text/javascript';
             ymScript.innerHTML = `
@@ -528,7 +536,7 @@
                     trackLinks:true,
                     accurateTrackBounce:true,
                     webvisor:true,
-                    ecommerce:"dataLayer" // ✅ Включена поддержка e-commerce для Я.Метрики
+                    ecommerce:"dataLayer"
                 });
             `;
             document.head.appendChild(ymScript);
