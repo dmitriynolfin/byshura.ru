@@ -31,6 +31,8 @@
         a:hover { color: #FFD93D; }
         button { cursor: pointer; border: none; background: none; font: inherit; }
         img { max-width: 100%; height: auto; display: block; }
+        
+        /* ✅ ТРЕБОВАНИЕ 1 и 5: Идентичные отступы и размеры шапки как в index.html */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
         .header { 
@@ -45,6 +47,8 @@
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
+        
+        /* ✅ ТРЕБОВАНИЕ 2: Идентичный размер лого и лимона как в index.html */
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
@@ -53,9 +57,28 @@
         
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
+        
+        /* ✅ ТРЕБОВАНИЕ 3: Идентичный размер иконки корзины как в index.html */
+        .icon-btn { 
+            padding: 8px; color: #070395; transition: transform 0.3s; 
+            position: relative; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; min-width: 44px; min-height: 44px; 
+        }
+        .icon-btn svg { width: 20px; height: 20px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
-        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        .cart-count { 
+            position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; line-height: 1; 
+        }
+        
+        /* Кнопка "ЗАКАЗАТЬ" добавлена для сохранения идентичной структуры шапки и отступов */
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            transition: all 0.3s; min-height: 44px; display: flex; align-items: center; color: #070395;
+        }
+        .btn-back:hover { background: #070395; color: white; }
 
         .popup-main { margin-top: 75px; padding: 60px 0 40px; }
         .popup-header { text-align: center; margin-bottom: 50px; }
@@ -74,12 +97,10 @@
             background: rgba(255, 255, 255, 0.97); 
             border-radius: 0; 
             overflow: hidden;
-            /* ✅ ИСПРАВЛЕНИЕ: Убрано transform из transition, чтобы карточка не дергалась */
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); 
             transition: box-shadow 0.3s;
             display: flex; flex-direction: column;
         }
-        /* ✅ ИСПРАВЛЕНИЕ: Убрано transform: translateY(-5px), осталась только плавная смена тени */
         .box-card:hover { 
             box-shadow: 0 15px 40px rgba(255, 217, 61, 0.2); 
         }
@@ -124,15 +145,12 @@
         .cart-notification {
             position: fixed; top: 100px; right: 30px; background: #070395; color: white;
             padding: 20px 30px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            display: none; 
-            align-items: center; gap: 15px; z-index: 10000;
+            display: none; align-items: center; gap: 15px; z-index: 10000;
             max-width: 400px; border-left: 4px solid #FFD93D;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            opacity: 0; transition: opacity 0.3s ease;
         }
         .cart-notification.show { 
-            display: flex; 
-            opacity: 1;
+            display: flex; opacity: 1;
             animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         @keyframes slideInRight {
@@ -195,17 +213,22 @@
         }
         .cookie-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,217,61,0.4); }
 
+        /* ✅ АДАПТИВ: Синхронизирован с index.html для сохранения размеров лого и иконок */
         @media (max-width: 768px) {
             .container { padding: 0 20px; }
             .header { padding: 12px 0; }
+            .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            
             .popup-main { margin-top: 66px; padding: 40px 0 30px; }
             .popup-header h1 { font-size: 26px; }
             .popup-header p { font-size: 16px; }
             .box-image { height: 180px; }
-            .items-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
+            .items-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .footer-container { flex-direction: column; text-align: center; }
             .cookie-banner { padding: 15px 0; }
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
@@ -220,10 +243,17 @@
             .pickup-info-item { padding: 15px 0; border-right: none !important; border-bottom: 1px solid #e0e0e0; width: 100%; justify-content: flex-start; }
             .pickup-info-item:last-child { border-bottom: none; }
         }
+        
         @media (max-width: 480px) {
             .container { padding: 0 15px; }
+            .header { padding: 10px 0; }
+            .logo { width: 40px; height: 40px; font-size: 20px; }
             .header-icons { gap: 8px; }
-            .icon-btn { min-width: 48px; min-height: 48px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            
             .pickup-header h2 { font-size: 22px; margin-bottom: 12px; }
             .pickup-header p { font-size: 14px; max-width: 100%; }
             .pickup-map-iframe { height: 300px; }
@@ -231,10 +261,7 @@
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
             .pickup-info-icon svg { width: 20px; height: 20px; }
             .pickup-info-text { font-size: 14px; }
-            .items-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
+            .items-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .box-title { font-size: 14px; }
             .box-descr { font-size: 12px; }
             .box-price { font-size: 18px; }
@@ -251,7 +278,7 @@
             <div class="header-right">
                 <div class="header-icons">
                     <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn" title="Оформить заказ">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                             <line x1="3" y1="6" x2="21" y2="6"></line>
                             <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -259,6 +286,8 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
+                <!-- Добавлена для сохранения идентичной структуры и отступов шапки как в index.html -->
+                <a href="/pages/boxes" class="btn-back">ЗАКАЗАТЬ</a>
             </div>
         </div>
     </header>
@@ -336,6 +365,7 @@
         <button class="cart-notification-btn" onclick="window.location.href='/pages/popup-checkout'">В корзину</button>
     </div>
 
+    <!-- ✅ ТРЕБОВАНИЕ 4: Баннер cookies с точным текстом -->
     <div id="cookieBanner" class="cookie-banner">
         <div class="container cookie-banner-container">
             <p class="cookie-text">Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy" target="_blank">Политикой конфиденциальности</a>.</p>
@@ -457,11 +487,57 @@
             }
         }
 
+        // ✅ ТРЕБОВАНИЕ 4: Полная логика cookies и аналитики как в index.html
+        function trackGA4Event(eventName, params) { 
+            if (typeof gtag === 'function') gtag('event', eventName, params); 
+        }
+
+        function initAnalytics() {
+            if (window.analyticsInitialized) return;
+            window.analyticsInitialized = true;
+
+            const ga4Script = document.createElement('script');
+            ga4Script.async = true;
+            ga4Script.src = 'https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW';
+            document.head.appendChild(ga4Script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', 'G-L8704SB9ZW');
+
+            const ymScript = document.createElement('script');
+            ymScript.type = 'text/javascript';
+            ymScript.innerHTML = `
+                (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+                ym(110092456, "init", {
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            `;
+            document.head.appendChild(ymScript);
+            
+            const noscript = document.createElement('noscript');
+            noscript.innerHTML = '<div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div>';
+            document.body.appendChild(noscript);
+        }
+
         function checkCookieConsent() {
             const consent = localStorage.getItem('cookie_consent');
-            if (consent !== 'true') {
+            if (consent === 'true') {
+                initAnalytics();
+            } else {
                 const banner = document.getElementById('cookieBanner');
-                if (banner) setTimeout(() => banner.classList.add('show'), 1000);
+                if (banner) {
+                    setTimeout(() => banner.classList.add('show'), 1000);
+                }
             }
         }
 
@@ -472,6 +548,8 @@
                 banner.classList.remove('show');
                 setTimeout(() => { banner.style.display = 'none'; }, 400);
             }
+            initAnalytics();
+            trackGA4Event('cookie_consent_accepted', { method: 'banner_click' });
         });
 
         window.addEventListener('scroll', () => {
@@ -484,6 +562,7 @@
             renderPopupItems();
             updateCartCount();
             checkCookieConsent();
+            trackGA4Event('page_view', { page_path: '/pages/popup', language: 'ru' });
         });
         
         window.addEventListener('storage', function(e) {
