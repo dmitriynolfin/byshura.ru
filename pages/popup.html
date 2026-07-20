@@ -72,12 +72,17 @@
         }
         .box-card {
             background: rgba(255, 255, 255, 0.97); 
-            border-radius: 0; /* ✅ ИСПРАВЛЕНИЕ 2: Прямоугольные карточки */
+            border-radius: 0; 
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); transition: transform 0.3s, box-shadow 0.3s;
+            /* ✅ ИСПРАВЛЕНИЕ: Убрано transform из transition, чтобы карточка не дергалась */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); 
+            transition: box-shadow 0.3s;
             display: flex; flex-direction: column;
         }
-        .box-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(255, 217, 61, 0.2); }
+        /* ✅ ИСПРАВЛЕНИЕ: Убрано transform: translateY(-5px), осталась только плавная смена тени */
+        .box-card:hover { 
+            box-shadow: 0 15px 40px rgba(255, 217, 61, 0.2); 
+        }
         .box-image { width: 100%; height: 220px; background: #f0f0f0; position: relative; }
         .box-image img { width: 100%; height: 100%; object-fit: cover; }
         .box-image-emoji {
@@ -116,11 +121,10 @@
         }
         .add-to-cart-btn:hover { background: #FFD93D; color: #070395; }
 
-        /* ✅ ИСПРАВЛЕНИЕ 1: Уведомление скрыто по умолчанию */
         .cart-notification {
             position: fixed; top: 100px; right: 30px; background: #070395; color: white;
             padding: 20px 30px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            display: none; /* Скрыто по умолчанию */
+            display: none; 
             align-items: center; gap: 15px; z-index: 10000;
             max-width: 400px; border-left: 4px solid #FFD93D;
             opacity: 0;
@@ -198,7 +202,6 @@
             .popup-header h1 { font-size: 26px; }
             .popup-header p { font-size: 16px; }
             .box-image { height: 180px; }
-            /* ✅ ИСПРАВЛЕНИЕ 3: Две карточки в ряд на телефоне */
             .items-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
@@ -228,7 +231,6 @@
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
             .pickup-info-icon svg { width: 20px; height: 20px; }
             .pickup-info-text { font-size: 14px; }
-            /* На очень маленьких экранах можно оставить 2 в ряд или сделать 1 */
             .items-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
@@ -294,7 +296,6 @@
                     <div class="pickup-info-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     </div>
-                    <!-- ✅ ИСПРАВЛЕНИЕ 4: "Субботу" заменено на "Суббота" -->
                     <div class="pickup-info-text"><span>Суббота 25.07</span> · <span>10:00 – 14:00</span></div>
                 </div>
                 <div class="pickup-info-item">
@@ -329,7 +330,6 @@
         </div>
     </footer>
 
-    <!-- ✅ Уведомление теперь скрыто по умолчанию (display: none) -->
     <div class="cart-notification" id="cartNotification">
         <span class="cart-notification-icon">✅</span>
         <span class="cart-notification-text" id="notificationText">Товар добавлен в корзину!</span>
