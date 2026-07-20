@@ -7,7 +7,6 @@
     <meta name="theme-color" content="#070395">
     <title>Оформление Pop-up заказа | Вестник Гедонизма</title>
     
-    <!-- ✅ 1. Подключение data.js для получения картинок и настроек -->
     <script src="/js/data.js"></script>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
@@ -28,7 +27,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         img { max-width: 100%; display: block; }
         
-        /* ✅ 7. Размеры шапки и кнопок точно как на странице popup */
+        /* ✅ 5. Размеры шапки и кнопок точно как на странице popup */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .checkout-container { max-width: 800px; margin: 0 auto; }
 
@@ -38,16 +37,23 @@
             border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-left { display: flex; align-items: center; gap: 30px; }
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3);
         }
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+        .header-icons { display: flex; gap: 12px; }
+        .icon-btn { padding: 8px; color: #070395; transition: transform 0.3s; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; min-width: 44px; min-height: 44px; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
+        .cart-count { position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+        
         .btn-back { 
             border: 1.5px solid #070395; padding: 10px 25px; 
             border-radius: 25px; font-weight: 600; font-size: 13px; 
             color: #070395; transition: all 0.3s; min-height: 44px; 
-            display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center;
         }
         .btn-back:hover { background: #070395; color: white; }
 
@@ -67,10 +73,14 @@
         .item-info { flex: 1; min-width: 0; }
         .item-name { font-weight: 700; font-size: 16px; color: #070395; margin-bottom: 4px; }
         .item-qty { font-size: 14px; color: #666; }
-        .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
-        .item-price { font-weight: 800; font-size: 18px; color: #070395; white-space: nowrap; }
         
-        /* ✅ 5. Кнопка удаления как на странице checkout */
+        /* ✅ 1. Управление количеством в корзине */
+        .order-item-controls { display: flex; align-items: center; gap: 10px; margin-left: 15px; }
+        .quantity-control { display: flex; align-items: center; gap: 5px; background: #f8f9fa; padding: 4px; border-radius: 15px; }
+        .quantity-btn { width: 24px; height: 24px; border: none; background: white; border-radius: 50%; color: #070395; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .quantity-btn:hover { background: #070395; color: white; }
+        .quantity-value { font-weight: 600; min-width: 18px; text-align: center; font-size: 13px; }
+        
         .order-item-remove-btn { 
             display: flex; align-items: center; gap: 6px; background: transparent; 
             color: #999; border: 1px solid #e0e0e0; border-radius: 8px; 
@@ -79,6 +89,9 @@
         }
         .order-item-remove-btn:hover { background: #ffebee; color: #e74c3c; border-color: #e74c3c; }
         .order-item-remove-btn svg { width: 16px; height: 16px; }
+        
+        .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
+        .item-price { font-weight: 800; font-size: 18px; color: #070395; white-space: nowrap; }
         
         .summary-total { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid #070395; font-size: 20px; font-weight: 800; color: #070395; }
 
@@ -94,7 +107,6 @@
         }
         .form-input:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 3px rgba(7, 3, 149, 0.1); }
         
-        /* ✅ 2 и 3. Статические блоки вместо input readonly, чтобы не выглядели как поля ввода */
         .static-info-block {
             display: flex; align-items: center; gap: 12px;
             background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 12px;
@@ -113,7 +125,17 @@
         .validation-hint::before { content: '⚠️'; font-size: 14px; }
         .form-input.invalid + .validation-hint { display: flex; }
 
-        /* ✅ 6. Кнопка "Подтвердить заказ" в стиле страницы checkout */
+        /* ✅ 2. Ограничение ширины поля времени */
+        .time-select { max-width: 200px; }
+
+        /* ✅ 4. Блок согласия как на странице checkout */
+        .consent-group { margin: 25px 0 30px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
+        .consent-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+        .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: #070395; cursor: pointer; flex-shrink: 0; }
+        .consent-text { font-size: 13px; color: #555; line-height: 1.5; }
+        .consent-text a { color: #070395; font-weight: 600; text-decoration: none; }
+        .consent-text a:hover { color: #FFD93D; text-decoration: underline; }
+
         .submit-btn { 
             width: 100%; background: #070395; color: #ffffff; 
             padding: 16px 30px; border-radius: 30px; font-size: 14px; 
@@ -127,10 +149,6 @@
         .empty-cart-msg { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); }
         .empty-cart-msg a { color: #FFD93D; text-decoration: underline; font-weight: 600; }
 
-        /* ✅ 4. Сетка для времени как на странице checkout */
-        .datetime-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-
-        /* ✅ 7. Футер и адаптив как на странице popup */
         .footer { background: rgba(255, 255, 255, 0.95); padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 0; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
@@ -149,6 +167,39 @@
         html[lang="ru"] .legal-links-en { display: none !important; }
         html[lang="en"] .legal-links-ru { display: none !important; }
 
+        /* Оверлей обработки заказа */
+        .processing-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 1, 51, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .processing-overlay.active { display: flex; }
+        .processing-box {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            border: 1px solid #f0f0f5;
+            max-width: 90%;
+        }
+        .processing-spinner {
+            width: 40px; height: 40px;
+            margin: 0 auto 15px;
+            border: 4px solid #f0f0f5;
+            border-top: 4px solid #070395;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .processing-text { font-size: 16px; font-weight: 600; color: #070395; margin: 0; }
+
         @media (max-width: 768px) {
             .container { padding: 0 20px; }
             .checkout-title { font-size: 24px; }
@@ -158,6 +209,7 @@
             .item-price { font-size: 16px; }
             .submit-btn { padding: 16px 24px; font-size: 14px; }
             .footer-container { flex-direction: column; text-align: center; }
+            .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
         }
         
         @media (max-width: 480px) {
@@ -169,7 +221,7 @@
             .summary-item { flex-direction: column; gap: 10px; }
             .item-left { width: 100%; }
             .item-right { flex-direction: row; justify-content: space-between; width: 100%; align-items: center; }
-            .remove-text { display: none; } /* Скрываем текст "Удалить" на мобильных, оставляем иконку */
+            .remove-text { display: none; }
             .order-item-remove-btn { padding: 10px; }
             
             .footer { padding: 18px 0; }
@@ -183,6 +235,9 @@
             .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; }
             html[lang="en"] .legal-links-en { display: flex !important; }
             .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            
+            .consent-group { padding: 12px; margin: 20px 0 25px; }
+            .consent-text { font-size: 12px; line-height: 1.4; }
         }
     </style>
 </head>
@@ -190,8 +245,12 @@
 
     <header class="header">
         <div class="container header-container">
-            <a href="/pages/popup" class="logo" aria-label="Главная">🍋</a>
-            <a href="/pages/popup" class="btn-back">← Назад к меню</a>
+            <div class="header-left">
+                <a href="/pages/popup" class="logo" aria-label="Главная">🍋</a>
+            </div>
+            <div class="header-right">
+                <a href="/pages/popup" class="btn-back">← Назад к меню</a>
+            </div>
         </div>
     </header>
 
@@ -212,7 +271,6 @@
                 <div class="checkout-form">
                     <h3 class="form-title">Детали получения</h3>
                     
-                    <!-- ✅ 2. Статический блок вместо input -->
                     <div class="form-group">
                         <label class="form-label">Место получения</label>
                         <div class="static-info-block">
@@ -221,7 +279,6 @@
                         </div>
                     </div>
                     
-                    <!-- ✅ 3. Статический блок вместо input -->
                     <div class="form-group">
                         <label class="form-label">Дата</label>
                         <div class="static-info-block">
@@ -230,12 +287,10 @@
                         </div>
                     </div>
                     
-                    <!-- ✅ 4. Блок времени в стиле datetime-grid как на странице checkout -->
                     <div class="form-group">
                         <label class="form-label">Время получения *</label>
-                        <div class="datetime-grid">
-                            <input type="time" class="form-input" id="pickupTime" min="10:00" max="14:00" required>
-                        </div>
+                        <!-- ✅ 2. Ограничение ширины и нативный выбор времени -->
+                        <input type="time" class="form-input time-select" id="pickupTime" min="10:00" max="14:00" required>
                         <div class="validation-hint">Пожалуйста, выберите время с 10:00 до 14:00</div>
                     </div>
                 </div>
@@ -256,6 +311,15 @@
                         <label class="form-label">Комментарий к заказу</label>
                         <textarea class="form-input" id="customerComment" placeholder="Аллергии, пожелания по времени и т.д."></textarea>
                     </div>
+                    
+                    <!-- ✅ 4. Блок согласия -->
+                    <div class="consent-group">
+                        <label class="consent-checkbox">
+                            <input type="checkbox" id="consentCheckbox" name="consent" required checked>
+                            <span class="consent-text">Я даю согласие на обработку <a href="/legal/privacy-policy" target="_blank">персональных данных</a> и принимаю условия <a href="/legal/offer" target="_blank">публичной оферты</a></span>
+                        </label>
+                    </div>
+
                     <button type="submit" class="submit-btn" id="submitBtn">
                         <span class="btn-text">Подтвердить заказ</span>
                     </button>
@@ -291,7 +355,16 @@
         </div>
     </footer>
 
+    <!-- ✅ 6. Оверлей обработки заказа -->
+    <div id="processingOverlay" class="processing-overlay">
+        <div class="processing-box">
+            <div class="processing-spinner"></div>
+            <p class="processing-text">Обработка заказа, пожалуйста, подождите...</p>
+        </div>
+    </div>
+
     <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTHqkEOQBsT1gI8pBLwQBKv8obbJ8HOr8DhckN426UO6l-Q-N5JcXp4ER-RYBMs5mr/exec';
         let popupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
         
         const summaryItemsEl = document.getElementById('summaryItems');
@@ -300,17 +373,14 @@
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
         const form = document.getElementById('popupOrderForm');
 
-        // ✅ Автозаполнение имени и телефона из localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('hedonism_user_name');
             const savedPhone = localStorage.getItem('hedonism_user_phone');
             if (savedName) document.getElementById('customerName').value = savedName;
             if (savedPhone) document.getElementById('customerContact').value = savedPhone;
-            
             renderCart();
         });
 
-        // ✅ 1. Функция отрисовки корзины с подтягиванием картинок из data.js
         function renderCart() {
             if (popupCart.length === 0) {
                 orderContentEl.style.display = 'none';
@@ -328,7 +398,6 @@
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
                 
-                // Ищем товар в CATALOG по имени или ID, чтобы взять актуальную картинку
                 const catalogItem = Object.values(CATALOG).find(p => p.name.ru === item.name || p.id === item.id);
                 const isMobile = window.innerWidth <= 768;
                 const imageUrl = catalogItem ? (isMobile ? catalogItem.images.mobile : catalogItem.images.desktop) : '/assets/favicon-512.png';
@@ -339,19 +408,25 @@
                             <img src="${imageUrl}" alt="${item.name}" class="item-image" onerror="this.src='/assets/favicon-512.png'">
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
-                                <div class="item-qty">${item.quantity} шт. × ${item.price} ₽</div>
+                                <div class="item-qty">${item.price} ₽ / шт.</div>
                             </div>
                         </div>
                         <div class="item-right">
                             <div class="item-price">${itemTotal} ₽</div>
-                            <!-- ✅ 5. Кнопка удаления позиции -->
-                            <button class="order-item-remove-btn" onclick="removeFromCart(${index})" title="Удалить">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                                <span class="remove-text">Удалить</span>
-                            </button>
+                            <div class="order-item-controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn" type="button" onclick="updateItemQty(${index}, -1)">−</button>
+                                    <span class="quantity-value">${item.quantity}</span>
+                                    <button class="quantity-btn" type="button" onclick="updateItemQty(${index}, 1)">+</button>
+                                </div>
+                                <button class="order-item-remove-btn" type="button" onclick="removeFromCart(${index})" title="Удалить">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                    <span class="remove-text">Удалить</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -362,7 +437,16 @@
             updateCartCount();
         }
 
-        // ✅ 5. Функция удаления из корзины
+        // ✅ 1. Изменение количества штук
+        window.updateItemQty = function(index, change) {
+            popupCart[index].quantity += change;
+            if (popupCart[index].quantity <= 0) {
+                popupCart.splice(index, 1);
+            }
+            localStorage.setItem('hedonism_popup_cart', JSON.stringify(popupCart));
+            renderCart();
+        };
+
         window.removeFromCart = function(index) {
             popupCart.splice(index, 1);
             localStorage.setItem('hedonism_popup_cart', JSON.stringify(popupCart));
@@ -377,8 +461,46 @@
             }
         }
 
-        // Обработка отправки формы
-        form.addEventListener('submit', function(e) {
+        // ✅ 6. Функция отправки в Google Sheets
+        async function sendToAppsScript(orderData) {
+            const jsonStr = JSON.stringify(orderData);
+            const maxRetries = 3;
+            const retryDelay = 2000;
+            
+            for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 45000);
+
+                    const response = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: jsonStr,
+                        keepalive: true,
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        return { success: true, orderNumber: result.orderNumber };
+                    }
+                    throw new Error(`HTTP ${response.status}`);
+                } catch (error) {
+                    if (attempt === maxRetries) {
+                        if (navigator.sendBeacon) {
+                            const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
+                            const sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+                            if (sent) return { success: true, orderNumber: 'PROCESSING-' + Date.now().toString().slice(-6), isBackground: true };
+                        }
+                        return { success: false, orderNumber: null, error: error.message };
+                    }
+                    await new Promise(resolve => setTimeout(resolve, retryDelay));
+                }
+            }
+        }
+
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             let isValid = true;
@@ -393,7 +515,9 @@
                 }
             });
 
+            // ✅ 3. Подсказка об ошибках как на странице checkout
             if (!isValid) {
+                alert("Пожалуйста, заполните все обязательные поля");
                 const firstInvalid = form.querySelector('.invalid');
                 if (firstInvalid) {
                     firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -401,10 +525,27 @@
                 }
                 return;
             }
+
+            // ✅ 4. Проверка чекбокса согласия
+            const consentCheckbox = document.getElementById('consentCheckbox');
+            if (consentCheckbox && !consentCheckbox.checked) {
+                alert("Необходимо дать согласие на обработку персональных данных");
+                return;
+            }
+
+            // ✅ 2. Проверка времени (10:00 - 14:00)
+            const timeValue = document.getElementById('pickupTime').value;
+            if (!timeValue || timeValue < '10:00' || timeValue > '14:00') {
+                alert('Пожалуйста, выберите время получения с 10:00 до 14:00');
+                return;
+            }
             
             const submitBtn = document.getElementById('submitBtn');
+            const overlay = document.getElementById('processingOverlay');
+            
             submitBtn.disabled = true;
             submitBtn.querySelector('.btn-text').textContent = 'Отправка...';
+            overlay.classList.add('active');
             
             const currentPopupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
             const orderTotal = currentPopupCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -425,18 +566,25 @@
                 },
                 delivery: "ЖК Prime Park, Москва",
                 date: "25.07.2026",
-                time: document.getElementById('pickupTime').value,
+                time: timeValue,
                 dateIso: new Date().toISOString(),
-                type: 'popup_order'
+                type: 'popup_order' // ✅ 6. Пометка для Google Таблиц и почты
             };
 
-            localStorage.setItem('hedonism_popup_last_order', JSON.stringify(orderData));
-            localStorage.removeItem('hedonism_popup_cart');
+            const result = await sendToAppsScript(orderData);
             
-            window.location.href = '/pages/popup-thank-you';
+            if (result.success) {
+                localStorage.setItem('hedonism_popup_last_order', JSON.stringify({ ...orderData, orderNumber: result.orderNumber }));
+                localStorage.removeItem('hedonism_popup_cart');
+                window.location.href = '/pages/popup-thank-you';
+            } else {
+                overlay.classList.remove('active');
+                submitBtn.disabled = false;
+                submitBtn.querySelector('.btn-text').textContent = 'Подтвердить заказ';
+                alert('Ошибка сети. Проверьте подключение и попробуйте снова.');
+            }
         });
 
-        // Убираем подсветку ошибки при вводе
         form.querySelectorAll('.form-input').forEach(input => {
             input.addEventListener('input', function() {
                 if (this.value.trim()) {
@@ -445,7 +593,6 @@
             });
         });
         
-        // Перерисовка при изменении размера окна (для переключения моб/десктоп картинок)
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
