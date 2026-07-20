@@ -25,22 +25,48 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         img { max-width: 100%; display: block; }
         
+        /* ✅ ТРЕБОВАНИЕ 4: Идентичные отступы от краев как в popup.html */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .thank-you-container { max-width: 700px; margin: 0 auto; }
 
+        /* ✅ ТРЕБОВАНИЕ 1: Идентичный размер и стили шапки как в popup.html */
         .header { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; 
             background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
             border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
         }
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 4px 20px rgba(7, 3, 149, 0.15) !important;
+            backdrop-filter: blur(15px) !important;
+        }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
+        
+        /* ✅ ТРЕБОВАНИЕ 2: Идентичный размер лого и лимона как в popup.html */
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3);
         }
-        .header-right { display: flex; align-items: center; gap: 20px; }
+        
+        .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
+        .header-icons { display: flex; gap: 12px; }
+        
+        /* ✅ ТРЕБОВАНИЕ 3: Идентичный размер иконки корзины как в popup.html */
+        .icon-btn { 
+            padding: 8px; color: #070395; transition: transform 0.3s; 
+            position: relative; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; min-width: 44px; min-height: 44px; 
+        }
+        .icon-btn svg { width: 20px; height: 20px; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
+        .cart-count { 
+            position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; line-height: 1; 
+        }
+        
         .btn-back { 
             border: 1.5px solid #070395; padding: 10px 25px; 
             border-radius: 25px; font-weight: 600; font-size: 13px; 
@@ -117,8 +143,17 @@
         .legal-links-ru a:hover { color: #070395; }
         .legal-divider { color: #ccc; }
 
+        /* ✅ АДАПТИВ: Полностью синхронизирован с popup.html для шапки и иконок */
         @media (max-width: 768px) {
             .container { padding: 0 20px; }
+            .header { padding: 12px 0; }
+            .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            
             .thank-you-title { font-size: 26px; }
             .order-details-box { padding: 20px; }
             .detail-row { flex-direction: column; gap: 5px; }
@@ -130,9 +165,15 @@
         }
         
         @media (max-width: 480px) {
-            .header { padding: 12px 0; }
-            .logo { width: 42px; height: 42px; font-size: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .container { padding: 0 15px; }
+            .header { padding: 10px 0; }
+            .logo { width: 40px; height: 40px; font-size: 20px; }
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            
             .thank-you-main { margin-top: 90px; padding: 30px 0 60px; }
             .success-icon { font-size: 48px; }
             .order-number-value { font-size: 20px; }
@@ -145,6 +186,11 @@
             .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; }
             .legal-divider { color: #ccc; font-size: 11px; }
         }
+
+        @media (max-width: 360px) {
+            .logo { width: 38px; height: 38px; font-size: 18px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+        }
     </style>
 </head>
 <body>
@@ -155,6 +201,16 @@
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn" title="Оформить заказ">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
                 <a href="/pages/popup" class="btn-back">← Назад к меню</a>
             </div>
         </div>
@@ -302,6 +358,38 @@
             // чтобы при случайном обновлении страницы или переходе по ссылкам данные не дублировались.
             sessionStorage.removeItem('hedonism_popup_last_order');
             localStorage.removeItem('hedonism_popup_last_order');
+            
+            // ✅ Обновляем счетчик корзины
+            updateCartCount();
+        });
+        
+        // ✅ Функция обновления счетчика корзины
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const popupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
+                const totalQty = Array.isArray(popupCart) ? popupCart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+                cartCount.textContent = totalQty > 0 ? totalQty : '0';
+            }
+        }
+        
+        // ✅ Обработчик клика на корзину
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            const popupCart = JSON.parse(localStorage.getItem('hedonism_popup_cart')) || [];
+            if (popupCart.length === 0) {
+                if (confirm('Корзина пуста. Перейти на страницу боксов?')) {
+                    window.location.href = '/pages/boxes';
+                }
+            } else {
+                window.location.href = '/pages/popup-checkout';
+            }
+        });
+        
+        // ✅ Обработчик скролла для эффекта шапки
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
     </script>
 </body>
