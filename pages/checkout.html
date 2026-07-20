@@ -35,7 +35,7 @@
       gtag('config', 'G-L8704SB9ZW', { 
           page_title: document.title, 
           page_location: window.location.href, 
-          page_path: '/pages/checkout', /* ✅ Обновлено на чистый URL */
+          page_path: '/pages/checkout',
           send_page_view: false 
       });
     </script>
@@ -81,7 +81,6 @@
         .nav-link-cta::after { display: none !important; }
         .nav-link-cta:hover { background: #FFD93D !important; color: #070395 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3); }
         
-        /* ✅ ПОЛНАЯ СИНХРОНИЗАЦИЯ С INDEX.HTML И BOXES.HTML */
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
         .icon-btn { 
@@ -106,7 +105,7 @@
             border-radius: 25px; font-weight: 600; font-size: 13px; 
             transition: all 0.3s; min-height: 44px; 
             display: flex; align-items: center;
-            min-width: 140px; /* ✅ ОДИНАКОВАЯ ШИРИНА ДЛЯ ВЫРАВНИВАНИЯ КРАЯ ШАПКИ */
+            min-width: 140px; 
             justify-content: center;
         }
         .btn-back:hover { background: #070395; color: white; }
@@ -333,7 +332,6 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: пути к страницам без .html -->
                     <a href="/pages/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
                     <a href="/pages/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
@@ -468,7 +466,6 @@
                 <div class="consent-group">
                     <label class="consent-checkbox">
                         <input type="checkbox" id="consentCheckbox" name="consent" required checked>
-                        <!-- ✅ Обновлено: пути к юридическим документам без .html -->
                         <span class="consent-text" data-i18n="consentText">Я даю согласие на обработку <a href="/legal/privacy-policy" target="_blank">персональных данных</a> и принимаю условия <a href="/legal/offer" target="_blank">публичной оферты</a></span>
                     </label>
                 </div>
@@ -488,12 +485,10 @@
         <div class="container footer-container">
             <p class="footer-copyright" data-i18n="footerCopy">© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025</p>
             <div class="social-links">
-                <!-- ✅ Обновлено: абсолютные пути к иконкам (со слэшем в начале) -->
                 <a href="https://t.me/sash_shura" target="_blank" class="social-link" aria-label="Telegram"><img src="/images/tg_logo.webp" alt="Telegram" loading="lazy"></a>
                 <a href="https://max.ru" target="_blank" class="social-link" aria-label="MAX"><img src="/images/max_logo.webp" alt="MAX" loading="lazy"></a>
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="/images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
-            <!-- ✅ Обновлено: пути к юридическим документам без .html -->
             <div class="legal-links-ru">
                 <a href="/legal/privacy-policy" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
@@ -515,7 +510,6 @@
     </div>
 
     <script>
-    // ✅ ОБНОВЛЕННЫЙ URL APPS SCRIPT
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTHqkEOQBsT1gI8pBLwQBKv8obbJ8HOr8DhckN426UO6l-Q-N5JcXp4ER-RYBMs5mr/exec';
 
     const translations = {
@@ -531,9 +525,7 @@
             validationError: "Пожалуйста, заполните все обязательные поля", consentError: "Необходимо дать согласие на обработку персональных данных",
             networkError: "Ошибка сети. Проверьте подключение и попробуйте снова.",
             processingText: "Обработка заказа, пожалуйста, не закрывайте страницу...",
-            // ✅ Обновлено: пути к юридическим документам в текстах без .html
             consentText: "Я даю согласие на обработку <a href='/legal/privacy-policy' target='_blank'>персональных данных</a> и принимаю условия <a href='/legal/offer' target='_blank'>публичной оферты</a>",
-            // ✅ Обновлено: путь к boxes без .html
             emptyCart: "Корзина пуста.<br><a href='/pages/boxes' class='add-items-link'>🛒 Добавьте товары</a>",
             itemPersons: "На:", itemAllergens: "Исключить:", itemQuantity: "Количество:", itemWeight: "Вес:", btnRemove: "Удалить", courierPrice: "(+800 ₽)",
             dateHint: "Доступные дни: <strong>Пт, Сб, Вс</strong>. Время: <strong>17:00-23:00</strong>.", dateDisabled: "Выберите доступную дату (Пт, Сб или Вс)",
@@ -551,9 +543,7 @@
             validationError: "Please fill in all required fields", consentError: "Consent to data processing is required",
             networkError: "Network error. Please check your connection and try again.",
             processingText: "Processing your order, please do not close the page...",
-            // ✅ Обновлено: пути к юридическим документам в текстах без .html
             consentText: "I consent to the processing of <a href='/legal/privacy-policy-en' target='_blank'>personal data</a> and accept the terms of the <a href='/legal/offer-en' target='_blank'>public offer</a>",
-            // ✅ Обновлено: путь к boxes без .html
             emptyCart: "Cart is empty.<br><a href='/pages/boxes' class='add-items-link'>🛒 Add items</a>",
             itemPersons: "For:", itemAllergens: "Exclude:", itemQuantity: "Quantity:", itemWeight: "Weight:", btnRemove: "Remove", courierPrice: "(+40 AED)",
             dateHint: "Available days: <strong>Fri, Sat, Sun</strong>. Time: <strong>17:00-23:00</strong>.", dateDisabled: "Select an available date (Fri, Sat or Sun)",
@@ -564,29 +554,16 @@
     let currentLang = 'ru';
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
     const isProduction = window.location.hostname !== 'localhost';
-    
-    // ✅ ПЕРЕМЕННАЯ ДЛЯ ХРАНЕНИЯ ТОЧНОГО ВРЕМЕНИ СОГЛАСИЯ
     let privacyConsentTimestamp = null;
 
     function trackGA4Event(eventName, params) { if (isProduction && typeof gtag === 'function') gtag('event', eventName, params); }
     function ymTrack(goalId, params) { if (typeof ym === 'function') ym(110092456, 'reachGoal', goalId, params); }
     function debounce(func, wait) { let timeout; return function(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
 
-    function generateOrderNumber() {
-        return 'TEMP-' + Date.now();
-    }
-
-    function getProductType(productId) {
-        return CATALOG[productId]?.type || 'other';
-    }
-
-    function getItemName(item, lang) {
-        return CATALOG[item.productId]?.name[lang] || item.name || item.productId;
-    }
-
-    function getItemImage(productId) {
-        return CATALOG[productId]?.images?.desktop || '/images/placeholder.webp'; /* ✅ Обновлено на абсолютный путь */
-    }
+    function generateOrderNumber() { return 'TEMP-' + Date.now(); }
+    function getProductType(productId) { return CATALOG[productId]?.type || 'other'; }
+    function getItemName(item, lang) { return CATALOG[item.productId]?.name[lang] || item.name || item.productId; }
+    function getItemImage(productId) { return CATALOG[productId]?.images?.desktop || '/images/placeholder.webp'; }
 
     function getPersonsWordRu(count) {
         if (count === 1) return translations.ru.personsWord1;
@@ -599,7 +576,6 @@
     function recalculateItemPrice(item, lang) {
         const product = CATALOG[item.productId];
         if (!product) return Number(item.price) || 0;
-        
         const prices = product.prices[lang];
         if (!prices) return 0;
 
@@ -645,7 +621,7 @@
         });
         
         const pickupLabel = document.getElementById('pickupLabel');
-        if (pickupLabel && SITE_SETTINGS) {
+        if (pickupLabel && typeof SITE_SETTINGS !== 'undefined' && SITE_SETTINGS.pickup) {
             pickupLabel.textContent = SITE_SETTINGS.pickup[lang];
         }
         
@@ -735,25 +711,41 @@
             if (lang === 'en') totalEl.innerHTML = `<span class="currency">${currency}</span> <span class="price-value">${total.toLocaleString('ru-RU')}</span>`;
             else totalEl.innerHTML = `<span class="price-value">${total.toLocaleString('ru-RU')}</span> <span class="currency">${currency}</span>`;
         }
+        
+        // ✅ НАДЕЖНОЕ ПРИВЯЗЫВАНИЕ СОБЫТИЙ К КНОПКАМ
         container.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', function() { updateCartItemQuantity(parseInt(this.dataset.itemId), this.dataset.action); });
+            btn.addEventListener('click', function() { 
+                updateCartItemQuantity(this.dataset.itemId, this.dataset.action); 
+            });
         });
         container.querySelectorAll('.order-item-remove-btn').forEach(btn => {
-            btn.addEventListener('click', function() { removeFromCart(parseInt(this.dataset.itemId)); });
+            btn.addEventListener('click', function() { 
+                removeFromCart(this.dataset.itemId); 
+            });
         });
     }
     
+    // ✅ ИСПРАВЛЕННАЯ ЛОГИКА: String() предотвращает ошибки сравнения типов (число vs строка)
     function updateCartItemQuantity(itemId, action) {
-        const item = cart.find(i => i.id === itemId);
+        const item = cart.find(i => String(i.id) === String(itemId));
         if (!item) return;
-        if (action === 'increase') item.quantity++;
-        else if (action === 'decrease' && item.quantity > 1) item.quantity--;
-        saveCart(); renderOrderSummary(); updateCartCount();
+        
+        if (action === 'increase') {
+            item.quantity++;
+        } else if (action === 'decrease' && item.quantity > 1) {
+            item.quantity--;
+        }
+        
+        saveCart(); 
+        renderOrderSummary(); 
+        updateCartCount();
     }
     
     function removeFromCart(itemId) {
-        cart = cart.filter(item => item.id !== itemId);
-        saveCart(); renderOrderSummary(); updateCartCount();
+        cart = cart.filter(item => String(item.id) !== String(itemId));
+        saveCart(); 
+        renderOrderSummary(); 
+        updateCartCount();
     }
     
     function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
@@ -991,7 +983,7 @@
         setTimeout(() => {
             trackGA4Event('page_view', {
                 page_title: document.title, page_location: window.location.href,
-                page_path: '/pages/checkout', // ✅ Обновлено на чистый URL
+                page_path: '/pages/checkout',
                 language: currentLang,
                 cart_items: cart.length,
                 cart_value: cart.reduce((sum, item) => sum + recalculateItemPrice(item, currentLang) * item.quantity, 0)
@@ -1019,13 +1011,11 @@
         updateCartCount();
         document.getElementById('cancelBtn')?.addEventListener('click', function() {
             ymTrack('checkout_cancelled', { cart_items: cart.length });
-            // ✅ Обновлено: путь к boxes без .html
             window.location.href = '/pages/boxes'; 
         });
         initDateRestrictions();
         initAddressAutocomplete();
         
-        // ✅ ОТСЛЕЖИВАНИЕ ТОЧНОГО ВРЕМЕНИ СОГЛАСИЯ
         const consentCheckbox = document.getElementById('consentCheckbox');
         if (consentCheckbox) {
             if (consentCheckbox.checked) {
@@ -1160,7 +1150,6 @@
                         console.log("🎉 Успех! Переход на страницу благодарности.");
                         
                         setTimeout(() => {
-                            // ✅ Обновлено: путь к thank-you без .html
                             window.location.href = '/pages/thank-you'; 
                         }, result.isBackground ? 1000 : 500);
                         
