@@ -27,7 +27,6 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         img { max-width: 100%; display: block; }
         
-        /* ✅ 5. Размеры шапки и кнопок точно как на странице popup */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .checkout-container { max-width: 800px; margin: 0 auto; }
 
@@ -74,7 +73,6 @@
         .item-name { font-weight: 700; font-size: 16px; color: #070395; margin-bottom: 4px; }
         .item-qty { font-size: 14px; color: #666; }
         
-        /* ✅ 1. Управление количеством в корзине */
         .order-item-controls { display: flex; align-items: center; gap: 10px; margin-left: 15px; }
         .quantity-control { display: flex; align-items: center; gap: 5px; background: #f8f9fa; padding: 4px; border-radius: 15px; }
         .quantity-btn { width: 24px; height: 24px; border: none; background: white; border-radius: 50%; color: #070395; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
@@ -107,6 +105,11 @@
         }
         .form-input:focus { outline: none; border-color: #070395; box-shadow: 0 0 0 3px rgba(7, 3, 149, 0.1); }
         
+        /* ✅ 3. Серый цвет для placeholder */
+        .form-input::placeholder, textarea.form-input::placeholder {
+            color: #999;
+        }
+        
         .static-info-block {
             display: flex; align-items: center; gap: 12px;
             background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 12px;
@@ -125,10 +128,35 @@
         .validation-hint::before { content: '⚠️'; font-size: 14px; }
         .form-input.invalid + .validation-hint { display: flex; }
 
-        /* ✅ 2. Ограничение ширины поля времени */
         .time-select { max-width: 200px; }
+        
+        /* ✅ 2. Сноска под временем */
+        .time-hint {
+            display: block;
+            font-size: 13px;
+            color: #888;
+            margin-top: 6px;
+            font-weight: 500;
+        }
 
-        /* ✅ 4. Блок согласия как на странице checkout */
+        /* ✅ 1. Стили блока оплаты (как на странице checkout) */
+        .payment-options { display: flex; flex-direction: column; gap: 10px; }
+        .payment-option { 
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px; 
+            border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; 
+            transition: all 0.3s; background: #fafafa; 
+        }
+        .payment-option:hover { border-color: #FFD93D; background: #fff9e6; }
+        .payment-radio { width: 20px; height: 20px; accent-color: #070395; cursor: pointer; }
+        .payment-label { font-size: 14px; color: #070395; cursor: pointer; flex: 1; font-weight: 500; }
+        .payment-option:has(.payment-radio:checked) { 
+            border-color: #070395; 
+            background: #f0f0ff; 
+        }
+        .payment-option:has(.payment-radio:checked) .payment-label {
+            font-weight: 700;
+        }
+
         .consent-group { margin: 25px 0 30px; padding: 15px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #FFD93D; }
         .consent-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
         .consent-checkbox input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; accent-color: #070395; cursor: pointer; flex-shrink: 0; }
@@ -167,7 +195,6 @@
         html[lang="ru"] .legal-links-en { display: none !important; }
         html[lang="en"] .legal-links-ru { display: none !important; }
 
-        /* Оверлей обработки заказа */
         .processing-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(2, 1, 51, 0.85);
@@ -289,8 +316,9 @@
                     
                     <div class="form-group">
                         <label class="form-label">Время получения *</label>
-                        <!-- ✅ 2. Ограничение ширины и нативный выбор времени -->
                         <input type="time" class="form-input time-select" id="pickupTime" min="10:00" max="14:00" required>
+                        <!-- ✅ 2. Сноска под временем -->
+                        <small class="time-hint">Доступное время: 10:00 – 14:00</small>
                         <div class="validation-hint">Пожалуйста, выберите время с 10:00 до 14:00</div>
                     </div>
                 </div>
@@ -309,10 +337,29 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Комментарий к заказу</label>
-                        <textarea class="form-input" id="customerComment" placeholder="Аллергии, пожелания по времени и т.д."></textarea>
+                        <!-- ✅ 3. Обновленный placeholder -->
+                        <textarea class="form-input" id="customerComment" placeholder="Башня и номер квартиры доставки, аллергены и тд"></textarea>
+                    </div>
+
+                    <!-- ✅ 1. Блок способов оплаты -->
+                    <div class="form-group">
+                        <label class="form-label">Способ оплаты *</label>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="sber" class="payment-radio" checked>
+                                <span class="payment-label">Перевод на Сбер</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="tbank" class="payment-radio">
+                                <span class="payment-label">Перевод на Т-Банк</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="alfa" class="payment-radio">
+                                <span class="payment-label">Перевод на Альфу</span>
+                            </label>
+                        </div>
                     </div>
                     
-                    <!-- ✅ 4. Блок согласия -->
                     <div class="consent-group">
                         <label class="consent-checkbox">
                             <input type="checkbox" id="consentCheckbox" name="consent" required checked>
@@ -355,7 +402,6 @@
         </div>
     </footer>
 
-    <!-- ✅ 6. Оверлей обработки заказа -->
     <div id="processingOverlay" class="processing-overlay">
         <div class="processing-box">
             <div class="processing-spinner"></div>
@@ -437,7 +483,6 @@
             updateCartCount();
         }
 
-        // ✅ 1. Изменение количества штук
         window.updateItemQty = function(index, change) {
             popupCart[index].quantity += change;
             if (popupCart[index].quantity <= 0) {
@@ -461,7 +506,6 @@
             }
         }
 
-        // ✅ 6. Функция отправки в Google Sheets
         async function sendToAppsScript(orderData) {
             const jsonStr = JSON.stringify(orderData);
             const maxRetries = 3;
@@ -515,7 +559,6 @@
                 }
             });
 
-            // ✅ 3. Подсказка об ошибках как на странице checkout
             if (!isValid) {
                 alert("Пожалуйста, заполните все обязательные поля");
                 const firstInvalid = form.querySelector('.invalid');
@@ -526,14 +569,12 @@
                 return;
             }
 
-            // ✅ 4. Проверка чекбокса согласия
             const consentCheckbox = document.getElementById('consentCheckbox');
             if (consentCheckbox && !consentCheckbox.checked) {
                 alert("Необходимо дать согласие на обработку персональных данных");
                 return;
             }
 
-            // ✅ 2. Проверка времени (10:00 - 14:00)
             const timeValue = document.getElementById('pickupTime').value;
             if (!timeValue || timeValue < '10:00' || timeValue > '14:00') {
                 alert('Пожалуйста, выберите время получения с 10:00 до 14:00');
@@ -552,6 +593,8 @@
 
             const nameValue = document.getElementById('customerName').value;
             const contactValue = document.getElementById('customerContact').value;
+            // ✅ Сохраняем выбранный способ оплаты
+            const paymentValue = document.querySelector('input[name="payment"]:checked')?.value || 'sber';
 
             localStorage.setItem('hedonism_user_name', nameValue);
             localStorage.setItem('hedonism_user_phone', contactValue);
@@ -567,8 +610,9 @@
                 delivery: "ЖК Prime Park, Москва",
                 date: "25.07.2026",
                 time: timeValue,
+                payment: paymentValue, // ✅ Добавлено в объект заказа
                 dateIso: new Date().toISOString(),
-                type: 'popup_order' // ✅ 6. Пометка для Google Таблиц и почты
+                type: 'popup_order'
             };
 
             const result = await sendToAppsScript(orderData);
