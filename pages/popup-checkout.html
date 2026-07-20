@@ -17,11 +17,17 @@
     <style>
         html, body { overflow-x: hidden; width: 100%; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* ✅ ИЗМЕНЕНИЕ: Добавлен flex для прижатия футера к низу */
         body { 
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
             background: radial-gradient(circle at 50% 0%, #1e1b8a 0%, #070395 40%, #020133 100%);
-            color: #ffffff; line-height: 1.6; min-height: 100vh;
+            color: #ffffff; line-height: 1.6; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+        
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
         a:hover { color: #FFD93D; }
         button { cursor: pointer; border: none; background: none; font: inherit; }
@@ -56,7 +62,12 @@
         }
         .btn-back:hover { background: #070395; color: white; }
 
-        .checkout-main { margin-top: 100px; padding: 40px 0 80px; }
+        /* ✅ ИЗМЕНЕНИЕ: Добавлен flex: 1, чтобы блок растягивался и толкал футер вниз */
+        .checkout-main { 
+            margin-top: 100px; 
+            padding: 40px 0 80px; 
+            flex: 1; 
+        }
         .checkout-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; text-align: center; color: #FFD93D; }
 
         .order-summary { background: rgba(255, 255, 255, 0.95); border-radius: 16px; padding: 25px; margin-bottom: 20px; color: #070395; }
@@ -172,7 +183,7 @@
         .empty-cart-msg { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); }
         .empty-cart-msg a { color: #FFD93D; text-decoration: underline; font-weight: 600; }
 
-        .footer { background: rgba(255, 255, 255, 0.95); padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: 0; }
+        .footer { background: rgba(255, 255, 255, 0.95); padding: 20px 0; border-top: 1px solid rgba(7,3,149,0.2); margin-top: auto; }
         .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .footer-copyright { font-size: 14px; font-weight: 600; text-align: center; color: #070395; }
         .social-links { display: flex; gap: 15px; }
@@ -411,7 +422,6 @@
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
         const form = document.getElementById('popupOrderForm');
 
-        // ✅ НОВЫЙ ФОРМАТ НОМЕРА ЗАКАЗА: начинается с PU и содержит 4 случайные цифры
         function generateOrderNumber() {
             return 'PU' + String(1000 + Math.floor(Math.random() * 9000));
         }
@@ -528,7 +538,6 @@
                     const controller = new AbortController();
                     const timeoutId = setTimeout(() => controller.abort(), 45000);
 
-                    // ✅ КРИТИЧЕСКИ ВАЖНО ДЛЯ КИРИЛЛИЦЫ: text/plain;charset=utf-8
                     const response = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -548,7 +557,6 @@
                         if (navigator.sendBeacon) {
                             const blob = new Blob([jsonStr], { type: 'text/plain;charset=utf-8' });
                             const sent = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-                            // ✅ Фоллбек-номер также начинается с PU
                             if (sent) return { success: true, orderNumber: 'PU' + String(1000 + Math.floor(Math.random() * 9000)), isBackground: true };
                         }
                         return { success: false, orderNumber: null, error: error.message };
@@ -612,21 +620,14 @@
             localStorage.setItem('hedonism_user_name', nameValue);
             localStorage.setItem('hedonism_user_phone', contactValue);
 
-            // ✅ Генерируем номер заказа с префиксом PU
             const tempOrderNumber = generateOrderNumber();
-            
-            // ✅ Считываем согласие на cookies из localStorage (оно было дано на предыдущей странице)
             const cookiesConsentBool = localStorage.getItem('cookie_consent') === 'true';
             
-            // ✅ ИДЕАЛЬНОЕ СООТВЕТСТВИЕ СТРУКТУРЕ GOOGLE APPS SCRIPT:
             const orderData = {
-                // 1. Базовые настройки для логики GAS
                 lang: 'ru',
                 currency: '₽',
-                orderNumber: tempOrderNumber, // Начинается с PU
+                orderNumber: tempOrderNumber,
                 source: 'checkout-popup.html', 
-                
-                // 2. Плоские поля, которые напрямую читает GAS (saveOrderToSheet & sendOrderEmail)
                 name: nameValue,
                 phone: contactValue,
                 messenger: 'Telegram/Телефон', 
@@ -636,20 +637,14 @@
                 time: timeValue,
                 payment: paymentValue,
                 comment: commentValue,
-                
-                // 3. Согласия (GAS ожидает boolean для корректной конвертации в 'Да'/'Нет')
                 consentGiven: true, 
                 cookieConsent: cookiesConsentBool,
                 consentTimestamp: privacyConsentTimestamp || new Date().toISOString(),
-                
-                // 4. Вложенная структура (для совместимости со страницей popup-thank-you.html)
                 customer: {
                     name: nameValue,
                     contact: contactValue,
                     comment: commentValue
                 },
-                
-                // 5. Корзина и итог
                 items: currentPopupCart,
                 total: orderTotal,
                 dateIso: new Date().toISOString()
@@ -658,7 +653,6 @@
             const result = await sendToAppsScript(orderData);
             
             if (result.success) {
-                // Если Google Apps Script вернул свой номер (например, тоже с PU, если вы обновили функцию generateFastOrderNumber), используем его. Иначе оставляем наш PU-номер.
                 const realOrderNumber = result.orderNumber || tempOrderNumber;
                 
                 sessionStorage.setItem('hedonism_popup_last_order', JSON.stringify({
