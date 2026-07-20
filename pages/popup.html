@@ -32,7 +32,7 @@
         button { cursor: pointer; border: none; background: none; font: inherit; }
         img { max-width: 100%; height: auto; display: block; }
         
-        /* ✅ ТРЕБОВАНИЕ 1 и 5: Идентичные отступы и размеры шапки как в index.html */
+        /* ✅ Идентичные отступы и размеры шапки как в index.html */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
         .header { 
@@ -48,7 +48,7 @@
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
         
-        /* ✅ ТРЕБОВАНИЕ 2: Идентичный размер лого и лимона как в index.html */
+        /* ✅ Идентичный размер лого и лимона как в index.html */
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
@@ -58,7 +58,7 @@
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
         
-        /* ✅ ТРЕБОВАНИЕ 3: Идентичный размер иконки корзины как в index.html */
+        /* ✅ Идентичный размер иконки корзины как в index.html */
         .icon-btn { 
             padding: 8px; color: #070395; transition: transform 0.3s; 
             position: relative; display: flex; align-items: center; justify-content: center; 
@@ -71,14 +71,6 @@
             font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; line-height: 1; 
         }
-        
-        /* Кнопка "ЗАКАЗАТЬ" добавлена для сохранения идентичной структуры шапки и отступов */
-        .btn-back { 
-            border: 1.5px solid #070395; padding: 10px 25px; 
-            border-radius: 25px; font-weight: 600; font-size: 13px; 
-            transition: all 0.3s; min-height: 44px; display: flex; align-items: center; color: #070395;
-        }
-        .btn-back:hover { background: #070395; color: white; }
 
         .popup-main { margin-top: 75px; padding: 60px 0 40px; }
         .popup-header { text-align: center; margin-bottom: 50px; }
@@ -222,7 +214,6 @@
             .header-icons { gap: 10px; }
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
-            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
             
             .popup-main { margin-top: 66px; padding: 40px 0 30px; }
             .popup-header h1 { font-size: 26px; }
@@ -252,7 +243,6 @@
             .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
-            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
             
             .pickup-header h2 { font-size: 22px; margin-bottom: 12px; }
             .pickup-header p { font-size: 14px; max-width: 100%; }
@@ -286,8 +276,6 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </div>
-                <!-- Добавлена для сохранения идентичной структуры и отступов шапки как в index.html -->
-                <a href="/pages/boxes" class="btn-back">ЗАКАЗАТЬ</a>
             </div>
         </div>
     </header>
@@ -365,7 +353,7 @@
         <button class="cart-notification-btn" onclick="window.location.href='/pages/popup-checkout'">В корзину</button>
     </div>
 
-    <!-- ✅ ТРЕБОВАНИЕ 4: Баннер cookies с точным текстом -->
+    <!-- ✅ Баннер cookies с точным текстом -->
     <div id="cookieBanner" class="cookie-banner">
         <div class="container cookie-banner-container">
             <p class="cookie-text">Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy" target="_blank">Политикой конфиденциальности</a>.</p>
@@ -487,7 +475,7 @@
             }
         }
 
-        // ✅ ТРЕБОВАНИЕ 4: Полная логика cookies и аналитики как в index.html
+        // ✅ Полная логика cookies и аналитики как в index.html
         function trackGA4Event(eventName, params) { 
             if (typeof gtag === 'function') gtag('event', eventName, params); 
         }
