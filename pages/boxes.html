@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ УМНАЯ ЗАГРУЗКА DATA.JS: автоматически выбирает путь для локального теста или хостинга -->
-    <script>
-        const dataScript = document.createElement('script');
-        if (window.location.protocol === 'file:') {
-            dataScript.src = 'js/data.js'; // Относительный путь для локального открытия (file://)
-        } else {
-            dataScript.src = '/js/data.js'; // Абсолютный путь для хостинга (https://)
-        }
-        document.head.appendChild(dataScript);
-    </script>
+    <!-- ✅ СТАНДАРТНАЯ ЗАГРУЗКА ЕДИНОГО ИСТОЧНИКА ДАННЫХ -->
+    <script src="/js/data.js"></script>
     
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
@@ -24,6 +16,7 @@
     <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
+    
     <title data-i18n="pageTitle">Боксы - Вестник Гедонизма</title>
     <meta name="description" content="Выберите гастрономический бокс: Ужин Николая II, Ужин Чайковского. Авторские рецепты, уникальная подача.">
     <meta property="og:title" content="Меню боксов — Вестник Гедонизма">
@@ -34,6 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
     
+    <!-- GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L8704SB9ZW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -55,7 +49,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; color: #070395; line-height: 1.6; overflow-x: hidden; background: #f8f9fa; }
         a { text-decoration: none; color: inherit; transition: color 0.3s; } a:hover { color: #FFD93D; }
-        button { cursor: pointer; border: none; background: none; font: inherit; } ul { list-style: none; } img { max-width: 100%; display: block; }
+        button { cursor: pointer; border: none; background: none; font: inherit; } 
+        ul { list-style: none; } 
+        img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         
         .header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
@@ -272,6 +268,7 @@
         .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
     
+    <!-- Yandex Metrica -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -459,19 +456,20 @@
         };
         Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ''; });
 
+        // ✅ КРИТИЧЕСКИ ВАЖНАЯ ПРОВЕРКА: если data.js не загрузился, показываем ошибку, а не ломаем сайт
         if (typeof CATALOG === 'undefined') {
-            console.error('❌ ОШИБКА: Объект CATALOG не найден!');
+            console.error('❌ ОШИБКА: Объект CATALOG не найден! Проверьте путь к /js/data.js');
             Object.values(grids).forEach(grid => {
                 if (grid) {
-                    grid.innerHTML = '<p style="color: #e74c3c; text-align: center; padding: 40px; font-weight: 600; background: #fff0f0; border-radius: 12px;">⚠️ Ошибка загрузки данных. Проверьте консоль разработчика (F12) и наличие файла data.js</p>';
+                    grid.innerHTML = '<p style="color: #e74c3c; text-align: center; padding: 40px; font-weight: 600; background: #fff0f0; border-radius: 12px;">⚠️ Ошибка загрузки данных. Проверьте консоль разработчика (F12) и наличие файла /js/data.js</p>';
                 }
             });
             return;
         }
 
         for (const [id, product] of Object.entries(CATALOG)) {
-            // ✅ БЕЗОПАСНОЕ ПОЛУЧЕНИЕ ДАННЫХ С ФОЛЛБЕКОМ НА RU (предотвращает краш при отсутствии EN)
-            const name = product.name[currentLang] || product.name['ru'] || 'Товар';
+            // ✅ БЕЗОПАСНОЕ ПОЛУЧЕНИЕ ДАННЫХ С ФОЛЛБЕКОМ НА 'ru' (предотвращает краш при отсутствии 'en')
+            const name = product.name[currentLang] || product.name['ru'] || 'Product';
             const prices = product.prices[currentLang] || product.prices['ru'] || {};
             
             const isBox = product.type === 'box';
@@ -560,7 +558,6 @@
         let html = '';
         const persons = [2, 4, 6];
         const icons = ['👥', '👥👥', '👥👥👥'];
-        // ✅ Безопасное получение цен
         const prices = product.prices[currentLang] || product.prices['ru'] || {};
         
         persons.forEach((count, index) => {
@@ -585,7 +582,6 @@
         const container = document.getElementById('quantitySelect');
         let html = '';
         const quantities = [4, 8];
-        // ✅ Безопасное получение цен
         const prices = product.prices[currentLang] || product.prices['ru'] || {};
         
         quantities.forEach((count, index) => {
@@ -609,7 +605,6 @@
     function renderComposition(productId) {
         const product = CATALOG[productId];
         const section = document.getElementById('compositionSection');
-        // ✅ Безопасное получение композиции
         const composition = product.composition ? (product.composition[currentLang] || product.composition['ru']) : [];
         
         if (!composition || composition.length === 0) {
