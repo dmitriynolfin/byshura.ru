@@ -268,6 +268,48 @@
         .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
     
+    <!-- ✅ SCHEMA.ORG РАЗМЕТКА -->
+    <script type="application/ld+json" id="schema-org-catalog">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://byshura.ru/pages/boxes#webpage",
+          "url": "https://byshura.ru/pages/boxes",
+          "name": "Меню боксов — Вестник Гедонизма",
+          "description": "Гастрономические боксы с историей. Выберите свой гастрономический опыт.",
+          "isPartOf": {
+            "@id": "https://byshura.ru/#website"
+          },
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://byshura.ru/assets/favicon-512.png"
+          },
+          "inLanguage": "ru-RU"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://byshura.ru/pages/boxes#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Главная",
+              "item": "https://byshura.ru/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Меню боксов",
+              "item": "https://byshura.ru/pages/boxes"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    
     <!-- Yandex Metrica -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -306,8 +348,8 @@
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
+                        <a href="#" data-lang="ru"><span class="lang-code">🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
                     </div>
                 </div>
             </div>
@@ -448,6 +490,95 @@
     }
     function saveCart() { localStorage.setItem('hedonism_cart', JSON.stringify(cart)); }
 
+    // ✅ ФУНКЦИЯ ГЕНЕРАЦИИ SCHEMA.ORG РАЗМЕТКИ ДЛЯ КАТАЛОГА
+    function generateSchemaMarkup() {
+        if (typeof CATALOG === 'undefined') return;
+        
+        const schemaData = {
+            "@context": "https://schema.org",
+            "@graph": []
+        };
+        
+        // Добавляем Organization
+        schemaData["@graph"].push({
+            "@type": "FoodEstablishment",
+            "@id": "https://byshura.ru/#organization",
+            "name": "Вестник Гедонизма",
+            "url": "https://byshura.ru",
+            "logo": "https://byshura.ru/assets/favicon-512.png",
+            "description": "Домашний ресторан авторских гастрономических боксов",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Москва",
+                "streetAddress": "ЖК Prime Park, Ленинградский проспект 37/7"
+            },
+            "telephone": "+7-999-000-00-00",
+            "openingHours": "Fr,Sa,Su 17:00-23:00",
+            "priceRange": "₽₽"
+        });
+        
+        // Добавляем Products
+        for (const [id, product] of Object.entries(CATALOG)) {
+            const nameRu = product.name.ru || product.name.en || 'Product';
+            const descRu = product.description ? (product.description.ru || product.description.en || '') : '';
+            const prices = product.prices.ru || product.prices.en || {};
+            
+            let priceRange = { min: 0, max: 0 };
+            if (product.type === 'box') {
+                const values = Object.values(prices).filter(v => typeof v === 'number');
+                priceRange.min = Math.min(...values);
+                priceRange.max = Math.max(...values);
+            } else if (product.type === 'cake') {
+                priceRange.min = typeof prices === 'number' ? prices : (prices['default'] || 0);
+                priceRange.max = priceRange.min;
+            } else {
+                const values = Object.values(prices).filter(v => typeof v === 'number');
+                priceRange.min = Math.min(...values);
+                priceRange.max = Math.max(...values);
+            }
+            
+            const productSchema = {
+                "@type": "Product",
+                "@id": `https://byshura.ru/#product-${id}`,
+                "name": nameRu,
+                "description": descRu.replace(/\n/g, ' '),
+                "image": product.images ? [product.images.desktop, product.images.mobile].filter(Boolean) : [],
+                "brand": {
+                    "@type": "Brand",
+                    "name": "Вестник Гедонизма"
+                },
+                "offers": {
+                    "@type": "AggregateOffer",
+                    "priceCurrency": "RUB",
+                    "lowPrice": priceRange.min,
+                    "highPrice": priceRange.max,
+                    "availability": "https://schema.org/InStock",
+                    "url": `https://byshura.ru/pages/boxes`
+                }
+            };
+            
+            // Добавляем Recipe если есть composition
+            if (product.composition && product.composition.ru) {
+                productSchema["hasMerchantReturnPolicy"] = {
+                    "@type": "MerchantReturnPolicy",
+                    "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                };
+            }
+            
+            schemaData["@graph"].push(productSchema);
+        }
+        
+        // Обновляем или создаем script tag
+        let schemaScript = document.getElementById('schema-org-products');
+        if (!schemaScript) {
+            schemaScript = document.createElement('script');
+            schemaScript.type = 'application/ld+json';
+            schemaScript.id = 'schema-org-products';
+            document.head.appendChild(schemaScript);
+        }
+        schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    }
+
     function renderCatalog() {
         const grids = {
             boxes: document.getElementById('grid-boxes'),
@@ -505,6 +636,9 @@
             else if (isSavory && grids.savory) grids.savory.innerHTML += cardHTML;
         }
         lazyLoadBackgrounds();
+        
+        // ✅ ГЕНЕРИРУЕМ SCHEMA.ORG ПОСЛЕ РЕНДЕРА
+        generateSchemaMarkup();
     }
 
     function openProductModal(productId) {
@@ -557,7 +691,7 @@
         const container = document.getElementById('personsSelect');
         let html = '';
         const persons = [2, 4, 6];
-        const icons = ['👥', '👥👥', '👥👥👥'];
+        const icons = ['👥', '👥👥', '👥👥'];
         const prices = product.prices[currentLang] || product.prices['ru'] || {};
         
         persons.forEach((count, index) => {
@@ -655,7 +789,7 @@
         }
         section.style.display = 'block';
         
-        const allergenIcons = { 'Грибы': '🍄', 'Мед': '🍯', 'Лактоза': '🥛', 'Яйца': '🥚', 'Глютен': '🌾', 'Красная рыба': '🐟', 'Орехи': '🥜', 'Горчица': '🟡' };
+        const allergenIcons = { 'Грибы': '🍄', 'Мед': '🍯', 'Лактоза': '🥛', 'Яйца': '🥚', 'Глютен': '', 'Красная рыба': '🐟', 'Орехи': '🥜', 'Горчица': '🟡' };
         let html = '';
         product.allergens.forEach(allergen => {
             const icon = allergenIcons[allergen] || '⚠️';
@@ -865,7 +999,7 @@
                 trackGA4Event('select_item', { items: [{ item_id: productId, item_name: CATALOG[productId].name[currentLang] || CATALOG[productId].name['ru'] }] });
                 openProductModal(productId);
             } else {
-                console.warn('⚠️ Клик по карточке, но товар не найден в CATALOG:', productId);
+                console.warn('️ Клик по карточке, но товар не найден в CATALOG:', productId);
             }
         });
         
