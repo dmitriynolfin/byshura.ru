@@ -6,16 +6,16 @@ Allow: /
 Allow: /assets/
 Allow: /js/
 Allow: /images/
-Disallow: /pages/checkout.html
-Disallow: /pages/thank-you.html
-Disallow: /legal/privacy-policy.html
-Disallow: /legal/offer.html
-Disallow: /legal/privacy-policy-en.html
-Disallow: /legal/offer-en.html
+# Запрещаем индексацию служебных страниц (УЖЕ БЕЗ .html)
+Disallow: /pages/checkout
+Disallow: /pages/thank-you
+Disallow: /pages/popup-checkout
+Disallow: /pages/popup-thank-you
+Disallow: /legal/
 Clean-Param: utm_source&utm_medium&utm_campaign
 
 # ==========================================
-# Правила для всех остальных поисковых роботов (Google, Bing и др.)
+# Правила для всех остальных роботов (Google, Bing и др.)
 # ==========================================
 User-agent: *
 Allow: /
@@ -27,26 +27,14 @@ Allow: /*.jpg$
 Allow: /*.jpeg$
 Allow: /*.gif$
 Allow: /*.svg$
-Disallow: /pages/checkout.html
-Disallow: /pages/thank-you.html
-Disallow: /legal/privacy-policy.html
-Disallow: /legal/offer.html
-Disallow: /legal/privacy-policy-en.html
-Disallow: /legal/offer-en.html
+# Запрещаем индексацию служебных страниц (УЖЕ БЕЗ .html)
+Disallow: /pages/checkout
+Disallow: /pages/thank-you
+Disallow: /pages/popup-checkout
+Disallow: /pages/popup-thank-you
+Disallow: /legal/
 
 # ==========================================
-# Дополнительные правила для Googlebot (для ясности)
-# ==========================================
-User-agent: Googlebot
-Allow: /
-Allow: /assets/
-Allow: /js/
-Allow: /images/
-Disallow: /pages/checkout.html
-Disallow: /pages/thank-you.html
-
-# ==========================================
-# Карта сайта и основной хост (директива Host работает только для Яндекса)
+# Карта сайта
 # ==========================================
 Sitemap: https://byshura.ru/sitemap.xml
-Host: https://byshura.ru
