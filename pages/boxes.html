@@ -619,7 +619,7 @@
                 <div class="box-card" data-product-id="${id}" data-product-type="${product.type}">
                     <div class="box-image" data-bg-desktop="${product.images?.desktop || ''}" data-bg-mobile="${product.images?.mobile || ''}" data-bg-loaded="false"></div>
                     <div class="box-content">
-                        <h3 class="box-title">${name}</h3>
+                        <h3 class="box-title">${name}</h3> ${product.subtitle ? `<p class="box-subtitle" style="text-align: center; font-size: 14px; color: #666; margin-bottom: 15px;">${product.subtitle[currentLang] || product.subtitle['ru']}</p>` : ''}
                         <div class="box-footer">
                             <div class="box-price">
                                 <span class="price-from">${priceFromText}</span>
