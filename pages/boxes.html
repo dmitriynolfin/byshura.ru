@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- ✅ СТАНДАРТНАЯ ЗАГРУЗКА ЕДИНОГО ИСТОЧНИКА ДАННЫХ -->
+    <!-- ✅ СТАНДАРТНАЯ ЗАГЛУЗКА ЕДИНОГО ИСТОЧНИКА ДАННЫХ -->
     <script src="/js/data.js"></script>
     
     <!-- ===== FAVICON ===== -->
@@ -229,8 +229,31 @@
             .page-title { font-size: 24px; } .page-subtitle { font-size: 14px; } .section-title { font-size: 24px; letter-spacing: 1px; }
             .boxes-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .box-title { font-size: 14px; margin-bottom: 10px; } .box-price { font-size: 14px; } .box-price .currency { font-size: 12px; }
-            .category-nav { top: 72px; gap: 6px; padding: 10px 0 16px; margin-bottom: 12px; }
-            .category-btn { padding: 10px 15px; font-size: 13px; letter-spacing: 0.3px; min-height: 48px; border-radius: 24px; border-width: 1.5px; }
+            
+            /* ✅ ОПТИМИЗАЦИЯ КНОПОК КАТЕГОРИЙ ДЛЯ МОБИЛЬНЫХ (В ОДИН РЯД) */
+            .category-nav { 
+                top: 72px; 
+                gap: 4px; 
+                padding: 8px 0 12px; 
+                margin-bottom: 12px; 
+                flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+            }
+            .category-btn { 
+                flex: 1; /* Равномерное распределение ширины */
+                padding: 8px 2px; 
+                font-size: 11px; 
+                letter-spacing: 0; 
+                min-height: 44px; 
+                border-radius: 22px; 
+                border-width: 1.5px;
+                white-space: normal; /* Позволяем тексту переноситься внутри кнопки, если нужно */
+                line-height: 1.2;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
             .header-right { gap: 8px; } .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             .modal-thumb { min-width: 60px; height: 60px; } .allergen-option { padding: 8px 10px; } .allergen-label { font-size: 13px; }
             .persons-select { gap: 4px; justify-content: center; } .person-option { flex: 1 1 29%; min-width: 0; max-width: 31%; }
@@ -258,7 +281,15 @@
         @media (max-width: 360px) {
             .logo { width: 38px; height: 38px; font-size: 18px; } 
             .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; min-width: 100px; }
-            .page-title, .section-title { font-size: 22px; } .category-btn { padding: 8px 12px; font-size: 11px; min-height: 42px; }
+            .page-title, .section-title { font-size: 22px; } 
+            
+            /* ✅ ДОПОЛНИТЕЛЬНАЯ КОМПАКТНОСТЬ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ */
+            .category-btn { 
+                padding: 6px 2px; 
+                font-size: 10px; 
+                min-height: 40px; 
+            }
+            
             .person-option { flex: 1 1 27%; max-width: 29%; } .person-label { padding: 4px 1px; min-height: 46px; } .person-icon { font-size: 12px; }
             .person-option:nth-child(1) .person-icon, .person-option:nth-child(2) .person-icon { font-size: 11px; } .person-option:nth-child(3) .person-icon { font-size: 12px; }
             .person-price { font-size: 8px !important; padding: 1px 3px; } .quantity-count { font-size: 14px; } .quantity-price { font-size: 11px !important; padding: 2px 6px; }
@@ -348,8 +379,9 @@
                     <span id="langFlag">🇷🇺</span>
                     <span id="langCurrent">RU</span>
                     <div class="lang-dropdown" id="langDropdown">
-                        <a href="#" data-lang="ru"><span class="lang-code">🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
-                        <a href="#" data-lang="en"><span class="lang-code">🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
+                        <!-- ✅ ИСПРАВЛЕНЫ ЭМОДЗИ ФЛАГОВ -->
+                        <a href="#" data-lang="ru"><span class="lang-code">🇷🇺 RU</span><span class="lang-descr">Русский (Москва)</span></a>
+                        <a href="#" data-lang="en"><span class="lang-code">🇦🇪 EN</span><span class="lang-descr">English (Dubai)</span></a>
                     </div>
                 </div>
             </div>
@@ -468,6 +500,18 @@
             cartPromptTitle: "Item added!", cartPromptText: "Go to cart or continue shopping?",
             btnContinue: "Continue", btnGoToCart: "Go to cart"
         }
+    };
+
+    // ✅ СЛОВАРЬ ДЛЯ ПЕРЕВОДА АЛЛЕРГЕНОВ
+    const allergenTranslations = {
+        'Грибы': 'Mushrooms',
+        'Мед': 'Honey',
+        'Лактоза': 'Lactose',
+        'Яйца': 'Eggs',
+        'Глютен': 'Gluten',
+        'Красная рыба': 'Red fish',
+        'Орехи': 'Nuts',
+        'Горчица': 'Mustard'
     };
 
     let cart = JSON.parse(localStorage.getItem('hedonism_cart')) || [];
@@ -789,13 +833,17 @@
         }
         section.style.display = 'block';
         
-        const allergenIcons = { 'Грибы': '🍄', 'Мед': '🍯', 'Лактоза': '🥛', 'Яйца': '🥚', 'Глютен': '', 'Красная рыба': '🐟', 'Орехи': '🥜', 'Горчица': '🟡' };
+        // ✅ ДОБАВЛЕНА ИКОНКА ДЛЯ ГЛЮТЕНА
+        const allergenIcons = { 'Грибы': '🍄', 'Мед': '🍯', 'Лактоза': '🥛', 'Яйца': '🥚', 'Глютен': '🌾', 'Красная рыба': '🐟', 'Орехи': '🥜', 'Горчица': '🟡' };
         let html = '';
         product.allergens.forEach(allergen => {
             const icon = allergenIcons[allergen] || '⚠️';
+            // ✅ ПЕРЕВОД НАЗВАНИЯ АЛЛЕРГЕНА ДЛЯ АНГЛИЙСКОГО ЯЗЫКА (value остается на русском для логики)
+            const displayName = currentLang === 'en' ? (allergenTranslations[allergen] || allergen) : allergen;
+            
             html += `<label class="allergen-option">
                 <input type="checkbox" name="modalAllergen" value="${allergen}" class="allergen-checkbox">
-                <span class="allergen-label"><span class="allergen-icon">${icon}</span>${allergen}</span>
+                <span class="allergen-label"><span class="allergen-icon">${icon}</span>${displayName}</span>
             </label>`;
         });
         container.innerHTML = html;
