@@ -16,8 +16,12 @@ const CATALOG = {
     "box1": {
         id: "box1",
         type: "box",
-        name: { ru: "Бокс «Ужин Николая II»", en: "Nicholas II Dinner Box" },
-        prices: { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
+        name: { ru: "Ужин Николая II", en: "Nicholas II Dinner" },
+        subtitle: { 
+            ru: "Блюда, которые были на повседневном столе последнего Императора",
+            en: "Dishes that were on the everyday table of the last Emperor"
+        },
+        prices: { ru: { 2: 7000, 4: 13000, 6: 19000 }, en: { 2: 350, 4: 600, 6: 850 } },
         images: { desktop: "/images/boxes-nicholas-1.webp", mobile: "/images/boxes-nicholas-1-mobile.webp" },
         gallery: [
             "/images/boxes-nicholas-1.webp", "/images/boxes-nicholas-2.webp", "/images/boxes-nicholas-3.webp",
@@ -43,8 +47,12 @@ const CATALOG = {
     "box2": {
         id: "box2",
         type: "box",
-        name: { ru: "Бокс «Ужин Чайковского»", en: "Tchaikovsky Dinner Box" },
-        prices: { ru: { 2: 8000, 4: 15000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 1000 } },
+        name: { ru: "Ужин Чайковского", en: "Tchaikovsky Dinner" },
+        subtitle: { 
+            ru: "Сытные простые блюда и необычные сочетания - все, что любил композитор",
+            en: "Hearty simple dishes and unusual combinations - everything the composer loved"
+        },
+        prices: { ru: { 2: 8000, 4: 14000, 6: 20000 }, en: { 2: 400, 4: 700, 6: 950 } },
         images: { desktop: "/images/boxes-tchaikovsky-1.webp", mobile: "/images/boxes-tchaikovsky-1-mobile.webp" },
         gallery: [
             "/images/boxes-tchaikovsky-1.webp", "/images/boxes-tchaikovsky-2.webp", "/images/boxes-tchaikovsky-3.webp",
@@ -63,7 +71,7 @@ const CATALOG = {
             en: [
                 { name: "Appetizers: Whipped butter with salt and pepper\nHomemade bread\nPickled cucumbers with honey\nBeer-battered champignons", w2: "150 g", w4: "300 g", w6: "450 g" },
                 { name: "Salads: Herb salad with aromatic oil", w2: "200 g", w4: "400 g", w6: "600 g" },
-                { name: "Main course: Veal in cream sauce\nFried potatoes with creamy mushrooms", w2: "300 g", w4: "600 g", w6: "900 g" },
+                { name: "Main course: Veal in cream sauce\nFried potatoes with creamy mushrooms", w2: "300 g", w4: "600 g", w6: "900 г" },
                 { name: "Desserts: Lemon curd pie", w2: "250 g", w4: "500 g", w6: "750 g" }
             ]
         },
@@ -114,7 +122,7 @@ const CATALOG = {
         id: "rasstegai",
         type: "quantity-item",
         name: { ru: "Расстегаи с красной рыбой и рисом", en: "Rasstegai with Red Fish and Rice" },
-        prices: { ru: { 4: 1000, 8: 1800 }, en: { 4: 50, 8: 90 } },
+        prices: { ru: { 4: 1600, 8: 3000 }, en: { 4: 80, 8: 140 } },
         images: { desktop: "/images/boxes-rasstegai-1.webp", mobile: "/images/boxes-rasstegai-1-mobile.webp" },
         gallery: [
             "/images/boxes-rasstegai-1.webp", "/images/boxes-rasstegai-2.webp", "/images/boxes-rasstegai-3.webp",
