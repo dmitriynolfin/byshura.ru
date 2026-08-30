@@ -159,25 +159,25 @@ const CATALOG = {
         type: "popup",
         name: { ru: "Нежный сливочный лимонный кекс", en: "Tender Creamy Lemon Cake" },
         prices: { ru: 150, en: 8 },
-        images: { desktop: "/images/popup-cake.webp", mobile: "/images/popup-cake.webp" },
+        images: { desktop: "/images/popup-cake_1.webp", mobile: "/images/popup-cake_1.webp" },
         description: { 
             ru: "Бисквитная основа на сливочном масле и сливках, лимонная пропитка, лимонная глазурь.\nВес: ~100 г",
             en: "Sponge base on butter and cream, lemon soaking, lemon glaze.\nWeight: ~100 g"
         },
-        emoji: "🧁",
+        emoji: "",
         allergens: ["Глютен", "Яйца", "Лактоза"]
     },
     "popup-salad": {
         id: "popup-salad",
         type: "popup",
-        name: { ru: "Лимонно-имбирный дип с сезонными овощами", en: "Lemon-Ginger Dip with Seasonal Vegetables" },
-        prices: { ru: 300, en: 15 },
-        images: { desktop: "/images/popup-dip.webp", mobile: "/images/popup-dip.webp" },
+        name: { ru: "Краст со сливочной кукурузой и беконом", en: "Crust with Creamy Corn and Bacon" },
+        prices: { ru: 200, en: 10 },
+        images: { desktop: "/images/popup-krast.webp", mobile: "/images/popup-krast.webp" },
         description: { 
-            ru: "Пряный греческий йогурт, карамельно-лимонный арахис, хрустящие овощи.\nВес: ~200 г",
-            en: "Spicy Greek yogurt, caramel-lemon peanut, crunchy vegetables.\nWeight: ~200 g"
+            ru: "Хрустящая лодочка из слоеного теста с начинкой из сливочной кукурузы и соленого бекона\nВес, г: ~100 Цена, шт: 200 ₽",
+            en: "Crispy puff pastry boat with creamy corn and salty bacon filling\nWeight: ~100 g Price: 200 ₽"
         },
-        emoji: "🥗",
-        allergens: ["Лактоза", "Орехи"]
+        emoji: "🥐",
+        allergens: ["Глютен", "Лактоза"]
     }
 };
