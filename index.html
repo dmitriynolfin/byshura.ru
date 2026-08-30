@@ -10,7 +10,6 @@
     <meta name="description" content="Домашний ресторан «Вестник Гедонизма» — авторские гастрономические боксы с историей. Доставка по Москве и самовывоз в ЖК Prime Park. Работаем Пт-Вс 17:00-23:00.">
     <meta name="keywords" content="доставка еды Москва, домашний ресторан, гастрономические боксы, авторская кухня">
     
-    <!-- ✅ Обновлено: убраны .html из canonical и alternate -->
     <link rel="canonical" href="https://byshura.ru/">
     <link rel="alternate" hreflang="ru" href="https://byshura.ru/">
     <link rel="alternate" hreflang="en" href="https://byshura.ru/?lang=en">
@@ -18,7 +17,6 @@
     <meta property="og:type" content="restaurant">
     <meta property="og:title" content="Вестник Гедонизма — Доставка гастрономических боксов в Москве">
     <meta property="og:description" content="Авторские гастрономические боксы с историей. Доставка по Москве Пт-Вс 17:00-23:00.">
-    <!-- ✅ Обновлено: убран .html из og:url -->
     <meta property="og:url" content="https://byshura.ru/">
     <meta property="og:image" content="https://byshura.ru/assets/favicon-512.png">
     
@@ -288,14 +286,14 @@
         
         /* === СТИЛИ ДЛЯ POP-UP СЕКЦИИ === */
         .popup-teaser {
-            display: none; /* ✅ Скрыто по запросу */
+            display: block; /* ✅ ИЗМЕНЕНО: было none, стало block для отображения секции */
             background: linear-gradient(135deg, #070395 0%, #1a1a6e 100%);
             padding: 40px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-        /* ✅ НОВОЕ: Скрываем POP-UP секцию, когда выбран английский язык */
+        /* ✅ Скрываем POP-UP секцию, когда выбран английский язык */
         html[lang="en"] .popup-teaser {
             display: none !important;
         }
@@ -553,7 +551,7 @@
         
         /* ✅ Управление видимостью элементов в зависимости от языка */
         html[lang="en"] .legal-links-ru { display: none !important; }
-        html[lang="en"] .popup-teaser { display: none !important; } /* Дублируем для надежности */
+        html[lang="en"] .popup-teaser { display: none !important; } 
         
         .legal-links-en { display: none; gap: 15px; align-items: center; }
         .legal-links-en a { font-size: 12px; color: #666; transition: color 0.3s; }
@@ -762,7 +760,6 @@
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
                 <nav class="nav-menu">
-                    <!-- ✅ Обновлено: убраны .html из всех ссылок -->
                     <a href="/pages/boxes" class="nav-link nav-link-cta" data-i18n="navOrder">ЗАКАЗАТЬ</a>
                     <a href="/#contacts" class="nav-link" data-i18n="navContacts">КОНТАКТЫ</a>
                     <a href="/pages/history" class="nav-link" data-i18n="navHistory">ИСТОРИЯ БОКСОВ</a>
@@ -881,7 +878,7 @@
         </div>
     </section>
 
-    <!-- ✅ СЕКРЕТНОЕ POP-UP МЕНЮ скрыто (закомментировано)
+    <!-- ✅ СЕКРЕТНОЕ POP-UP МЕНЮ (АКТИВИРОВАНО) -->
     <section class="popup-teaser">
         <div class="container">
             <a href="/pages/popup" class="popup-cta-btn">
@@ -889,7 +886,6 @@
             </a>
         </div>
     </section>
-    -->
 
     <section class="custom-dinner">
         <div class="container custom-dinner-container">
@@ -969,7 +965,6 @@
                 <a href="https://instagram.com/sash_shura" target="_blank" class="social-link" aria-label="Instagram"><img src="images/ins_logo.webp" alt="Instagram" loading="lazy"></a>
             </div>
             <div class="legal-links-ru">
-                <!-- ✅ Обновлено: убраны .html из юридических ссылок -->
                 <a href="/legal/privacy-policy" target="_blank">Политика конфиденциальности</a>
                 <span class="legal-divider">|</span>
                 <a href="/legal/offer" target="_blank">Публичная оферта</a>
@@ -1004,7 +999,6 @@
             mapHintText: "Нажмите, чтобы увеличить масштаб и перемещать карту",
             footerCopy: "© ВЕСТНИК ГЕДОНИЗМА РАБОТАЕТ ДЛЯ ВАС С ЛЮБОВЬЮ С 2025",
             cartAlert: "Добавьте товары в корзину на странице боксов",
-            // ✅ Обновлено: убран .html из ссылки в тексте cookie
             cookieText: 'Мы используем файлы cookies 🍪 для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с нашей <a href="/legal/privacy-policy" target="_blank">Политикой конфиденциальности</a>.',
             cookieAccept: "Принять"
         },
@@ -1021,7 +1015,6 @@
             mapHintText: "Tap to zoom in and move the map",
             footerCopy: "© HEDONISM DISPATCH WORKS FOR YOU WITH LOVE SINCE 2025",
             cartAlert: "Add items to cart on the Boxes page first",
-            // ✅ Обновлено: убран .html из ссылки в тексте cookie
             cookieText: 'We use cookies 🍪 to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href="/legal/privacy-policy-en" target="_blank">Privacy Policy</a>.',
             cookieAccept: "Accept"
         }
@@ -1255,7 +1248,6 @@
             document.addEventListener('click', e => { if (!langBtn.contains(e.target)) langDropdown.classList.remove('show'); });
         }
         
-        // ✅ Обновлено: убраны .html из JS-перенаправлений
         document.getElementById('orderBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes'; });
         document.getElementById('shopBtn')?.addEventListener('click', () => { window.location.href = '/pages/boxes'; });
         
@@ -1279,7 +1271,6 @@
             trackGA4Event('cookie_consent_accepted', { method: 'banner_click' });
         });
         
-        // ✅ Обновлено: page_path для главной страницы теперь '/'
         trackGA4Event('page_view', { page_path: '/', language: currentLang });
     });
     
