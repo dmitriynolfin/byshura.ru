@@ -126,32 +126,42 @@
             border-radius: 50%; width: 48px; height: 48px; display: flex;
             align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(7, 3, 149, 0.2); z-index: 2;
         }
-        .box-content { padding: 25px; flex: 1; display: flex; flex-direction: column; }
-        .box-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #070395; }
-        .box-descr { font-size: 14px; color: #555; line-height: 1.5; margin-bottom: 20px; flex: 1; }
-        .box-footer { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-        .box-price { font-size: 24px; font-weight: 800; color: #070395; }
+        .box-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .box-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #070395; line-height: 1.3; }
+        .box-descr { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 12px; flex: 1; }
+        .box-allergens { 
+            font-size: 11px; 
+            color: #d32f2f; 
+            margin-bottom: 15px; 
+            padding: 8px; 
+            background: #ffebee; 
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+        .box-allergens strong { color: #b71c1c; }
+        .box-footer { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+        .box-price { font-size: 22px; font-weight: 800; color: #070395; }
         .quantity-control {
             display: flex; align-items: center; justify-content: space-between;
-            background: #f0f2f5; border-radius: 12px; padding: 5px;
+            background: #f0f2f5; border-radius: 10px; padding: 4px;
         }
         .qty-btn {
-            width: 36px; height: 36px; border-radius: 8px; background: white;
-            color: #070395; font-size: 18px; font-weight: 700; display: flex;
+            width: 32px; height: 32px; border-radius: 6px; background: white;
+            color: #070395; font-size: 16px; font-weight: 700; display: flex;
             align-items: center; justify-content: center; transition: all 0.2s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .qty-btn:hover { background: #FFD93D; }
         .qty-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .qty-input {
-            width: 40px; text-align: center; border: none; background: transparent;
-            font-size: 16px; font-weight: 700; color: #070395; -moz-appearance: textfield;
+            width: 35px; text-align: center; border: none; background: transparent;
+            font-size: 15px; font-weight: 700; color: #070395; -moz-appearance: textfield;
         }
         .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         
         .add-to-cart-btn {
-            width: 100%; background: #070395; color: white; padding: 14px;
-            border-radius: 12px; font-size: 15px; font-weight: 700;
+            width: 100%; background: #070395; color: white; padding: 12px;
+            border-radius: 10px; font-size: 14px; font-weight: 700;
             text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s;
         }
         .add-to-cart-btn:hover { background: #FFD93D; color: #070395; }
@@ -236,10 +246,24 @@
             .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
             .icon-btn svg { width: 22px; height: 22px; }
             
-            .popup-main { margin-top: 66px; padding: 40px 0 30px; }
-            .popup-header h1 { font-size: 26px; }
-            .popup-header p { font-size: 16px; }
-            .items-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .popup-main { margin-top: 66px; padding: 30px 0 20px; }
+            .popup-header { margin-bottom: 30px; }
+            .popup-header h1 { font-size: 24px; margin-bottom: 10px; }
+            .popup-header p { font-size: 14px; }
+            .items-grid { grid-template-columns: 1fr; gap: 20px; }
+            .box-content { padding: 15px; }
+            .box-title { font-size: 16px; }
+            .box-descr { font-size: 13px; margin-bottom: 10px; }
+            .box-allergens { 
+                font-size: 11px; 
+                padding: 6px; 
+                margin-bottom: 12px;
+            }
+            .box-price { font-size: 20px; }
+            .qty-btn { width: 36px; height: 36px; }
+            .qty-input { width: 40px; font-size: 16px; }
+            .add-to-cart-btn { padding: 14px; font-size: 14px; }
+            
             .footer-container { flex-direction: column; text-align: center; }
             .cookie-banner { padding: 15px 0; }
             .cookie-banner-container { flex-direction: column; text-align: center; gap: 15px; }
@@ -256,7 +280,7 @@
         }
         
         @media (max-width: 480px) {
-            .container { padding: 0 15px; }
+            .container { padding: 0 10px; }
             .header { padding: 10px 0; }
             .logo { width: 40px; height: 40px; font-size: 20px; }
             .header-icons { gap: 8px; }
@@ -264,16 +288,33 @@
             .icon-btn svg { width: 24px; height: 24px; }
             .cart-count { width: 18px; height: 18px; font-size: 10px; }
             
+            .popup-main { margin-top: 66px; padding: 20px 0 15px; }
+            .popup-header h1 { font-size: 22px; }
+            .popup-header p { font-size: 13px; }
+            .items-grid { gap: 15px; }
+            .box-content { padding: 12px; }
+            .box-title { font-size: 15px; margin-bottom: 6px; }
+            .box-descr { font-size: 12px; line-height: 1.4; margin-bottom: 8px; }
+            .box-allergens { 
+                font-size: 10px; 
+                padding: 5px; 
+                margin-bottom: 10px;
+            }
+            .box-price { font-size: 18px; margin-bottom: 8px; }
+            .quantity-control { padding: 3px; }
+            .qty-btn { width: 32px; height: 32px; font-size: 18px; }
+            .qty-input { width: 35px; font-size: 14px; }
+            .add-to-cart-btn { padding: 12px; font-size: 13px; border-radius: 8px; }
+            
             .pickup-header h2 { font-size: 22px; margin-bottom: 12px; }
             .pickup-header p { font-size: 14px; max-width: 100%; }
             .pickup-map-iframe { height: 300px; }
             .pickup-info-bar { padding: 15px 15px; }
             .pickup-info-icon { width: 40px; height: 40px; min-width: 40px; }
             .pickup-info-icon svg { width: 20px; height: 20px; }
-            .pickup-info-text { font-size: 14px; }
-            .items-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .pickup-info-text { font-size: 13px; }
             .box-title { font-size: 14px; }
-            .box-descr { font-size: 12px; }
+            .box-descr { font-size: 11px; }
             .box-price { font-size: 18px; }
         }
     </style>
@@ -399,11 +440,17 @@
                 const descr = item.description.ru;
                 const img = item.images.mobile;
                 const emoji = item.emoji || '🍪';
+                const allergens = item.allergens || [];
 
                 const card = document.createElement('div');
                 card.className = 'box-card';
                 card.dataset.item = name;
                 card.dataset.price = price;
+                
+                const allergensHtml = allergens.length > 0 
+                    ? `<div class="box-allergens"><strong>Аллергены:</strong> ${allergens.join(', ')}</div>`
+                    : '';
+                
                 card.innerHTML = `
                     <div class="box-image">
                         <span class="box-image-emoji">${emoji}</span>
@@ -412,6 +459,7 @@
                     <div class="box-content">
                         <h3 class="box-title">${name}</h3>
                         <p class="box-descr">${descr}</p>
+                        ${allergensHtml}
                         <div class="box-footer">
                             <span class="box-price">${price} ₽</span>
                             <div class="quantity-control">
