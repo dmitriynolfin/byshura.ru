@@ -162,13 +162,13 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Дата</label>
-                        <div class="static-info-block"><span class="static-info-icon">📅</span><span class="static-info-text">25.07.2026</span></div>
+                        <div class="static-info-block"><span class="static-info-icon">📅</span><span class="static-info-text">05.09.2026</span></div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Время получения *</label>
-                        <input type="time" class="form-input time-select" id="pickupTime" min="10:00" max="14:00" required>
-                        <small class="time-hint">Доступное время: 10:00 – 14:00</small>
-                        <div class="validation-hint">Пожалуйста, выберите время с 10:00 до 14:00</div>
+                        <input type="time" class="form-input time-select" id="pickupTime" min="11:00" max="14:00" required>
+                        <small class="time-hint">Доступное время: 11:00 – 14:00</small>
+                        <div class="validation-hint">Пожалуйста, выберите время с 11:00 до 14:00</div>
                     </div>
                 </div>
 
@@ -376,7 +376,7 @@
             if (!isValid) { alert("Пожалуйста, заполните все обязательные поля"); form.querySelector('.invalid')?.focus(); return; }
             if (!consentCheckbox.checked) { alert("Необходимо дать согласие на обработку персональных данных"); return; }
             const timeValue = document.getElementById('pickupTime').value;
-            if (!timeValue || timeValue < '10:00' || timeValue > '14:00') { alert('Пожалуйста, выберите время получения с 10:00 до 14:00'); return; }
+            if (!timeValue || timeValue < '11:00' || timeValue > '14:00') { alert('Пожалуйста, выберите время получения с 11:00 до 14:00'); return; }
             
             const submitBtn = document.getElementById('submitBtn');
             const overlay = document.getElementById('processingOverlay');
@@ -394,7 +394,7 @@
             
             const orderData = {
                 lang: 'ru', currency: '₽', orderNumber: tempOrderNumber, source: 'checkout-popup.html', name: nameValue, phone: contactValue,
-                messenger: 'Telegram/Телефон', delivery: 'pickup', address: '', date: "25.07.2026", time: timeValue, payment: paymentValue, comment: commentValue,
+                messenger: 'Telegram/Телефон', delivery: 'pickup', address: '', date: "05.09.2026", time: timeValue, payment: paymentValue, comment: commentValue,
                 consentGiven: true, cookieConsent: localStorage.getItem('cookie_consent') === 'true', consentTimestamp: privacyConsentTimestamp || new Date().toISOString(),
                 customer: { name: nameValue, contact: contactValue, comment: commentValue }, items: currentPopupCart, total: orderTotal, dateIso: new Date().toISOString()
             };
