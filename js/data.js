@@ -174,8 +174,8 @@ const CATALOG = {
         prices: { ru: 200, en: 10 },
         images: { desktop: "/images/popup-krast.webp", mobile: "/images/popup-krast.webp" },
         description: { 
-            ru: "Хрустящая лодочка из слоеного теста с начинкой из сливочной кукурузы и соленого бекона\nВес, г: ~100 Цена, шт: 200 ₽",
-            en: "Crispy puff pastry boat with creamy corn and salty bacon filling\nWeight: ~100 g Price: 200 ₽"
+            ru: "Хрустящая лодочка из слоеного теста с начинкой из сливочной кукурузы и соленого бекона. Вес, г: ~100",
+            en: "Crispy puff pastry boat with creamy corn and salty bacon filling. Weight: ~100 g"
         },
         emoji: "🥐",
         allergens: ["Глютен", "Лактоза"]
