@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ... (ВАШИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ, ОНИ КОРОТКИЕ ДЛЯ БРЕВИТИ) ... */
         html, body { overflow-x: hidden; width: 100%; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; background: radial-gradient(circle at 50% 0%, #1e1b8a 0%, #070395 40%, #020133 100%); color: #ffffff; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
@@ -24,15 +23,42 @@
         img { max-width: 100%; display: block; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .checkout-container { max-width: 800px; margin: 0 auto; }
-        .header { position: fixed; top: 0; left: 0; right: 0; width: 100%; background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s; }
-        .header.scrolled { background: rgba(255, 255, 255, 0.98) !important; box-shadow: 0 4px 20px rgba(7, 3, 149, 0.15) !important; backdrop-filter: blur(15px) !important; }
+        
+        /* === ШАПКА: ТОЧНАЯ КОПИЯ С /pages/popup === */
+        .header { 
+            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
+            background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
+            border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
+        }
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 4px 20px rgba(7, 3, 149, 0.15) !important;
+            backdrop-filter: blur(15px) !important;
+        }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
-        .logo { width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3); }
+        .logo { 
+            width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+        }
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
-        .btn-back { border: 1.5px solid #070395; padding: 10px 25px; border-radius: 25px; font-weight: 600; font-size: 13px; color: #070395; transition: all 0.3s; min-height: 44px; display: flex; align-items: center; }
-        .btn-back:hover { background: #070395; color: white; }
-        .checkout-main { margin-top: 100px; padding: 40px 0 80px; flex: 1; }
+        .header-icons { display: flex; gap: 12px; }
+        .icon-btn { 
+            padding: 8px; color: #070395; transition: transform 0.3s; 
+            position: relative; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; min-width: 44px; min-height: 44px; 
+        }
+        .icon-btn svg { width: 20px; height: 20px; }
+        .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
+        .cart-count { 
+            position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; line-height: 1; 
+        }
+        /* ========================================== */
+
+        .checkout-main { margin-top: 75px; padding: 40px 0 80px; flex: 1; }
         .checkout-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; text-align: center; color: #FFD93D; }
         .order-summary { background: rgba(255, 255, 255, 0.95); border-radius: 16px; padding: 25px; margin-bottom: 20px; color: #070395; }
         .summary-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid rgba(7,3,149,0.1); gap: 15px; }
@@ -111,31 +137,79 @@
         .processing-spinner { width: 40px; height: 40px; margin: 0 auto 15px; border: 4px solid #f0f0f5; border-top: 4px solid #070395; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .processing-text { font-size: 16px; font-weight: 600; color: #070395; margin: 0; }
+        
+        /* === АДАПТИВ ШАПКИ: ТОЧНАЯ КОПИЯ С /pages/popup === */
         @media (max-width: 768px) {
-            .container { padding: 0 20px; } .header { padding: 12px 0; } .header-container { padding: 0 15px; } .logo { width: 42px; height: 42px; font-size: 22px; } .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
-            .checkout-title { font-size: 24px; } .order-summary, .checkout-form { padding: 20px; } .item-image { width: 60px; height: 60px; margin-right: 12px; } .item-name { font-size: 15px; } .item-price { font-size: 16px; }
-            .submit-btn { padding: 16px 24px; font-size: 14px; } .footer-container { flex-direction: column; text-align: center; } .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+            .container { padding: 0 15px; }
+            .header { padding: 12px 0; }
+            .header-container { padding: 0 10px; }
+            .logo { width: 40px; height: 40px; font-size: 20px; }
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 8px; min-width: 44px; min-height: 44px; }
+            .icon-btn svg { width: 20px; height: 20px; }
+            
+            .checkout-title { font-size: 24px; } 
+            .order-summary, .checkout-form { padding: 20px; } 
+            .item-image { width: 60px; height: 60px; margin-right: 12px; } 
+            .item-name { font-size: 15px; } 
+            .item-price { font-size: 16px; }
+            .submit-btn { padding: 16px 24px; font-size: 14px; } 
+            .footer-container { flex-direction: column; text-align: center; } 
+            .order-item-controls { margin-left: 0; flex-direction: row; flex-wrap: wrap; gap: 10px; }
         }
         @media (max-width: 480px) {
-            .container { padding: 0 15px; } .header { padding: 10px 0; } .logo { width: 40px; height: 40px; font-size: 20px; } .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; } .checkout-main { margin-top: 90px; }
-            .summary-item { flex-direction: column; gap: 10px; } .item-left { width: 100%; } .item-right { flex-direction: row; justify-content: space-between; width: 100%; align-items: center; } .remove-text { display: none; } .order-item-remove-btn { padding: 10px; }
-            .footer { padding: 18px 0; } .social-links { gap: 12px; } .social-link { width: 28px; height: 28px; } .social-link img { width: 28px; height: 28px; } .footer-copyright { font-size: 12px; }
-            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; } .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; } .legal-divider { color: #ccc; font-size: 11px; }
-            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; } html[lang="en"] .legal-links-en { display: flex !important; } .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
-            .consent-group { padding: 12px; margin: 20px 0 25px; } .consent-text { font-size: 12px; line-height: 1.4; }
+            .container { padding: 0 15px; }
+            .header { padding: 10px 0; }
+            .logo { width: 38px; height: 38px; font-size: 18px; }
+            .header-icons { gap: 6px; }
+            .icon-btn { padding: 6px; min-width: 40px; min-height: 40px; }
+            .icon-btn svg { width: 18px; height: 18px; }
+            .cart-count { width: 16px; height: 16px; font-size: 9px; }
+            
+            .checkout-main { margin-top: 64px; }
+            .summary-item { flex-direction: column; gap: 10px; } 
+            .item-left { width: 100%; } 
+            .item-right { flex-direction: row; justify-content: space-between; width: 100%; align-items: center; } 
+            .remove-text { display: none; } 
+            .order-item-remove-btn { padding: 10px; }
+            .footer { padding: 18px 0; } 
+            .social-links { gap: 12px; } 
+            .social-link { width: 28px; height: 28px; } 
+            .social-link img { width: 28px; height: 28px; } 
+            .footer-copyright { font-size: 12px; }
+            .legal-links-ru { display: flex; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; } 
+            .legal-links-ru a { font-size: 11px; color: #666; white-space: nowrap; } 
+            .legal-divider { color: #ccc; font-size: 11px; }
+            .legal-links-en { display: none; flex-wrap: wrap; gap: 5px 10px; align-items: center; justify-content: center; margin-top: 8px; width: 100%; } 
+            html[lang="en"] .legal-links-en { display: flex !important; } 
+            .legal-links-en a { font-size: 11px; color: #666; white-space: nowrap; }
+            .consent-group { padding: 12px; margin: 20px 0 25px; } 
+            .consent-text { font-size: 12px; line-height: 1.4; }
         }
-        @media (max-width: 360px) { .logo { width: 38px; height: 38px; font-size: 18px; } .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; } }
+        @media (max-width: 360px) { 
+            .logo { width: 38px; height: 38px; font-size: 18px; } 
+        }
     </style>
 </head>
 <body>
 
+    <!-- ШАПКА: ТОЧНАЯ КОПИЯ С /pages/popup (ссылка логотипа ведет на меню для удобства) -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
                 <a href="/pages/popup" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
-                <a href="/pages/popup" class="btn-back">← Назад к меню</a>
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn" title="Оформить заказ">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -255,6 +329,7 @@
         const orderContentEl = document.getElementById('orderContent');
         const emptyCartMsgEl = document.getElementById('emptyCartMsg');
         const form = document.getElementById('popupOrderForm');
+        const cartCountEl = document.getElementById('cartCount');
 
         function generateOrderNumber() { return 'PU' + String(1000 + Math.floor(Math.random() * 9000)); }
 
@@ -268,14 +343,21 @@
             });
         }
 
+        function updateCartCountDisplay() {
+            if (cartCountEl) {
+                const totalQty = Array.isArray(popupCart) ? popupCart.reduce((sum, item) => sum + (typeof item.quantity === 'number' ? item.quantity : 1), 0) : 0;
+                cartCountEl.textContent = totalQty > 0 ? totalQty : '0';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('hedonism_user_name');
             const savedPhone = localStorage.getItem('hedonism_user_phone');
             if (savedName) document.getElementById('customerName').value = savedName;
             if (savedPhone) document.getElementById('customerContact').value = savedPhone;
             renderCart();
+            updateCartCountDisplay();
             
-            // ✅ ОТПРАВКА ПРОСМОТРА СТРАНИЦЫ
             trackGA4Event('page_view', { page_path: '/pages/popup-checkout', language: 'ru' });
         });
 
@@ -311,6 +393,7 @@
                     </div>`;
             });
             summaryItemsEl.innerHTML = html; totalPriceEl.textContent = total + ' ₽';
+            updateCartCountDisplay();
         }
 
         window.updateItemQty = function(index, change) {
@@ -326,7 +409,19 @@
             renderCart();
         };
 
-        // ✅ ФУНКЦИИ АНАЛИТИКИ
+        document.getElementById('cartBtn')?.addEventListener('click', function() {
+            trackGA4Event('cart_click', { 
+                page: 'popup-checkout', 
+                cart_items: popupCart.length, 
+                cart_value: popupCart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0) 
+            });
+            if (popupCart.length === 0) {
+                if (confirm('Корзина пуста. Перейти на страницу меню?')) {
+                    window.location.href = '/pages/popup';
+                }
+            }
+        });
+
         function trackGA4Event(eventName, params) { 
             if (typeof gtag === 'function') gtag('event', eventName, params); 
             if (typeof ym === 'function') ym(110092456, 'reachGoal', eventName, params);
@@ -345,7 +440,6 @@
             const noscript = document.createElement('noscript'); noscript.innerHTML = '<div><img src="https://mc.yandex.ru/watch/110092456" style="position:absolute; left:-9999px;" alt="" /></div>'; document.body.appendChild(noscript);
         }
 
-        // Проверяем, было ли уже дано согласие на главной странице
         if (localStorage.getItem('cookie_consent') === 'true') { initAnalytics(); }
 
         async function sendToAppsScript(orderData) {
@@ -405,7 +499,6 @@
                 const realOrderNumber = result.orderNumber || tempOrderNumber;
                 sessionStorage.setItem('hedonism_popup_last_order', JSON.stringify({ ...orderData, orderNumber: realOrderNumber }));
                 
-                // ✅ ОТПРАВКА СОБЫТИЯ ПОКУПКИ В АНАЛИТИКУ
                 trackGA4Event('purchase', {
                     transaction_id: realOrderNumber,
                     value: orderTotal,
@@ -413,7 +506,6 @@
                     items: currentPopupCart.map(item => ({ item_id: item.id, item_name: item.name, price: item.price, quantity: item.quantity }))
                 });
                 
-                // Дублируем в dataLayer для Яндекс.Метрики (Электронная коммерция)
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({
                     event: 'ym_ecommerce',
