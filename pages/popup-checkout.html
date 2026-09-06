@@ -24,7 +24,7 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .checkout-container { max-width: 800px; margin: 0 auto; }
         
-        /* === ШАПКА: ТОЧНАЯ КОПИЯ С /pages/popup === */
+        /* === ШАПКА: АБСОЛЮТНАЯ КОПИЯ С /pages/popup === */
         .header { 
             position: fixed; top: 0; left: 0; right: 0; width: 100%; 
             background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
@@ -37,13 +37,16 @@
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
+        
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3);
         }
+        
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
+        
         .icon-btn { 
             padding: 8px; color: #070395; transition: transform 0.3s; 
             position: relative; display: flex; align-items: center; justify-content: center; 
@@ -138,7 +141,7 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .processing-text { font-size: 16px; font-weight: 600; color: #070395; margin: 0; }
         
-        /* === АДАПТИВ ШАПКИ: ТОЧНАЯ КОПИЯ С /pages/popup === */
+        /* === АДАПТИВ ШАПКИ: АБСОЛЮТНАЯ КОПИЯ С /pages/popup === */
         @media (max-width: 768px) {
             .container { padding: 0 15px; }
             .header { padding: 12px 0; }
@@ -193,11 +196,11 @@
 </head>
 <body>
 
-    <!-- ШАПКА: ТОЧНАЯ КОПИЯ С /pages/popup (ссылка логотипа ведет на меню для удобства) -->
+    <!-- ШАПКА: АБСОЛЮТНАЯ КОПИЯ С /pages/popup -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
-                <a href="/pages/popup" class="logo" aria-label="Главная">🍋</a>
+                <a href="/" class="logo" aria-label="Главная">🍋</a>
             </div>
             <div class="header-right">
                 <div class="header-icons">
