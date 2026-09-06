@@ -24,11 +24,19 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
         .checkout-container { max-width: 800px; margin: 0 auto; }
         
-        /* === ШАПКА: АБСОЛЮТНАЯ КОПИЯ С /pages/popup === */
+        /* === ШАПКА: АБСОЛЮТНАЯ КОПИЯ С https://byshura.ru/ === */
         .header { 
-            position: fixed; top: 0; left: 0; right: 0; width: 100%; 
-            background: rgba(255,255,255,0.98); padding: 15px 0; z-index: 1000; 
-            border-bottom: 1px solid rgba(7,3,149,0.2); backdrop-filter: blur(10px); transition: all 0.3s;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0;
+            width: 100%; 
+            background: rgba(255,255,255,0.98); 
+            padding: 15px 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(7,3,149,0.2); 
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
         .header.scrolled {
             background: rgba(255, 255, 255, 0.98) !important;
@@ -37,28 +45,85 @@
         }
         .header-container { display: flex; justify-content: space-between; align-items: center; }
         .header-left { display: flex; align-items: center; gap: 30px; }
-        
         .logo { 
             width: 45px; height: 45px; background: #FFD93D; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+            font-size: 24px; flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(255,217,61,0.3);
+        }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-link { 
+            font-weight: 600; font-size: 14px; text-transform: uppercase; 
+            letter-spacing: 0.5px; position: relative; padding: 5px 0;
+            color: #070395;
+        }
+        .nav-link::after { 
+            content: ''; position: absolute; bottom: -5px; left: 0; 
+            width: 0; height: 2px; background: #FFD93D; transition: width 0.3s;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link.active { color: #FFD93D; }
+        .nav-link-cta { 
+            background: #070395; color: white !important; 
+            padding: 10px 25px !important; border-radius: 25px;
+            transition: all 0.3s !important;
+        }
+        .nav-link-cta::after { display: none !important; }
+        .nav-link-cta:hover { 
+            background: #FFD93D !important; color: #070395 !important; 
+            transform: translateY(-2px); box-shadow: 0 5px 15px rgba(7,3,149,0.3);
         }
         
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
         .header-icons { display: flex; gap: 12px; }
-        
         .icon-btn { 
-            padding: 8px; color: #070395; transition: transform 0.3s; 
-            position: relative; display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; min-width: 44px; min-height: 44px; 
+            padding: 8px; color: #070395; 
+            transition: transform 0.3s; 
+            position: relative; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; 
+            min-width: 44px; min-height: 44px;
         }
-        .icon-btn svg { width: 20px; height: 20px; }
         .icon-btn:hover { color: #FFD93D; transform: scale(1.1); }
         .cart-count { 
-            position: absolute; top: -2px; right: -2px; background: #FFD93D; color: #070395; 
-            font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; line-height: 1; 
+            position: absolute; top: -2px; right: -2px; 
+            background: #FFD93D; color: #070395; 
+            font-size: 9px; font-weight: 700; 
+            width: 16px; height: 16px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            line-height: 1;
         }
+        .btn-back { 
+            border: 1.5px solid #070395; padding: 10px 25px; 
+            border-radius: 25px; font-weight: 600; font-size: 13px; 
+            transition: all 0.3s; min-height: 44px; 
+            display: flex; align-items: center;
+            color: #070395;
+        }
+        .btn-back:hover { background: #070395; color: white; }
+        
+        .lang-selector { 
+            display: flex; align-items: center; gap: 6px; 
+            font-weight: 600; font-size: 13px; cursor: pointer; 
+            position: relative; white-space: nowrap; 
+            min-height: 44px; padding: 5px 10px; 
+            border-radius: 20px; background: rgba(7,3,149,0.05);
+            transition: background 0.3s;
+            color: #070395;
+        }
+        .lang-selector:hover { background: rgba(7,3,149,0.1); }
+        
+        .lang-dropdown { 
+            position: absolute; top: 100%; right: 0; 
+            background: white; border: 1px solid #eee; 
+            border-radius: 4px; box-shadow: 0 15px 30px -10px rgba(0,11,48,0.2);
+            min-width: 220px; display: none; z-index: 100; margin-top: 5px;
+        }
+        .lang-dropdown.show { display: block; }
+        .lang-dropdown a { display: block; padding: 10px 15px; font-size: 13px; text-transform: none; color: #070395; }
+        .lang-dropdown a:hover { background: #f5f5f5; color: #070395; }
+        .lang-code { font-weight: 600; margin-right: 5px; }
+        .lang-descr { color: #666; font-size: 12px; }
         /* ========================================== */
 
         .checkout-main { margin-top: 75px; padding: 40px 0 80px; flex: 1; }
@@ -141,17 +206,22 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .processing-text { font-size: 16px; font-weight: 600; color: #070395; margin: 0; }
         
-        /* === АДАПТИВ ШАПКИ: АБСОЛЮТНАЯ КОПИЯ С /pages/popup === */
-        @media (max-width: 768px) {
-            .container { padding: 0 15px; }
+        /* === АДАПТИВ ШАПКИ: АБСОЛЮТНАЯ КОПИЯ С https://byshura.ru/ === */
+        @media (max-width: 1024px) { 
+            .container { padding: 0 20px; }
+            .nav-menu { display: none; }
+        }
+        @media (max-width: 768px) { 
             .header { padding: 12px 0; }
-            .header-container { padding: 0 10px; }
-            .logo { width: 40px; height: 40px; font-size: 20px; }
-            .header-icons { gap: 8px; }
-            .icon-btn { padding: 8px; min-width: 44px; min-height: 44px; }
-            .icon-btn svg { width: 20px; height: 20px; }
+            .header-container { padding: 0 15px; }
+            .logo { width: 42px; height: 42px; font-size: 22px; }
+            .header-icons { gap: 10px; }
+            .icon-btn { padding: 10px; min-width: 48px; min-height: 48px; }
+            .icon-btn svg { width: 22px; height: 22px; }
+            .btn-back { padding: 10px 20px; font-size: 12px; min-height: 48px; }
+            .header-right { gap: 10px; }
             
-            .checkout-main { margin-top: 64px; }
+            .checkout-main { margin-top: 66px; }
             .checkout-title { font-size: 24px; } 
             .order-summary, .checkout-form { padding: 20px; } 
             .item-image { width: 60px; height: 60px; margin-right: 12px; } 
@@ -164,13 +234,16 @@
         @media (max-width: 480px) {
             .container { padding: 0 15px; }
             .header { padding: 10px 0; }
-            .logo { width: 38px; height: 38px; font-size: 18px; }
-            .header-icons { gap: 6px; }
-            .icon-btn { padding: 6px; min-width: 40px; min-height: 40px; }
-            .icon-btn svg { width: 18px; height: 18px; }
-            .cart-count { width: 16px; height: 16px; font-size: 9px; }
+            .logo { width: 40px; height: 40px; font-size: 20px; }
+            .header-icons { gap: 8px; }
+            .icon-btn { padding: 12px; min-width: 52px; min-height: 52px; }
+            .icon-btn svg { width: 24px; height: 24px; }
+            .cart-count { width: 18px; height: 18px; font-size: 10px; }
+            .btn-back { padding: 12px 18px; font-size: 12px; min-height: 52px; }
+            .header-right { gap: 8px; }
+            .lang-selector { display: flex !important; padding: 8px 12px; font-size: 12px; min-height: 48px; }
             
-            .checkout-main { margin-top: 58px; } /* Исправлено для полного соответствия popup */
+            .checkout-main { margin-top: 60px; }
             .summary-item { flex-direction: column; gap: 10px; } 
             .item-left { width: 100%; } 
             .item-right { flex-direction: row; justify-content: space-between; width: 100%; align-items: center; } 
@@ -191,28 +264,51 @@
             .consent-text { font-size: 12px; line-height: 1.4; }
         }
         @media (max-width: 360px) { 
-            .logo { width: 38px; height: 38px; font-size: 18px; } 
+            .logo { width: 38px; height: 38px; font-size: 18px; }
+            .btn-back { padding: 10px 15px; font-size: 11px; min-height: 48px; }
+            
+            .checkout-main { margin-top: 58px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ШАПКА: АБСОЛЮТНАЯ КОПИЯ С /pages/popup -->
+    <!-- ШАПКА: АБСОЛЮТНАЯ КОПИЯ С https://byshura.ru/ -->
     <header class="header">
         <div class="container header-container">
             <div class="header-left">
                 <a href="/" class="logo" aria-label="Главная">🍋</a>
+                <nav class="nav-menu">
+                    <a href="/pages/boxes" class="nav-link nav-link-cta">ЗАКАЗАТЬ</a>
+                    <a href="/#contacts" class="nav-link">КОНТАКТЫ</a>
+                    <a href="/pages/history" class="nav-link">ИСТОРИЯ БОКСОВ</a>
+                </nav>
             </div>
             <div class="header-right">
                 <div class="header-icons">
                     <button class="icon-btn cart-btn" aria-label="Оформить заказ" id="cartBtn" title="Оформить заказ">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                             <line x1="3" y1="6" x2="21" y2="6"></line>
                             <path d="M16 10a4 4 0 0 1-8 0"></path>
                         </svg>
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
+                </div>
+                <a href="/pages/boxes" class="btn-back" id="shopBtn">ЗАКАЗАТЬ</a>
+                <div class="lang-selector" id="langBtn">
+                    <span id="langFlag">🇷🇺</span>
+                    <span id="langCurrent">RU</span>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <a href="#" data-lang="ru">
+                            <span class="lang-code">🇷🇺 RU</span>
+                            <span class="lang-descr">Русский (Москва)</span>
+                        </a>
+                        <a href="#" data-lang="en">
+                            <span class="lang-code">🇦🇪 EN</span>
+                            <span class="lang-descr">English (Dubai)</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,6 +459,25 @@
             updateCartCountDisplay();
             
             trackGA4Event('page_view', { page_path: '/pages/popup-checkout', language: 'ru' });
+
+            // Логика переключателя языков (копия с главной)
+            const langBtn = document.getElementById('langBtn');
+            const langDropdown = document.getElementById('langDropdown');
+            if (langBtn && langDropdown) {
+                langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('show'); });
+                langDropdown.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', e => {
+                        e.preventDefault(); e.stopPropagation();
+                        const lang = link.dataset.lang;
+                        document.documentElement.lang = lang;
+                        document.getElementById('langFlag').textContent = lang === 'ru' ? '🇷🇺' : '🇦🇪';
+                        document.getElementById('langCurrent').textContent = lang.toUpperCase();
+                        localStorage.setItem('hedonism_lang', lang);
+                        setTimeout(() => langDropdown.classList.remove('show'), 100);
+                    });
+                });
+                document.addEventListener('click', e => { if (!langBtn.contains(e.target)) langDropdown.classList.remove('show'); });
+            }
         });
 
         function renderCart() {
@@ -423,6 +538,8 @@
                 if (confirm('Корзина пуста. Перейти на страницу меню?')) {
                     window.location.href = '/pages/popup';
                 }
+            } else {
+                window.location.href = '/pages/popup-checkout';
             }
         });
 
